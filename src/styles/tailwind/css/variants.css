@@ -1,0 +1,22 @@
+@custom-variant dark (&.theme-dark, .theme-dark &);
+
+@custom-variant step (&[aria-current="step"]);
+@custom-variant page (&[aria-current="page"]);
+
+@custom-variant onload (&.loaded, .loaded &);
+@custom-variant onswap (&.swapped, .swapped &);
+@custom-variant ready (&:where(.loaded, .swapped), :where(.loaded, .swapped) &);
+
+@custom-variant onscroll (&.scrolled, .scrolled &);
+
+@custom-variant oversee (&:where(:hover, :focus));
+@custom-variant peer-oversee (.peer:where(:hover, :focus) ~ &);
+@custom-variant group-oversee (.group:where(:hover, :focus) &);
+
+@custom-variant forced-colors (@media (forced-colors: active));
+
+/*
+@custom-variant pointer-mouse (@media (hover: hover) and (pointer: fine));
+@custom-variant pointer-touch (@media (hover: none) and (pointer: coarse));
+@custom-variant pointer-any (@media (any-hover: hover));
+*/

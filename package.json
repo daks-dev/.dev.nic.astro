@@ -1,0 +1,82 @@
+{
+  "name": "@daks.dev/.dev.nic.astro",
+  "version": "0.0.1",
+  "description": "NIC Astro",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "info": "astro info",
+    "start": "astro dev --port=3000",
+    "dev": "astro dev --local-development --port=3000",
+    "build": "astro build",
+    "preview": "astro preview --port=3000",
+    "check": "astro check && svelte-check",
+    "check:watch": "astro check --watch",
+    "check:watch:svelte": "svelte-check --tsconfig ./tsconfig.svelte.json --watch",
+    "test:integration": "playwright test -c tests/",
+    "test:unit": "vitest --ui",
+    "test": "pnpm test:integration && pnpm test:unit",
+    "run:prettier": "prettier --plugin=prettier-plugin-astro --plugin=prettier-plugin-svelte --plugin=prettier-plugin-tailwindcss",
+    "lint": "pnpm run:prettier --check . && eslint .",
+    "format": "pnpm run:prettier --write .",
+    "run:update": "pnpm up"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.2.2",
+    "@astrojs/node": "^9.1.3",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/svelte": "^7.0.8",
+    "@astrojs/ts-plugin": "^1.10.4",
+    "@nanostores/persistent": "^0.10.2",
+    "@playwright/test": "^1.51.1",
+    "@sveltejs/kit": "^2.20.2",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tailwindcss/vite": "^4.0.17",
+    "@types/node": "^22.13.14",
+    "@vite-pwa/astro": "0.5.0",
+    "@vitest/ui": "^3.0.9",
+    "astro": "^5.5.5",
+    "astro-compress": "^2.3.6",
+    "dotenv": "^16.4.7",
+    "jsdom": "^26.0.0",
+    "nanostores": "^0.11.4",
+    "sharp": "^0.33.5",
+    "svelte": "^5.25.3",
+    "svelte-check": "^4.1.5",
+    "tailwind-merge": "3.0.2",
+    "tailwindcss": "^4.0.17",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.3",
+    "vite-plugin-pwa": "^0.21.2",
+    "vitest": "^3.0.9",
+    "workbox-window": "^7.3.0"
+  },
+  "engines": {
+    "node": ">=16.20.2",
+    "pnpm": ">=8.7.0"
+  },
+  "browserslist": [
+    "last 2 version",
+    "not dead"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daks-dev/.dev.nic.astro.git"
+  },
+  "bugs": "https://github.com/daks-dev/.dev.nic.astro/issues",
+  "author": {
+    "name": "DVA",
+    "email": "mail@daks.dev",
+    "url": "https://daks.dev"
+  },
+  "homepage": "https://daks.dev/",
+  "keywords": [
+    "astro",
+    "react",
+    "svelte",
+    "vite"
+  ]
+}

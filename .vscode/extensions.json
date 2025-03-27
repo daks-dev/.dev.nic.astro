@@ -1,0 +1,32 @@
+{
+  "recommendations": [
+    "ms-ceintl.vscode-language-pack-ru",
+    "github.github-vscode-theme",
+    "donjayamanne.githistory",
+    "wayou.vscode-todo-highlight",
+    "natizyskunk.sftp",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-mysql",
+    "mtxr.sqltools-driver-pg",
+    "mtxr.sqltools-driver-sqlite",
+    "editorconfig.editorconfig",
+    "dotjoshjohnson.xml",
+    "redhat.vscode-yaml",
+    "unifiedjs.vscode-mdx",
+    "jock.svg",
+    "jacano.vscode-pnpm",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "firefox-devtools.vscode-firefox-debug",
+    "dbaeumer.vscode-eslint",
+    "ms-playwright.playwright",
+    "stylelint.vscode-stylelint",
+    "bradlc.vscode-tailwindcss",
+    "astro-build.astro-vscode",
+    "svelte.svelte-vscode",
+    "dsznajder.es7-react-js-snippets"
+  ],
+  "unwantedRecommendations": []
+}

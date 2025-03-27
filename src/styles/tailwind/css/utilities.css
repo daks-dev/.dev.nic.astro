@@ -1,0 +1,140 @@
+@utility container {
+  margin-inline: auto;
+}
+
+@utility animation-paused {
+  animation-play-state: paused;
+}
+@utility animation-running {
+  animation-play-state: running;
+}
+
+@utility unset {
+  all: unset;
+}
+@utility revert {
+  all: revert;
+}
+
+@utility inherit {
+  letter-spacing: inherit;
+  text-align: inherit;
+  text-indent: inherit;
+  text-shadow: inherit;
+  text-transform: inherit;
+  word-spacing: inherit;
+}
+
+@utility enabled {
+  pointer-events: auto;
+  touch-action: auto;
+  user-select: auto;
+}
+@utility disabled {
+  pointer-events: none;
+  touch-action: none;
+  user-select: none;
+}
+
+@utility content-empty {
+  content: '';
+}
+
+@utility text-shadow {
+  text-shadow: 1px 1px 2px var(--color-gray-700);
+}
+@utility text-shadow-none {
+  text-shadow: none;
+}
+@utility text-shadow-* {
+  text-shadow: calc(1px * --value(integer)) calc(1px * --value(integer))
+    calc(1.5px * --value(integer)) var(--tw-shadow-color, var(--color-gray-700));
+}
+/*
+@utility bg-* {
+  background-size: --value(percentage);
+  background-color: --value(--color- *);
+}
+*/
+@utility bg-only {
+  display: inline-block;
+  overflow: hidden;
+  text-align: left;
+  text-indent: -9999em;
+  direction: ltr;
+  br {
+    display: none;
+  }
+}
+@utility bg--loading {
+  background-image: url(@daks.dev/svelte.sdk/icons/spinners/90-ring-bg.svg);
+}
+@utility bg--waiting {
+  background-image: url(@daks.dev/svelte.sdk/icons/spinners/clock.svg);
+}
+
+@utility clear-pseudo {
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+  }
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@utility linecap-butt {
+  stroke-linecap: butt;
+}
+@utility linecap-round {
+  stroke-linecap: round;
+}
+@utility linecap-square {
+  stroke-linecap: square;
+}
+
+@utility linejoin-arcs {
+  stroke-linejoin: arcs;
+}
+@utility linejoin-bevel {
+  stroke-linejoin: bevel;
+}
+@utility linejoin-miter {
+  stroke-linejoin: miter;
+}
+@utility linejoin-miter-clip {
+  stroke-linejoin: miter-clip;
+}
+@utility linejoin-round {
+  stroke-linejoin: round;
+}
+
+@utility button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  max-width: max-content;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 1;
+}
+
+@layer utilities {
+  :where(:enabled, [enabled]) {
+    @apply enabled;
+  }
+  :where(:disabled, [disabled]) {
+    @apply disabled;
+  }
+}

@@ -1,0 +1,200 @@
+---
+import Link from '@lib/shared/link/Link.astro';
+import Icon from '@lib/shared/icon/Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import ToTop from './ToTop.astro';
+
+/*
+import { nav } from '@lib/configs/nav';
+const {
+  navbar: { inners, outers }
+} = nav;
+*/
+---
+
+<nav
+  id='app-navbar'
+  class:list={[
+    'relative z-50 mb-8',
+    'font-medium',
+    'bp:px-20 bp:py-8',
+    'bp:grid bp:h-32 bp:grid-cols-[1fr_auto_1fr] bp:items-center bp:gap-x-4'
+  ]}>
+  <div class:list={['p-6 bp:p-0', 'flex items-center justify-between gap-2', 'menu-header']}>
+    <Link
+      class:list={[
+        'flex h-10 items-center gap-2',
+        'leading-tight bp:text-xl',
+        'text-primary-400 no-underline dark:text-primary-400',
+        'page:text-primary dark:page:text-primary',
+        'oversee:text-primary oversee:hue-rotate-180 dark:oversee:text-primary',
+        'transition duration-200'
+      ]}
+      href='/'
+      prefetch>
+      <Icon
+        icon='code-block'
+        class='disabled from-emerald-400 via-cyan-500 to-amber-500 to-100% text-impact dark:text-impact'
+        size='2.1em'
+      />
+      <span class:list={['bp:hidden', 'lg:inline']}>DAKS.DEV</span>
+    </Link>
+    <menu-button>
+      <template>
+        <button
+          id='app-navbar-menu-toggle'
+          class:list={[
+            'relative flex p-2',
+            'text-primary-300 dark:text-primary-300',
+            'bg-linear',
+            'from-primary-900 to-primary-500 to-150% dark:from-primary-700 dark:to-primary-900',
+            'rounded-full',
+            'shadow-md shadow-primary-200 dark:shadow-primary-900',
+            'aria-expanded:text-primary dark:aria-expanded:text-primary',
+            'aria-expanded:bg-linear-180',
+            'bp:hidden'
+          ]}
+          aria-label='menu toggle'
+          aria-expanded='false'
+          aria-controls='app-navbar-menu'>
+          <span class='sr-only'>menu toggle</span>
+          <Icon
+            icon='list'
+            size='1.5rem'
+          />
+        </button>
+      </template>
+    </menu-button>
+  </div>
+  <div
+    id='app-navbar-menu'
+    class='absolute inset-x-0 bp:contents'
+    aria-owns='app-navbar-menu-toggle'
+    hidden>
+    <menu
+      class:list={[
+        'px-8 py-5',
+        'flex list-none flex-col gap-4',
+        'text-lg leading-tight',
+        'bg-primary-50',
+        'from-primary-700 to-primary-500 to-150%',
+        'border-primary-700',
+        'bp:relative bp:px-2 bp:py-1.5',
+        'bp:flex-row',
+        'bp:text-sm',
+        'bp:bg-linear-to-b',
+        'bp:rounded-full',
+        'bp:shadow-md bp:shadow-primary-900'
+      ]}>
+      {
+        /*
+        inners.map(({ class: className, ...props }) => (
+          <li>
+            <Link
+              class:list={['inner', className]}
+              {...props}
+            />
+          </li>
+        ))
+      */
+      }
+    </menu>
+    <div
+      class:list={[
+        'py-6 pr-8 pl-6',
+        'flex justify-between gap-3',
+        'bg-primary-950 dark:bg-primary-950',
+        'rounded-lg rounded-t-none',
+        'shadow-md dark:shadow-primary-800',
+        'bp:p-0',
+        'bp:items-center bp:justify-self-end',
+        'bp:bg-transparent dark:bp:bg-transparent',
+        'bp:shadow-none'
+      ]}>
+      {
+        /*
+        outers && (
+          <div class:list={['flex flex-wrap gap-x-3', 'bp:hidden xl:flex xl:justify-end xl:gap-0']}>
+            {outers.map(({ class: className, ...props }) => (
+              <Link
+                class:list={['outer', className]}
+                size='1.625rem'
+                {...props}
+              />
+            ))}
+          </div>
+        )
+      */
+      }
+      <div class='flex items-center'>
+        <ThemeToggle />
+      </div>
+    </div>
+  </div>
+
+  <ToTop
+    class:list={['mt-8 w-14 p-3', 'bg-primary-500/50 dark:bg-primary-700/50', 'rounded-full']}
+  />
+</nav>
+
+<script>
+  import breakpoint from '@styles/tailwind/resolve';
+
+  class MenuButton extends HTMLElement {
+    media = window.matchMedia(`(min-width: ${breakpoint})`);
+    btn: HTMLButtonElement;
+    menu: HTMLElement;
+
+    constructor() {
+      super();
+      this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      this.btn = this.querySelector('button')!;
+      this.menu = document.getElementById('app-navbar-menu')!;
+      this.menu.hidden = true;
+      this.check(this.media);
+    }
+
+    connectedCallback() {
+      this.btn.addEventListener('click', () => this.set(this.menu.hidden));
+      this.media.addEventListener('change', this.check);
+      document.addEventListener('click', this.outside);
+    }
+
+    disconnectedCallback() {
+      document.removeEventListener('click', this.outside);
+    }
+
+    set = (x: boolean) => {
+      this.btn.setAttribute('aria-expanded', x ? 'true' : 'false');
+      this.menu.hidden = !x;
+    };
+
+    check = (e: MediaQueryList | MediaQueryListEvent) => {
+      this.set(e.matches);
+      this.btn.hidden = e.matches;
+    };
+
+    outside = (e: Event) => {
+      if (
+        e?.target &&
+        !this.btn.contains(e.target as Node) &&
+        !this.menu.contains(e.target as Node)
+      )
+        this.check(this.media);
+    };
+  }
+
+  customElements.define('menu-button', MenuButton);
+</script>
+
+<style scoped>
+  @reference "@/styles/global.css";
+
+  .inner {
+    @apply block text-primary-400 no-underline aria-[current]:text-primary bp:rounded-full bp:px-4 bp:py-2 dark:text-primary-400 dark:aria-[current]:text-primary forced-colors:text-selected bp:page:bg-impact bp:page:text-impact-text dark:bp:page:bg-impact dark:bp:page:text-impact-text bp:ready:transition-colors bp:ready:duration-200 bp:oversee:bg-impact-subtle bp:oversee:text-primary-100 dark:bp:oversee:bg-impact-subtle dark:bp:oversee:text-primary-100;
+  }
+
+  .outer {
+    @apply flex p-2 text-impact-hard no-underline dark:text-impact-hard ready:transition-colors ready:duration-200 oversee:text-impact-text dark:oversee:text-impact-text;
+  }
+</style>

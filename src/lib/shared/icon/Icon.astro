@@ -1,0 +1,77 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from '@styles/tailwind/tailwind-merge';
+import bundle from '@assets/icons/bundle';
+
+interface Props extends Omit<HTMLAttributes<'svg'>, 'class'> {
+  icon: keyof typeof bundle;
+  class?: ClassValue;
+  color?: string;
+  size?: number | string;
+  gradient?: {
+    rotate?: number;
+    stops: Record<
+      string,
+      | string
+      | {
+          color: string;
+          opacity?: number;
+        }
+    >[];
+  };
+}
+const {
+  icon,
+  class: className,
+  color = 'currentcolor',
+  size = '1em',
+  gradient,
+  ...props
+} = Astro.props;
+
+const { body, viewBox = '0 0 256 256' } = bundle[icon];
+
+const id = `_${Math.floor((1 + Math.random()) * 0x1000)
+  .toString(16)
+  .substring(1)}`;
+---
+
+<svg
+  class:list={twMerge('align-middle linecap-round linejoin-round', className)}
+  xmlns='http://www.w3.org/2000/svg'
+  width={size}
+  height={size}
+  fill={gradient ? `url(#${id})` : color}
+  {viewBox}
+  aria-hidden='true'
+  {...props}>
+  <g set:html={body} />
+  {
+    gradient && (
+      <defs>
+        <linearGradient
+          {id}
+          x1='0%'
+          y1='0%'
+          x2='100%'
+          y2='0%'
+          gradientTransform={`rotate(${gradient.rotate ? gradient.rotate : 0})`}>
+          {gradient.stops.map((stop) =>
+            Object.entries(stop).map(([offset, val]) => (
+              <stop
+                offset={offset}
+                style={{
+                  stopColor: typeof val === 'string' ? val : val.color,
+                  stopOpacity:
+                    typeof val !== 'string' && typeof val.opacity !== 'undefined' && val.opacity < 1
+                      ? val.opacity
+                      : ''
+                }}
+              />
+            ))
+          )}
+        </linearGradient>
+      </defs>
+    )
+  }
+</svg>

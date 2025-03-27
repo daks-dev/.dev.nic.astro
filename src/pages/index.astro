@@ -1,0 +1,43 @@
+---
+import Layout from '@layouts/Base.astro';
+import Icon from '@lib/shared/icon/Icon.astro';
+---
+
+<Layout class='gap-20 bp:gap-48'>
+  <header
+    class:list={[
+      'flex flex-col items-center gap-8',
+      'bp:grid bp:grid-cols-[6fr_4fr] bp:gap-16 bp:px-10'
+    ]}>
+    <Icon
+      icon='code-block'
+      class:list={['mx-auto']}
+      size='10em'
+      gradient={{
+        rotate: 45,
+        stops: [{ '0%': 'rgb(200 0 0 / .2)' }, { '100%': 'var(--color-amber-500)' }]
+      }}
+    />
+    <img
+      class:list={[
+        'w-full max-w-xs',
+        'aspect-square object-cover object-top',
+        'bg-linear-45 dark:bg-linear-315',
+        'from-cyan-500 from-0% to-amber-500 to-100%',
+        'rounded-3xl',
+        'shadow-lg shadow-primary-300 dark:shadow-primary-700',
+        'bp:aspect-3/4 bp:rounded-5xl'
+      ]}
+      src='/assets/icons/astro.svg'
+      width='128'
+      height='128'
+      alt=''
+    />
+  </header>
+</Layout>
+
+<main class='frame-xl flex flex-col gap-20 lg:gap-48'></main>
+
+<style scoped>
+  @reference "@styles/global.css";
+</style>

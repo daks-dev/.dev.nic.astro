@@ -1,0 +1,44 @@
+@theme {
+  --breakpoint-bp: 50rem;
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 120rem;
+
+  --color-selected: SelectedItem;
+
+  --radius-5xl: 2.5rem;
+  --radius-6xl: 3rem;
+
+  --aspect-A4: 620 / 877;
+  --aspect-A4l: 877 / 620;
+
+  --shadow-inset: inset 0 0 0 1px var(--tw-shadow-color);
+
+  --drop-shadow-deep: 0 5px 3px rgb(0 0 0 / 0.5);
+  --drop-shadow-hard: 0 5px 3px rgb(0 0 0 / 0.8);
+}
+
+@import './css/base';
+@import './css/utilities';
+@import './css/variants';
+
+@plugin './plugins/config';
+
+@plugin './plugins/grid-area';
+@plugin './plugins/gradient';
+
+@plugin './plugins/vector-effect';
+
+@plugin './plugins/frame';
+@plugin './plugins/wrapper';
+
+@layer utilities {
+  /* LazyLoad */
+  :where(img) {
+    &:where(:not([src], [srcset])) {
+      @apply invisible;
+    }
+    &:where(.lazy-loaded) {
+      @apply bg-transparent bg-none;
+    }
+  }
+}

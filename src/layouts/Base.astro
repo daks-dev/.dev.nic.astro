@@ -1,0 +1,65 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { twMerge } from '@styles/tailwind/tailwind-merge';
+import Head from '@lib/components/head/Head.astro';
+import Navbar from '@lib/components/navbar/Navbar.astro';
+import Footer from '@lib/components/footer/Footer.astro';
+
+import '@styles/global.css';
+
+import type { HTMLAttributes } from 'astro/types';
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> & {
+  tag?: 'main' | 'article' | 'div';
+  class?: ClassValue;
+  title?: string;
+  description?: string;
+  robots?: string;
+  schema?: string;
+};
+const {
+  tag: Element = 'div',
+  class: className,
+  title,
+  description,
+  robots,
+  schema = 'WebPage',
+  ...props
+} = Astro.props;
+
+import app from '@lib/configs/app';
+// import seo from '@lib/configs/seo';
+// const { yandex: { counter } } = seo;
+---
+
+<html
+  lang='en'
+  class='theme-dark'>
+  <head>
+    <Head
+      {title}
+      {description}
+      {robots}
+      {app}
+      rss='/rss.xml'
+    />
+    <ClientRouter />
+  </head>
+
+  <body
+    itemscope
+    itemtype={`https://schema.org/${schema}`}>
+    <div class='flex min-h-screen flex-col'>
+      <Navbar />
+      <Element
+        class={twMerge('flex grow flex-col', className)}
+        {...props}>
+        <slot />
+      </Element>
+      <Footer />
+    </div>
+    <!-- YandexMetrika {counter} /-->
+    <script>
+      import '../pwa';
+    </script>
+  </body>
+</html>
