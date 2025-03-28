@@ -1,33 +1,41 @@
 ---
-import Link from '@lib/shared/link/Link.astro';
-import Icon from '@lib/shared/icon/Icon.astro';
+import Link from '@components/astro/link/Link.astro';
+import Icon from '@components/astro/icon/Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
 /*
-import { nav } from '@lib/configs/nav';
+import { nav } from '@app/configs/nav';
 const {
   navbar: { inners, outers }
 } = nav;
 */
+const inners = [
+  {
+    class: '',
+    href: '/about',
+    label: 'О !'
+  }
+];
 ---
 
 <nav
   id='app-navbar'
   class:list={[
     'relative z-50 mb-8',
+    'bp:px-20 bp:py-0',
+    'bp:grid bp:h-32 bp:grid-cols-[1fr_auto_1fr] bp:items-center bp:gap-x-4',
     'font-medium',
-    'bp:px-20 bp:py-8',
-    'bp:grid bp:h-32 bp:grid-cols-[1fr_auto_1fr] bp:items-center bp:gap-x-4'
+    'bg-theme-inner'
   ]}>
   <div class:list={['p-6 bp:p-0', 'flex items-center justify-between gap-2', 'menu-header']}>
     <Link
       class:list={[
-        'flex h-10 items-center gap-2',
+        'flex items-center gap-x-2',
         'leading-tight bp:text-xl',
-        'text-primary-400 no-underline dark:text-primary-400',
-        'page:text-primary dark:page:text-primary',
-        'oversee:text-primary oversee:hue-rotate-180 dark:oversee:text-primary',
+        'text-primary-700 no-underline dark:text-primary-300',
+        'page:text-impact-accent',
+        'hover:text-impact hover:hue-rotate-180',
         'transition duration-200'
       ]}
       href='/'
@@ -44,7 +52,7 @@ const {
         <button
           id='app-navbar-menu-toggle'
           class:list={[
-            'relative flex p-2',
+            'relative flex',
             'text-primary-300 dark:text-primary-300',
             'bg-linear',
             'from-primary-900 to-primary-500 to-150% dark:from-primary-700 dark:to-primary-900',
@@ -73,7 +81,7 @@ const {
     hidden>
     <menu
       class:list={[
-        'px-8 py-5',
+        'px-8 py-0',
         'flex list-none flex-col gap-4',
         'text-lg leading-tight',
         'bg-primary-50',
@@ -87,7 +95,6 @@ const {
         'bp:shadow-md bp:shadow-primary-900'
       ]}>
       {
-        /*
         inners.map(({ class: className, ...props }) => (
           <li>
             <Link
@@ -96,7 +103,6 @@ const {
             />
           </li>
         ))
-      */
       }
     </menu>
     <div
@@ -188,7 +194,7 @@ const {
 </script>
 
 <style scoped>
-  @reference "@/styles/global.css";
+  @reference "@styles/global.css";
 
   .inner {
     @apply block text-primary-400 no-underline aria-[current]:text-primary bp:rounded-full bp:px-4 bp:py-2 dark:text-primary-400 dark:aria-[current]:text-primary forced-colors:text-selected bp:page:bg-impact bp:page:text-impact-text dark:bp:page:bg-impact dark:bp:page:text-impact-text bp:ready:transition-colors bp:ready:duration-200 bp:oversee:bg-impact-subtle bp:oversee:text-primary-100 dark:bp:oversee:bg-impact-subtle dark:bp:oversee:text-primary-100;

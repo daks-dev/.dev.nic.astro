@@ -1,18 +1,17 @@
 ---
 import Layout from '@layouts/Base.astro';
-import Icon from '@lib/shared/icon/Icon.astro';
+import Icon from '@components/astro/icon/Icon.astro';
 ---
 
-<Layout class='gap-20 bp:gap-48'>
+<Layout class='gap-10 bp:gap-20'>
   <header
     class:list={[
-      'flex flex-col items-center gap-8',
-      'bp:grid bp:grid-cols-[6fr_4fr] bp:gap-16 bp:px-10'
+      'flex flex-col place-items-center items-center gap-8',
+      'bp:grid bp:grid-cols-[5fr_5fr] bp:gap-16'
     ]}>
     <Icon
       icon='code-block'
-      class:list={['mx-auto']}
-      size='10em'
+      class:list={['h-auto w-full max-w-3xs', 'rotate-45']}
       gradient={{
         rotate: 45,
         stops: [{ '0%': 'rgb(200 0 0 / .2)' }, { '100%': 'var(--color-amber-500)' }]
@@ -20,7 +19,7 @@ import Icon from '@lib/shared/icon/Icon.astro';
     />
     <img
       class:list={[
-        'w-full max-w-xs',
+        'w-full max-w-3xs',
         'aspect-square object-cover object-top',
         'bg-linear-45 dark:bg-linear-315',
         'from-cyan-500 from-0% to-amber-500 to-100%',
@@ -34,10 +33,10 @@ import Icon from '@lib/shared/icon/Icon.astro';
       alt=''
     />
   </header>
+
+  <main class='frame-xl flex flex-col gap-20 lg:gap-48'>
+    <header>
+      <h1 class='text-center'>TEST</h1>
+    </header>
+  </main>
 </Layout>
-
-<main class='frame-xl flex flex-col gap-20 lg:gap-48'></main>
-
-<style scoped>
-  @reference "@styles/global.css";
-</style>

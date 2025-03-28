@@ -1,7 +1,7 @@
 // @ts-nocheck
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
-import app from '@lib/configs/app';
+import app from '@app/configs/app';
 
 export async function GET(context: { site: string | URL }) {
   const posts = await getCollection('blog');

@@ -1,7 +1,8 @@
 ---
-import { Icon } from '@lib/shared';
+import { Icon } from '@components/astro';
+import { Timer } from '@components/svelte';
 
-// import { nav } from '@lib/configs/nav';
+// import { nav } from '@app/configs/nav';
 // const { outers } = nav.footer ?? {};
 
 const currentYear = new Date().getFullYear();
@@ -44,6 +45,8 @@ const currentYear = new Date().getFullYear();
     )
   */
   }
+
+  <Timer client:load />
 </footer>
 
 <style scoped>

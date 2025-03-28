@@ -35,23 +35,61 @@
   --color-impact-via: #7711a6;
   --color-impact-to: #1d0057;
 
-  --color-theme: rgb(255, 255, 255);
+  --color-theme-frame: rgb(255, 255, 255);
   --color-theme-inner: rgb(246, 247, 249);
-  --color-theme-plain: rgba(0, 0, 0, 0);
-  --color-theme-link: rgb(61, 80, 245);
+  --color-theme-plain: rgb(0, 0, 0);
+  --color-theme-link: rgb(54, 69, 209);
 }
 
 :root.theme-dark {
-  --color-theme: rgb(0, 0, 0);
+  --color-theme-frame: rgb(23, 24, 28);
   --color-theme-inner: rgb(35, 38, 47);
   --color-theme-plain: rgb(155, 163, 180);
   --color-theme-link: rgb(179, 199, 255);
 }
 
-.test {
-  @apply text-red-500;
-}
+@layer base {
+  :is(body) {
+    @apply leading-normal;
+    @apply bg-theme-frame text-theme-plain;
+  }
 
-body {
-  @apply bg-theme text-theme-plain;
+  :is(a) {
+    @apply text-impact;
+    @apply dark:text-impact-hard;
+  }
+
+  :is(h1) {
+    @apply leading-relaxed;
+    @apply text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl;
+  }
+
+  :is(h2) {
+    @apply leading-relaxed;
+    @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl;
+  }
+
+  :is(h3) {
+    @apply text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl;
+  }
+
+  :is(h4) {
+    @apply text-lg sm:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl;
+  }
+
+  :is(h5) {
+    @apply text-base sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl;
+  }
+
+  :is(h1, h2, h3, h4, h5) {
+    @apply font-medium;
+  }
+
+  :is(h1, h2) {
+    @apply leading-tight;
+  }
+
+  :is(h3, h4, h5) {
+    @apply leading-snug;
+  }
 }

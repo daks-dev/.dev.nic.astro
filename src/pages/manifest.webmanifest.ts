@@ -1,6 +1,6 @@
 import pkg from 'package.json';
 
-import app from '@lib/configs/app';
+import app from '@app/configs/app';
 const { id, scope, name, shortName, description, display, backgroundColor, themeColor } = app;
 
 const pathname = process.env.APP_CANONICAL ? new URL(process.env.APP_CANONICAL).pathname : './';

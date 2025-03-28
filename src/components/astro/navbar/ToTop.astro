@@ -1,11 +1,11 @@
 ---
 import { twMerge } from '@styles/tailwind/tailwind-merge';
-import { Icon, type IconKeys } from '@lib/shared/icon';
+import { Icon } from '@components/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassValue;
-  icon?: IconKeys;
+  icon?: string;
   label?: string;
   duration?: number;
   speed?: number;
@@ -47,7 +47,7 @@ const speed = s ?? duration * 5;
 </button>
 
 <script>
-  import { toTop } from '@lib/utils/scroll';
+  import { toTop } from '@components/utils/scroll';
 
   class AppToTop extends HTMLButtonElement {
     navbar: HTMLElement;

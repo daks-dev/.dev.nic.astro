@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from 'node:url';
+// import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'astro/config';
 
 import AstroPWA from '@vite-pwa/astro';
@@ -34,15 +34,10 @@ export default defineConfig({
 
   vite: {
     logLevel: 'info',
-    resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-        $lib: fileURLToPath(new URL('./src/lib', import.meta.url))
-      }
-    },
     // server: { fs: { strict: false },
     // build: { target: 'esnext' },
     // define: { 'process.env': process.env }
+    // resolve: { alias: { '@...': fileURLToPath(new URL('./src/...', import.meta.url)) } }
     plugins: [tailwindcss()]
   },
 
@@ -52,37 +47,41 @@ export default defineConfig({
     svelte({
       include: ['**/svelte/**']
     }),
+
     mdx(),
+
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date()
     }),
+
     compress({
       Image: false,
       SVG: false,
       Logger: 1
     }),
+
     AstroPWA({
-      mode: <'development' | 'production'>import.meta.env.MODE,
+      mode: 'production',
       base: '/',
       scope: '/',
       // includeAssets: ['favicon.svg'],
       registerType: 'autoUpdate',
       workbox: {
-        // skipWaiting: true,
-        // globDirectory: 'build/',
+        skipWaiting: true,
+        globDirectory: 'build/',
         globPatterns: [
           '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
-        ],
-        navigateFallback: '/'
+        ]
+        // navigateFallback: '/'
       },
       devOptions: {
-        enabled: false,
-        navigateFallbackAllowlist: [/^\//]
+        enabled: false
+        // navigateFallbackAllowlist: [/^\//]
       },
       experimental: {
-        directoryAndTrailingSlashHandler: true
+        // directoryAndTrailingSlashHandler: true
       }
     })
   ],

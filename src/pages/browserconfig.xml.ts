@@ -1,7 +1,7 @@
 import pkg from 'package.json';
 const { version } = pkg;
 
-import app from '@lib/configs/app';
+import app from '@app/configs/app';
 
 export const prerender = true;
 

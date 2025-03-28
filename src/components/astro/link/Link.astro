@@ -1,13 +1,12 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from '@styles/tailwind/tailwind-merge';
-import Icon from '@lib/shared/icon/Icon.astro';
-import type { IconKeys } from '@lib/shared/icon';
+import Icon from '@components/astro/icon/Icon.astro';
 
 type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassValue;
   label?: string;
-  icon?: IconKeys;
+  icon?: string;
   size?: number | string;
   pointer?: true;
   prefetch?: true;

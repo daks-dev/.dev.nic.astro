@@ -1,7 +1,7 @@
 import pkg from 'package.json';
 const { version } = pkg;
 
-import app from '@lib/configs/app';
+import app from '@app/configs/app';
 
 const canonical = process.env.APP_CANONICAL ? new URL(process.env.APP_CANONICAL).origin : '';
 

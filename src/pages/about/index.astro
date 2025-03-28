@@ -1,0 +1,86 @@
+---
+import Layout from '@layouts/Base.astro';
+import Hero from '@components/astro/hero/Hero.astro';
+
+//import '@styles/content.css';
+---
+
+<Layout
+  class='gap-20'
+  title='About | DAKS.DEV'
+  description='About DAKS.DEV Lorem Ipsum'>
+  <main
+    class:list={['frame', 'flex flex-col gap-14', 'bp:grid bp:grid-cols-[1fr_60%_1fr]', 'about']}>
+    <Hero
+      class='bp:col-start-2'
+      title='About'
+      tagline='Thanks for stopping by. Read below to learn more about myself and my background.'>
+      <img
+        class:list={[
+          'mt-6 w-full max-w-xs self-center',
+          'bg-linear-135 dark:bg-linear-315',
+          'from-impact-soft via-impact to-impact-hard',
+          'rounded-3xl',
+          'shadow-md dark:shadow-primary-800'
+        ]}
+        src='/assets/icons/astro.svg'
+        width='128'
+        height='128'
+        src='/images/at-work.jpg'
+        alt=''
+      />
+    </Hero>
+
+    <section>
+      <h2>Background</h2>
+      <div class='content'>
+        <p>
+          Lorem ipsum dolor sit amet, <a href='https://astro.build/'>Astro</a> makes people happy. Sed
+          do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin nibh nisl condimentum
+          id venenatis a condimentum vitae. Dapibus ultrices in iaculis nunc. Arcu odio ut sem nulla
+          pharetra diam sit amet. Diam quis enim lobortis scelerisque fermentum dui faucibus in ornare.
+        </p>
+        <p>
+          Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Eget gravida cum sociis
+          natoque penatibus. Cras fermentum odio eu feugiat pretium nibh. Proin nibh nisl
+          condimentum id venenatis. Porta nibh venenatis cras sed felis eget velit. Id diam vel quam
+          elementum pulvinar etiam non.
+        </p>
+        <p>
+          Ultrices tincidunt arcu non sodales neque sodales ut. Sed enim ut sem viverra aliquet eget
+          sit amet. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra. Viverra
+          accumsan in nisl nisi scelerisque eu ultrices. In massa tempor nec feugiat nisl pretium
+          fusce.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class='content'>
+        <p>Corporis voluptates tenetur laudantium.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class='content'>
+        <p>officia unde omnis</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style scoped>
+  @reference "@styles/global.css";
+
+  section {
+    @apply flex flex-col gap-2 text-primary-800 bp:contents;
+  }
+  h2 {
+    @apply col-start-1 text-2xl text-primary-950 bp:-mt-1 bp:text-right;
+  }
+  .content {
+    @apply col-span-2 max-w-none bp:text-xl;
+  }
+</style>

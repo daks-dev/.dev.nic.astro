@@ -1,9 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import { twMerge } from '@styles/tailwind/tailwind-merge';
-import Head from '@lib/components/head/Head.astro';
-import Navbar from '@lib/components/navbar/Navbar.astro';
-import Footer from '@lib/components/footer/Footer.astro';
+import { Head, Navbar, Footer } from '@components/astro';
 
 import '@styles/global.css';
 
@@ -26,8 +24,8 @@ const {
   ...props
 } = Astro.props;
 
-import app from '@lib/configs/app';
-// import seo from '@lib/configs/seo';
+import app from '@app/configs/app';
+// import seo from '@app/configs/seo';
 // const { yandex: { counter } } = seo;
 ---
 
@@ -59,7 +57,7 @@ import app from '@lib/configs/app';
     </div>
     <!-- YandexMetrika {counter} /-->
     <script>
-      import '../pwa';
+      if (typeof window !== 'undefined') import('../pwa');
     </script>
   </body>
 </html>

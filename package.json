@@ -5,6 +5,7 @@
   "private": false,
   "type": "module",
   "scripts": {
+    "astro": "astro",
     "info": "astro info",
     "start": "astro dev --port=3000",
     "dev": "astro dev --local-development --port=3000",
