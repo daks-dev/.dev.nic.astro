@@ -42,6 +42,7 @@
     "astro-compress": "^2.3.6",
     "dotenv": "^16.4.7",
     "jsdom": "^26.0.0",
+    "mini-svg-data-uri": "^1.4.4",
     "nanostores": "^0.11.4",
     "sharp": "^0.33.5",
     "svelte": "^5.25.3",

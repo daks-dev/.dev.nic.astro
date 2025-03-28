@@ -1,4 +1,4 @@
-import Animate, { ANIMATION_DURATION, ANIMATION_DELAY } from './Animate';
+import Animate, { ANIMATION_DURATION, ANIMATION_DELAY } from './Animate.js';
 
 interface Options {
   offset: number;

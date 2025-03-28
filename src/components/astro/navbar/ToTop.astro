@@ -1,6 +1,6 @@
 ---
-import { twMerge } from '@styles/tailwind/tailwind-merge';
-import { Icon } from '@components/astro';
+import { twMerge } from '@lib';
+import { Icon } from '@lib/components/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
@@ -26,8 +26,8 @@ const speed = s ?? duration * 5;
 <button
   is='app-to-top'
   class={twMerge(
-    'fixed top-12 right-4 z-40 flex w-10',
-    'origin-center opacity-30 oversee:opacity-100',
+    'fixed right-4 top-12 z-40 flex w-10',
+    'oversee:opacity-100 origin-center opacity-30',
     'aria-hidden:disabled aria-hidden:scale-0 aria-hidden:opacity-0',
     'transition delay-150 ease-in-out',
     className
@@ -47,7 +47,7 @@ const speed = s ?? duration * 5;
 </button>
 
 <script>
-  import { toTop } from '@components/utils/scroll';
+  import { scroll } from '@lib';
 
   class AppToTop extends HTMLButtonElement {
     navbar: HTMLElement;
@@ -86,7 +86,7 @@ const speed = s ?? duration * 5;
     handle = (ev: Event) => {
       ev.preventDefault();
       ev.stopPropagation();
-      toTop({ duration: this.speed });
+      scroll.toTop({ duration: this.speed });
     };
   }
 

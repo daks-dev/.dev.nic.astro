@@ -1,8 +1,8 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { twMerge } from '@styles/tailwind/tailwind-merge';
+import { twMerge } from '@lib';
 import bundle from '@assets/icons/bundle';
 
+import type { HTMLAttributes } from 'astro/types';
 interface Props extends Omit<HTMLAttributes<'svg'>, 'class'> {
   icon: keyof typeof bundle;
   class?: ClassValue;
@@ -37,7 +37,7 @@ const id = `_${Math.floor((1 + Math.random()) * 0x1000)
 ---
 
 <svg
-  class:list={twMerge('align-middle linecap-round linejoin-round', className)}
+  class:list={twMerge('linecap-round linejoin-round align-middle', className)}
   xmlns='http://www.w3.org/2000/svg'
   width={size}
   height={size}

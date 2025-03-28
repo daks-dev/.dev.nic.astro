@@ -1,6 +1,12 @@
+<script
+  lang="ts"
+  module>
+  let time = $state(0);
+</script>
+
 <script lang="ts">
-  import { twMerge } from '@styles/tailwind/tailwind-merge';
-  import { meta } from '@app/state';
+  import { twMerge } from '@lib/tailwind/tailwind-merge';
+  // import { meta } from '@app/state';
 
   import type { HTMLTimeAttributes } from 'svelte/elements';
   type Props = Omit<HTMLTimeAttributes, 'class'> & {
@@ -13,16 +19,16 @@
   }: Props = $props();
 
   let timer = $derived({
-    hour: Math.trunc(meta.sessionTime / 3600),
-    min: Math.trunc(meta.sessionTime / 60)
+    hour: Math.trunc(time / 3600),
+    min: Math.trunc(time / 60)
       .toString()
       .padStart(2, '0'),
-    sec: (meta.sessionTime % 60).toString().padStart(2, '0')
+    sec: (time % 60).toString().padStart(2, '0')
   });
 
   $effect(() => {
     const interval = setInterval(() => {
-      meta.sessionTime += 1;
+      time += 1;
     }, 1000);
     return () => {
       clearInterval(interval);

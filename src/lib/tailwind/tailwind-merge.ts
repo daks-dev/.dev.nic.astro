@@ -97,8 +97,8 @@ if (expand) {
   });
 }
 
-export default config;
-
 export const twMerge = extendTailwindMerge<any>(config);
 
 export { twJoin } from 'tailwind-merge';
+
+export default config;

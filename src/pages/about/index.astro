@@ -1,6 +1,6 @@
 ---
 import Layout from '@layouts/Base.astro';
-import Hero from '@components/astro/hero/Hero.astro';
+import { Hero } from '@lib/components/astro';
 
 //import '@styles/content.css';
 ---
@@ -21,7 +21,7 @@ import Hero from '@components/astro/hero/Hero.astro';
           'bg-linear-135 dark:bg-linear-315',
           'from-impact-soft via-impact to-impact-hard',
           'rounded-3xl',
-          'shadow-md dark:shadow-primary-800'
+          'dark:shadow-primary-800 shadow-md'
         ]}
         src='/assets/icons/astro.svg'
         width='128'
@@ -75,12 +75,12 @@ import Hero from '@components/astro/hero/Hero.astro';
   @reference "@styles/global.css";
 
   section {
-    @apply flex flex-col gap-2 text-primary-800 bp:contents;
+    @apply text-primary-800 bp:contents flex flex-col gap-2;
   }
   h2 {
-    @apply col-start-1 text-2xl text-primary-950 bp:-mt-1 bp:text-right;
+    @apply text-primary-950 bp:-mt-1 bp:text-right col-start-1 text-2xl;
   }
   .content {
-    @apply col-span-2 max-w-none bp:text-xl;
+    @apply bp:text-xl col-span-2 max-w-none;
   }
 </style>

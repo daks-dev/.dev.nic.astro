@@ -1,9 +1,9 @@
 ---
 import Layout from '@layouts/Base.astro';
-import Icon from '@components/astro/icon/Icon.astro';
+import { Icon } from '@lib/components/astro';
 ---
 
-<Layout class='gap-10 bp:gap-20'>
+<Layout class='bp:gap-20 gap-10'>
   <header
     class:list={[
       'flex flex-col place-items-center items-center gap-8',
@@ -11,7 +11,7 @@ import Icon from '@components/astro/icon/Icon.astro';
     ]}>
     <Icon
       icon='code-block'
-      class:list={['h-auto w-full max-w-3xs', 'rotate-45']}
+      class:list={['max-w-3xs h-auto w-full', 'rotate-45']}
       gradient={{
         rotate: 45,
         stops: [{ '0%': 'rgb(200 0 0 / .2)' }, { '100%': 'var(--color-amber-500)' }]
@@ -19,12 +19,12 @@ import Icon from '@components/astro/icon/Icon.astro';
     />
     <img
       class:list={[
-        'w-full max-w-3xs',
+        'max-w-3xs w-full',
         'aspect-square object-cover object-top',
         'bg-linear-45 dark:bg-linear-315',
         'from-cyan-500 from-0% to-amber-500 to-100%',
         'rounded-3xl',
-        'shadow-lg shadow-primary-300 dark:shadow-primary-700',
+        'shadow-primary-300 dark:shadow-primary-700 shadow-lg',
         'bp:aspect-3/4 bp:rounded-5xl'
       ]}
       src='/assets/icons/astro.svg'

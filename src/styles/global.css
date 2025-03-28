@@ -2,7 +2,7 @@
 
 @import 'tailwindcss';
 
-@import './tailwind';
+@import '@lib/tailwind';
 
 @theme {
   --breakpoint-bp: 50rem;

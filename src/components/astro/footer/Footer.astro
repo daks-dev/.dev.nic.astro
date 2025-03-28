@@ -1,6 +1,6 @@
 ---
-import { Icon } from '@components/astro';
-import { Timer } from '@components/svelte';
+import { Icon } from '@lib/components/astro';
+import { Timer } from '@lib/components/svelte';
 
 // import { nav } from '@app/configs/nav';
 // const { outers } = nav.footer ?? {};
@@ -10,10 +10,10 @@ const currentYear = new Date().getFullYear();
 
 <footer
   class:list={[
-    'flex flex-col gap-12 px-8 py-12 bp:flex-row bp:justify-between bp:px-20 bp:py-10',
-    'text-center text-sm text-(--color-dark-text)'
+    'bp:flex-row bp:justify-between bp:px-20 bp:py-10 flex flex-col gap-12 px-8 py-12',
+    'text-(--color-dark-text) text-center text-sm'
   ]}>
-  <div class='flex flex-col items-center gap-2 bp:flex-row bp:flex-wrap bp:gap-4'>
+  <div class='bp:flex-row bp:flex-wrap bp:gap-4 flex flex-col items-center gap-2'>
     <p>
       Designed & Developed in Moscow with
       <a
@@ -54,7 +54,7 @@ const currentYear = new Date().getFullYear();
 
   .link {
     @apply text-primary-400 dark:text-primary-400;
-    @apply underline decoration-transparent underline-offset-4 oversee:decoration-current;
+    @apply oversee:decoration-current underline decoration-transparent underline-offset-4;
     @apply transition-colors duration-500;
   }
 </style>

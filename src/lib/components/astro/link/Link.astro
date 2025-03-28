@@ -1,8 +1,8 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { twMerge } from '@styles/tailwind/tailwind-merge';
-import Icon from '@components/astro/icon/Icon.astro';
+import { twMerge } from '@lib';
+import { Icon } from '@lib/components/astro';
 
+import type { HTMLAttributes } from 'astro/types';
 type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassValue;
   label?: string;

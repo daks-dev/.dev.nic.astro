@@ -1,5 +1,5 @@
 ---
-import Icon from '@components/astro/icon/Icon.astro';
+import { Icon } from '@lib/components/astro';
 ---
 
 <theme-toggle>
@@ -7,7 +7,7 @@ import Icon from '@components/astro/icon/Icon.astro';
     class:list={[
       'group',
       'flex cursor-pointer',
-      'rounded-full bg-primary-950',
+      'bg-primary-950 rounded-full',
       'shadow-inset shadow-impact-overlay'
       // 'motion-safe:transition-colors motion-safe:duration-200'
     ]}>
@@ -16,8 +16,8 @@ import Icon from '@components/astro/icon/Icon.astro';
       class:list={[
         'relative z-10 flex h-8 w-8 p-2',
         'text-impact-text dark:text-impact-overlay',
-        'before:absolute before:inset-0 before:-z-10 before:content-empty',
-        'before:rounded-full before:bg-impact dark:before:translate-x-full',
+        'before:content-empty before:absolute before:inset-0 before:-z-10',
+        'before:bg-impact before:rounded-full dark:before:translate-x-full',
         'motion-safe:before:transition-transform motion-safe:before:duration-200'
       ]}>
       <Icon

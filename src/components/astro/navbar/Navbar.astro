@@ -1,6 +1,5 @@
 ---
-import Link from '@components/astro/link/Link.astro';
-import Icon from '@components/astro/icon/Icon.astro';
+import { Icon, Link } from '@lib/components/astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
@@ -28,12 +27,12 @@ const inners = [
     'font-medium',
     'bg-theme-inner'
   ]}>
-  <div class:list={['p-6 bp:p-0', 'flex items-center justify-between gap-2', 'menu-header']}>
+  <div class:list={['bp:p-0 p-6', 'flex items-center justify-between gap-2', 'menu-header']}>
     <Link
       class:list={[
         'flex items-center gap-x-2',
-        'leading-tight bp:text-xl',
-        'text-primary-700 no-underline dark:text-primary-300',
+        'bp:text-xl leading-tight',
+        'text-primary-700 dark:text-primary-300 no-underline',
         'page:text-impact-accent',
         'hover:text-impact hover:hue-rotate-180',
         'transition duration-200'
@@ -42,7 +41,7 @@ const inners = [
       prefetch>
       <Icon
         icon='code-block'
-        class='disabled from-emerald-400 via-cyan-500 to-amber-500 to-100% text-impact dark:text-impact'
+        class='disabled text-impact dark:text-impact from-emerald-400 via-cyan-500 to-amber-500 to-100%'
         size='2.1em'
       />
       <span class:list={['bp:hidden', 'lg:inline']}>DAKS.DEV</span>
@@ -57,7 +56,7 @@ const inners = [
             'bg-linear',
             'from-primary-900 to-primary-500 to-150% dark:from-primary-700 dark:to-primary-900',
             'rounded-full',
-            'shadow-md shadow-primary-200 dark:shadow-primary-900',
+            'shadow-primary-200 dark:shadow-primary-900 shadow-md',
             'aria-expanded:text-primary dark:aria-expanded:text-primary',
             'aria-expanded:bg-linear-180',
             'bp:hidden'
@@ -76,7 +75,7 @@ const inners = [
   </div>
   <div
     id='app-navbar-menu'
-    class='absolute inset-x-0 bp:contents'
+    class='bp:contents absolute inset-x-0'
     aria-owns='app-navbar-menu-toggle'
     hidden>
     <menu
@@ -107,11 +106,11 @@ const inners = [
     </menu>
     <div
       class:list={[
-        'py-6 pr-8 pl-6',
+        'py-6 pl-6 pr-8',
         'flex justify-between gap-3',
         'bg-primary-950 dark:bg-primary-950',
         'rounded-lg rounded-t-none',
-        'shadow-md dark:shadow-primary-800',
+        'dark:shadow-primary-800 shadow-md',
         'bp:p-0',
         'bp:items-center bp:justify-self-end',
         'bp:bg-transparent dark:bp:bg-transparent',
@@ -144,7 +143,7 @@ const inners = [
 </nav>
 
 <script>
-  import breakpoint from '@styles/tailwind/resolve';
+  import breakpoint from '@lib/tailwind/resolve';
 
   class MenuButton extends HTMLElement {
     media = window.matchMedia(`(min-width: ${breakpoint})`);
@@ -197,10 +196,10 @@ const inners = [
   @reference "@styles/global.css";
 
   .inner {
-    @apply block text-primary-400 no-underline aria-[current]:text-primary bp:rounded-full bp:px-4 bp:py-2 dark:text-primary-400 dark:aria-[current]:text-primary forced-colors:text-selected bp:page:bg-impact bp:page:text-impact-text dark:bp:page:bg-impact dark:bp:page:text-impact-text bp:ready:transition-colors bp:ready:duration-200 bp:oversee:bg-impact-subtle bp:oversee:text-primary-100 dark:bp:oversee:bg-impact-subtle dark:bp:oversee:text-primary-100;
+    @apply text-primary-400 aria-[current]:text-primary bp:rounded-full bp:px-4 bp:py-2 dark:text-primary-400 dark:aria-[current]:text-primary forced-colors:text-selected bp:page:bg-impact bp:page:text-impact-text dark:bp:page:bg-impact dark:bp:page:text-impact-text bp:ready:transition-colors bp:ready:duration-200 bp:oversee:bg-impact-subtle bp:oversee:text-primary-100 dark:bp:oversee:bg-impact-subtle dark:bp:oversee:text-primary-100 block no-underline;
   }
 
   .outer {
-    @apply flex p-2 text-impact-hard no-underline dark:text-impact-hard ready:transition-colors ready:duration-200 oversee:text-impact-text dark:oversee:text-impact-text;
+    @apply text-impact-hard dark:text-impact-hard ready:transition-colors ready:duration-200 oversee:text-impact-text dark:oversee:text-impact-text flex p-2 no-underline;
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-import { twMerge } from '@styles/tailwind/tailwind-merge';
+import { twMerge } from '@lib';
 
 interface Props {
   tag?: 'header' | 'div';
@@ -15,7 +15,7 @@ const { tag: Element = 'header', class: className, title, tagline, align = 'cent
 <Element
   class={twMerge(
     'flex flex-col gap-4',
-    'text-center text-xl bp:text-2xl',
+    'bp:text-2xl text-center text-xl',
     align === 'start' && 'bp:text-start',
     className
   )}>
@@ -23,7 +23,7 @@ const { tag: Element = 'header', class: className, title, tagline, align = 'cent
     <h1
       class:list={[
         'mx-auto mb-4 max-w-[37ch]',
-        'text-4xl sm:text-5xl bp:text-7xl',
+        'bp:text-7xl text-4xl sm:text-5xl',
         align === 'start' && 'bp:mx-unset'
       ]}>
       <slot name='title'>
