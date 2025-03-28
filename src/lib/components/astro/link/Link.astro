@@ -1,16 +1,7 @@
 ---
-import { twMerge } from '@lib';
-import { Icon } from '@lib/components/astro';
-
-import type { HTMLAttributes } from 'astro/types';
-type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
-  class?: ClassValue;
-  label?: string;
-  icon?: string;
-  size?: number | string;
-  pointer?: true;
-  prefetch?: true;
-};
+import { twMerge } from '../../../tailwind/tailwind-merge.js';
+import Icon from '../icon/Icon.astro';
+import type { NavItem as Props } from '../index.d.ts';
 
 const { class: className, href, label, icon, size, pointer, prefetch, ...props } = Astro.props;
 

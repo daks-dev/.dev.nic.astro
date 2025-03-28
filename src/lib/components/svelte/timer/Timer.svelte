@@ -5,8 +5,7 @@
 </script>
 
 <script lang="ts">
-  import { twMerge } from '@lib/tailwind/tailwind-merge';
-  // import { meta } from '@app/state';
+  import { twMerge } from '../../../tailwind/tailwind-merge.js';
 
   import type { HTMLTimeAttributes } from 'svelte/elements';
   type Props = Omit<HTMLTimeAttributes, 'class'> & {

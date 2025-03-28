@@ -1,15 +1,22 @@
 ---
-import { twMerge } from '@lib';
+import { twMerge } from '../../../tailwind/tailwind-merge.js';
+import type { HTMLAttributes } from 'astro/types';
 
-interface Props {
+interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
   tag?: 'header' | 'div';
   class?: ClassValue;
-  title?: string;
   tagline?: string;
   align?: 'start' | 'center';
 }
 
-const { tag: Element = 'header', class: className, title, tagline, align = 'center' } = Astro.props;
+const {
+  tag: Element = 'header',
+  class: className,
+  title,
+  tagline,
+  align = 'center',
+  ...props
+} = Astro.props;
 ---
 
 <Element
@@ -18,7 +25,8 @@ const { tag: Element = 'header', class: className, title, tagline, align = 'cent
     'bp:text-2xl text-center text-xl',
     align === 'start' && 'bp:text-start',
     className
-  )}>
+  )}
+  {...props}>
   <div class='flex flex-col gap-2'>
     <h1
       class:list={[

@@ -1,12 +1,11 @@
 ---
-import { twMerge } from '@lib';
-import bundle from '@assets/icons/bundle';
+import { twMerge } from '../../../tailwind/tailwind-merge.js';
+import bundle from './index.js';
 
 import type { HTMLAttributes } from 'astro/types';
 interface Props extends Omit<HTMLAttributes<'svg'>, 'class'> {
-  icon: keyof typeof bundle;
+  icon: string;
   class?: ClassValue;
-  color?: string;
   size?: number | string;
   gradient?: {
     rotate?: number;
@@ -25,6 +24,8 @@ const {
   class: className,
   color = 'currentcolor',
   size = '1em',
+  width = size,
+  height = size,
   gradient,
   ...props
 } = Astro.props;
@@ -39,8 +40,8 @@ const id = `_${Math.floor((1 + Math.random()) * 0x1000)
 <svg
   class:list={twMerge('linecap-round linejoin-round align-middle', className)}
   xmlns='http://www.w3.org/2000/svg'
-  width={size}
-  height={size}
+  {width}
+  {height}
   fill={gradient ? `url(#${id})` : color}
   {viewBox}
   aria-hidden='true'

@@ -1,4 +1,4 @@
-// import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'astro/config';
 
 import AstroPWA from '@vite-pwa/astro';
@@ -36,8 +36,12 @@ export default defineConfig({
     logLevel: 'info',
     // server: { fs: { strict: false },
     // build: { target: 'esnext' },
-    // define: { 'process.env': process.env }
-    // resolve: { alias: { '@...': fileURLToPath(new URL('./src/...', import.meta.url)) } }
+    // define: { 'process.env': process.env },
+    resolve: {
+      alias: {
+        '@iconset': fileURLToPath(new URL('./src/assets/icons/bundle', import.meta.url))
+      }
+    },
     plugins: [tailwindcss()]
   },
 

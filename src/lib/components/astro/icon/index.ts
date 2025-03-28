@@ -1,18 +1,17 @@
-type IconBundleItem = {
+type IconItem = {
   body?: string;
   stroke?: string | null;
   fill?: string | null;
   viewBox?: string | null;
 };
-type IconBundle = Record<string, IconBundleItem>;
 
 const bundle = Object.entries(
-  import.meta.glob('./*.svg', {
+  import.meta.glob('@iconset/**/*.svg', {
     query: '?raw',
     eager: true,
     import: 'default'
   }) as Record<string, string>
-).reduce((acc: IconBundle, [key, val]) => {
+).reduce((acc: Record<string, IconItem>, [key, val]) => {
   const idx = key.match(/^(.+)\/([\w-]+).svg$/)?.at(2);
   if (idx)
     acc[idx] = {
@@ -23,8 +22,5 @@ const bundle = Object.entries(
     };
   return acc;
 }, {});
-
-// type IconKeys = keyof typeof bundle;
-// type IconKeysExt = keyof typeof bundle | (string & NonNullable<unknown>);
 
 export default bundle;
