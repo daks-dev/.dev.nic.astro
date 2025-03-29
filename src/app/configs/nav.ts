@@ -1,25 +1,14 @@
-interface NavItem {
-  href?: string | null;
-  label?: string;
-  links?: NavItem[];
+import type { NavItem } from '@lib/components/astro';
+
+interface NavSidebar {
+  header?: NavItem[];
+  body?: NavItem[];
+  footer?: NavItem[];
 }
 
 interface NavSite {
-  navbar: {
-    links: NavItem[];
-  };
-  draver?: {
-    links: NavItem[];
-  };
-  footer?: {
-    links?: NavItem[];
-    copylink?: NavItem;
-  };
-}
-
-interface NavDraver {
-  header?: NavItem[];
-  activity?: NavItem[];
+  navbar: NavItem[];
+  sidebar?: NavSidebar;
   footer?: NavItem[];
 }
 
@@ -35,7 +24,7 @@ export const activity: NavItem[] = [
   {
     href: '/laboratory-control',
     label: 'Лабораторный контроль',
-    links: [
+    items: [
       {
         href: '/electric-heating',
         label: 'Электропрогрев'
@@ -64,59 +53,7 @@ export const activity: NavItem[] = [
   }
 ];
 
-export const nav: NavSite = {
-  navbar: {
-    links: [
-      {
-        href: '/activity',
-        label: 'Деятельность',
-        links: activity
-      },
-      {
-        href: '/projects',
-        label: 'Проекты'
-      },
-      {
-        href: '/regulation',
-        label: 'Регламент'
-      },
-      {
-        href: '/permissions',
-        label: 'Допуски'
-      },
-      {
-        href: '/news',
-        label: 'Новости'
-      },
-      {
-        href: '/contacts',
-        label: 'Контакты'
-      }
-    ]
-  },
-  footer: {
-    links: [
-      {
-        href: '/admin',
-        label: 'ic:outline-settings' // &#128736;
-      },
-      {
-        href: '/regulation',
-        label: 'Регламент'
-      },
-      {
-        href: '/permissions',
-        label: 'Допуски'
-      },
-      {
-        href: '/contacts',
-        label: 'Контакты'
-      }
-    ]
-  }
-};
-
-export const draver: Partial<NavDraver> = {
+export const draver: NavSidebar = {
   header: [
     {
       href: '/about',
@@ -131,7 +68,7 @@ export const draver: Partial<NavDraver> = {
       label: 'Отзывы'
     }
   ],
-  activity,
+  body: activity,
   footer: [
     {
       href: '/articles',
@@ -144,12 +81,51 @@ export const draver: Partial<NavDraver> = {
   ]
 };
 
-/*
-export const map = [
-  ...Nav.map(nav.navbar.links),
-  ...Nav.map(draver.header ?? []),
-  ...Nav.map(draver.footer ?? []),
-  ...Nav.map(nav.footer?.links ?? []),
-  ...(nav.allow ?? [])
-].filter((el, idx, arr) => arr.indexOf(el) === idx);
-*/
+export const nav: NavSite = {
+  navbar: [
+    {
+      href: '/activity',
+      label: 'Деятельность',
+      items: activity
+    },
+    {
+      href: '/projects',
+      label: 'Проекты'
+    },
+    {
+      href: '/regulation',
+      label: 'Регламент'
+    },
+    {
+      href: '/permissions',
+      label: 'Допуски'
+    },
+    {
+      href: '/news',
+      label: 'Новости'
+    },
+    {
+      href: '/contacts',
+      label: 'Контакты'
+    }
+  ],
+  sidebar: draver,
+  footer: [
+    {
+      href: '/admin',
+      label: 'ic:outline-settings' // &#128736;
+    },
+    {
+      href: '/regulation',
+      label: 'Регламент'
+    },
+    {
+      href: '/permissions',
+      label: 'Допуски'
+    },
+    {
+      href: '/contacts',
+      label: 'Контакты'
+    }
+  ]
+};

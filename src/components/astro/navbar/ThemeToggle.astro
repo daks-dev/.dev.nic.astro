@@ -6,16 +6,16 @@ import { Icon } from '@lib/components/astro';
   <button
     class:list={[
       'group',
-      'flex cursor-pointer',
+      'flex items-center',
       'bg-primary-950 rounded-full',
-      'shadow-inset shadow-impact-overlay'
+      'shadow-inset shadow-impact-subtle'
       // 'motion-safe:transition-colors motion-safe:duration-200'
     ]}>
     <span class='sr-only'>Dark theme</span>
     <span
       class:list={[
         'relative z-10 flex h-8 w-8 p-2',
-        'text-impact-text dark:text-impact-overlay',
+        'text-impact-text dark:text-impact-hard',
         'before:content-empty before:absolute before:inset-0 before:-z-10',
         'before:bg-impact before:rounded-full dark:before:translate-x-full',
         'motion-safe:before:transition-transform motion-safe:before:duration-200'
@@ -25,8 +25,7 @@ import { Icon } from '@lib/components/astro';
         class='disabled'
       />
     </span>
-    <span
-      class:list={['relative z-10 flex h-8 w-8 p-2', 'text-impact-overlay dark:text-impact-text']}>
+    <span class:list={['relative z-10 flex h-8 w-8 p-2', 'text-impact-hard dark:text-impact-text']}>
       <Icon
         icon='moon-stars'
         class='disabled'

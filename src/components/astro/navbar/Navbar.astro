@@ -1,50 +1,44 @@
 ---
+import { Image } from 'astro:assets';
 import { Icon, Link } from '@lib/components/astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
-/*
+import logo from '@assets/images/logo.icon.webp';
+
 import { nav } from '@app/configs/nav';
-const {
-  navbar: { inners, outers }
-} = nav;
-*/
-const inners = [
-  {
-    class: '',
-    href: '/about',
-    label: 'О !'
-  }
-];
 ---
 
 <nav
   id='app-navbar'
   class:list={[
-    'relative z-50 mb-8',
-    'bp:px-20 bp:py-0',
-    'bp:grid bp:h-32 bp:grid-cols-[1fr_auto_1fr] bp:items-center bp:gap-x-4',
-    'font-medium',
-    'bg-theme-inner'
+    'fixed inset-x-0 z-50',
+    'h-(--navbar-height) px-6 py-3',
+    'grid grid-cols-[1fr_auto] place-content-center',
+    'bp:grid-cols-[1fr_auto_1fr]',
+    'bg-theme-inner',
+    'onscroll:shadow-md shadow-sm shadow-gray-300 dark:shadow-gray-950',
+    'border-b border-gray-100 dark:border-gray-900'
   ]}>
-  <div class:list={['bp:p-0 p-6', 'flex items-center justify-between gap-2', 'menu-header']}>
+  <div class:list={['', 'flex items-center justify-between', 'menu-header']}>
     <Link
       class:list={[
-        'flex items-center gap-x-2',
-        'bp:text-xl leading-tight',
-        'text-primary-700 dark:text-primary-300 no-underline',
-        'page:text-impact-accent',
-        'hover:text-impact hover:hue-rotate-180',
+        'group',
+        'flex items-center gap-4',
+        'text-lg font-medium',
         'transition duration-200'
       ]}
       href='/'
       prefetch>
-      <Icon
-        icon='code-block'
-        class='disabled text-impact dark:text-impact from-emerald-400 via-cyan-500 to-amber-500 to-100%'
-        size='2.1em'
+      <Image
+        class:list={['drop-shadow-2xl', 'group-hover:drop-shadow-deep']}
+        src={logo}
+        width={40}
+        height={40}
+        loading='eager'
+        alt='ниц «строительная экспертиза»'
       />
-      <span class:list={['bp:hidden', 'lg:inline']}>DAKS.DEV</span>
+      <span class='md:max-bp:inline hidden 2xl:inline'>НИЦ «Строительная Экспертиза»</span>
     </Link>
     <menu-button>
       <template>
@@ -80,21 +74,19 @@ const inners = [
     hidden>
     <menu
       class:list={[
-        'px-8 py-0',
-        'flex list-none flex-col gap-4',
-        'text-lg leading-tight',
-        'bg-primary-50',
-        'from-primary-700 to-primary-500 to-150%',
-        'border-primary-700',
+        'px-8 py-5',
+        'max-bp:mt-(--navbar-height)',
         'bp:relative bp:px-2 bp:py-1.5',
+        'flex list-none flex-col gap-4',
         'bp:flex-row',
-        'bp:text-sm',
-        'bp:bg-linear-to-b',
-        'bp:rounded-full',
-        'bp:shadow-md bp:shadow-primary-900'
+        'text-lg font-normal',
+        'bp:text-base',
+        'max-bp:bg-theme-inner',
+        'from-primary-700 to-primary-500 to-150%',
+        'border-primary-700'
       ]}>
       {
-        inners.map(({ class: className, ...props }) => (
+        nav.navbar.map(({ class: className, ...props }) => (
           <li>
             <Link
               class:list={['inner', className]}
@@ -106,15 +98,14 @@ const inners = [
     </menu>
     <div
       class:list={[
-        'py-6 pl-6 pr-8',
-        'flex justify-between gap-3',
-        'bg-primary-950 dark:bg-primary-950',
-        'rounded-lg rounded-t-none',
-        'dark:shadow-primary-800 shadow-md',
-        'bp:p-0',
+        'px-2 pb-2',
+        'flex justify-around',
         'bp:items-center bp:justify-self-end',
-        'bp:bg-transparent dark:bp:bg-transparent',
-        'bp:shadow-none'
+        'bg-theme-inner',
+        'rounded-b-lg',
+        'dark:shadow-primary-800 shadow-md',
+        'bp:shadow-none',
+        'bp:bg-transparent'
       ]}>
       {
         /*
@@ -196,10 +187,18 @@ const inners = [
   @reference "@styles/global.css";
 
   .inner {
-    @apply text-primary-400 aria-[current]:text-primary bp:rounded-full bp:px-4 bp:py-2 dark:text-primary-400 dark:aria-[current]:text-primary forced-colors:text-selected bp:page:bg-impact bp:page:text-impact-text dark:bp:page:bg-impact dark:bp:page:text-impact-text bp:ready:transition-colors bp:ready:duration-200 bp:oversee:bg-impact-subtle bp:oversee:text-primary-100 dark:bp:oversee:bg-impact-subtle dark:bp:oversee:text-primary-100 block no-underline;
+    @apply block;
+    @apply bp:px-4 bp:pt-1.5 bp:pb-2;
+    @apply text-theme-plain;
+    @apply aria-[current]:text-white;
+    @apply bp:page:bg-impact bp:page:text-impact-text;
+    @apply bp:hover:bg-gray-300 dark:bp:hover:bg-gray-400 bp:hover:text-impact;
+    @apply bp:rounded-full;
+    @apply bp:ready:transition-colors bp:ready:duration-200;
+    @apply forced-colors:text-selected;
   }
 
   .outer {
-    @apply text-impact-hard dark:text-impact-hard ready:transition-colors ready:duration-200 oversee:text-impact-text dark:oversee:text-impact-text flex p-2 no-underline;
+    @apply text-impact-hard dark:text-impact-hard ready:transition-colors ready:duration-200 hover:text-impact-text dark:hover:text-impact-text flex p-2 no-underline;
   }
 </style>

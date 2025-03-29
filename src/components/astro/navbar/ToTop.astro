@@ -16,11 +16,9 @@ const {
   icon = 'arrow-fat-lines-up-duotone',
   label = 'to top',
   duration = 300,
-  speed: s,
+  speed = duration * 5,
   ...props
 } = Astro.props;
-
-const speed = s ?? duration * 5;
 ---
 
 <button

@@ -2,10 +2,10 @@
 
 @import 'tailwindcss';
 
-@import '@lib/tailwind';
+@import '@lib/tailwind/index.css';
 
 @theme {
-  --breakpoint-bp: 50rem;
+  --breakpoint-bp: 56rem;
 
   --font-sans:
     'Open Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -29,8 +29,8 @@
   --color-impact-hard: #c561f6;
   --color-impact-accent: #ca7879;
   --color-impact-text: #ffffff;
-  --color-impact-subtle: rgba(197, 97, 247, 0.333);
-  --color-impact-overlay: rgba(119, 17, 177, 0.333);
+  --color-impact-subtle: rgba(197, 97, 247, 0.3333);
+  --color-impact-overlay: rgba(119, 17, 177, 0.3333);
   --color-impact-from: #c461f5;
   --color-impact-via: #7711a6;
   --color-impact-to: #1d0057;
@@ -39,57 +39,76 @@
   --color-theme-inner: rgb(246, 247, 249);
   --color-theme-plain: rgb(0, 0, 0);
   --color-theme-link: rgb(54, 69, 209);
+
+  --navbar-height: 4.5rem;
 }
 
 :root.theme-dark {
   --color-theme-frame: rgb(23, 24, 28);
   --color-theme-inner: rgb(35, 38, 47);
   --color-theme-plain: rgb(155, 163, 180);
-  --color-theme-link: rgb(179, 199, 255);
+  --color-theme-link: rgb(110, 146, 243);
 }
 
 @layer base {
-  :is(body) {
+  :where(body) {
     @apply leading-normal;
     @apply bg-theme-frame text-theme-plain;
   }
 
-  :is(a) {
+  :where(a) {
     @apply text-impact;
     @apply dark:text-impact-hard;
   }
 
-  :is(h1) {
+  :where(h1) {
     @apply leading-relaxed;
     @apply text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl;
   }
 
-  :is(h2) {
+  :where(h2) {
     @apply leading-relaxed;
     @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl;
   }
 
-  :is(h3) {
+  :where(h3) {
     @apply text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl;
   }
 
-  :is(h4) {
+  :where(h4) {
     @apply text-lg sm:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl;
   }
 
-  :is(h5) {
+  :where(h5) {
     @apply text-base sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl;
   }
 
-  :is(h1, h2, h3, h4, h5) {
+  :where(h1, h2, h3, h4, h5) {
     @apply font-medium;
   }
 
-  :is(h1, h2) {
+  :where(h1, h2) {
     @apply leading-tight;
   }
 
-  :is(h3, h4, h5) {
+  :where(h3, h4, h5) {
     @apply leading-snug;
+  }
+
+  :where(a, button) {
+    @apply cursor-pointer;
+  }
+}
+
+@utility min-h--screen-navbar {
+  min-height: calc(100vh - var(--navbar-height));
+}
+@utility max-h--screen-navbar {
+  max-height: calc(100vh - var(--navbar-height));
+}
+
+@layer components {
+  :where(header):has(~ :where(main, [role='main'])) {
+    margin-top: calc(4rem + var(--navbar-height));
   }
 }

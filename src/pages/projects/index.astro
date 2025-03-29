@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Layout from '@layouts/Base.astro';
+import { Hero } from '@lib/components/astro';
+
+const gallery = await getCollection('gallery');
+
+const title = 'Проекты';
+---
+
+<Layout
+  title={`${title} | НИЦ «СЭ»`}
+  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
+  <Hero {title} />
+
+  <main class='frame mt-16 flex flex-wrap gap-8'>
+    {
+      gallery.map(({ data }) =>
+        data.map(({ image }) => (
+          <Image
+            src={image}
+            width={320}
+            alt=''
+          />
+        ))
+      )
+    }
+  </main>
+</Layout>
