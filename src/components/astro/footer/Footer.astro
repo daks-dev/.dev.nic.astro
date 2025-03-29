@@ -10,25 +10,24 @@ const currentYear = new Date().getFullYear();
 
 <footer
   class:list={[
-    'bp:flex-row bp:justify-between bp:px-20 bp:py-10 flex flex-col gap-12 px-8 py-12',
-    'text-(--color-dark-text) text-center text-sm'
+    'frame-xl',
+    'py-5',
+    'grid grid-cols-1 items-center justify-center gap-2 sm:grid-cols-3',
+    'text-theme-plain text-center text-sm'
   ]}>
-  <div class='bp:flex-row bp:flex-wrap bp:gap-4 flex flex-col items-center gap-2'>
-    <p>
-      Designed & Developed in Moscow with
-      <a
-        class='link mx-1'
-        href='https://astro.build/'
-        target='_blank'>
-        Astro
-      </a>
+  <div>
+    Designed & Developed in Moscow with
+    <a
+      class='text-impact-accent hover:text-theme-link mx-2 text-nowrap'
+      href='https://astro.build/'
+      target='_blank'>
+      Astro
       <Icon
         class='inline'
         icon='rocket-launch'
         size='1.2em'
       />
-    </p>
-    <p>&copy; {currentYear} DAKS.DEV</p>
+    </a>
   </div>
 
   {
@@ -47,6 +46,7 @@ const currentYear = new Date().getFullYear();
   }
 
   <Timer client:load />
+  <div>&copy; {currentYear} DAKS.DEV</div>
 </footer>
 
 <style scoped>

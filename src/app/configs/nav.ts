@@ -84,6 +84,10 @@ export const draver: NavSidebar = {
 export const nav: NavSite = {
   navbar: [
     {
+      href: '/regulation',
+      label: 'Регламент'
+    },
+    {
       href: '/activity',
       label: 'Деятельность',
       items: activity
@@ -93,16 +97,22 @@ export const nav: NavSite = {
       label: 'Проекты'
     },
     {
-      href: '/regulation',
-      label: 'Регламент'
-    },
-    {
       href: '/permissions',
       label: 'Допуски'
     },
     {
+      href: '/partners',
+      label: 'Партнёры',
+      class: 'bp:max-xl:hidden'
+    },
+    {
+      href: '/feedback',
+      label: 'Отзывы'
+    },
+    {
       href: '/news',
-      label: 'Новости'
+      label: 'Новости',
+      class: 'bp:max-lg:hidden'
     },
     {
       href: '/contacts',

@@ -14,18 +14,18 @@ import { nav } from '@app/configs/nav';
   class:list={[
     'fixed inset-x-0 z-50',
     'h-(--navbar-height) px-6 py-3',
-    'grid grid-cols-[1fr_auto] place-content-center',
+    'grid grid-cols-[1fr_auto] place-content-center gap-4',
     'bp:grid-cols-[1fr_auto_1fr]',
     'bg-theme-inner',
     'onscroll:shadow-md shadow-sm shadow-gray-300 dark:shadow-gray-950',
     'border-b border-gray-100 dark:border-gray-900'
   ]}>
-  <div class:list={['', 'flex items-center justify-between', 'menu-header']}>
+  <div class:list={['flex items-center justify-between', 'menu-header']}>
     <Link
       class:list={[
         'group',
         'flex items-center gap-4',
-        'text-lg font-medium',
+        'text-base/tight font-medium',
         'transition duration-200'
       ]}
       href='/'
@@ -38,21 +38,23 @@ import { nav } from '@app/configs/nav';
         loading='eager'
         alt='ниц «строительная экспертиза»'
       />
-      <span class='md:max-bp:inline hidden 2xl:inline'>НИЦ «Строительная Экспертиза»</span>
+      <div class:list={['hidden', 'md:max-bp:block 2xl:block']}>
+        АО НИЦ <br /> «Строительная Экспертиза»
+      </div>
     </Link>
     <menu-button>
       <template>
         <button
           id='app-navbar-menu-toggle'
           class:list={[
-            'relative flex',
-            'text-primary-300 dark:text-primary-300',
-            'bg-linear',
-            'from-primary-900 to-primary-500 to-150% dark:from-primary-700 dark:to-primary-900',
+            'relative',
+            'flex p-2',
+            'text-primary-500',
+            'bg-gradient-to-b',
+            'from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900',
             'rounded-full',
-            'shadow-primary-200 dark:shadow-primary-900 shadow-md',
-            'aria-expanded:text-primary dark:aria-expanded:text-primary',
-            'aria-expanded:bg-linear-180',
+            'shadow-sm shadow-gray-400 hover:shadow-md dark:shadow-gray-950',
+            'aria-expanded:bg-gradient-to-t',
             'bp:hidden'
           ]}
           aria-label='menu toggle'
@@ -69,41 +71,36 @@ import { nav } from '@app/configs/nav';
   </div>
   <div
     id='app-navbar-menu'
-    class='bp:contents absolute inset-x-0'
+    class:list={['bp:contents absolute inset-x-0', 'max-bp:top-(--navbar-height)']}
     aria-owns='app-navbar-menu-toggle'
     hidden>
     <menu
       class:list={[
         'px-8 py-5',
-        'max-bp:mt-(--navbar-height)',
         'bp:relative bp:px-2 bp:py-1.5',
         'flex list-none flex-col gap-4',
         'bp:flex-row',
         'text-lg font-normal',
         'bp:text-base',
-        'max-bp:bg-theme-inner',
-        'from-primary-700 to-primary-500 to-150%',
-        'border-primary-700'
+        'max-bp:bg-theme-inner'
       ]}>
       {
         nav.navbar.map(({ class: className, ...props }) => (
-          <li>
-            <Link
-              class:list={['inner', className]}
-              {...props}
-            />
-          </li>
+          <Link
+            class:list={['inner', className]}
+            {...props}
+          />
         ))
       }
     </menu>
     <div
       class:list={[
-        'px-2 pb-2',
+        'max-bp:py-2',
         'flex justify-around',
         'bp:items-center bp:justify-self-end',
         'bg-theme-inner',
-        'rounded-b-lg',
-        'dark:shadow-primary-800 shadow-md',
+        'rounded-b-md',
+        'shadow-md dark:shadow-gray-800',
         'bp:shadow-none',
         'bp:bg-transparent'
       ]}>
@@ -187,13 +184,12 @@ import { nav } from '@app/configs/nav';
   @reference "@styles/global.css";
 
   .inner {
-    @apply block;
-    @apply bp:px-4 bp:pt-1.5 bp:pb-2;
+    @apply bp:px-3.5 bp:pt-1 bp:pb-1.5;
     @apply text-theme-plain;
-    @apply aria-[current]:text-white;
-    @apply bp:page:bg-impact bp:page:text-impact-text;
-    @apply bp:hover:bg-gray-300 dark:bp:hover:bg-gray-400 bp:hover:text-impact;
-    @apply bp:rounded-full;
+    @apply step:text-theme-header;
+    @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;
+    @apply bp:hover:bg-primary-300 dark:bp:hover:bg-primary-400 bp:hover:text-theme-link;
+    @apply bp:border bp:rounded-full border-transparent;
     @apply bp:ready:transition-colors bp:ready:duration-200;
     @apply forced-colors:text-selected;
   }
