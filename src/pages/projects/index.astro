@@ -22,7 +22,7 @@ const title = 'Проекты';
           <p>{description}</p>
           {images?.map(({ src, alt = '' }) => (
             <Image
-              class='aspect-square rounded-full'
+              class:list={['aspect-square rounded-full', 'drop-shadow-deep']}
               {src}
               width={176}
               height={176}

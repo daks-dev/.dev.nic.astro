@@ -24,11 +24,24 @@ export interface NavSite {
   allow?: string[];
 }
 
+export { default as SvelteCarousel } from './bind/SvelteCarousel.astro';
+export { default as SvelteLightbox } from './bind/SvelteLightbox.astro';
+
 export { default as Figure } from './figure/Figure.astro';
 export { default as Head } from './head/Head.astro';
 export { default as Header } from './header/Header.astro';
 export { default as Icon } from './icon/Icon.astro';
 export { default as Link } from './link/Link.astro';
-export { default as SvelteCarousel } from './bind/SvelteCarousel.astro';
-export { default as SvelteLightbox } from './bind/SvelteLightbox.astro';
+
+export { default as BagePlaceholder } from './skeleton/BagePlaceholder.astro';
+export { default as CardPlaceholder } from './skeleton/CardPlaceholder.astro';
+export { default as ImagePlaceholder } from './skeleton/ImagePlaceholder.astro';
+export { default as ListPlaceholder } from './skeleton/ListPlaceholder.astro';
+export { default as Skeleton } from './skeleton/Skeleton.astro';
+export { default as TestimonialPlaceholder } from './skeleton/TestimonialPlaceholder.astro';
+export { default as TextPlaceholder } from './skeleton/TextPlaceholder.astro';
+export { default as VideoPlaceholder } from './skeleton/VideoPlaceholder.astro';
+export { default as WidgetPlaceholder } from './skeleton/WidgetPlaceholder.astro';
+
+export { default as Video } from './video/Video.astro';
 // export { default as YandexMetrika } from './yandex/YandexMetrika.astro';

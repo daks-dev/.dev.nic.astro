@@ -85,7 +85,8 @@ export const nav: NavSite = {
   navbar: [
     {
       href: '/regulation',
-      label: 'Регламент'
+      label: 'Регламент',
+      rel: 'help'
     },
     {
       href: '/activity',

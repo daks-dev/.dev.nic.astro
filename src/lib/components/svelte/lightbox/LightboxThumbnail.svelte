@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import { twMerge } from '../../../tailwind/tailwind-merge';
+  import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import type { Custom } from '.';
 
   let className: ClassValue = undefined;

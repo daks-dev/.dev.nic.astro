@@ -244,8 +244,8 @@ const {
     setTimeout(() => document.documentElement.classList.add('swapped'), 75);
   });
 
-  const navbar = document.getElementById('app-navbar');
-  const scrolled = () => (window.scrollY > (navbar ? navbar.clientHeight : 0) ? 'add' : 'remove');
+  const node = document.getElementById('app-navbar');
+  const scrolled = () => (window.scrollY > (node ? node.clientHeight : 0) ? 'add' : 'remove');
   window.addEventListener('load', () => {
     document.body.classList[scrolled()]('scrolled');
   });

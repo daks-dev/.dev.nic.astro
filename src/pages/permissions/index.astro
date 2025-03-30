@@ -19,6 +19,7 @@ const title = 'Допуски';
       collection.map(({ data }) =>
         data.map(({ image: src }) => (
           <Image
+            class:list={['shadow-sm shadow-gray-400 dark:shadow-gray-950']}
             {src}
             width={256}
             alt=''

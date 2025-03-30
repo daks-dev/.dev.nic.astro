@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { twMerge } from '../../../tailwind/tailwind-merge';
+  import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import Overlay from './components/Overlay.svelte';
   import Header from './components/Header.svelte';
   import Footer from './components/Footer.svelte';

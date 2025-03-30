@@ -19,11 +19,17 @@ const description = 'Партнёры АО НИЦ «Строительная э�
     {
       collection.map(({ data }) =>
         data.map(({ image: src }) => (
-          <Image
-            {src}
-            width={320}
-            alt=''
-          />
+          <div>
+            <Image
+              class:list={[
+                'border border-gray-50 dark:border-none',
+                'shadow-sm shadow-gray-400 dark:shadow-gray-950'
+              ]}
+              {src}
+              width={320}
+              alt=''
+            />
+          </div>
         ))
       )
     }

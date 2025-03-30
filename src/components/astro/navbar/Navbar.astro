@@ -31,7 +31,11 @@ import { nav } from '@app/configs/nav';
       href='/'
       prefetch>
       <Image
-        class:list={['drop-shadow-2xl', 'group-hover:drop-shadow-deep']}
+        class:list={[
+          'drop-shadow-2xl',
+          'group-hover:drop-shadow-deep',
+          'animate-[wiggle_20s_ease-in-out_infinite]'
+        ]}
         src={logo}
         width={40}
         height={40}
@@ -76,9 +80,8 @@ import { nav } from '@app/configs/nav';
     hidden>
     <menu
       class:list={[
-        'px-8 py-5',
         'bp:relative bp:px-2 bp:py-1.5',
-        'flex list-none flex-col gap-4',
+        'bp:gap-4 flex list-none flex-col',
         'bp:flex-row',
         'text-lg font-normal',
         'bp:text-base',
@@ -184,11 +187,12 @@ import { nav } from '@app/configs/nav';
   @reference "@styles/global.css";
 
   .inner {
+    @apply px-4 py-2;
     @apply bp:px-3.5 bp:pt-1 bp:pb-1.5;
     @apply text-theme-plain;
     @apply step:text-theme-header;
     @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;
-    @apply bp:hover:bg-primary-300 dark:bp:hover:bg-primary-400 bp:hover:text-theme-link;
+    @apply hover:bg-primary-300 dark:hover:bg-primary-400 hover:text-theme-link;
     @apply bp:border bp:rounded-full border-transparent;
     @apply bp:ready:transition-colors bp:ready:duration-200;
     @apply forced-colors:text-selected;

@@ -1,7 +1,7 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import twMerge from '../../../tailwind/tailwind-merge';
+import twMerge from '../../../tailwind/tailwind-merge.js';
 import placeholder from '../../../assets/images/placeholder';
+import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
   class?: ClassValue;
