@@ -15,6 +15,12 @@ export const isTouch = () =>
   (document && 'ontouchstart' in document.documentElement);
 
 export { default as Animate } from './Animate.js';
+export { default as Swipe, swipe } from './Swipe.js';
+export { default as Wheel, wheel } from './Wheel.js';
 
 export * as audio from './audio.js';
+export { default as outside } from './outside.js';
 export * as scroll from './scroll.js';
+
+export type { LazyLoad } from './lazyload';
+export { default as lazyload } from './lazyload';

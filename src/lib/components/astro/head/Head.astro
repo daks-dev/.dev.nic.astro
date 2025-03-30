@@ -13,8 +13,8 @@ interface Props {
   image?: string;
 }
 const {
-  title = 'DAKS.DEV: Personal Site',
-  description = 'The personal site of DAKS.DEV',
+  title = 'АО НИЦ «Строительная Экспертиза»',
+  description = 'Независимая строительная экспертиза в Москве',
   robots = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
   app,
   rss,
@@ -233,12 +233,16 @@ const {
 />
 
 <script>
-  document.addEventListener('astro:page-load', () =>
-    setTimeout(() => document.documentElement.classList.add('loaded'), 75)
-  );
-  document.addEventListener('astro:after-swap', () =>
-    setTimeout(() => document.documentElement.classList.add('swapped'), 75)
-  );
+  import lazyLoad from '../../utils/lazyload.js';
+
+  document.addEventListener('astro:page-load', () => {
+    setTimeout(() => document.documentElement.classList.add('loaded'), 75);
+    if (document.lazyload) document.lazyload.update();
+    else document.lazyload = lazyLoad();
+  });
+  document.addEventListener('astro:after-swap', () => {
+    setTimeout(() => document.documentElement.classList.add('swapped'), 75);
+  });
 
   const navbar = document.getElementById('app-navbar');
   const scrolled = () => (window.scrollY > (navbar ? navbar.clientHeight : 0) ? 'add' : 'remove');

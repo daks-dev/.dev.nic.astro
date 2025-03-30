@@ -1,15 +1,16 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'astro/config';
 
-import AstroPWA from '@vite-pwa/astro';
+// import AstroPWA from '@vite-pwa/astro';
 
 // import node from '@astrojs/node';
 
-import compress from 'astro-compress';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
 import svelte from '@astrojs/svelte';
 import tailwindcss from '@tailwindcss/vite';
+import yaml from '@rollup/plugin-yaml';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import compress from 'astro-compress';
 
 export default defineConfig({
   experimental: {
@@ -42,7 +43,7 @@ export default defineConfig({
         '@iconset': fileURLToPath(new URL('./src/assets/icons/bundle', import.meta.url))
       }
     },
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss(), yaml()]
   },
 
   scopedStyleStrategy: 'where',
@@ -61,12 +62,13 @@ export default defineConfig({
     }),
 
     compress({
+      CSS: false,
       Image: false,
       SVG: false,
       Logger: 1
-    }),
+    })
 
-    AstroPWA({
+    /*AstroPWA({
       mode: 'production',
       base: '/',
       scope: '/',
@@ -75,9 +77,9 @@ export default defineConfig({
       workbox: {
         skipWaiting: true,
         globDirectory: 'build/',
-        globPatterns: [
-          '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
-        ]
+        globPatterns: [*/
+    // '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
+    /*]
         // navigateFallback: '/'
       },
       devOptions: {
@@ -87,7 +89,7 @@ export default defineConfig({
       experimental: {
         // directoryAndTrailingSlashHandler: true
       }
-    })
+    })*/
   ],
 
   markdown: {

@@ -1,15 +1,15 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '@layouts/Base.astro';
-import { Hero } from '@lib/components/astro';
+import { Header } from '@lib/components/astro';
 
 const title = 'О !!!';
 ---
 
 <Layout
-  title={`${title} | НИЦ «СЭ»`}
+  title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Hero {title}>
+  <Header {title}>
     <Image
       class:list={[
         'w-full max-w-xs self-center',
@@ -23,7 +23,7 @@ const title = 'О !!!';
       height={128}
       alt=''
     />
-  </Hero>
+  </Header>
 
   <main class='frame mt-16 flex flex-col'>
     <header>

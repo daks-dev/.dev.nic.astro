@@ -1,33 +1,39 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '@layouts/Base.astro';
-import { Hero } from '@lib/components/astro';
 
 const title = 'Регламент';
+const description =
+  'Регламент АО НИЦ «Строительная экспертиза» по организации и проведения негосударственной экспертизы проектной документации и результатов инженерных изысканий';
 ---
 
 <Layout
-  title={`${title} | НИЦ «СЭ»`}
-  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Hero {title}>
-    <Image
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  {description}>
+  <main class='frame min-h--screen-navbar pt-(--navbar-height) flex grow flex-col'>
+    <object
       class:list={[
-        'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
+        'lazy',
+        '',
+        'flex grow',
+        'bg-radial-c',
+        'from-neutral-400 to-transparent',
+        'dark:from-gray-600'
       ]}
-      src='/assets/icons/astro.svg'
-      width={128}
-      height={128}
-      alt=''
-    />
-  </Hero>
-
-  <main class='frame mt-16 flex flex-col'>
-    <header>
-      <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
-    </header>
+      type='application/pdf'
+      data-src='/docs/regulation.pdf'
+      title='Регламент АО НИЦ «Строительная экспертиза»'
+      aria-label='регламент'>
+      <a
+        class:list={[
+          'mx-auto self-center',
+          'tracking-wide sm:text-base',
+          'oversee:bg-slate-500 bg-neutral-300 dark:bg-slate-700',
+          'button rounded-xs border border-slate-500'
+        ]}
+        href='/docs/regulation.pdf'
+        target='_blank'>
+        загрузить
+      </a>
+    </object>
   </main>
 </Layout>

@@ -21,7 +21,7 @@
 
   :where(:not(a)) {
     &:where(:hover, :focus) {
-      text-decoration-color: currentColor;
+      text-decoration-color: currentcolor;
     }
   }
 

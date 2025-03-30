@@ -1,0 +1,76 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import twMerge from '../../../tailwind/tailwind-merge';
+import placeholder from '../../../assets/images/placeholder';
+
+type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
+  class?: ClassValue;
+  custom?: Record<string, ClassValue>;
+  image: ImageResult;
+  attributes?: Metadata;
+  alt: string;
+  caption?: Record<string, string>;
+  native: boolean;
+};
+
+const {
+  class: className,
+  custom = {},
+  image,
+  attributes,
+  alt: a,
+  caption = {},
+  native = true,
+  ...props
+} = Astro.props;
+
+const attrs = Object.assign(image.attributes, attributes);
+attrs.itemprop ??= 'image';
+attrs.loading ??= 'lazy';
+attrs.decoding ??= 'async';
+
+const alt = a ?? attrs.alt ?? '';
+delete attrs.alt;
+
+const entries = Object.entries(caption);
+---
+
+<figure
+  class={twMerge('relative flex flex-col', className)}
+  {...props}>
+  <slot name='before' />
+  <img
+    class={twMerge(!native && 'lazy', custom.image)}
+    src={native ? image.src : placeholder}
+    data-src={native ? undefined : image.src}
+    {...attrs}
+    {alt}
+  />
+  <slot>
+    {
+      entries.length && (
+        <figcaption class={twMerge('flex flex-col', custom.caption)}>
+          {entries.map(([key, val]) =>
+            key === 'title' ? (
+              <span
+                class={twMerge('font-semibold', custom[key])}
+                set:html={val}
+              />
+            ) : key === 'description' ? (
+              <small
+                class={twMerge(custom[key])}
+                set:html={val}
+              />
+            ) : (
+              <span
+                class={twMerge(custom[key])}
+                set:html={val}
+              />
+            )
+          )}
+        </figcaption>
+      )
+    }
+  </slot>
+  <slot name='after' />
+</figure>

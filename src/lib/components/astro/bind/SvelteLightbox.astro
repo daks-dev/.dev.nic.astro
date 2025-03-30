@@ -1,0 +1,75 @@
+---
+import { getImage } from 'astro:assets';
+import LightboxData from '../../svelte/lightbox/LightboxData.svelte';
+import type { ImageCollection } from '.';
+
+type Props = {
+  data: ImageCollection | ImageCollection[];
+  transform: {
+    [x in 'thumb' | 'modal']: ImageTransform;
+  };
+  filter?: string[];
+  client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
+} & Record<string, unknown>;
+
+const { data: __data, transform, filter, client = 'visible', ...props } = Astro.props;
+
+const data: {
+  thumb: ImageResult;
+  modal: ImageResult;
+  caption: Record<string, string>;
+}[] = [];
+
+const load = async (x: ImageCollection | ImageCollection[]) => {
+  if (x instanceof Array) for (const y of x) await load(y);
+  else
+    for (const { image, caption: c } of x.data) {
+      const t = await getImage({
+        src: image,
+        ...transform.thumb
+      });
+      const m = await getImage({
+        src: image,
+        ...transform.modal
+      });
+      const caption: Record<string, string> = {};
+      Object.entries(c).forEach(([key, val]) => {
+        if (filter === undefined || filter.includes(key)) caption[key] = val;
+      });
+      data.push({
+        thumb: {
+          src: t.src,
+          attributes: t.attributes
+        },
+        modal: {
+          src: m.src,
+          attributes: m.attributes
+        },
+        caption
+      });
+    }
+};
+await load(__data);
+---
+
+{
+  client === 'visible' ? (
+    <LightboxData
+      {data}
+      {...props}
+      client:visible
+    />
+  ) : client === 'idle' ? (
+    <LightboxData
+      {data}
+      {...props}
+      client:idle
+    />
+  ) : (
+    <LightboxData
+      {data}
+      {...props}
+      client:load
+    />
+  )
+}

@@ -1,8 +1,9 @@
 /* @import 'fonts'; */
 
-@import 'tailwindcss';
+/* @import 'tailwindcss'; */
 
 @import '@lib/tailwind/index.css';
+@source '../';
 
 @theme {
   --breakpoint-bp: 58rem;
@@ -35,7 +36,7 @@
   --color-theme-frame: rgb(255, 255, 255);
   --color-theme-inner: rgb(246, 247, 249);
   --color-theme-plain: rgb(0, 0, 0);
-  --color-theme-header: rgb(120, 134, 99);
+  --color-theme-header: rgb(90, 97, 80);
   --color-theme-link: rgb(40, 51, 151);
 
   --navbar-height: 4.5rem;
@@ -45,7 +46,7 @@
   --color-theme-frame: rgb(23, 24, 28);
   --color-theme-inner: rgb(35, 38, 47);
   --color-theme-plain: rgb(155, 163, 180);
-  --color-theme-header: rgb(174, 182, 162);
+  --color-theme-header: rgb(131, 139, 119);
   --color-theme-link: rgb(99, 121, 184);
 }
 
@@ -105,8 +106,62 @@
   max-height: calc(100vh - var(--navbar-height));
 }
 
+@utility leader {
+  @apply text-slate-800 dark:text-slate-400;
+  @apply bp:text-xl 2xl:text-1.5xl text-base sm:text-lg;
+}
+
+@import '@lib/tailwind/css/readable.css';
+
+@layer utilities {
+  .readable {
+    @apply bp:text-lg/relaxed text-sm/relaxed sm:text-base/relaxed;
+    @apply font-light;
+    :where(h2, h3, h4) {
+      @apply tracking-normal;
+      @apply sm:text-1.5xl 2xl:text-2.5xl text-xl lg:text-2xl;
+    }
+    :where(p) {
+      @apply xs:text-justify;
+    }
+    :where(a) {
+      @apply text-cyan-800 dark:text-cyan-600;
+      @apply hover:decoration-inherit;
+    }
+    :where(b, strong) {
+      @apply font-medium;
+    }
+    :where(table, th, td) {
+      @apply border-slate-500 dark:border-slate-400;
+      @apply cursor-default;
+    }
+    :where(th, td) {
+      @apply sm:px-2.5 sm:py-2;
+    }
+    :where(th) {
+      @apply font-medium;
+      @apply text-slate-500 dark:text-slate-400;
+    }
+    :where(tr) {
+      @apply hover:bg-neutral-200 dark:hover:bg-gray-700;
+    }
+    :where(blockquote) {
+      @apply text-gray-500 dark:text-gray-400;
+      @apply border-slate-500 dark:border-slate-400;
+    }
+    :where(.leader) {
+      @apply mt-6;
+      @apply leading-relaxed;
+    }
+  }
+
+  :where(.snap-start, .snap-center) {
+    scroll-margin-top: var(--navbar-height);
+  }
+}
+
 @layer components {
-  :where(header):has(~ :where(main, [role='main'])) {
+  header:has(~ :where(main, [role='main'])) {
     margin-top: calc(4rem + var(--navbar-height));
     h1 {
       @apply text-theme-header;

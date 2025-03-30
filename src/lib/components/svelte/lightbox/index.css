@@ -1,0 +1,42 @@
+@reference '../../../tailwind/';
+
+/* Thumbnail.svelte */
+:where(.lightbox-thumbnail) > * {
+  @apply h-fit max-w-full;
+}
+
+/* components/Body.svelte */
+:is(.lightbox-body.fullscreen) {
+  @apply h-inherit max-h-inherit w-inherit items-center justify-center;
+}
+:where(.lightbox-body) > * {
+  @apply h-inherit max-h-inherit;
+}
+:where(.lightbox-body) > img {
+  @apply pointer-events-none mx-auto object-contain;
+}
+:where(.lightbox-body.fullscreen) > img {
+  @apply grow;
+}
+:where(.lightbox-body.scrollable) > :not(img) {
+  @apply h-full max-h-full;
+}
+
+/* components/Footer.svelte */
+:is(.lightbox-footer.fullscreen) {
+  @apply fixed bottom-0 left-0 right-0 px-4;
+}
+
+/* components/Header.svelte */
+:is(.lightbox-header.fullscreen) {
+  @apply fixed left-0 right-0 top-0;
+}
+
+/* scroll control
+@supports not (-moz-appearance: none) {
+  body.overflow-y-hidden,
+  body.overflow-y-hidden .overflow--offset {
+    padding-right: var(--scrollbar-size) !important;
+  }
+}
+*/
