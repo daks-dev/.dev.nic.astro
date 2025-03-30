@@ -1,17 +1,41 @@
-index:
-  - image: 2.jpg
+gallery:
+  - image: 0.avif
     caption:
-      title: title yaml 2
-      description: description yaml 2
-  - image: 4.jpg
+      title: title 0
+      subtitle: subtitle 0
+      description: description 0
+  - image: 1.avif
     caption:
-      title: title yaml 4
-      subtitle: subtitle yaml 4
-  - image: 6.jpg
+      title: title 1
+      subtitle: subtitle 1
+      description: description 1
+  - image: 2.avif
     caption:
-      title: title yaml 6
-  - image: 8.jpg
+      title: title 2
+      subtitle: subtitle 2
+      description: description 2
+  - image: 3.avif
     caption:
-      title: title yaml 8
-      subtitle: subtitle yaml 8
-      description: description yaml 8
+      title: title 3
+      subtitle: subtitle 3
+      description: description 3
+  - image: 4.avif
+    caption:
+      title: title 4
+      subtitle: subtitle 4
+      description: description 4
+  - image: 5.avif
+    caption:
+      title: title 5
+      subtitle: subtitle 5
+      description: description 5
+  - image: 6.avif
+    caption:
+      title: title 6
+      subtitle: subtitle 6
+      description: description 6
+  - image: 7.avif
+    caption:
+      title: title 7
+      subtitle: subtitle 7
+      description: description 7

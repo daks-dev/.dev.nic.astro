@@ -1,33 +1,31 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@lib/components/astro';
 
+const collection = await getCollection('feedback');
+
 const title = 'Отзывы';
+const description = 'Отзывы АО НИЦ «Строительная экспертиза»';
 ---
 
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
-  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title}>
-    <Image
-      class:list={[
-        'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
-      ]}
-      src='/assets/icons/astro.svg'
-      width={128}
-      height={128}
-      alt=''
-    />
-  </Header>
+  {description}>
+  <Header {title} />
 
-  <main class='frame mt-16 flex flex-col'>
-    <header>
-      <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
-    </header>
+  <main class='frame mt-4 flex flex-wrap justify-around gap-8'>
+    {
+      collection.map(({ data }) =>
+        data.map(({ image: src }) => (
+          <Image
+            {src}
+            width={256}
+            alt=''
+          />
+        ))
+      )
+    }
   </main>
 </Layout>

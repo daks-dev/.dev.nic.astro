@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@lib/components/astro';
 
-const gallery = await getCollection('gallery');
+const collection = await getCollection('permissions');
 
 const title = 'Допуски';
 ---
@@ -14,9 +14,9 @@ const title = 'Допуски';
   description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
   <Header {title} />
 
-  <main class='frame mt-16 flex flex-wrap justify-around gap-8'>
+  <main class='frame mt-4 flex flex-wrap justify-around gap-8'>
     {
-      gallery.map(({ data }) =>
+      collection.map(({ data }) =>
         data.map(({ image: src }) => (
           <Image
             {src}

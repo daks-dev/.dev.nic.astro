@@ -8,13 +8,13 @@ const projects = defineCollection({
       images: z
         .array(
           z.object({
-            src: image(), // z.preprocess((val) => `${val}`, image()),
+            src: image(),
             alt: z.string().optional()
           })
         )
         .optional(),
-      title: z.string().optional(),
-      description: z.string().optional()
+      title: z.string(),
+      description: z.string()
     })
 });
 
@@ -23,14 +23,62 @@ const gallery = defineCollection({
   schema: ({ image }) =>
     z.array(
       z.object({
-        image: z.preprocess((val) => `./images/${val}`, image()),
+        image: z.preprocess((val) => `./${val}`, image()),
         caption: z.object({
-          title: z.string().optional(),
-          subtitle: z.string().optional(),
+          title: z.string().optional().optional(),
+          subtitle: z.string().optional().optional(),
+          description: z.string().optional().optional()
+        })
+      })
+    )
+});
+
+const feedback = defineCollection({
+  loader: file('src/content/feedback/index.yaml'),
+  schema: ({ image }) =>
+    z.array(
+      z.object({
+        image: z.preprocess((val) => `./${val}`, image()),
+        caption: z.object({
+          title: z.string(),
           description: z.string().optional()
         })
       })
     )
 });
 
-export const collections = { projects, gallery };
+const partners = defineCollection({
+  loader: file('src/content/partners/index.yaml'),
+  schema: ({ image }) =>
+    z.array(
+      z.object({
+        image: z.preprocess((val) => `./${val}`, image()),
+        caption: z.object({
+          title: z.string(),
+          description: z.string().optional()
+        })
+      })
+    )
+});
+
+const permissions = defineCollection({
+  loader: file('src/content/permissions/index.yaml'),
+  schema: ({ image }) =>
+    z.array(
+      z.object({
+        image: z.preprocess((val) => `./${val}`, image()),
+        caption: z.object({
+          title: z.string(),
+          description: z.string().optional()
+        })
+      })
+    )
+});
+
+export const collections = {
+  projects,
+  gallery,
+  feedback,
+  partners,
+  permissions
+};

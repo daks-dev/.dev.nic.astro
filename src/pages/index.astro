@@ -11,7 +11,11 @@ import { Icon } from '@lib/components/astro';
     ]}>
     <Icon
       icon='rocket-launch'
-      class:list={['max-w-3xs h-auto w-full', 'rotate-315']}
+      class:list={[
+        'max-w-3xs h-auto w-full',
+        '-rotate-45',
+        'hover:animation-paused motion-safe:animate-[wiggle_30s_ease-in-out_infinite]'
+      ]}
       gradient={{
         rotate: 45,
         stops: [{ '0%': 'rgb(200 0 0 / .2)' }, { '100%': 'var(--color-amber-500)' }]
