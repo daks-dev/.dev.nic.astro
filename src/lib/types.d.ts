@@ -1,4 +1,5 @@
-/// <reference types="svelte" />
+// <reference types="astro" />
+// <reference types="svelte" />
 
 /*
 type Astro = import('astro').AstroGlobal;
@@ -16,7 +17,7 @@ interface AstroInstance {
 */
 
 declare module '*.astro' {
-  import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+  import type { AstroComponentFactory } from 'astro/runtime/server/index.d.ts';
   export default class Component extends AstroComponentFactory {}
   export const file: string;
   export const url: string | undefined;
@@ -36,32 +37,9 @@ declare type Metadata = Record<string, Meta>;
 
 declare type ClassValue = string | false | 0 | ClassValue[] | null | undefined;
 
-type ImageFormat =
-  | 'heic'
-  | 'heif'
-  | 'avif'
-  | 'jpeg'
-  | 'jpg'
-  | 'png'
-  | 'tiff'
-  | 'webp'
-  | 'gif'
-  | 'svg';
-type ImageQuality = 'low' | 'mid' | 'high' | 'max' | number;
-declare type ImageTransform = {
-  width?: number;
-  height?: number;
-  quality?: ImageQuality;
-  format?: ImageFormat;
-};
-declare interface ImageMetadata {
-  src: string;
-  width: number;
-  height: number;
-  format?: ImageFormat;
-  orientation?: number;
-}
+declare type ImageTransform = Omit<import('astro').ImageTransform, 'src'>;
+
 declare type ImageResult = {
   src: string;
-  attributes: Record<string, any>;
+  attributes?: Metadata;
 };

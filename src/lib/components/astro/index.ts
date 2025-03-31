@@ -24,8 +24,8 @@ export interface NavSite {
   allow?: string[];
 }
 
-export { default as SvelteCarousel } from './bind/SvelteCarousel.astro';
-export { default as SvelteLightbox } from './bind/SvelteLightbox.astro';
+export { default as BindCarousel } from './bind/BindCarousel.astro';
+export { default as BindLightboxData } from './bind/BindLightboxData.astro';
 
 export { default as Figure } from './figure/Figure.astro';
 export { default as Head } from './head/Head.astro';

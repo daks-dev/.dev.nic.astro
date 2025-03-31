@@ -38,6 +38,7 @@
   --color-theme-plain: rgb(0, 0, 0);
   --color-theme-header: var(--color-stone-500);
   --color-theme-link: var(--color-cyan-700);
+  --color-theme-accent: #c561f6;
 
   --navbar-height: 4rem;
 }

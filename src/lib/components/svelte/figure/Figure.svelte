@@ -10,7 +10,7 @@
   export let image: ImageResult;
 
   export let attributes: Metadata = {};
-  attributes = Object.assign(image.attributes, attributes);
+  attributes = Object.assign({}, image.attributes, attributes);
   attributes.itemprop ??= 'image';
   attributes.loading ??= 'lazy';
   attributes.decoding ??= 'async';

@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import { Icon, Link } from '@lib/components/astro';
+import { Link } from '@lib/components/astro';
+import MenuToggle from './MenuToggle.astro';
+import SidebarToggle from './SidebarToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
@@ -13,7 +15,7 @@ import { nav } from '@app/configs/nav';
   id='app-navbar'
   class:list={[
     'fixed inset-x-0 z-50',
-    'h-(--navbar-height) px-6 py-3',
+    'h-(--navbar-height) px-5 py-3',
     'grid grid-cols-[1fr_auto] place-content-center gap-x-3',
     'bp:grid-cols-[1fr_auto_1fr]',
     'bg-theme-inner',
@@ -21,57 +23,35 @@ import { nav } from '@app/configs/nav';
     'border-b border-gray-100 dark:border-gray-900'
   ]}>
   <div class:list={['flex items-center justify-between', 'menu-header']}>
-    <Link
-      class:list={[
-        'group',
-        'flex items-center gap-4',
-        'text-base/tight font-medium',
-        'transition duration-200'
-      ]}
-      href='/'
-      prefetch>
-      <Image
+    <div class='flex items-center gap-4'>
+      <SidebarToggle />
+      <Link
         class:list={[
-          'drop-shadow-2xl',
-          'group-hover:drop-shadow-deep',
-          'animate-[wiggle_20s_ease-in-out_infinite]'
+          'group',
+          'flex items-center gap-4',
+          'text-base/tight font-medium',
+          'transition duration-200'
         ]}
-        src={logo}
-        width={40}
-        height={40}
-        loading='eager'
-        alt='ниц «строительная экспертиза»'
-      />
-      <div class:list={['hidden', 'xs:max-bp:block 2xl:block']}>
-        АО НИЦ <br /> «Строительная Экспертиза»
-      </div>
-    </Link>
-    <menu-button>
-      <template>
-        <button
-          id='app-navbar-menu-toggle'
+        href='/'
+        prefetch>
+        <Image
           class:list={[
-            'relative',
-            'flex p-2',
-            'text-primary-500',
-            'bg-gradient-to-b',
-            'from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900',
-            'rounded-full',
-            'shadow-sm shadow-gray-400 hover:shadow-md dark:shadow-gray-950',
-            'aria-expanded:bg-gradient-to-t',
-            'bp:hidden'
+            'drop-shadow-2xl',
+            'group-hover:drop-shadow-deep',
+            'animate-[wiggle_20s_ease-in-out_infinite]'
           ]}
-          aria-label='menu toggle'
-          aria-expanded='false'
-          aria-controls='app-navbar-menu'>
-          <span class='sr-only'>menu toggle</span>
-          <Icon
-            icon='list'
-            size='1.5rem'
-          />
-        </button>
-      </template>
-    </menu-button>
+          src={logo}
+          width={40}
+          height={40}
+          loading='eager'
+          alt='ниц «строительная экспертиза»'
+        />
+        <div class:list={['hidden', 'xs:max-bp:block 3xl:block']}>
+          АО НИЦ <br /> «Строительная Экспертиза»
+        </div>
+      </Link>
+    </div>
+    <MenuToggle />
   </div>
   <div
     id='app-navbar-menu'
@@ -135,62 +115,12 @@ import { nav } from '@app/configs/nav';
   />
 </nav>
 
-<script>
-  import breakpoint from '@lib/tailwind/resolve';
-
-  class MenuButton extends HTMLElement {
-    media = window.matchMedia(`(min-width: ${breakpoint})`);
-    btn: HTMLButtonElement;
-    menu: HTMLElement;
-
-    constructor() {
-      super();
-      this.appendChild(this.querySelector('template')!.content.cloneNode(true));
-      this.btn = this.querySelector('button')!;
-      this.menu = document.getElementById('app-navbar-menu')!;
-      this.menu.hidden = true;
-      this.check(this.media);
-    }
-
-    connectedCallback() {
-      this.btn.addEventListener('click', () => this.set(this.menu.hidden));
-      this.media.addEventListener('change', this.check);
-      document.addEventListener('click', this.outside);
-    }
-
-    disconnectedCallback() {
-      document.removeEventListener('click', this.outside);
-    }
-
-    set = (x: boolean) => {
-      this.btn.setAttribute('aria-expanded', x ? 'true' : 'false');
-      this.menu.hidden = !x;
-    };
-
-    check = (e: MediaQueryList | MediaQueryListEvent) => {
-      this.set(e.matches);
-      this.btn.hidden = e.matches;
-    };
-
-    outside = (e: Event) => {
-      if (
-        e?.target &&
-        !this.btn.contains(e.target as Node) &&
-        !this.menu.contains(e.target as Node)
-      )
-        this.check(this.media);
-    };
-  }
-
-  customElements.define('menu-button', MenuButton);
-</script>
-
 <style scoped>
   @reference "@styles/global.css";
 
   .inner {
     @apply px-4 py-2;
-    @apply bp:px-3.5 bp:pt-1 bp:pb-1.5;
+    @apply bp:px-3 bp:pt-1 bp:pb-1.5;
     @apply text-theme-plain;
     @apply step:text-theme-header;
     @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;

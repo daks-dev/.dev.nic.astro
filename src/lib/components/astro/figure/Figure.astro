@@ -1,38 +1,44 @@
 ---
-import twMerge from '../../../tailwind/tailwind-merge.js';
+import { twMerge } from '../../../tailwind/tailwind-merge.js';
 import placeholder from '../../../assets/images/placeholder';
 import type { HTMLAttributes } from 'astro/types';
+
+type ImgAttriibutes = Omit<HTMLAttributes<'img'>, 'src' | 'class'>;
 
 type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
   class?: ClassValue;
   custom?: Record<string, ClassValue>;
-  image: ImageResult;
-  attributes?: Metadata;
-  alt: string;
-  caption?: Record<string, string>;
-  native: boolean;
+  image: string | ImageResult;
+  img?: ImgAttriibutes;
+  caption?: Record<string, string | undefined>;
+  alt?: string;
+  native?: true;
 };
 
 const {
   class: className,
   custom = {},
-  image,
-  attributes,
-  alt: a,
-  caption = {},
-  native = true,
+  image: __image,
+  img: __attributes,
+  alt = __attributes?.alt ?? '',
+  caption: __caption = {},
+  native,
   ...props
 } = Astro.props;
 
-const attrs = Object.assign(image.attributes, attributes);
-attrs.itemprop ??= 'image';
-attrs.loading ??= 'lazy';
-attrs.decoding ??= 'async';
+const image = typeof __image === 'string' ? { src: __image } : __image;
+const attributes = Object.assign(
+  {
+    itemprop: 'image',
+    loading: 'lazy',
+    decoding: 'async'
+  },
+  image.attributes,
+  __attributes,
+  { alt }
+);
 
-const alt = a ?? attrs.alt ?? '';
-delete attrs.alt;
-
-const entries = Object.entries(caption);
+const caption = Object.entries(__caption);
 ---
 
 <figure
@@ -40,17 +46,16 @@ const entries = Object.entries(caption);
   {...props}>
   <slot name='before' />
   <img
-    class={twMerge(!native && 'lazy', custom.image)}
+    class={twMerge(!native && 'lazy', custom.img)}
     src={native ? image.src : placeholder}
     data-src={native ? undefined : image.src}
-    {...attrs}
-    {alt}
+    {...attributes}
   />
   <slot>
     {
-      entries.length && (
+      caption.length && (
         <figcaption class={twMerge('flex flex-col', custom.caption)}>
-          {entries.map(([key, val]) =>
+          {caption.map(([key, val]) =>
             key === 'title' ? (
               <span
                 class={twMerge('font-semibold', custom[key])}

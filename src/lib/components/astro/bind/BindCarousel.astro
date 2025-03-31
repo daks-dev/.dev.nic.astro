@@ -5,7 +5,7 @@ import type { ImageCollection } from '.';
 
 type Props = {
   data: ImageCollection | ImageCollection[];
-  transform: ImageTransform;
+  transform: Metadata;
   filter?: string[];
   client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
 } & Record<string, unknown>;
