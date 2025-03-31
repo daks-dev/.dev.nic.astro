@@ -2,19 +2,90 @@ import { defineCollection, z } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: 'src/content/projects' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/projects' }),
   schema: ({ image }) =>
     z.object({
+      title: z.string().nonempty(),
+      description: z.string().optional(),
+      address: z.string().nonempty(),
+      location: z.string().nonempty(),
+      area: z.number().int().positive().optional(),
+      area_term: z.string().optional(),
+      area_unit: z.string().optional(),
+      units: z.number().int().positive().optional(),
+      units_term: z.string().optional(),
+      scope: z.string().optional(),
+      scope_term: z.string().optional(),
+      activities: z.array(z.string()).optional(),
       images: z
         .array(
           z.object({
             src: image(),
-            alt: z.string().optional()
+            alt: z.string().optional().default('')
           })
         )
         .optional(),
-      title: z.string(),
-      description: z.string()
+      customer: z
+        .number()
+        .transform((x) => x.toFixed().padStart(3, '0'))
+        .optional(),
+      priority: z.number().int().min(0).max(9).optional().default(0),
+      hidden: z.boolean().optional().default(false)
+    })
+});
+
+const partners = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/partners' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().nonempty(),
+      telephone: z.string().optional(),
+      email: z.string().email().optional(),
+      url: z.string().url().optional(),
+      address: z.string().optional(),
+      image: z.object({
+        src: image(),
+        alt: z.string().optional().default('')
+      }),
+      center: z.string().optional(),
+      zoom: z.number().positive().optional().default(10),
+      priority: z.number().int().min(0).max(9).optional().default(0),
+      hidden: z.boolean().optional().default(false)
+    })
+});
+
+const articles = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/articles' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().nonempty(),
+      description: z.string().nonempty(),
+      publishDate: z.string().transform((x) => new Date(x)),
+      images: z
+        .array(
+          z.object({
+            src: image(),
+            alt: z.string().optional().default('')
+          })
+        )
+        .optional()
+    })
+});
+
+const news = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/news' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().nonempty(),
+      description: z.string().nonempty(),
+      images: z
+        .array(
+          z.object({
+            src: image(),
+            alt: z.string().optional().default('')
+          })
+        )
+        .optional()
     })
 });
 
@@ -47,20 +118,6 @@ const feedback = defineCollection({
     )
 });
 
-const partners = defineCollection({
-  loader: file('src/content/partners/index.yaml'),
-  schema: ({ image }) =>
-    z.array(
-      z.object({
-        image: z.preprocess((val) => `./${val}`, image()),
-        caption: z.object({
-          title: z.string(),
-          description: z.string().optional()
-        })
-      })
-    )
-});
-
 const permissions = defineCollection({
   loader: file('src/content/permissions/index.yaml'),
   schema: ({ image }) =>
@@ -77,8 +134,10 @@ const permissions = defineCollection({
 
 export const collections = {
   projects,
-  gallery,
-  feedback,
   partners,
-  permissions
+  permissions,
+  feedback,
+  articles,
+  news,
+  gallery
 };

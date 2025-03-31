@@ -12,25 +12,33 @@ const title = 'Проекты';
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title} />
+  <Header
+    class='mb-4'
+    {title}
+  />
 
-  <main class='frame readable mt-4 flex flex-wrap justify-around gap-8'>
+  <main class='frame justify-center'>
+    <div class='grid grid-cols-[auto_1fr] items-center gap-8 w-max'>
     {
-      gallery.map(({ data: { images, title, description } }) => (
-        <div class='flex flex-col items-center gap-8'>
-          <p class='leader'>{title}</p>
-          <p>{description}</p>
-          {images?.map(({ src, alt = '' }) => (
+      gallery.map(({ id, data: { images, title, description } }) => (
+        <div>
+          <small>{id}</small>
+          <div class='font-semibold'>{title}</div>
+          <div>{description}</div>
+        </div>
+        <div class="flex gap-8">
+        {images?.map(({ src, alt = '' }) => (
             <Image
               class:list={['aspect-square rounded-full', 'drop-shadow-deep']}
               {src}
-              width={176}
-              height={176}
+              width={128}
+              height={128}
               {alt}
             />
           ))}
         </div>
       ))
     }
-  </main>
+        </div>
+      </main>
 </Layout>

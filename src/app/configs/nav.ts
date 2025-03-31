@@ -104,16 +104,21 @@ export const nav: NavSite = {
     {
       href: '/partners',
       label: 'Партнёры',
-      class: 'bp:max-xl:hidden'
+      class: 'bp:max-lg:hidden'
     },
     {
       href: '/feedback',
       label: 'Отзывы'
     },
     {
+      href: '/articles',
+      label: 'Инфрмация',
+      class: 'bp:max-3xl:hidden'
+    },
+    {
       href: '/news',
       label: 'Новости',
-      class: 'bp:max-lg:hidden'
+      class: 'bp:max-xl:hidden'
     },
     {
       href: '/contacts',

@@ -39,7 +39,7 @@
   --color-theme-header: var(--color-stone-500);
   --color-theme-link: var(--color-cyan-700);
 
-  --navbar-height: 4.5rem;
+  --navbar-height: 4rem;
 }
 
 :root.theme-dark {
@@ -112,7 +112,7 @@
 }
 
 @utility placeholders {
-  @apply text-primary-600 dark:text-primary-400;
+  @apply text-gray-500 dark:text-gray-400;
 }
 
 @import '@lib/tailwind/css/readable.css';

@@ -14,7 +14,7 @@ import { nav } from '@app/configs/nav';
   class:list={[
     'fixed inset-x-0 z-50',
     'h-(--navbar-height) px-6 py-3',
-    'grid grid-cols-[1fr_auto] place-content-center gap-4',
+    'grid grid-cols-[1fr_auto] place-content-center gap-x-3',
     'bp:grid-cols-[1fr_auto_1fr]',
     'bg-theme-inner',
     'onscroll:shadow-md shadow-sm shadow-gray-300 dark:shadow-gray-950',
@@ -42,7 +42,7 @@ import { nav } from '@app/configs/nav';
         loading='eager'
         alt='ниц «строительная экспертиза»'
       />
-      <div class:list={['hidden', 'md:max-bp:block 2xl:block']}>
+      <div class:list={['hidden', 'xs:max-bp:block 2xl:block']}>
         АО НИЦ <br /> «Строительная Экспертиза»
       </div>
     </Link>
@@ -80,19 +80,21 @@ import { nav } from '@app/configs/nav';
     hidden>
     <menu
       class:list={[
-        'bp:relative bp:px-2 bp:py-1.5',
-        'bp:gap-4 flex list-none flex-col',
-        'bp:flex-row',
+        'bp:py-1.5 relative',
+        'flex flex-col',
+        'bp:flex-row bp:gap-x-3',
         'text-lg font-normal',
         'bp:text-base',
         'max-bp:bg-theme-inner'
       ]}>
       {
         nav.navbar.map(({ class: className, ...props }) => (
-          <Link
-            class:list={['inner', className]}
-            {...props}
-          />
+          <li class:list={['relative flex flex-col', className]}>
+            <Link
+              class:list='inner'
+              {...props}
+            />
+          </li>
         ))
       }
     </menu>
@@ -192,7 +194,7 @@ import { nav } from '@app/configs/nav';
     @apply text-theme-plain;
     @apply step:text-theme-header;
     @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;
-    @apply hover:bg-primary-300 dark:hover:bg-primary-400 hover:text-theme-link;
+    @apply hover:bg-primary-300 dark:hover:bg-primary-500 hover:text-primary-900 dark:hover:text-primary-200;
     @apply bp:border bp:rounded-full border-transparent;
     @apply bp:ready:transition-colors bp:ready:duration-200;
     @apply forced-colors:text-selected;

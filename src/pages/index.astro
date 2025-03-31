@@ -1,6 +1,6 @@
 ---
 import Layout from '@layouts/Base.astro';
-import { Icon, TestimonialPlaceholder, Video } from '@lib/components/astro';
+import { Icon, Video } from '@lib/components/astro';
 
 import microdata from '@app/configs/microdata';
 const { email, telephone, address } = microdata.organization;
@@ -135,14 +135,11 @@ const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
         <li>выполнение строительного контроля при возведении памятника П.А. Столыпину.</li>
       </ul>
 
-      <div class='placeholders mx-auto max-w-3xl'>
-        <p class='text-accent mb-8 text-center text-sm'>
-          <span class='text-xl font-bold'>&#10004;</span> Любая информация, представленная на данном
-          сайте, носит исключительно информационный характер и ни при каких условиях не является публичной
-          офертой, определяемой положениями статьи 437 ГК РФ.
-        </p>
-        <TestimonialPlaceholder />
-      </div>
+      <p class='text-theme-header accent text-center text-sm'>
+        <span class='text-xl font-bold'>&#10004;</span> Любая информация, представленная на данном сайте,
+        носит исключительно информационный характер и ни при каких условиях не является публичной офертой,
+        определяемой положениями статьи 437 ГК РФ.
+      </p>
     </div>
   </main>
 </Layout>

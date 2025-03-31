@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@lib/components/astro';
@@ -13,25 +12,19 @@ const description = 'Партнёры АО НИЦ «Строительная э�
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   {description}>
-  <Header {title} />
+  <Header
+    class='mb-4'
+    {title}
+  />
 
-  <main class='frame mt-4 flex flex-wrap justify-around gap-8'>
+  <main class='frame flex flex-col gap-8'>
     {
-      collection.map(({ data }) =>
-        data.map(({ image: src }) => (
-          <div>
-            <Image
-              class:list={[
-                'border border-gray-50 dark:border-none',
-                'shadow-sm shadow-gray-400 dark:shadow-gray-950'
-              ]}
-              {src}
-              width={320}
-              alt=''
-            />
-          </div>
-        ))
-      )
+      collection.map(({ id, data: { title } }) => (
+        <div>
+          <small>{id}</small>
+          <div class='leader'>{title}</div>
+        </div>
+      ))
     }
   </main>
 </Layout>
