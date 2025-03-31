@@ -1,4 +1,4 @@
-@reference '../../../tailwind/';
+@reference '../../../tailwind';
 
 /* Thumbnail.svelte */
 :where(.lightbox-thumbnail) > * {

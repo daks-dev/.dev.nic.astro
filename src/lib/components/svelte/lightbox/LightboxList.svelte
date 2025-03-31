@@ -1,33 +1,35 @@
 <script lang="ts">
   import { onMount, setContext } from 'svelte';
-  import { writable, type Writable } from 'svelte/store';
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
-  import Overlay from './components/Overlay.svelte';
-  import Header from './components/Header.svelte';
-  import Footer from './components/Footer.svelte';
-  import Body from './components/Body.svelte';
-  import Controller from './components/Controller.svelte';
-  import type { Options, Custom, Item, Loader } from '.';
+  import Overlay from './inc/Overlay.svelte';
+  import Header from './inc/Header.svelte';
+  import Footer from './inc/Footer.svelte';
+  import Body from './inc/Body.svelte';
+  import Controller from './inc/Controller.svelte';
+  import type { Item } from './index.d.ts';
 
   import './index.css';
 
-  // Lightbox
-  let className: ClassValue = undefined;
-  export { className as class };
+  import type { SvelteHTMLElements } from 'svelte/elements';
+  import type { LightboxAttributes } from './index.d.ts';
+  type Props = Omit<SvelteHTMLElements['div'], 'class' | 'title'> & LightboxAttributes;
+  const {
+    tag = 'div',
+    children,
+    class: className,
+    custom = {},
+    options: __options = {},
+    title,
+    subtitle,
+    description,
+    fullscreen: __fullscreen = false,
+    scrollable = false,
+    loader,
+    thumbnail,
+    ...rest
+  }: Props = $props();
 
-  export let custom: Partial<Custom> = {};
-
-  export let tag = 'div';
-
-  export let title = '';
-  export let subtitle = '';
-  export let description = '';
-
-  export let fullscreen = false;
-  export let scrollable = false;
-
-  export let options: Partial<Options> = {};
-  options = Object.assign(
+  const options = Object.assign(
     {
       behaviour: '',
       swipe: true,
@@ -37,45 +39,62 @@
       buttonFullscreen: true,
       enableKeyboard: true,
       bodyScroll: false,
-      duration: 300
+      duration: 200
     },
-    options
+    __options
   );
+  if (scrollable) {
+    options.buttonFullscreen = false;
+    options.wheel = false;
+  }
 
-  export let loader: Loader = undefined;
+  let fullscreen = $state(scrollable ? false : __fullscreen);
 
-  if (scrollable) fullscreen = options.buttonFullscreen = options.wheel = false;
+  let visible = $state(false);
 
-  // LightboxList
-  let activeItem = 0;
-  export { activeItem as active };
+  let items = $state<Item[]>([]);
+  let countItems = $derived(items.length);
+  let activeItem = $state(0);
+  let status = $derived({ countItems, activeItem });
 
-  //
-  $: fullscreen;
+  setContext('activeItem', () => activeItem);
+  setContext('counterItems', (item: Item) => {
+    item.id = items.length;
+    items = [...items, item];
+    return items.length - 1;
+  });
 
-  let controller: Controller;
-  let visible = false;
-  let items: Item[] = [];
-  let countThumbnails = 0;
+  let countThumbnails = $state(0);
+  setContext('counterThumbnails', () => countThumbnails++);
+
+  setContext('openImage', openImage);
+
+  let activeItemTitle = $derived(items[activeItem]?.title || title);
+  let activeItemSubTitle = $derived(items[activeItem]?.subtitle || subtitle);
+  let activeItemDescription = $derived(items[activeItem]?.description || description);
+
+  $effect(() => {
+    if (!visible) items = [];
+  });
 
   let toggleScroll: () => void;
 
-  export function toggle(): void {
+  function toggle(): void {
     visible = !visible;
     toggleScroll();
   }
 
-  export function open(): void {
+  function open(): void {
     visible = true;
     toggleScroll();
   }
 
-  export function close(): void {
+  function close(): void {
     visible = false;
     toggleScroll();
   }
 
-  export function openImage(id: number): void {
+  function openImage(id: number): void {
     open();
     activeItem = id;
   }
@@ -83,31 +102,6 @@
   function toogleFullscreen(): void {
     fullscreen = !fullscreen;
   }
-
-  function keepOrEmptyImageList(visible: boolean): void {
-    if (!visible) items = [];
-  }
-  $: keepOrEmptyImageList(visible);
-
-  const countItemsStore: Writable<number> = writable(items.length);
-  const activeItemStore: Writable<number> = writable(activeItem);
-  $: activeItemStore.set(activeItem);
-
-  $: status = { countItems: $countItemsStore, activeItem: $activeItemStore };
-
-  setContext('activeItem', activeItemStore);
-  setContext('counterItems', (item: Item) => {
-    item.id = items.length;
-    items = [...items, item];
-    $countItemsStore = items.length;
-    return $countItemsStore - 1;
-  });
-  setContext('counterThumbnails', () => countThumbnails++);
-  setContext('openImage', openImage);
-
-  $: activeItemTitle = items[$activeItemStore]?.title || title || '';
-  $: activeItemSubTitle = items[$activeItemStore]?.subtitle || subtitle || '';
-  $: activeItemDescription = items[$activeItemStore]?.description || description || '';
 
   onMount(() => {
     loader?.call(null);
@@ -120,40 +114,37 @@
   });
 </script>
 
-{#if $$slots.thumbnail}
+{#if thumbnail}
   <svelte:element
     this={tag}
-    class={twMerge(className)}>
-    <slot
-      name="thumbnail"
-      {custom} />
+    class={twMerge(className)}
+    {...rest}>
+    {@render thumbnail()}
   </svelte:element>
 {/if}
 
 {#if visible}
   <Overlay
-    on:close={close}
-    on:previous={controller.previous}
-    on:next={controller.next}
+    {close}
     {custom}
     {fullscreen}
     {options}>
     <Header
-      on:close={close}
-      on:fullscreen={toogleFullscreen}
+      {close}
+      {toogleFullscreen}
       {custom}
       {fullscreen}
       {options} />
     <Controller
-      bind:this={controller}
-      {options}
-      {countItemsStore}
-      {activeItemStore}>
+      bind:activeItem
+      bind:countItems
+      {options}>
       <Body
         {fullscreen}
         {scrollable}
-        {options}>
-        <slot />
+        {options}
+        {status}>
+        {@render children?.()}
       </Body>
     </Controller>
     <Footer

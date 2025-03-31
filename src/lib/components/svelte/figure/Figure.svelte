@@ -1,59 +1,84 @@
 <script lang="ts">
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
-  import placeholder from '../../../assets/images/placeholder';
+  import placeholder from '../../../assets/images/placeholder.js';
+  import type { SvelteHTMLElements } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
-  let className: ClassValue = undefined;
-  export { className as class };
+  type ImgAttriibutes = Omit<SvelteHTMLElements['img'], 'src' | 'class'>;
 
-  export let custom: Record<string, ClassValue> = {};
+  type Props = Omit<SvelteHTMLElements['figure'], 'class'> & {
+    image: string | ImageResult;
+    img?: ImgAttriibutes;
+    caption?: Record<string, string | undefined>;
+    class?: ClassValue;
+    custom?: Record<string, ClassValue>;
+    alt?: string;
+    native?: boolean;
+    loaded?: (x?: Event | HTMLElement) => void;
+    before?: Snippet;
+    after?: Snippet;
+  };
+  const {
+    children,
+    image: __image,
+    img,
+    caption: __caption = {},
+    class: className,
+    alt = img?.alt ?? '',
+    custom = {},
+    native = false,
+    loaded,
+    before,
+    after,
+    ...rest
+  }: Props = $props();
 
-  export let image: ImageResult;
+  const image = typeof __image === 'string' ? { src: __image } : __image;
+  const attributes = Object.assign(
+    {
+      itemprop: 'image',
+      loading: 'lazy',
+      decoding: 'async'
+    },
+    image.attributes,
+    img,
+    { alt }
+  );
 
-  export let attributes: Metadata = {};
-  attributes = Object.assign({}, image.attributes, attributes);
-  attributes.itemprop ??= 'image';
-  attributes.loading ??= 'lazy';
-  attributes.decoding ??= 'async';
-
-  export let caption: Record<string, string> = {};
-  const entries = Object.entries(caption);
-
-  export let alt = attributes.alt?.toString() || '';
-  delete attributes.alt;
-
-  export let native = true;
-
-  export let loaded: ((x?: Event | HTMLElement) => void) | undefined = undefined;
-  const handle = native && loaded ? (ev: Event) => loaded?.call(ev) : undefined;
+  const caption = Object.entries(__caption);
+  const handleLoad = native && loaded ? (x: Event) => loaded?.call(x) : undefined;
 </script>
 
 <figure
   class={twMerge('relative flex flex-col', className)}
-  {...$$restProps}>
-  <slot name="before" />
+  {...rest}>
+  {#if before}
+    {@render before()}
+  {/if}
   <img
-    on:load={handle}
+    onload={handleLoad}
     class={twMerge(!native && 'lazy', custom.image)}
     src={native ? image.src : placeholder}
     data-src={native ? undefined : image.src}
-    {...attributes}
-    {alt} />
-  <slot>
-    {#if entries.length}
-      <figcaption class={twMerge('flex flex-col', custom.caption)}>
-        {#each entries as [key, val]}
-          {#if val}
-            {#if key === 'title'}
-              <span class={twMerge('font-semibold', custom[key])}>{@html val}</span>
-            {:else if key === 'description'}
-              <small class={twMerge(custom[key])}>{@html val}</small>
-            {:else}
-              <span class={twMerge(custom[key])}>{@html val}</span>
-            {/if}
+    {...attributes} />
+  {#if children}
+    {@render children()}
+  {:else if caption.length}
+    <figcaption class={twMerge('flex flex-col', custom.caption)}>
+      {#each caption as [key, val]}
+        {#if val}
+          {#if key === 'title'}
+            <span class={twMerge('order-first font-semibold', custom[key])}>{@html val}</span>
+          {:else if key === 'description'}
+            <small class={twMerge('order-last', custom[key])}>{@html val}</small>
+          {:else}
+            <span class={twMerge(custom[key])}>{@html val}</span>
           {/if}
-        {/each}
-      </figcaption>
-    {/if}
-  </slot>
-  <slot name="after" />
+        {/if}
+      {/each}
+    </figcaption>
+  {/if}
+  {#if after}
+    {@render after()}
+  {/if}
 </figure>

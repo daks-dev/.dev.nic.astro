@@ -36,11 +36,14 @@
 @layer utilities {
   /* LazyLoad */
   :where(img) {
-    &:where(:not([src], [srcset])) {
+    &:where(:not([src]):not([srcset])) {
       @apply invisible;
     }
-    &:where(.lazy-loaded) {
-      @apply bg-transparent bg-none;
+    &:where(.lazy-loading) {
+      @apply bg-neutral-300;
     }
+    /*&:where(.lazy-loaded) {
+       @apply bg-transparent bg-none;
+    }*/
   }
 }

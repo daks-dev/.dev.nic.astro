@@ -1,53 +1,51 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
-  import Overlay from './components/Overlay.svelte';
-  import Header from './components/Header.svelte';
-  import Footer from './components/Footer.svelte';
-  import Body from './components/Body.svelte';
-  import type { Options, Custom, Loader } from '.';
+  import { onMount } from 'svelte';
+  import Overlay from './inc/Overlay.svelte';
+  import Header from './inc/Header.svelte';
+  import Footer from './inc/Footer.svelte';
+  import Body from './inc/Body.svelte';
 
   import './index.css';
 
-  let className: ClassValue = undefined;
-  export { className as class };
+  import type { SvelteHTMLElements } from 'svelte/elements';
+  import type { LightboxAttributes } from './index.d.ts';
+  type Props = Omit<SvelteHTMLElements['div'], 'class' | 'title'> & LightboxAttributes;
+  const {
+    tag = 'div',
+    children,
+    class: className,
+    custom = {},
+    options: __options = {},
+    title,
+    subtitle,
+    description,
+    fullscreen: __fullscreen = false,
+    scrollable = false,
+    loader,
+    thumbnail,
+    ...rest
+  }: Props = $props();
 
-  export let custom: Partial<Custom> = {};
-
-  export let tag = 'div';
-
-  export let title = '';
-  export let subtitle = '';
-  export let description = '';
-
-  export let fullscreen = false;
-  export let scrollable = false;
-
-  export let options: Partial<Options> = {};
-  options = Object.assign(
+  const options = Object.assign(
     {
       clickableClose: true,
       buttonClose: true,
       buttonFullscreen: true,
       enableKeyboard: true,
       bodyScroll: false,
-      duration: 300
+      duration: 200
     },
-    options,
+    __options,
     {
       swipe: false,
       wheel: false
     }
   );
+  if (scrollable) options.buttonFullscreen = false;
 
-  export let loader: Loader = undefined;
-
-  if (scrollable) fullscreen = options.buttonFullscreen = false;
-
-  //
-  $: fullscreen;
-
-  let visible = false;
+  let fullscreen = $state(scrollable ? false : __fullscreen);
+  let visible = $state(false);
 
   let toggleScroll: () => void;
 
@@ -66,9 +64,7 @@
   }
 
   onMount(() => {
-    loader?.call(null);
-    //window.getComputedStyle(document.body).overflowY
-    //window.innerWidth - document.documentElement.clientWidth
+    loader?.();
     if (!options.bodyScroll || scrollable) {
       toggleScroll = () => {
         if (visible) document.body.classList.add('overflow-y-hidden');
@@ -78,29 +74,27 @@
   });
 </script>
 
-{#if $$slots.thumbnail}
+{#if thumbnail}
   <svelte:element
     this={tag}
-    on:keypress
-    on:click={open}
+    onclick={open}
     class={twMerge('hover:cursor-zoom-in', className)}
     role="button"
-    tabindex="-1">
-    <slot
-      name="thumbnail"
-      {custom} />
+    tabindex="-1"
+    {...rest}>
+    {@render thumbnail()}
   </svelte:element>
 {/if}
 
 {#if visible}
   <Overlay
-    on:close={close}
+    {close}
     {custom}
     {fullscreen}
     {options}>
     <Header
-      on:close={close}
-      on:fullscreen={toogleFullscreen}
+      {close}
+      {toogleFullscreen}
       {custom}
       {fullscreen}
       {options} />
@@ -108,7 +102,7 @@
       {fullscreen}
       {scrollable}
       {options}>
-      <slot />
+      {@render children?.()}
     </Body>
     <Footer
       {custom}

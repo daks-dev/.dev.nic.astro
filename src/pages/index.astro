@@ -1,11 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Icon, Video } from '@lib/components/astro';
+import { Icon, Video, BindCarousel } from '@lib/components/astro';
 
 import microdata from '@app/configs/microdata';
 const { email, telephone, address } = microdata.organization;
-
 const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
+
+const gallery = await getCollection('gallery');
 ---
 
 <Layout class='gap-8'>
@@ -109,6 +111,22 @@ const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
         <li>Судебная экспертиза.</li>
       </ul>
     </div>
+
+    <BindCarousel
+      class='mb-16 mt-8 h-48 md:h-64 lg:h-48'
+      custom={{
+        inner: { caption: 'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-sm' }
+      }}
+      appear={300}
+      native
+      stream
+      data={gallery}
+      transform={{
+        width: 288,
+        quality: 80
+      }}
+      filter={['title']}
+    />
 
     <div class='frame readable mb-8'>
       <p class='leader'>

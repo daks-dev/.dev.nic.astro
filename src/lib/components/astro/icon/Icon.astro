@@ -1,24 +1,8 @@
 ---
 import { twMerge } from '../../../tailwind/tailwind-merge.js';
 import bundle from './index.js';
+import type { IconAttributes as Props } from './index.d.ts';
 
-import type { HTMLAttributes } from 'astro/types';
-interface Props extends Omit<HTMLAttributes<'svg'>, 'class'> {
-  icon: string;
-  class?: ClassValue;
-  size?: number | string;
-  gradient?: {
-    rotate?: number;
-    stops: Record<
-      string,
-      | string
-      | {
-          color: string;
-          opacity?: number;
-        }
-    >[];
-  };
-}
 const {
   icon,
   class: className,
@@ -28,7 +12,7 @@ const {
   height = size,
   gradient,
   ...props
-} = Astro.props;
+}: Props = Astro.props;
 
 const { body, viewBox = '0 0 256 256' } = bundle[icon];
 

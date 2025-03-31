@@ -1,20 +1,24 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import type { Writable } from 'svelte/store';
+  import type { Snippet } from 'svelte';
 
-  export let title: string | undefined = undefined;
-  export let subtitle: string | undefined = undefined;
-  export let description: string | undefined = undefined;
+  type Props = {
+    children?: Snippet;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+  };
+  const { children, title, subtitle, description }: Props = $props();
 
-  const activeItemStore: Writable<number> = getContext('activeItem');
+  let activeItem = $derived(getContext<() => number>('activeItem')());
 
-  const id = getContext<(x: Record<string, string | undefined>) => number>('counterItems')({
+  const idx = getContext<(x: Record<string, string | undefined>) => number>('counterItems')({
     title,
     subtitle,
     description
   });
 </script>
 
-{#if $activeItemStore === id}
-  <slot {...$$restProps} />
+{#if activeItem === idx}
+  {@render children?.()}
 {/if}

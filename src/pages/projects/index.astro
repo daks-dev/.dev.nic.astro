@@ -10,7 +10,7 @@ const placeholder = await getImage({ src: logo, width: 256 });
 const collection = await getCollection('projects');
 
 const gallery = await Promise.all(
-  collection.map(async ({ id: uuid, data: { images, title, description } }) => {
+  collection.map(async ({ id, data: { images, title, description } }) => {
     const image = images?.length
       ? await getImage({
           src: images[0].src,
@@ -20,9 +20,9 @@ const gallery = await Promise.all(
         })
       : placeholder;
     return {
+      id,
       image,
       caption: {
-        uuid,
         title,
         description
       }
@@ -41,14 +41,16 @@ const title = 'Проекты';
     {title}
   />
 
-  <main class='frame justify-center'>
+  <main class='frame'>
     <div class='grid w-max grid-cols-[auto_1fr] items-center gap-8'>
       {
-        gallery.map(({ image, caption }) => (
-          <Figure
-            {image}
-            {caption}
-          />
+        gallery.map(({ id, image, caption }) => (
+          <a href={`/projects/${id}`}>
+            <Figure
+              {image}
+              {caption}
+            />
+          </a>
         ))
       }
     </div>

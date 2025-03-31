@@ -95,11 +95,14 @@ const gallery = defineCollection({
     z.array(
       z.object({
         image: z.preprocess((val) => `./${val}`, image()),
-        caption: z.object({
-          title: z.string().optional().optional(),
-          subtitle: z.string().optional().optional(),
-          description: z.string().optional().optional()
-        })
+        caption: z
+          .object({
+            title: z.string().optional().optional(),
+            subtitle: z.string().optional().optional(),
+            description: z.string().optional().optional()
+          })
+          .optional()
+          .default({})
       })
     )
 });
@@ -110,10 +113,13 @@ const feedback = defineCollection({
     z.array(
       z.object({
         image: z.preprocess((val) => `./${val}`, image()),
-        caption: z.object({
-          title: z.string(),
-          description: z.string().optional()
-        })
+        caption: z
+          .object({
+            title: z.string().optional(),
+            description: z.string().optional()
+          })
+          .optional()
+          .default({})
       })
     )
 });
@@ -124,10 +130,13 @@ const permissions = defineCollection({
     z.array(
       z.object({
         image: z.preprocess((val) => `./${val}`, image()),
-        caption: z.object({
-          title: z.string(),
-          description: z.string().optional()
-        })
+        caption: z
+          .object({
+            title: z.string().optional(),
+            description: z.string().optional()
+          })
+          .optional()
+          .default({})
       })
     )
 });

@@ -1,8 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/components/astro';
+import { Header, BindLightboxData } from '@lib/components/astro';
 
 const collection = await getCollection('feedback');
 
@@ -15,21 +14,32 @@ const description = 'Отзывы АО НИЦ «Строительная экс�
   {description}>
   <Header {title} />
 
-  <main class='frame mt-4 flex flex-wrap justify-around gap-8'>
+  <main class='frame'>
     {
-      collection.map(({ data }) =>
-        data.map(({ image: src }) => (
-          <Image
-            class:list={[
-              'border border-gray-50 dark:border-none',
-              'shadow-sm shadow-gray-400 dark:shadow-gray-950'
-            ]}
-            {src}
-            width={256}
-            alt=''
-          />
-        ))
-      )
+      collection.map((data) => (
+        <BindLightboxData
+          class='flex w-full flex-wrap justify-center gap-8'
+          custom={{
+            inner: {
+              image: 'w-48',
+              caption: 'mt-2 text-sm',
+              title: 'text-slate-700 dark:text-slate-400'
+            }
+          }}
+          options={{ behaviour: 'loop' }}
+          {data}
+          transform={{
+            thumb: {
+              width: 288,
+              quality: 80
+            },
+            modal: {
+              width: 800,
+              quality: 80
+            }
+          }}
+        />
+      ))
     }
   </main>
 </Layout>

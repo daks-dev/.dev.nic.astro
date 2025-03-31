@@ -6,22 +6,22 @@ import type { HTMLAttributes } from 'astro/types';
 type ImgAttriibutes = Omit<HTMLAttributes<'img'>, 'src' | 'class'>;
 
 type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
-  class?: ClassValue;
-  custom?: Record<string, ClassValue>;
   image: string | ImageResult;
   img?: ImgAttriibutes;
   caption?: Record<string, string | undefined>;
+  class?: ClassValue;
+  custom?: Record<string, ClassValue>;
   alt?: string;
   native?: true;
 };
 
 const {
+  image: __image,
+  img,
+  caption: __caption = {},
   class: className,
   custom = {},
-  image: __image,
-  img: __attributes,
-  alt = __attributes?.alt ?? '',
-  caption: __caption = {},
+  alt = img?.alt ?? '',
   native,
   ...props
 } = Astro.props;
@@ -34,7 +34,7 @@ const attributes = Object.assign(
     decoding: 'async'
   },
   image.attributes,
-  __attributes,
+  img,
   { alt }
 );
 
@@ -58,12 +58,12 @@ const caption = Object.entries(__caption);
           {caption.map(([key, val]) =>
             key === 'title' ? (
               <span
-                class={twMerge('font-semibold', custom[key])}
+                class={twMerge('order-first font-semibold', custom[key])}
                 set:html={val}
               />
             ) : key === 'description' ? (
               <small
-                class={twMerge(custom[key])}
+                class={twMerge('order-last', custom[key])}
                 set:html={val}
               />
             ) : (

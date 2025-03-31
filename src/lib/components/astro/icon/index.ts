@@ -1,3 +1,5 @@
+import type { HTMLAttributes } from 'astro/types';
+
 type IconItem = {
   body?: string;
   stroke?: string | null;
@@ -22,5 +24,22 @@ const bundle = Object.entries(
     };
   return acc;
 }, {});
+
+export type IconAttributes = Omit<HTMLAttributes<'svg'>, 'class'> & {
+  icon: string;
+  class?: ClassValue;
+  size?: number | string;
+  gradient?: {
+    rotate?: number;
+    stops: Record<
+      string,
+      | string
+      | {
+          color: string;
+          opacity?: number;
+        }
+    >[];
+  };
+};
 
 export default bundle;

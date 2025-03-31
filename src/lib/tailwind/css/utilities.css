@@ -67,10 +67,10 @@
   }
 }
 @utility bg--loading {
-  background-image: url(@daks.dev/svelte.sdk/icons/spinners/90-ring-bg.svg);
+  background-image: url(@assets/icons/spinners/90-ring-bg.svg);
 }
 @utility bg--waiting {
-  background-image: url(@daks.dev/svelte.sdk/icons/spinners/clock.svg);
+  background-image: url(@assets/icons/spinners/clock.svg);
 }
 
 @utility clear-pseudo {

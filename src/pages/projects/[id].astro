@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '@layouts/Base.astro';
+import { Header } from '@lib/components/astro';
+
+export async function getStaticPaths() {
+  const collection = await getCollection('projects');
+  return collection.map((project) => {
+    return {
+      params: { id: project.id },
+      props: { project }
+    };
+  });
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const { title, description } = project.data;
+---
+
+<Layout
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={description}>
+  <Header
+    class='mb-4'
+    {title}
+  />
+
+  <main class='frame'>
+    <hr class='mb-16' />
+    <div class='readable'>
+      <Content />
+    </div>
+    <hr class='my-16' />
+  </main>
+</Layout>

@@ -1,29 +1,45 @@
-export interface Options {
-  behaviour: 'loop' | 'hide';
-  swipe: boolean;
-  wheel: boolean;
-  clickableClose: boolean;
-  buttonClose: boolean;
-  buttonFullscreen: boolean;
-  enableKeyboard: boolean;
-  bodyScroll: boolean;
-  duration: number;
-}
+import type { Snippet } from 'svelte';
 
-export type Custom = {
-  overlay: ClassValue;
-  header: ClassValue;
-  footer: ClassValue;
-  item: ClassValue;
-  inner: Record<string, ClassValue>;
+export type Options = {
+  behaviour?: 'loop' | 'hide';
+  swipe?: boolean;
+  wheel?: boolean;
+  clickableClose?: boolean;
+  buttonClose?: boolean;
+  buttonFullscreen?: boolean;
+  enableKeyboard?: boolean;
+  bodyScroll?: boolean;
+  duration?: number;
 };
 
-export interface Item {
+export type Custom = {
+  overlay?: ClassValue;
+  header?: ClassValue;
+  footer?: ClassValue;
+  item?: ClassValue;
+  inner?: Record<string, ClassValue>;
+};
+
+export type LightboxAttributes = {
+  tag?: 'div' | 'aside' | 'section';
+  class?: ClassValue;
+  custom?: Custom;
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  options?: Options;
+  fullscreen?: boolean;
+  scrollable?: boolean;
+  loader?: () => void;
+  thumbnail?: Snippet;
+};
+
+export type Item = {
   id: number;
   title: string;
   subtitle: string;
   description: string;
-}
+};
 
 export type Status =
   | {
@@ -31,11 +47,3 @@ export type Status =
       activeItem: number;
     }
   | undefined;
-
-export type Loader = (() => void) | undefined;
-
-export { default as Lightbox } from './Lightbox.svelte';
-export { default as LightboxData } from './LightboxData.svelte';
-export { default as LightboxList } from './LightboxList.svelte';
-export { default as LightboxModal } from './LightboxModal.svelte';
-export { default as LightboxThumbnail } from './LightboxThumbnail.svelte';
