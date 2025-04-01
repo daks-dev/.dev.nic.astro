@@ -89,24 +89,6 @@ const news = defineCollection({
     })
 });
 
-const gallery = defineCollection({
-  loader: file('src/content/gallery/index.yaml'),
-  schema: ({ image }) =>
-    z.array(
-      z.object({
-        image: z.preprocess((val) => `./${val}`, image()),
-        caption: z
-          .object({
-            title: z.string().optional().optional(),
-            subtitle: z.string().optional().optional(),
-            description: z.string().optional().optional()
-          })
-          .optional()
-          .default({})
-      })
-    )
-});
-
 const feedback = defineCollection({
   loader: file('src/content/feedback/index.yaml'),
   schema: ({ image }) =>
@@ -141,6 +123,23 @@ const permissions = defineCollection({
     )
 });
 
+const gallery = defineCollection({
+  loader: file('src/content/gallery/index.yaml'),
+  schema: ({ image }) =>
+    z.array(
+      z.object({
+        image: z.preprocess((val) => `./${val}`, image()),
+        caption: z
+          .object({
+            title: z.string().optional().optional(),
+            subtitle: z.string().optional().optional(),
+            description: z.string().optional().optional()
+          })
+          .optional()
+          .default({})
+      })
+    )
+});
 export const collections = {
   projects,
   partners,

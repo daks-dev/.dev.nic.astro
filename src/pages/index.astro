@@ -8,6 +8,13 @@ const { email, telephone, address } = microdata.organization;
 const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
 
 const gallery = await getCollection('gallery');
+// const show = (x: number) => (x < 480 && 2) || (x < 1024 && 3) || 4;
+const show = new Map([
+  [480, 2],
+  [1024, 3],
+  [1280, 4],
+  [Infinity, 5]
+]);
 ---
 
 <Layout class='gap-8'>
@@ -113,19 +120,23 @@ const gallery = await getCollection('gallery');
     </div>
 
     <BindCarousel
-      class='mb-16 mt-8 h-48 md:h-64 lg:h-48'
-      custom={{
-        inner: { caption: 'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-sm' }
-      }}
-      appear={300}
-      native
-      stream
+      client='load'
       data={gallery}
       transform={{
-        width: 288,
+        width: 192,
         quality: 80
       }}
       filter={['title']}
+      class='my-8 sm:h-36 lg:h-44 xl:h-52'
+      custom={{
+        inner: { caption: 'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-sm' }
+      }}
+      ratio={16 / 9}
+      {show}
+      duration={20000}
+      stream
+      progress
+      aria-label='реализованные проекты ниц «строительная экспертиза»'
     />
 
     <div class='frame readable mb-8'>

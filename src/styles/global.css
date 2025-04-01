@@ -120,7 +120,8 @@
 
 @layer utilities {
   :where(.readable) {
-    @apply bp:text-lg/relaxed text-sm/relaxed sm:text-base/relaxed;
+    @apply text-sm leading-relaxed sm:text-base;
+    /* @apply bp:text-lg; */
     @apply font-light;
     :where(h2, h3, h4) {
       @apply tracking-normal;
@@ -155,8 +156,10 @@
       @apply border-slate-500 dark:border-slate-400;
     }
     :where(.leader) {
-      @apply mt-6;
       @apply leading-relaxed;
+      &:not(:first-child) {
+        @apply mt-6;
+      }
     }
   }
 

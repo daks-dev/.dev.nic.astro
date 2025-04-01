@@ -23,7 +23,7 @@ import { nav } from '@app/configs/nav';
     'border-b border-gray-100 dark:border-gray-900'
   ]}>
   <div class:list={['flex items-center justify-between', 'menu-header']}>
-    <div class='flex items-center gap-4'>
+    <div class='flex items-center gap-7'>
       <SidebarToggle />
       <Link
         class:list={[
@@ -46,9 +46,9 @@ import { nav } from '@app/configs/nav';
           loading='eager'
           alt='ниц «строительная экспертиза»'
         />
-        <div class:list={['hidden', 'xs:max-bp:block 3xl:block']}>
+        <!--div class:list={['hidden', 'xs:max-bp:block 3xl:block']}>
           АО НИЦ <br /> «Строительная Экспертиза»
-        </div>
+        </div-->
       </Link>
     </div>
     <MenuToggle />
@@ -60,7 +60,8 @@ import { nav } from '@app/configs/nav';
     hidden>
     <menu
       class:list={[
-        'bp:py-1.5 relative',
+        'relative',
+        // 'bp:py-1.5',
         'flex flex-col',
         'bp:flex-row bp:gap-x-3',
         'text-lg font-normal',
@@ -80,7 +81,7 @@ import { nav } from '@app/configs/nav';
     </menu>
     <div
       class:list={[
-        'max-bp:py-2',
+        // 'max-bp:py-2',
         'flex justify-around',
         'bp:items-center bp:justify-self-end',
         'bg-theme-inner',

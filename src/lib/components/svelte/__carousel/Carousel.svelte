@@ -1,83 +1,71 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Tween } from 'svelte/motion';
+  import { tweened } from 'svelte/motion';
   import { linear, quadInOut } from 'svelte/easing';
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import Figure from '../figure/Figure.svelte';
-  import lazyload from '../../utils/lazyload.js';
-  import { swipe, wheel } from '../../utils/index.js';
+  import { lazyload, swipe, wheel, type LazyLoad } from '../../utils/index.js';
   import ButtonMove from './inc/ButtonMove.svelte';
   import ButtonPlay from './inc/ButtonPlay.svelte';
-  import type { LazyLoad } from '../../utils/lazyload.d.ts';
-  import type { CarouselAttributes } from './index.d.ts';
+  import type { Custom, Show, Easing, Controls, Loaded } from './index.d.ts';
 
-  import type { SvelteHTMLElements } from 'svelte/elements';
-  type Props = Omit<SvelteHTMLElements['div'], 'children' | 'class'> &
-    Pick<SvelteHTMLElements['a'], 'href' | 'target'> &
-    CarouselAttributes;
-  const {
-    tag: __tag = 'div',
-    children,
-    data = [],
-    class: className,
-    custom: __custom = {},
-    show = new Map([
-      [480, 1],
-      [1024, 2],
-      [Infinity, 3]
-    ]),
-    ratio,
-    stream = false,
-    duration = stream ? 7000 : 3000,
-    delay = stream ? 0 : 2000,
-    easing = stream ? linear : quadInOut,
-    autoplay = stream,
-    pause = 500,
-    controls: __controls = ['move', 'play'],
-    progress,
-    control,
-    check,
-    before,
-    after,
-    alt = '',
-    native = false,
-    loaded,
-    ...rest
-  }: Props = $props();
+  let className: ClassValue = undefined;
+  export { className as class };
 
-  const custom = Object.assign(
+  export let custom: Partial<Custom> = {};
+  custom = Object.assign(
     {
       button: 'text-slate-400/70 hover:text-white/70 disabled:text-gray-700/50 hover:bg-black/50',
-      progress: 'top-0 opacity-50'
+      progress: 'bottom-full opacity-50'
     },
-    __custom
+    custom
+  );
+  custom.inner ??= {};
+
+  export let data: (ImageResult & {
+    caption: Record<string, string>;
+  })[] = [];
+  let total = data.length;
+
+  export let appear = 0;
+  export let show: Show = (x: number) => (x < 480 && 1) || (x < 640 && 2) || (x < 1024 && 3) || 4;
+  export let ratio: number | undefined = undefined;
+
+  custom.inner.image = twMerge(
+    'w-full max-w-full',
+    ratio ? 'h-full object-cover' : 'h-auto object-contain',
+    'pointer-events-none',
+    custom.inner.image
   );
 
-  const tag = rest.href ? 'a' : __tag;
-  const controls = rest.href ? [] : __controls;
+  export let stream = false;
 
-  let total = $state(data.length);
+  export let duration = stream ? 7000 : 3000;
+  export let delay = stream ? 0 : 2000;
+  export let easing: Easing = stream ? linear : quadInOut;
 
-  function handle(x: string, cb?: () => void): boolean {
+  export let autoplay = stream;
+  export let pause = 500;
+
+  export let controls: Controls = ['move', 'play'];
+  function control(x: string, cb?: () => void): boolean {
     const res = controls.indexOf('all') > -1 || controls.indexOf(x) > -1;
     res && cb?.call(null);
     return res;
   }
 
-  let auto = $state(autoplay);
+  export let progress = false;
 
-  let innerWidth = $state(0);
-  let count = $derived(
-    typeof show === 'number'
-      ? show
-      : (show
-          .entries()
-          .find((x) => innerWidth < x[0])
-          ?.at(1) ?? 1)
-  );
+  export let native = false;
+  export let loaded: Loaded = undefined;
 
-  let carousel = $state({ clientWidth: 0 } as HTMLElement);
-  let width = $derived(carousel.clientWidth / count);
+  let auto = autoplay;
+
+  let innerWidth: number = 0;
+  $: count = typeof show === 'function' ? show(innerWidth) : show;
+
+  let carousel: HTMLElement;
+  $: width = carousel?.clientWidth / count;
 
   let __timeout: ReturnType<typeof setTimeout>;
   function timeout(cb?: () => void, ms = pause): void {
@@ -85,8 +73,8 @@
     else clearTimeout(__timeout);
   }
 
-  let step = $state(0);
-  let wait = $state(false);
+  let step = 0;
+  let wait = false;
 
   function tweening(ms?: number) {
     return {
@@ -95,7 +83,7 @@
       easing
     };
   }
-  const tween = new Tween<number>(0, tweening());
+  const tween = tweened(0, tweening());
 
   function set(val: number, cb: () => void, ms?: number): void {
     step = val;
@@ -173,95 +161,93 @@
 
 <svelte:window bind:innerWidth />
 
-<svelte:element
-  this={tag}
-  class={twMerge('vector-non-scaling-stroke linecap-round linejoin-round', className)}
-  {...rest}>
+<div
+  class={twMerge(
+    'not-prose text-base',
+    'linecap-round linejoin-round vector-non-scaling-stroke',
+    appear && (observer ? 'opacity-100' : 'opacity-0'),
+    appear && 'transition-opacity ease-in',
+    className
+  )}
+  style:transition-delay={appear ? `${appear}ms` : undefined}
+  style:transition-duration={appear ? `${appear}ms` : undefined}
+  {...$$restProps}>
   <div class="relative w-full">
-    {@render before?.()}
-
     <div
       bind:this={carousel}
       use:swipe={actionSwipe}
-      use:wheel={handle('wheel') ? actionWheel : undefined}
+      use:wheel={control('wheel') ? actionWheel : undefined}
       class={twMerge(
         'w-full overflow-x-hidden',
         'select-none',
-        rest.href ? 'cursor-pointer' : auto || wait ? 'cursor-wait' : 'cursor-ew-resize'
+        auto || wait ? 'cursor-wait' : 'cursor-ew-resize'
       )}>
       <div
         bind:this={slider}
-        class={twMerge(
-          'relative',
-          'grid grid-flow-col grid-rows-1',
-          ratio && 'overflow-x-hidden',
-          'will-change-transform'
-        )}
+        class="
+          relative
+          grid grid-flow-col grid-rows-1
+          will-change-transform"
+        class:overflow-x-hidden={ratio}
         style:height={ratio ? `${width / ratio}px` : ''}
         style:width="{width * total}px"
-        style:transform="translate3d(-{width * tween.current}px, 0px, 0px)">
-        {#each data as { caption, ...image }, idx}
+        style:transform="translate3d(-{width * $tween}px, 0px, 0px)">
+        {#each data as { caption, ...image }}
           <Figure
-            {image}
-            {caption}
             class={custom.item}
             style="width:{width}px"
-            custom={{
-              image: twMerge(
-                'w-full max-w-full',
-                ratio ? 'h-full object-cover' : 'h-auto object-contain',
-                'pointer-events-none',
-                custom.inner?.image
-              ),
-              caption: custom.inner?.caption
-            }}
-            alt={`${alt} [${idx}]`.trim()}
+            custom={custom.inner}
+            {image}
+            {caption}
             {native}
             {loaded} />
-          {#if !native}
-            <link
-              rel="image"
-              href={image.src} />
-          {/if}
         {/each}
-        {@render children?.(width, total, ratio)}
+        <slot
+          {ratio}
+          {total}
+          {count}
+          {auto}
+          {wait}
+          {step}
+          {width}
+          {tween}
+          {next}
+          {prev}
+          {toogle}
+          {control} />
       </div>
     </div>
 
-    {@render check?.()}
+    <slot name="check" />
 
-    {#if control}
-      {@render control(next, prev, toogle)}
-    {:else}
-      {#if handle('move') && !auto}
+    <slot name="control">
+      {#if control('move') && !auto}
         <ButtonMove
           on:click={next}
           class={custom.button}
           disabled={auto || wait || undefined}
           flip />
       {/if}
-      {#if handle('play')}
+      {#if control('play')}
         <ButtonPlay
           on:click={toogle}
           class={custom.button}
           {auto} />
       {/if}
-      {#if handle('move') && !auto}
+      {#if control('move') && !auto}
         <ButtonMove
           on:click={prev}
           class={custom.button}
           disabled={auto || wait || !step || undefined} />
       {/if}
-    {/if}
+    </slot>
 
-    {#if progress === true}
-      <progress
-        class={twMerge('absolute left-0 z-10 h-1 w-full', custom.progress)}
-        value={tween.current / (total - count)}></progress>
-    {:else if progress}
-      {@render progress(tween, total, count)}
+    {#if progress}
+      <slot name="progress">
+        <progress
+          class={twMerge('absolute left-0 z-10 h-1 w-full', custom.progress)}
+          value={$tween / (total - count)}></progress>
+      </slot>
     {/if}
-
-    {@render after?.()}
   </div>
-</svelte:element>
+</div>

@@ -1,14 +1,15 @@
 ---
 import { getImage } from 'astro:assets';
 import Carousel from '../../svelte/carousel/Carousel.svelte';
+import type { CarouselAttributes } from '../../svelte/carousel/index.d.ts';
 import type { ImageCollection } from './index.d.ts';
 
-type Props = {
+type Props = Omit<CarouselAttributes, 'data'> & {
   data: ImageCollection | ImageCollection[];
   transform: Metadata;
   filter?: string[];
   client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
-} & Record<string, unknown>;
+};
 
 const { data: d, transform, filter, client = 'visible', ...props } = Astro.props;
 
