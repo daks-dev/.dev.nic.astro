@@ -1,19 +1,14 @@
 <script lang="ts">
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import Carousel from './Carousel.svelte';
-  import type { CarouselAttributes } from './index.d.ts';
+  import Sign from '../sign/Sign.svelte';
+  import type { CarouselDataAttributes as Props } from './index.d.ts';
 
-  import type { SvelteHTMLElements } from 'svelte/elements';
-  type Props = Omit<SvelteHTMLElements['div'], 'class'> &
-    Pick<SvelteHTMLElements['a'], 'href' | 'target'> &
-    Omit<CarouselAttributes, 'loaded'> & {
-      grayscale?: boolean;
-      invert?: boolean;
-      checked?: boolean | string;
-    };
   const {
     data,
+    class: className,
     custom = {},
+    sign: __sign,
     grayscale = false,
     invert = false,
     checked = false,
@@ -21,11 +16,20 @@
   }: Props = $props();
 
   custom.item = [custom.item, (grayscale || invert) && 'group'];
-  (custom.inner ??= {}).image = [
-    custom.inner?.image,
+  (custom.inner ??= {}).img = [
+    custom.inner?.img,
     grayscale && 'grayscale group-hover:grayscale-0',
     invert && 'invert group-hover:invert-0'
   ];
+
+  const sign = __sign
+    ? typeof __sign === 'string'
+      ? {
+          icon: __sign,
+          dark: true
+        }
+      : __sign
+    : undefined;
 
   let count = $state(0);
   const loaded = () => ++count;
@@ -33,9 +37,17 @@
 
 <Carousel
   {data}
+  class={[sign && 'group', className]}
   {custom}
   {loaded}
   {...rest}>
+  {#snippet after()}
+    {#if sign}
+      <Sign
+        class={custom.inner?.sign}
+        {...sign} />
+    {/if}
+  {/snippet}
   {#snippet check()}
     {#if checked}
       <small

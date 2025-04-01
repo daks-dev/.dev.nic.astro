@@ -7,12 +7,10 @@
   import Body from './inc/Body.svelte';
   import Controller from './inc/Controller.svelte';
   import type { Item } from './index.d.ts';
+  import type { LightboxAttributes as Props } from './index.d.ts';
 
   import './index.css';
 
-  import type { SvelteHTMLElements } from 'svelte/elements';
-  import type { LightboxAttributes } from './index.d.ts';
-  type Props = Omit<SvelteHTMLElements['div'], 'class' | 'title'> & LightboxAttributes;
   const {
     tag = 'div',
     children,

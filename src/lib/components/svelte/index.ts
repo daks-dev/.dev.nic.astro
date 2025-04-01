@@ -1,4 +1,5 @@
 export { default as Carousel } from './carousel/Carousel.svelte';
+export { default as CarouselData } from './carousel/CarouselData.svelte';
 
 export { default as Figure } from './figure/Figure.svelte';
 

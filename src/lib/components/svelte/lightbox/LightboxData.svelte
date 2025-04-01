@@ -4,27 +4,8 @@
   import LightboxList from './LightboxList.svelte';
   import LightboxModal from './LightboxModal.svelte';
   import LightboxThumbnail from './LightboxThumbnail.svelte';
-  import type { SignAttributes } from '../sign/index.d.ts';
-  import type { LightboxAttributes } from './index.d.ts';
+  import type { LightboxDataAttributes as Props } from './index.d.ts';
 
-  type Props = LightboxAttributes & {
-    data: {
-      thumb: ImageResult;
-      modal: ImageResult;
-      caption: Record<string, string>;
-    }[];
-    alt?: string;
-    sign?: string | SignAttributes;
-    grid?: boolean;
-    adaptive?: boolean;
-    centered?: boolean;
-    rounded?: boolean;
-    shadow?: boolean;
-    scale?: boolean;
-    grayscale?: boolean;
-    invert?: boolean;
-    native?: boolean;
-  };
   const {
     data,
     class: className,
@@ -44,7 +25,7 @@
     grayscale = false,
     invert = false,
     native = false,
-    loader = native ? undefined : () => document?.lazyload.update(),
+    loader = native ? undefined : () => document?.lazyload?.update(),
     ...rest
   }: Props = $props();
   const sign = __sign
@@ -81,7 +62,7 @@
           {caption}
           class={['relative flex flex-col', centered && 'items-center', custom.item]}
           custom={{
-            image: [
+            img: [
               adaptive && 'h-auto w-full max-w-full object-contain',
               rounded && 'rounded',
               shadow && 'shadow-md hover:shadow-lg',

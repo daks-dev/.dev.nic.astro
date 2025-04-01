@@ -1,10 +1,10 @@
 ---
 import { getImage } from 'astro:assets';
 import LightboxData from '../../svelte/lightbox/LightboxData.svelte';
-import type { ImageCollection } from './index.d.ts';
+import type { BindImageData } from './index.d.ts';
 
 type Props = {
-  data: ImageCollection | ImageCollection[];
+  data: BindImageData | BindImageData[];
   transform: {
     [x in 'thumb' | 'modal']: ImageTransform;
   };
@@ -17,13 +17,13 @@ const { data: __data, transform, filter, client = 'visible', ...props } = Astro.
 const data: {
   thumb: ImageResult;
   modal: ImageResult;
-  caption: Record<string, string>;
+  alt?: string;
+  caption?: Record<string, string>;
 }[] = [];
 
-const load = async (x: ImageCollection | ImageCollection[]) => {
-  if (x instanceof Array) for (const y of x) await load(y);
-  else
-    for (const { image, caption: c } of x.data) {
+const load = async (x: BindImageData) => {
+  if ('data' in x && x.data) {
+    for (const { image, alt, caption: __caption = {} } of x.data) {
       const t = await getImage({
         src: image,
         ...transform.thumb
@@ -32,10 +32,12 @@ const load = async (x: ImageCollection | ImageCollection[]) => {
         src: image,
         ...transform.modal
       });
-      const caption: Record<string, string> = {};
-      Object.entries(c).forEach(([key, val]) => {
-        if (filter === undefined || filter.includes(key)) caption[key] = val;
-      });
+      const caption = Object.entries(__caption).reduce(
+        (acc, [key, val]) => (
+          (filter === undefined || filter.includes(key)) && (acc[key] = val), acc
+        ),
+        {} as Record<string, string>
+      );
       data.push({
         thumb: {
           src: t.src,
@@ -45,11 +47,34 @@ const load = async (x: ImageCollection | ImageCollection[]) => {
           src: m.src,
           attributes: m.attributes
         },
+        alt,
         caption
       });
     }
+  } else if ('src' in x) {
+    const t = await getImage({
+      src: x,
+      ...transform.thumb
+    });
+    const m = await getImage({
+      src: x.src,
+      ...transform.modal
+    });
+    data.push({
+      thumb: {
+        src: t.src,
+        attributes: t.attributes
+      },
+      modal: {
+        src: m.src,
+        attributes: m.attributes
+      }
+    });
+  }
 };
-await load(__data);
+
+if (__data instanceof Array) for (const x of __data) await load(x);
+else await load(__data);
 ---
 
 {

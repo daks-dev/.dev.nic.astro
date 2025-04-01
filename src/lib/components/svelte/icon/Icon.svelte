@@ -22,8 +22,8 @@
 </script>
 
 <svg
-  class:list={twMerge('linecap-round linejoin-round align-middle', className)}
   xmlns="http://www.w3.org/2000/svg"
+  class={twMerge('linecap-round linejoin-round align-middle', className)}
   {width}
   {height}
   fill={gradient ? `url(#${id})` : color}

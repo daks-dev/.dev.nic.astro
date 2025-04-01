@@ -9,18 +9,15 @@
   import ButtonMove from './inc/ButtonMove.svelte';
   import ButtonPlay from './inc/ButtonPlay.svelte';
   import type { LazyLoad } from '../../utils/lazyload.d.ts';
-  import type { CarouselAttributes } from './index.d.ts';
+  import type { CarouselAttributes as Props } from './index.d.ts';
 
-  import type { SvelteHTMLElements } from 'svelte/elements';
-  type Props = Omit<SvelteHTMLElements['div'], 'children' | 'class'> &
-    Pick<SvelteHTMLElements['a'], 'href' | 'target'> &
-    CarouselAttributes;
   const {
     tag: __tag = 'div',
     children,
     data = [],
     class: className,
     custom: __custom = {},
+    appear,
     show = new Map([
       [480, 1],
       [1024, 2],
@@ -39,7 +36,7 @@
     check,
     before,
     after,
-    alt = '',
+    alt: __alt = '',
     native = false,
     loaded,
     ...rest
@@ -162,11 +159,13 @@
     }
   }
 
+  let wrapper: HTMLElement;
   let slider: HTMLElement;
   onMount(() => {
     //carousel.addEventListener('wheel', handleWheel);
     total ||= slider.children.length;
     start();
+    appear && setTimeout(() => (wrapper.style.opacity = ''), 75);
     return timeout;
   });
 </script>
@@ -175,7 +174,14 @@
 
 <svelte:element
   this={tag}
-  class={twMerge('vector-non-scaling-stroke linecap-round linejoin-round', className)}
+  bind:this={wrapper}
+  class={twMerge(
+    'linecap-round linejoin-round vector-non-scaling-stroke',
+    'transition-opacity ease-in',
+    className
+  )}
+  style:transition-duration={appear ? `${appear}ms` : undefined}
+  style:opacity={appear ? '0' : undefined}
   {...rest}>
   <div class="relative w-full">
     {@render before?.()}
@@ -200,22 +206,22 @@
         style:height={ratio ? `${width / ratio}px` : ''}
         style:width="{width * total}px"
         style:transform="translate3d(-{width * tween.current}px, 0px, 0px)">
-        {#each data as { caption, ...image }, idx}
+        {#each data as { alt, caption, ...image }, idx}
           <Figure
             {image}
             {caption}
             class={custom.item}
             style="width:{width}px"
             custom={{
-              image: twMerge(
+              img: twMerge(
                 'w-full max-w-full',
                 ratio ? 'h-full object-cover' : 'h-auto object-contain',
                 'pointer-events-none',
-                custom.inner?.image
+                custom.inner?.img
               ),
               caption: custom.inner?.caption
             }}
-            alt={`${alt} [${idx}]`.trim()}
+            alt={`${alt ?? __alt} [${idx}]`.trim()}
             {native}
             {loaded} />
           {#if !native}

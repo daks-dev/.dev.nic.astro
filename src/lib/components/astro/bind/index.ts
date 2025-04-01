@@ -1,6 +1,9 @@
-export type ImageCollection = {
-  data: {
-    image: ImageMetadata;
-    caption: Record<string, string>;
-  }[];
-};
+export type BindImageData =
+  | ImageMetadata
+  | {
+      data?: {
+        image: ImageMetadata;
+        alt?: string;
+        caption?: Record<string, string>;
+      }[];
+    };

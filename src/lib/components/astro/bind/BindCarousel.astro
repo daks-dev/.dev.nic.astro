@@ -1,59 +1,74 @@
 ---
 import { getImage } from 'astro:assets';
-import Carousel from '../../svelte/carousel/Carousel.svelte';
-import type { CarouselAttributes } from '../../svelte/carousel/index.d.ts';
-import type { ImageCollection } from './index.d.ts';
+import CarouselData from '../../svelte/carousel/CarouselData.svelte';
+import type { CarouselDataAttributes } from '../../svelte/carousel/index.d.ts';
+import type { BindImageData } from './index.d.ts';
 
-type Props = Omit<CarouselAttributes, 'data'> & {
-  data: ImageCollection | ImageCollection[];
+type Props = Omit<CarouselDataAttributes, 'data'> & {
+  data: BindImageData | BindImageData[];
   transform: Metadata;
   filter?: string[];
   client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
 };
 
-const { data: d, transform, filter, client = 'visible', ...props } = Astro.props;
+const { data: __data, transform, filter, client = 'visible', ...props } = Astro.props;
 
 const data: (ImageResult & {
-  caption: Record<string, string>;
+  alt?: string;
+  caption?: Record<string, string>;
 })[] = [];
 
-const load = async (x: ImageCollection | ImageCollection[]) => {
-  if (x instanceof Array) for (const y of x) await load(y);
-  else
-    for (const { image, caption: c } of x.data) {
-      const r = await getImage({
+const load = async (x: BindImageData) => {
+  if ('data' in x && x.data) {
+    for (const { image, alt, caption: __caption = {} } of x.data) {
+      const y = await getImage({
         src: image,
         ...transform
       });
-      const caption: Record<string, string> = {};
-      Object.entries(c).forEach(([key, val]) => {
-        if (filter === undefined || filter.includes(key)) caption[key] = val;
-      });
+      const caption = Object.entries(__caption).reduce(
+        (acc, [key, val]) => (
+          (filter === undefined || filter.includes(key)) && (acc[key] = val), acc
+        ),
+        {} as Record<string, string>
+      );
       data.push({
-        src: r.src,
-        attributes: r.attributes,
+        src: y.src,
+        attributes: y.attributes,
+        alt,
         caption
       });
     }
+  } else if ('src' in x) {
+    const y = await getImage({
+      src: x,
+      ...transform
+    });
+    data.push({
+      src: y.src,
+      attributes: y.attributes
+    });
+  }
 };
-await load(d);
+
+if (__data instanceof Array) for (const x of __data) await load(x);
+else await load(__data);
 ---
 
 {
   client === 'visible' ? (
-    <Carousel
+    <CarouselData
       {data}
       {...props}
       client:visible
     />
   ) : client === 'idle' ? (
-    <Carousel
+    <CarouselData
       {data}
       {...props}
       client:idle
     />
   ) : (
-    <Carousel
+    <CarouselData
       {data}
       {...props}
       client:load

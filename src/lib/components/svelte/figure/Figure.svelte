@@ -57,7 +57,7 @@
   {/if}
   <img
     onload={handleLoad}
-    class={twMerge(!native && 'lazy', custom.image)}
+    class={twMerge(!native && 'lazy', custom.img)}
     src={native ? image.src : placeholder}
     data-src={native ? undefined : image.src}
     {...attributes} />

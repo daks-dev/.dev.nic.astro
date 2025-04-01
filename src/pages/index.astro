@@ -1,14 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Icon, Video, BindCarousel } from '@lib/components/astro';
+import { Icon, Video, BindCarousel, TestimonialPlaceholder } from '@lib/components/astro';
 
 import microdata from '@app/configs/microdata';
+import type { ImageMetadata } from 'astro';
 const { email, telephone, address } = microdata.organization;
 const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
 
 const gallery = await getCollection('gallery');
-// const show = (x: number) => (x < 480 && 2) || (x < 1024 && 3) || 4;
+const customers = await Promise.all(
+  Object.values(
+    import.meta.glob('@assets/images/customers/*.(avif|gif|heic|heif|jpeg|jpg|png|tiff|webp)', {
+      import: 'default'
+    })
+  ).map(async (x) => (await x()) as ImageMetadata)
+);
+
 const show = new Map([
   [480, 2],
   [1024, 3],
@@ -92,7 +100,6 @@ const show = new Map([
           muted
           autoplay
           loop
-          onloadeddata=''
         />
       </div>
     </div>
@@ -119,26 +126,42 @@ const show = new Map([
       </ul>
     </div>
 
-    <BindCarousel
-      client='load'
-      data={gallery}
-      transform={{
-        width: 192,
-        quality: 80
-      }}
-      filter={['title']}
-      class='my-8 sm:h-36 lg:h-44 xl:h-52'
-      custom={{
-        inner: { caption: 'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-sm' }
-      }}
-      ratio={16 / 9}
-      {show}
-      native
-      duration={20000}
-      stream
-      progress
-      aria-label='реализованные проекты ниц «строительная экспертиза»'
-    />
+    <div class='frame-xl xs:h-28 my-8 flex h-28 items-center sm:h-36 md:h-44 lg:h-44 xl:h-36'>
+      <BindCarousel
+        client='load'
+        data={gallery}
+        transform={{
+          width: 192,
+          quality: 80
+        }}
+        filter={['title']}
+        class:list={[
+          'block w-full overflow-hidden',
+          'rounded-xs shadow-sm shadow-gray-700 lg:rounded-sm dark:shadow-black',
+          'hover:shadow-lg'
+        ]}
+        custom={{
+          inner: {
+            sign: 'top-1/2 left-1/2 h-10 w-10 -translate-1/2 opacity-50',
+            caption: 'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-sm'
+          }
+        }}
+        href='/projects'
+        ratio={16 / 9}
+        {show}
+        appear={300}
+        native
+        duration={20000}
+        stream
+        sign={{
+          icon: 'link',
+          link: true,
+          dark: true
+        }}
+        progress
+        aria-label='реализованные проекты ниц «строительная экспертиза»'
+      />
+    </div>
 
     <div class='frame readable mb-8'>
       <p class='leader'>
@@ -165,18 +188,56 @@ const show = new Map([
         <li>выполнение строительного контроля при возведении памятника П.А. Столыпину.</li>
       </ul>
 
-      <p class='text-theme-header accent text-center text-sm'>
-        <span class='text-xl font-bold'>&#10004;</span> Любая информация, представленная на данном сайте,
-        носит исключительно информационный характер и ни при каких условиях не является публичной офертой,
-        определяемой положениями статьи 437 ГК РФ.
-      </p>
+      <div class='mt-8 flex flex-wrap justify-center gap-16 sm:flex-nowrap'>
+        <BindCarousel
+          client='load'
+          data={customers}
+          transform={{
+            width: 192,
+            quality: 80
+          }}
+          class={[
+            'group',
+            'block w-60 shrink-0 place-self-center overflow-hidden',
+            'rounded-xs shadow-sm shadow-gray-700 lg:rounded-sm dark:shadow-gray-900',
+            'hover:shadow-lg'
+          ]}
+          custom={{
+            inner: {
+              img: 'max-w-full px-8 py-4 bg-white',
+              sign: 'top-2 left-2'
+            }
+          }}
+          href='/feedback'
+          alt='реализованный объект'
+          show={1}
+          appear={300}
+          duration={1000}
+          delay={5000}
+          autoplay
+          sign={{
+            icon: 'link',
+            link: true,
+            dark: true
+          }}
+          aria-label='отзывы заказчиков ниц «строительная экспертиза»'
+        />
+        <div class='placeholders flex flex-col justify-center'>
+          <p class='text-accent mb-8 text-sm'>
+            <span class='text-xl font-bold'>&#10004;</span> Любая информация, представленная на данном
+            сайте, носит исключительно информационный характер и ни при каких условиях не является публичной
+            офертой, определяемой положениями статьи 437 ГК РФ.
+          </p>
+          <TestimonialPlaceholder />
+        </div>
+      </div>
     </div>
   </main>
-</Layout>
 
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const node = document.getElementById('app-video');
-    node?.addEventListener('loadeddata', () => setTimeout(() => (node.style.opacity = ''), 200));
-  });
-</script>
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const node = document.getElementById('app-video');
+      node?.addEventListener('loadeddata', () => setTimeout(() => (node.style.opacity = ''), 200));
+    });
+  </script>
+</Layout>

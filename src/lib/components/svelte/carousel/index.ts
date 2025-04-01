@@ -1,5 +1,7 @@
-import type { Snippet } from 'svelte';
 import { Tween } from 'svelte/motion';
+import type { Snippet } from 'svelte';
+import type { SvelteHTMLElements } from 'svelte/elements';
+import type { SignAttributes } from '../sign/index.d.ts';
 
 export type Custom = {
   button?: ClassValue;
@@ -8,46 +10,47 @@ export type Custom = {
   inner?: Record<string, ClassValue>;
 };
 
-// export type Easing = (x: number) => number;
-
 export type Tweening = (ms?: number) => {
   duration: number;
   delay: number;
   easing: (x: number) => number;
 };
 
-// export type Show = number | Map<number, number>;
-
-// export type Controls = string | string[];
-
-// export type Loaded = ((x?: Event | HTMLElement) => void) | undefined;
-
-export interface CarouselAttributes {
-  tag?: 'a' | 'div' | 'aside' | 'section';
-  children?: Snippet<[number, number, number?]>;
-  data?: (ImageResult & {
-    caption: Record<string, string>;
-  })[];
-  class?: ClassValue;
-  custom?: Custom;
-  show?: number | Map<number, number>;
-  ratio?: number;
-  stream?: boolean;
-  duration?: number;
-  delay?: number;
-  easing?: (x: number) => number;
-  autoplay?: boolean;
-  pause?: number;
-  controls?: string | string[];
-  alt?: string;
-  native?: boolean;
-  loaded?: (x?: Event | HTMLElement) => void;
-  progress?: Snippet<[Tween<number>, number, number]> | true;
-  check?: Snippet;
-  control?: Snippet<[() => void, () => void, () => void]>;
-  before?: Snippet;
-  after?: Snippet;
-}
+export type CarouselAttributes = Omit<SvelteHTMLElements['div'], 'children' | 'class'> &
+  Pick<SvelteHTMLElements['a'], 'href' | 'target'> & {
+    tag?: 'a' | 'div' | 'aside' | 'section';
+    children?: Snippet<[number, number, number?]>;
+    data?: (ImageResult & {
+      alt?: string;
+      caption?: Record<string, string>;
+    })[];
+    class?: ClassValue;
+    custom?: Custom;
+    appear?: number;
+    show?: number | Map<number, number>;
+    ratio?: number;
+    stream?: boolean;
+    duration?: number;
+    delay?: number;
+    easing?: (x: number) => number;
+    autoplay?: boolean;
+    pause?: number;
+    controls?: string | string[];
+    alt?: string;
+    native?: boolean;
+    loaded?: (x?: Event | HTMLElement) => void;
+    progress?: Snippet<[Tween<number>, number, number]> | true;
+    check?: Snippet;
+    control?: Snippet<[() => void, () => void, () => void]>;
+    before?: Snippet;
+    after?: Snippet;
+  };
+export type CarouselDataAttributes = CarouselAttributes & {
+  sign?: string | SignAttributes;
+  grayscale?: boolean;
+  invert?: boolean;
+  checked?: boolean | string;
+};
 
 export { default as Carousel } from './Carousel.svelte';
 export { default as CarouselKit } from './CarouselData.svelte';
