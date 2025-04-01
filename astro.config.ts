@@ -62,6 +62,29 @@ export default defineConfig({
     }),
 
     compress({
+      HTML: {
+        'html-minifier-terser': {
+          caseSensitive: true,
+          collapseBooleanAttributes: true,
+          collapseInlineTagWhitespace: true,
+          collapseWhitespace: true,
+          conservativeCollapse: true, //+  error Svelte render {@html ...}
+          // continueOnParseError: true, //?
+          decodeEntities: true,
+          minifyCSS: true,
+          minifyJS: true,
+          minifyURLs: true,
+          //preserveLineBreaks: true, //+
+          removeAttributeQuotes: true,
+          removeComments: false, //- error Svelte CSR head tags modify & for astro comporess
+          removeOptionalTags: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          removeTagWhitespace: true, //- error FF analise code ? for astro comporess
+          useShortDoctype: true
+        }
+      },
       CSS: false,
       Image: false,
       SVG: false,
