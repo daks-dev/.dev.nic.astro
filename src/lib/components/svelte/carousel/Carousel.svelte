@@ -4,7 +4,7 @@
   import { linear, quadInOut } from 'svelte/easing';
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import Figure from '../figure/Figure.svelte';
-  import lazyload from '../../utils/lazyload.js';
+  import lazyloader from '../../utils/lazyload.js';
   import { swipe, wheel } from '../../utils/index.js';
   import ButtonMove from './inc/ButtonMove.svelte';
   import ButtonPlay from './inc/ButtonPlay.svelte';
@@ -31,14 +31,16 @@
     autoplay = stream,
     pause = 500,
     controls: __controls = ['move', 'play'],
+    img,
+    alt: __alt = '',
+    eager,
+    lazyload,
+    loaded,
     progress,
     control,
     check,
     before,
     after,
-    alt: __alt = '',
-    native = false,
-    loaded,
     ...rest
   }: Props = $props();
 
@@ -63,17 +65,17 @@
 
   let auto = $state(autoplay);
 
-  let innerWidth = $state(0);
+  let innerWidth = $state(1);
+  let carousel = $state({} as HTMLElement);
   let count = $derived(
-    typeof show === 'number'
-      ? show
-      : (show
-          .entries()
-          .find((x) => innerWidth < x[0])
-          ?.at(1) ?? 1)
+    innerWidth &&
+      (typeof show === 'number'
+        ? show
+        : (show
+            .entries()
+            .find((x) => carousel.clientWidth < x[0])
+            ?.at(1) ?? 1))
   );
-
-  let carousel = $state({ clientWidth: 0 } as HTMLElement);
   let width = $derived(carousel.clientWidth / count);
 
   let __timeout: ReturnType<typeof setTimeout>;
@@ -138,10 +140,10 @@
   export function start(): void {
     observer ??= new ResizeObserver(resize);
     observer.observe(carousel);
-    if (!native)
+    if (lazyload)
       loader
         ? loader.update()
-        : (loader = lazyload({
+        : (loader = lazyloader({
             container: carousel,
             callback_loaded: (x: unknown) => loaded?.call(x)
           }));
@@ -208,7 +210,8 @@
         style:transform="translate3d(-{width * tween.current}px, 0px, 0px)">
         {#each data as { alt, caption, ...image }, idx}
           <Figure
-            {image}
+            src={image.src}
+            {img}
             {caption}
             class={custom.item}
             style="width:{width}px"
@@ -222,9 +225,10 @@
               caption: custom.inner?.caption
             }}
             alt={`${alt ?? __alt} [${idx}]`.trim()}
-            {native}
+            {eager}
+            {lazyload}
             {loaded} />
-          {#if !native}
+          {#if lazyload}
             <link
               rel="image"
               href={image.src} />

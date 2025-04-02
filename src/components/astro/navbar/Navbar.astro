@@ -15,15 +15,15 @@ import { nav } from '@app/configs/nav';
   id='app-navbar'
   class:list={[
     'fixed inset-x-0 z-50',
-    'h-(--navbar-height) px-5 py-3',
+    'h-(--navbar-height) px-5',
     'grid grid-cols-[1fr_auto] place-content-center gap-x-3',
     'bp:grid-cols-[1fr_auto_1fr]',
-    'bg-theme-inner',
-    'onscroll:shadow-md shadow-xs shadow-gray-200 dark:shadow-gray-900',
-    'border-b border-gray-100 dark:border-gray-900'
+    'bg-theme-frame',
+    'onscroll:shadow-md shadow-xs shadow-gray-200 dark:shadow-black'
+    // 'border-b border-gray-100 dark:border-gray-900'
   ]}>
   <div class:list={['flex items-center justify-between', 'menu-header']}>
-    <div class='-ml-3.5 flex items-center gap-7'>
+    <div class='-ml-3.5 flex items-center gap-x-7'>
       <DrawerToggle />
       <Link
         class:list={[
@@ -66,11 +66,11 @@ import { nav } from '@app/configs/nav';
         'bp:flex-row bp:gap-x-3',
         'text-lg font-normal',
         'bp:text-base',
-        'max-bp:bg-theme-inner'
+        'max-bp:bg-theme-frame'
       ]}>
       {
         nav.navbar.map(({ class: className, ...props }) => (
-          <li class:list={['relative flex flex-col', className]}>
+          <li class:list={['relative flex items-center', className]}>
             <Link
               class:list='inner'
               {...props}
@@ -84,7 +84,7 @@ import { nav } from '@app/configs/nav';
         // 'max-bp:py-2',
         'flex justify-around',
         'bp:items-center bp:justify-self-end',
-        'bg-theme-inner',
+        'bg-theme-frame',
         'rounded-b-md',
         'shadow-md dark:shadow-gray-800',
         'bp:shadow-none',

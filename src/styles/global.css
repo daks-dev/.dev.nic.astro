@@ -33,20 +33,22 @@
   --color-impact-subtle: rgba(197, 97, 247, 0.3333);
   --color-impact-overlay: rgba(119, 17, 177, 0.3333);
 
-  --color-theme-frame: rgb(253, 254, 255);
-  --color-theme-inner: rgb(243, 245, 247);
+  --color-theme-flat: rgb(250, 252, 255);
+  --color-theme-frame: rgb(243, 245, 248);
+  --color-theme-inner: rgb(233, 235, 237);
   --color-theme-plain: rgb(0, 0, 0);
   --color-theme-header: var(--color-stone-500);
   --color-theme-link: var(--color-cyan-700);
   --color-theme-accent: #c561f6;
 
-  --navbar-height: 4rem;
-  --drawer-width: min(20rem, 100vw, 100vh);
+  --navbar-height: 3.75rem;
+  --drawer-width: min(25rem, 100vw);
 }
 
 :root.theme-dark {
-  --color-theme-frame: rgb(23, 24, 28);
-  --color-theme-inner: rgb(35, 38, 47);
+  --color-theme-flat: rgb(20, 22, 25);
+  --color-theme-frame: rgb(35, 37, 45);
+  --color-theme-inner: rgb(40, 42, 45);
   --color-theme-plain: rgb(155, 163, 180);
   --color-theme-header: var(--color-stone-400);
   --color-theme-link: var(--color-cyan-800);
@@ -55,7 +57,7 @@
 @layer base {
   body {
     @apply leading-normal;
-    @apply bg-theme-frame text-theme-plain;
+    @apply bg-theme-flat text-theme-plain;
   }
 
   a {

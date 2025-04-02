@@ -1,6 +1,7 @@
 import { Tween } from 'svelte/motion';
 import type { Snippet } from 'svelte';
 import type { SvelteHTMLElements } from 'svelte/elements';
+import type { ImgAttriibutes } from '../img/index.d.ts';
 import type { SignAttributes } from '../sign/index.d.ts';
 
 export type Custom = {
@@ -18,8 +19,8 @@ export type Tweening = (ms?: number) => {
 
 export type CarouselAttributes = Omit<SvelteHTMLElements['div'], 'children' | 'class'> &
   Pick<SvelteHTMLElements['a'], 'href' | 'target'> & {
-    tag?: 'a' | 'div' | 'aside' | 'section';
     children?: Snippet<[number, number, number?]>;
+    tag?: 'a' | 'aside' | 'div';
     data?: (ImageResult & {
       alt?: string;
       caption?: Record<string, string>;
@@ -36,8 +37,10 @@ export type CarouselAttributes = Omit<SvelteHTMLElements['div'], 'children' | 'c
     autoplay?: boolean;
     pause?: number;
     controls?: string | string[];
+    img?: Omit<ImgAttriibutes, 'src' | 'class' | 'alt'>;
     alt?: string;
-    native?: boolean;
+    eager?: true;
+    lazyload?: true;
     loaded?: (x?: Event | HTMLElement) => void;
     progress?: Snippet<[Tween<number>, number, number]> | true;
     check?: Snippet;

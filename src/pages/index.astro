@@ -16,13 +16,6 @@ const customers = await Promise.all(
     })
   ).map(async (x) => (await x()) as ImageMetadata)
 );
-
-const show = new Map([
-  [480, 2],
-  [1024, 3],
-  [1280, 4],
-  [Infinity, 5]
-]);
 ---
 
 <Layout class='gap-8'>
@@ -126,7 +119,8 @@ const show = new Map([
       </ul>
     </div>
 
-    <div class='frame-xl xs:h-28 my-8 flex h-28 items-center sm:h-36 md:h-44 lg:h-44 xl:h-36'>
+    <!--div class='frame-xl xs:h-28 my-8 flex h-28 items-center sm:h-36 md:h-44 lg:h-44 xl:h-36'-->
+    <div class='frame-xl my-8 flex h-28 items-center'>
       <BindCarousel
         client='load'
         data={gallery}
@@ -148,9 +142,14 @@ const show = new Map([
         }}
         href='/projects'
         ratio={16 / 9}
-        {show}
+        show={new Map([
+          [384, 2],
+          [576, 3],
+          [768, 4],
+          [960, 5],
+          [Infinity, 6]
+        ])}
         appear={300}
-        native
         duration={20000}
         stream
         sign={{

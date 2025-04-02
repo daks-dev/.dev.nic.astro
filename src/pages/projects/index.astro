@@ -44,10 +44,10 @@ const title = 'Проекты';
   <main class='frame'>
     <div class='grid w-max grid-cols-[auto_1fr] items-center gap-8'>
       {
-        gallery.map(({ id, image, caption }) => (
+        gallery.map(({ id, image: src, caption }) => (
           <a href={`/projects/${id}`}>
             <Figure
-              {image}
+              {src}
               {caption}
             />
           </a>

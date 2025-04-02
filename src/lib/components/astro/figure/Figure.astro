@@ -1,42 +1,27 @@
 ---
 import { twMerge } from '../../../tailwind/tailwind-merge.js';
-import placeholder from '../../../assets/images/placeholder';
-import type { HTMLAttributes } from 'astro/types';
-
-type ImgAttriibutes = Omit<HTMLAttributes<'img'>, 'src' | 'class'>;
-
-type Props = Omit<HTMLAttributes<'figure'>, 'class'> & {
-  image: string | ImageResult;
-  img?: ImgAttriibutes;
-  caption?: Record<string, string | undefined>;
-  class?: ClassValue;
-  custom?: Record<string, ClassValue>;
-  alt?: string;
-  native?: true;
-};
+import Img from '../img/Img.astro';
+import type { FigureAttriibutes as Props } from './index.d.ts';
 
 const {
-  image: __image,
+  src,
   img,
   caption: __caption = {},
   class: className,
   custom = {},
-  alt = img?.alt ?? '',
-  native,
+  alt,
+  eager,
+  lazyload,
   ...props
 } = Astro.props;
 
-const image = typeof __image === 'string' ? { src: __image } : __image;
-const attributes = Object.assign(
-  {
-    itemprop: 'image',
-    loading: 'lazy',
-    decoding: 'async'
-  },
-  image.attributes,
-  img,
-  { alt }
-);
+const attributes = {
+  ...img,
+  src,
+  alt,
+  eager,
+  lazyload
+};
 
 const caption = Object.entries(__caption);
 ---
@@ -45,10 +30,8 @@ const caption = Object.entries(__caption);
   class={twMerge('relative flex flex-col', className)}
   {...props}>
   <slot name='before' />
-  <img
-    class={twMerge(!native && 'lazy', custom.img)}
-    src={native ? image.src : placeholder}
-    data-src={native ? undefined : image.src}
+  <Img
+    class={custom.img}
     {...attributes}
   />
   <slot>

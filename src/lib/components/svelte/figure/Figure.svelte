@@ -1,65 +1,43 @@
 <script lang="ts">
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
-  import placeholder from '../../../assets/images/placeholder.js';
-  import type { SvelteHTMLElements } from 'svelte/elements';
-  import type { Snippet } from 'svelte';
+  import Img from '../img/Img.svelte';
+  import type { FigureAttriibutes as Props } from './index.d.ts';
 
-  type ImgAttriibutes = Omit<SvelteHTMLElements['img'], 'src' | 'class'>;
-
-  type Props = Omit<SvelteHTMLElements['figure'], 'class'> & {
-    image: string | ImageResult;
-    img?: ImgAttriibutes;
-    caption?: Record<string, string | undefined>;
-    class?: ClassValue;
-    custom?: Record<string, ClassValue>;
-    alt?: string;
-    native?: boolean;
-    loaded?: (x?: Event | HTMLElement) => void;
-    before?: Snippet;
-    after?: Snippet;
-  };
   const {
     children,
-    image: __image,
+    src,
     img,
     caption: __caption = {},
     class: className,
     alt = img?.alt ?? '',
     custom = {},
-    native = false,
+    eager,
+    lazyload,
     loaded,
     before,
     after,
     ...rest
   }: Props = $props();
 
-  const image = typeof __image === 'string' ? { src: __image } : __image;
-  const attributes = Object.assign(
-    {
-      itemprop: 'image',
-      loading: 'lazy',
-      decoding: 'async'
-    },
-    image.attributes,
-    img,
-    { alt }
-  );
+  const attributes = {
+    ...img,
+    src,
+    alt,
+    // loading: lazyload || !eager ? <const>'lazy' : <const>'eager',
+    // decoding: <const>'async',
+    itemprop: 'image',
+    loaded
+  };
 
   const caption = Object.entries(__caption);
-  const handleLoad = native && loaded ? (x: Event) => loaded?.call(x) : undefined;
 </script>
 
 <figure
   class={twMerge('relative flex flex-col', className)}
   {...rest}>
-  {#if before}
-    {@render before()}
-  {/if}
-  <img
-    onload={handleLoad}
-    class={twMerge(!native && 'lazy', custom.img)}
-    src={native ? image.src : placeholder}
-    data-src={native ? undefined : image.src}
+  {@render before?.()}
+  <Img
+    class={custom.img}
     {...attributes} />
   {#if children}
     {@render children()}
@@ -78,7 +56,5 @@
       {/each}
     </figcaption>
   {/if}
-  {#if after}
-    {@render after()}
-  {/if}
+  {@render after?.()}
 </figure>

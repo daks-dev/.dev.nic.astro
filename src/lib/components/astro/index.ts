@@ -31,6 +31,7 @@ export { default as Figure } from './figure/Figure.astro';
 export { default as Head } from './head/Head.astro';
 export { default as Header } from './header/Header.astro';
 export { default as Icon } from './icon/Icon.astro';
+export { default as Img } from './img/Img.astro';
 export { default as Link } from './link/Link.astro';
 
 export { default as BagePlaceholder } from './skeleton/BagePlaceholder.astro';

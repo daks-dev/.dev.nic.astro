@@ -1,6 +1,7 @@
 <script lang="ts">
   import Figure from '../figure/Figure.svelte';
   import Sign from '../sign/Sign.svelte';
+  import Img from '../img/Img.svelte';
   import LightboxList from './LightboxList.svelte';
   import LightboxModal from './LightboxModal.svelte';
   import LightboxThumbnail from './LightboxThumbnail.svelte';
@@ -14,20 +15,23 @@
     title: __title,
     subtitle: __subtitle,
     description: __description,
+    img,
     alt = '',
     sign: __sign,
-    grid = false,
-    adaptive = false,
-    centered = false,
-    rounded = false,
-    shadow = false,
-    scale = false,
-    grayscale = false,
-    invert = false,
-    native = false,
-    loader = native ? undefined : () => document?.lazyload?.update(),
+    grid,
+    adaptive,
+    centered,
+    rounded,
+    shadow,
+    scale,
+    grayscale,
+    invert,
+    eager,
+    lazyload,
+    loader = lazyload ? () => document?.lazyload?.update() : undefined,
     ...rest
   }: Props = $props();
+
   const sign = __sign
     ? typeof __sign === 'string'
       ? {
@@ -50,7 +54,7 @@
   {loader}
   {...rest}>
   {#snippet thumbnail()}
-    {#each data as { thumb: image, caption, modal }, idx}
+    {#each data as { thumb, caption, modal }, idx}
       <LightboxThumbnail class={['outline-none']}>
         {#if sign}
           <Sign
@@ -58,7 +62,8 @@
             {...sign} />
         {/if}
         <Figure
-          {image}
+          src={thumb.src}
+          {img}
           {caption}
           class={['relative flex flex-col', centered && 'items-center', custom.item]}
           custom={{
@@ -80,25 +85,23 @@
             ]
           }}
           alt={`${alt} [${idx}]`.trim()}
-          {native} />
+          {eager}
+          {lazyload} />
         <link
           rel="image"
           href={modal.src} />
         <link
           rel="thumbnailUrl"
-          href={image.src} />
+          href={thumb.src} />
       </LightboxThumbnail>
     {/each}
   {/snippet}
   {#each data as { modal: { src, attributes }, caption }}
     <LightboxModal {...caption}>
-      <img
+      <Img
         class="bg--loading bg-10% bg-center bg-no-repeat"
         {src}
-        {...attributes}
-        alt=""
-        decoding="async"
-        loading="lazy" />
+        {...attributes} />
     </LightboxModal>
   {/each}
 </LightboxList>

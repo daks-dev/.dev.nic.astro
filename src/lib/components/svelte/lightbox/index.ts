@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { SvelteHTMLElements } from 'svelte/elements';
+import type { ImgAttriibutes } from '../img/index.d.ts';
 import type { SignAttributes } from '../sign/index.d.ts';
 
 export type Item = {
@@ -57,15 +58,17 @@ export type LightboxDataAttributes = LightboxAttributes & {
     alt?: string;
     caption: Record<string, string>;
   }[];
+  img?: Omit<ImgAttriibutes, 'src' | 'class' | 'alt'>;
   alt?: string;
   sign?: string | SignAttributes;
-  grid?: boolean;
-  adaptive?: boolean;
-  centered?: boolean;
-  rounded?: boolean;
-  shadow?: boolean;
-  scale?: boolean;
-  grayscale?: boolean;
-  invert?: boolean;
-  native?: boolean;
+  grid?: true;
+  adaptive?: true;
+  centered?: true;
+  rounded?: true;
+  shadow?: true;
+  scale?: true;
+  grayscale?: true;
+  invert?: true;
+  eager?: true;
+  lazyload?: true;
 };

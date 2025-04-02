@@ -9,7 +9,7 @@ import { Icon } from '@lib/components/astro';
     'drawer:translate-x-0 2xl:-translate-x-[(100%_-_3rem)] -translate-x-full',
     'flex',
     'overflow-x-hidden',
-    'bg-theme-inner shadow-xl shadow-gray-300 dark:shadow-gray-950',
+    'bg-theme-frame shadow-xl shadow-gray-300 dark:shadow-gray-950',
     'border-gray-700/50 dark:border-l',
     'transition-transform duration-300 ease-in-out'
   ]}>
@@ -62,7 +62,12 @@ import { Icon } from '@lib/components/astro';
     };
 
     outside = (e: Event) => {
-      if (e?.target && !this.contains(e.target as Node) && !this.btn.contains(e.target as Node))
+      if (
+        e?.target &&
+        !e.defaultPrevented &&
+        !this.contains(e.target as Node) &&
+        !this.btn.contains(e.target as Node)
+      )
         this.close();
     };
   }

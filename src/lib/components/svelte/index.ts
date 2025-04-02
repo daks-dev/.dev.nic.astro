@@ -6,6 +6,8 @@ export { default as Figure } from './figure/Figure.svelte';
 export { default as Icon } from './icon/Icon.svelte';
 export type { IconAttributes } from './icon/index.d.ts';
 
+export { default as Img } from './img/Img.svelte';
+
 export { default as Lightbox } from './lightbox/Lightbox.svelte';
 export { default as LightboxData } from './lightbox/LightboxData.svelte';
 export { default as LightboxList } from './lightbox/LightboxList.svelte';
