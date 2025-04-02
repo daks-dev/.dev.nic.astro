@@ -9,8 +9,6 @@
   import type { Item } from './index.d.ts';
   import type { LightboxAttributes as Props } from './index.d.ts';
 
-  import './index.css';
-
   const {
     tag = 'div',
     children,

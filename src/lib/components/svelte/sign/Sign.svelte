@@ -1,21 +1,8 @@
 <script lang="ts">
   import Icon from '../icon/Icon.svelte';
-  import type { SignAttributes } from './index.d.ts';
+  import type { SignAttributes as Props } from './index.d.ts';
 
-  /**
-   * 'mdi:link-variant'
-   * 'ic:round-zoom-out-map'
-   */
-
-  const {
-    class: className,
-    link = false,
-    small = false,
-    auto = false,
-    dark = false,
-    light = false,
-    ...rest
-  }: SignAttributes = $props();
+  const { class: className, link, small, auto, dark, light, ...rest }: Props = $props();
 </script>
 
 <Icon

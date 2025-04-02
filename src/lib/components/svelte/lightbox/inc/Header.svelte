@@ -14,7 +14,7 @@
 
 <div
   class={twMerge(
-    'lightbox-header',
+    'scoped',
     'relative z-30 h-12',
     'flex items-center justify-end gap-2',
     'text-4xl text-gray-200/50',
@@ -69,3 +69,14 @@
     </button>
   {/if}
 </div>
+
+<style scoped>
+  :where(.scoped) {
+    &.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+</style>

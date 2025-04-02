@@ -39,8 +39,8 @@ export type CarouselAttributes = Omit<SvelteHTMLElements['div'], 'children' | 'c
     controls?: string | string[];
     img?: Omit<ImgAttriibutes, 'src' | 'class' | 'alt'>;
     alt?: string;
-    eager?: true;
-    lazyload?: true;
+    eager?: boolean;
+    lazyload?: boolean;
     loaded?: (x?: Event | HTMLElement) => void;
     progress?: Snippet<[Tween<number>, number, number]> | true;
     check?: Snippet;

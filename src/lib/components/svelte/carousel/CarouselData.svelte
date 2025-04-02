@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import Carousel from './Carousel.svelte';
   import Sign from '../sign/Sign.svelte';
   import type { CarouselDataAttributes as Props } from './index.d.ts';
@@ -51,11 +50,11 @@
   {#snippet check()}
     {#if checked}
       <small
-        class={twMerge(
+        class={[
           'absolute bottom-2 left-2',
           'font-semibold text-black/50',
           typeof checked === 'string' && checked
-        )}>
+        ]}>
         {count}
         <sup>{data?.length}</sup>
       </small>

@@ -5,9 +5,9 @@ export interface NavItem extends Omit<HTMLAttributes<'a'>, 'class'> {
   label?: string;
   icon?: string;
   size?: number | string;
-  pointer?: true;
-  prefetch?: true;
-  disallow?: true;
+  pointer?: boolean;
+  prefetch?: boolean;
+  disallow?: boolean;
   items?: NavItem[];
 }
 

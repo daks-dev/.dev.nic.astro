@@ -1,16 +1,17 @@
 ---
 import { getImage } from 'astro:assets';
 import LightboxData from '../../svelte/lightbox/LightboxData.svelte';
+import type { LightboxDataAttributes } from '../../svelte/lightbox/index.d.ts';
 import type { BindImageData } from './index.d.ts';
 
-type Props = {
+type Props = Omit<LightboxDataAttributes, 'data'> & {
   data: BindImageData | BindImageData[];
   transform: {
     [x in 'thumb' | 'modal']: ImageTransform;
   };
   filter?: string[];
   client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
-} & Record<string, unknown>;
+};
 
 const { data: __data, transform, filter, client = 'visible', ...props } = Astro.props;
 

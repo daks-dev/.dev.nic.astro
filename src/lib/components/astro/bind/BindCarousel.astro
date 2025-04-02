@@ -6,7 +6,7 @@ import type { BindImageData } from './index.d.ts';
 
 type Props = Omit<CarouselDataAttributes, 'data'> & {
   data: BindImageData | BindImageData[];
-  transform: Metadata;
+  transform: ImageTransform;
   filter?: string[];
   client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
 };

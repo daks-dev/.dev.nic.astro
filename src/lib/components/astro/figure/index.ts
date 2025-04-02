@@ -8,6 +8,6 @@ export type FigureAttriibutes = Omit<HTMLAttributes<'figure'>, 'class'> & {
   class?: ClassValue;
   custom?: Record<string, ClassValue>;
   alt?: string;
-  eager?: true;
-  lazyload?: true;
+  eager?: boolean;
+  lazyload?: boolean;
 };

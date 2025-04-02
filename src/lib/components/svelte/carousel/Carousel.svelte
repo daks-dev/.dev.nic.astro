@@ -199,12 +199,12 @@
       )}>
       <div
         bind:this={slider}
-        class={twMerge(
+        class={[
           'relative',
           'grid grid-flow-col grid-rows-1',
           ratio && 'overflow-x-hidden',
           'will-change-transform'
-        )}
+        ]}
         style:height={ratio ? `${width / ratio}px` : ''}
         style:width="{width * total}px"
         style:transform="translate3d(-{width * tween.current}px, 0px, 0px)">
@@ -215,15 +215,14 @@
             {caption}
             class={custom.item}
             style="width:{width}px"
-            custom={{
-              img: twMerge(
+            custom={Object.assign({}, custom.inner, {
+              img: [
                 'w-full max-w-full',
                 ratio ? 'h-full object-cover' : 'h-auto object-contain',
                 'pointer-events-none',
                 custom.inner?.img
-              ),
-              caption: custom.inner?.caption
-            }}
+              ]
+            })}
             alt={`${alt ?? __alt} [${idx}]`.trim()}
             {eager}
             {lazyload}

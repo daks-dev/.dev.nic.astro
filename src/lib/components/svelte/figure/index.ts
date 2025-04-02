@@ -9,8 +9,8 @@ export type FigureAttriibutes = Omit<SvelteHTMLElements['figure'], 'class'> & {
   class?: ClassValue;
   custom?: Record<string, ClassValue>;
   alt?: string;
-  eager?: true;
-  lazyload?: true;
+  eager?: boolean;
+  lazyload?: boolean;
   loaded?: (x?: Event | HTMLElement) => void;
   before?: Snippet;
   after?: Snippet;

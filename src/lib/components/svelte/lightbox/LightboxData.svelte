@@ -40,6 +40,7 @@
         }
       : __sign
     : undefined;
+
   options.behaviour ??= 'loop';
 </script>
 
@@ -55,7 +56,7 @@
   {...rest}>
   {#snippet thumbnail()}
     {#each data as { thumb, caption, modal }, idx}
-      <LightboxThumbnail class={['outline-none']}>
+      <LightboxThumbnail class={[sign && 'group relative', 'outline-none']}>
         {#if sign}
           <Sign
             class={custom.inner?.sign}
@@ -75,7 +76,7 @@
               grayscale && 'grayscale hover:grayscale-0',
               invert && 'invert hover:invert-0',
               (shadow || scale || grayscale || invert) && 'transition duration-300 ease-in-out',
-              custom.inner?.image
+              custom.inner?.img
             ],
             caption: [
               'flex flex-col pt-2',

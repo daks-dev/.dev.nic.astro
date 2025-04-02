@@ -14,7 +14,7 @@
   const { custom, title, subtitle, description, fullscreen, status }: Props = $props();
 </script>
 
-<div class={twMerge('lightbox-footer', 'relative z-30', fullscreen && 'fullscreen', custom.footer)}>
+<div class={twMerge('scoped', 'relative z-30', fullscreen && 'fullscreen', custom.footer)}>
   <div
     class={twMerge(
       'min-h-24 pt-1 sm:min-h-12',
@@ -46,3 +46,15 @@
     {/if}
   </div>
 </div>
+
+<style scoped>
+  :where(.scoped) {
+    &.fullscreen {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding-inline: 1rem;
+    }
+  }
+</style>

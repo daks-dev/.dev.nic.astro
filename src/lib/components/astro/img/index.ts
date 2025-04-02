@@ -6,6 +6,6 @@ export type ImgAttriibutes = HtmlImgAttriibutes & {
   src: string | ImageResult;
   class?: ClassValue;
   alt?: string;
-  eager?: true;
-  lazyload?: true;
+  eager?: boolean;
+  lazyload?: boolean;
 };
