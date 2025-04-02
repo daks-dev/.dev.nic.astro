@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { Link } from '@lib/components/astro';
 import MenuToggle from './MenuToggle.astro';
-import SidebarToggle from './SidebarToggle.astro';
+import DrawerToggle from './DrawerToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
@@ -19,12 +19,12 @@ import { nav } from '@app/configs/nav';
     'grid grid-cols-[1fr_auto] place-content-center gap-x-3',
     'bp:grid-cols-[1fr_auto_1fr]',
     'bg-theme-inner',
-    'onscroll:shadow-md shadow-sm shadow-gray-300 dark:shadow-gray-950',
+    'onscroll:shadow-md shadow-xs shadow-gray-200 dark:shadow-gray-900',
     'border-b border-gray-100 dark:border-gray-900'
   ]}>
   <div class:list={['flex items-center justify-between', 'menu-header']}>
-    <div class='flex items-center gap-7'>
-      <SidebarToggle />
+    <div class='-ml-3.5 flex items-center gap-7'>
+      <DrawerToggle />
       <Link
         class:list={[
           'group',

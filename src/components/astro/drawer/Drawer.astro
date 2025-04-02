@@ -1,0 +1,71 @@
+---
+import { Icon } from '@lib/components/astro';
+---
+
+<aside
+  is='app-drawer'
+  class:list={[
+    'top-(--navbar-height) w-(--drawer-width) fixed bottom-0 z-50',
+    'drawer:translate-x-0 2xl:-translate-x-[(100%_-_3rem)] -translate-x-full',
+    'flex',
+    'overflow-x-hidden',
+    'bg-theme-inner shadow-xl shadow-gray-300 dark:shadow-gray-950',
+    'border-gray-700/50 dark:border-l',
+    'transition-transform duration-300 ease-in-out'
+  ]}>
+  <div class='flex grow flex-col'></div>
+  <div
+    class:list={[
+      'flex flex-col items-center gap-y-3',
+      'w-12 py-4',
+      'text-theme-link',
+      'border-l border-gray-200 dark:border-gray-700/50'
+    ]}>
+    <a
+      class='p-2'
+      href='#'>
+      <Icon
+        icon='phone-call'
+        size='1.5em'
+      />
+    </a>
+    <a
+      class='p-2'
+      href='#'>
+      <Icon
+        icon='envelope'
+        size='1.5em'
+      />
+    </a>
+  </div>
+</aside>
+
+<script>
+  class AppDrawer extends HTMLElement {
+    btn: HTMLButtonElement;
+
+    constructor() {
+      super();
+      this.btn = document.querySelector('[is="app-drawer-toggle"]')!;
+    }
+
+    connectedCallback() {
+      document.addEventListener('click', this.outside);
+    }
+
+    disconnectedCallback() {
+      document.removeEventListener('click', this.outside);
+    }
+
+    close = () => {
+      document.body.classList.remove('theme-drawer');
+    };
+
+    outside = (e: Event) => {
+      if (e?.target && !this.contains(e.target as Node) && !this.btn.contains(e.target as Node))
+        this.close();
+    };
+  }
+
+  customElements.define('app-drawer', AppDrawer, { extends: 'aside' });
+</script>

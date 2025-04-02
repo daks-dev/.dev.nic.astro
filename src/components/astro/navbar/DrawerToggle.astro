@@ -1,0 +1,29 @@
+---
+import { Icon } from '@lib/components/astro';
+---
+
+<button
+  is='app-drawer-toggle'
+  class:list={['p-2', 'text-primary-500']}>
+  <Icon
+    icon='dots-three-outline'
+    class:list={['not-drawer:rotate-90', 'transition-transform duration-300 ease-in-out']}
+    size='1.5rem'
+  />
+</button>
+
+<script>
+  class AppDrawerToggle extends HTMLButtonElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.addEventListener('click', () => document.body.classList.toggle('theme-drawer'));
+    }
+
+    // disconnectedCallback() {}
+  }
+
+  customElements.define('app-drawer-toggle', AppDrawerToggle, { extends: 'button' });
+</script>

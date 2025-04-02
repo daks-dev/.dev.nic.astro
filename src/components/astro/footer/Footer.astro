@@ -1,6 +1,14 @@
 ---
+import { twMerge } from '@lib';
 import { Icon } from '@lib/components/astro';
 import { Timer } from '@lib/components/svelte';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'footer'>, 'class'> & {
+  class?: ClassValue;
+};
+
+const { class: className, ...props } = Astro.props;
 
 // import { nav } from '@app/configs/nav';
 // const { outers } = nav.footer ?? {};
@@ -9,12 +17,13 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer
-  class:list={[
+  class={twMerge(
     'frame-xl',
     'py-5',
     'grid grid-cols-1 items-center justify-center gap-2 sm:grid-cols-3',
-    'text-theme-plain text-center text-sm'
-  ]}>
+    'text-theme-plain text-center text-sm',
+    className
+  )}>
   <div>
     Designed & Developed in Moscow with
     <a

@@ -1,8 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import { twMerge } from '@lib';
 import { Head } from '@lib/components/astro';
-import { Navbar, Footer } from '@components/astro';
+import { Navbar, Drawer, Footer } from '@components/astro';
 
 import '@styles/global.css';
 
@@ -48,15 +47,16 @@ import app from '@app/configs/app';
     itemscope
     itemtype={`https://schema.org/${schema}`}>
     <div class='flex min-h-screen flex-col'>
-      <Navbar />
-      <Element
-        class={twMerge('flex grow flex-col', className)}
+      <div
+        class:list={['grow', className]}
         {...props}>
         <slot />
-      </Element>
+      </div>
+      <Navbar />
+      <Drawer />
       <Footer />
+      <!-- YandexMetrika {counter} /-->
+      <!--script>if (typeof window !== 'undefined') import('../pwa');</script-->
     </div>
-    <!-- YandexMetrika {counter} /-->
-    <!--script>if (typeof window !== 'undefined') import('../pwa');</script-->
   </body>
 </html>
