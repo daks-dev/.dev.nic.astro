@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'astro/types';
 
-export interface NavItem extends Omit<HTMLAttributes<'a'>, 'class'> {
+export type NavItem = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassValue;
   label?: string;
   icon?: string;
@@ -9,7 +9,7 @@ export interface NavItem extends Omit<HTMLAttributes<'a'>, 'class'> {
   prefetch?: boolean;
   disallow?: boolean;
   items?: NavItem[];
-}
+};
 
 export interface NavSite {
   navbar: {
@@ -27,6 +27,8 @@ export interface NavSite {
 export { default as BindCarousel } from './bind/BindCarousel.astro';
 export { default as BindLightboxData } from './bind/BindLightboxData.astro';
 
+export { default as Button } from './button/Button.astro';
+export { default as Dropdown } from './dropdown/Dropdown.astro';
 export { default as Figure } from './figure/Figure.astro';
 export { default as Head } from './head/Head.astro';
 export { default as Header } from './header/Header.astro';

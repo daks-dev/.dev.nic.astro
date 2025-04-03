@@ -108,7 +108,8 @@ export const nav: NavSite = {
     },
     {
       href: '/feedback',
-      label: 'Отзывы'
+      label: 'Отзывы',
+      class: 'bp:max-lg:hidden'
     },
     {
       href: '/articles',

@@ -1,8 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import { Link } from '@lib/components/astro';
-import MenuToggle from './MenuToggle.astro';
 import DrawerToggle from './DrawerToggle.astro';
+import Menu from './Menu.astro';
+import MenuToggle from './MenuToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
@@ -26,19 +27,14 @@ import { nav } from '@app/configs/nav';
     <div class='-ml-3.5 flex items-center gap-x-7'>
       <DrawerToggle />
       <Link
-        class:list={[
-          'group',
-          'flex items-center gap-4',
-          'text-base/tight font-medium',
-          'transition duration-200'
-        ]}
+        class:list={['group', 'flex items-center gap-4', 'text-base/tight font-medium']}
         href='/'
         prefetch>
         <Image
           class:list={[
             'drop-shadow-2xl',
             'group-hover:drop-shadow-deep',
-            'animate-[wiggle_20s_ease-in-out_infinite]'
+            'ready:animate-[wiggle_20s_ease-in-out_infinite]'
           ]}
           src={logo}
           width={40}
@@ -53,12 +49,31 @@ import { nav } from '@app/configs/nav';
     </div>
     <MenuToggle />
   </div>
-  <div
+  <Menu items={nav.navbar}>
+    <div
+      class:list={[
+        'max-bp:py-2',
+        'flex justify-around',
+        'bp:items-center bp:justify-self-end',
+        'bg-theme-frame',
+        'border-primary-200 dark:border-primary-800 border-t',
+        'rounded-b-md',
+        'shadow-md dark:shadow-gray-800',
+        'bp:shadow-none',
+        'bp:bg-transparent'
+      ]}>
+      <div class='flex items-center'>
+        <ThemeToggle />
+      </div>
+    </div>
+  </Menu>
+  <!--div
     id='app-navbar-menu'
     class:list={['bp:contents absolute inset-x-0', 'max-bp:top-(--navbar-height)']}
     aria-owns='app-navbar-menu-toggle'
     hidden>
-    <menu
+    <div
+      role='menu'
       class:list={[
         'relative',
         // 'bp:py-1.5',
@@ -69,16 +84,28 @@ import { nav } from '@app/configs/nav';
         'max-bp:bg-theme-frame'
       ]}>
       {
-        nav.navbar.map(({ class: className, ...props }) => (
-          <li class:list={['relative flex items-center', className]}>
-            <Link
-              class:list='inner'
-              {...props}
+        nav.navbar.map(({ class: className, ...item }) =>
+          item.items ? (
+            <Dropdown
+              {item}
+              class:list={['relative flex items-center', className]}
+              custom={{
+                item: 'inner'
+              }}
             />
-          </li>
-        ))
+          ) : (
+            <div
+              role='menuitem'
+              class:list={['relative flex items-center', className]}>
+              <Link
+                class='inner'
+                {...item}
+              />
+            </div>
+          )
+        )
       }
-    </menu>
+    </div>
     <div
       class:list={[
         // 'max-bp:py-2',
@@ -109,16 +136,15 @@ import { nav } from '@app/configs/nav';
         <ThemeToggle />
       </div>
     </div>
-  </div>
+  </div-->
 
-  <ToTop
-    class:list={['mt-8 w-14 p-3', 'bg-primary-500/50 dark:bg-primary-700/50', 'rounded-full']}
-  />
+  <ToTop class:list={['mt-8 w-14 p-3', 'bg-gray-300/50 dark:bg-gray-700/50', 'rounded-full']} />
 </nav>
 
 <style scoped>
   @reference "@styles/global.css";
 
+  /*
   .inner {
     @apply px-4 py-2;
     @apply bp:px-3 bp:pt-1 bp:pb-1.5;
@@ -134,4 +160,5 @@ import { nav } from '@app/configs/nav';
   .outer {
     @apply text-impact-hard dark:text-impact-hard ready:transition-colors ready:duration-200 hover:text-impact-text dark:hover:text-impact-text flex p-2 no-underline;
   }
+    */
 </style>

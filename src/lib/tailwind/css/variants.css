@@ -1,7 +1,9 @@
 @custom-variant dark (&.theme-dark, .theme-dark &);
 
-@custom-variant step (&[aria-current="step"]);
-@custom-variant page (&[aria-current="page"]);
+@custom-variant step (&[aria-current="step"], [aria-current="step"] &, &:has(> [aria-current="step"]));
+@custom-variant page (&[aria-current="page"], [aria-current="page"] &, &:has(> [aria-current="page"]));
+
+@custom-variant expanded (&[aria-expanded="true"], [aria-expanded="true"] &);
 
 @custom-variant onload (&.loaded, .loaded &);
 @custom-variant onswap (&.swapped, .swapped &);

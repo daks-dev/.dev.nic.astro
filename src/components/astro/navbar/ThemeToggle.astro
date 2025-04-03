@@ -8,8 +8,8 @@ import { Icon } from '@lib/components/astro';
       'group',
       'flex items-center',
       'rounded-full bg-neutral-200 dark:bg-gray-800',
-      'shadow-inset shadow-slate-300 dark:shadow-slate-700'
-      // 'motion-safe:transition-colors motion-safe:duration-200'
+      'shadow-inset shadow-slate-300 dark:shadow-slate-700',
+      'ready:motion-safe:transition-colors duration-200'
     ]}>
     <span class='sr-only'>Dark theme</span>
     <span
@@ -37,7 +37,7 @@ import { Icon } from '@lib/components/astro';
       @apply content-empty;
       @apply absolute inset-0 -z-10;
       @apply rounded-full bg-slate-400 dark:bg-slate-600;
-      @apply motion-safe:transition-transform motion-safe:duration-300;
+      @apply ready:motion-safe:transition-transform duration-300;
     }
   }
 </style>

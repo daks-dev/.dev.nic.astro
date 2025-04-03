@@ -1,0 +1,35 @@
+---
+import { twMerge } from '../../../tailwind/tailwind-merge.js';
+import Icon from '../icon/Icon.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+  class?: ClassValue;
+  label?: string;
+  icon?: string;
+  size?: number | string;
+};
+
+const { class: className, label, icon, size, ...props } = Astro.props;
+---
+
+<button
+  class={twMerge(className)}
+  aria-label={Astro.slots.has('default') || icon ? label : undefined}
+  {...props}>
+  <slot name='before' />
+  <slot>
+    {
+      icon ? (
+        <Icon
+          {icon}
+          class='disabled'
+          {size}
+        />
+      ) : (
+        <Fragment set:html={label} />
+      )
+    }
+  </slot>
+  <slot name='after' />
+</button>

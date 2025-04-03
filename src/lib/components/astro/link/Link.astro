@@ -1,7 +1,10 @@
 ---
 import { twMerge } from '../../../tailwind/tailwind-merge.js';
 import Icon from '../icon/Icon.astro';
+// import type { HTMLAttributes } from 'astro/types';
 import type { NavItem as Props } from '../index.d.ts';
+
+// type Props = Omit<HTMLAttributes<'a'>, 'class'> & NavItem;
 
 const { class: className, href, label, icon, size, pointer, prefetch, ...props } = Astro.props;
 

@@ -11,7 +11,7 @@ import { Icon } from '@lib/components/astro';
     'overflow-x-hidden',
     'bg-theme-frame shadow-xl shadow-gray-300 dark:shadow-gray-950',
     'border-gray-700/50 dark:border-l',
-    'transition-transform duration-300 ease-in-out'
+    'ready:motion-safe:transition-transform duration-300 ease-in-out'
   ]}>
   <div class='flex grow flex-col'></div>
   <div
@@ -64,7 +64,7 @@ import { Icon } from '@lib/components/astro';
     outside = (e: Event) => {
       if (
         e?.target &&
-        !e.defaultPrevented &&
+        // !e.defaultPrevented &&
         !this.contains(e.target as Node) &&
         !this.btn.contains(e.target as Node)
       )

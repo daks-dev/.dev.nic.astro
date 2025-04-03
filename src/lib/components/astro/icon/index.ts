@@ -14,14 +14,14 @@ const bundle = Object.entries(
     import: 'default'
   }) as Record<string, string>
 ).reduce((acc: Record<string, IconItem>, [key, val]) => {
-  const idx = key.match(/^(.+)\/([\w-]+).svg$/)?.at(2);
-  if (idx)
-    acc[idx] = {
-      body: val.match(/^<svg(.*?)>(.+)<\/svg>$/)?.at(2),
-      stroke: val.match(/^<svg([^>]+)stroke="(.+?)"/)?.at(2),
-      fill: val.match(/^<svg([^>]+)fill="(.+?)"/)?.at(2),
-      viewBox: val.match(/^<svg([^>]+)viewBox="(.+?)"/)?.at(2)
-    };
+  const idx = key.replace(/(.+)\/([\w-]+).svg/, '$2');
+  const str = val.replace(/\n+/g, '').replace(/\s{2}/g, ' ').replace('> <', '><').trim();
+  acc[idx] = {
+    body: str.match(/^<svg(.*?)>(.+)<\/svg>(.*)$/)?.at(2),
+    stroke: str.match(/^<svg(.+?)stroke="(.+?)"(.+)$/)?.at(2),
+    fill: str.match(/^<svg(.+?)fill="(.+?)"(.+)$/)?.at(2),
+    viewBox: str.match(/^<svg(.+?)viewBox="(.+?)"(.+)$/)?.at(2)
+  };
   return acc;
 }, {});
 

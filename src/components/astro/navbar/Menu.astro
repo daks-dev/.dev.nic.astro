@@ -1,0 +1,97 @@
+---
+import { Dropdown, Link } from '@lib/components/astro';
+import type { HTMLAttributes } from 'astro/types';
+import type { NavItem } from '@lib/components/astro/index.js';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  items: NavItem[];
+  class?: ClassValue;
+  custom?: Record<string, ClassValue>;
+};
+
+const { items, class: className, custom = {}, ...props } = Astro.props;
+---
+
+<slot name='before' />
+<div
+  id='app-navbar-menu'
+  class:list={['bp:contents absolute inset-x-0', 'max-bp:top-(--navbar-height)']}
+  aria-owns='app-navbar-menu-toggle'
+  hidden>
+  <div
+    role='menu'
+    class:list={[
+      'relative',
+      'max-bp:flex-col bp:gap-x-3 flex',
+      'text-base/none font-normal',
+      'max-bp:bg-theme-frame',
+      custom.menu,
+      className
+    ]}
+    aria-owns='app-navbar-toggle'
+    {...props}>
+    {
+      items.map(({ class: className, ...item }) =>
+        item.items ? (
+          <Dropdown
+            toggle={item}
+            class:list={['inner', className]}
+            custom={{
+              frame: 'bp:flex',
+              drop: [
+                'max-bp:indent-4',
+                'bp:mt-2.5 bp:py-2',
+                'bp:leading-loose',
+                'bp:rounded bp:bg-neutral-100/95 bp:shadow-md bp:dark:bg-gray-700/95'
+              ]
+            }}>
+            {item.items?.map((item) => {
+              const { class: className, role = 'menuitem', itemprop, ...link } = item;
+              return (
+                <Link
+                  {role}
+                  class={['bp:flex items-center', custom.item, custom.link, className]}
+                  {...link}
+                  itemprop={(itemprop ?? link.href) ? 'relatedLink' : undefined}
+                />
+              );
+            })}
+          </Dropdown>
+        ) : (
+          <Link
+            role='menuitem'
+            class:list={['inner bp:flex', className]}
+            {...item}
+          />
+        )
+      )
+    }
+  </div>
+  <slot />
+</div>
+<slot name='after' />
+
+<style scoped>
+  @reference "@styles/global.css";
+
+  a {
+    @apply bp:py-2 px-4 py-3;
+    @apply text-theme-plain;
+    @apply step:text-theme-header;
+    @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;
+    @apply hover:bg-primary-300 dark:hover:bg-primary-500 hover:text-primary-900 dark:hover:text-primary-200;
+    @apply ready:transition-colors ready:duration-200;
+    @apply forced-colors:text-selected;
+  }
+
+  .inner {
+    @apply bp:self-center items-center;
+    @apply bp:pb-2.25 bp:pt-1.75;
+    @apply bp:border bp:rounded-full border-transparent;
+    @apply step:border-theme-header;
+  }
+
+  .outer {
+    @apply text-impact-hard dark:text-impact-hard ready:transition-colors ready:duration-200 hover:text-impact-text dark:hover:text-impact-text flex p-2 no-underline;
+  }
+</style>

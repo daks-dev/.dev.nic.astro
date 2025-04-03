@@ -14,7 +14,7 @@ const {
   ...props
 }: Props = Astro.props;
 
-const { body, viewBox = '0 0 256 256' } = bundle[icon];
+const { body = '', viewBox = '0 0 256 256' } = bundle[icon];
 
 const id = `_${Math.floor((1 + Math.random()) * 0x1000)
   .toString(16)

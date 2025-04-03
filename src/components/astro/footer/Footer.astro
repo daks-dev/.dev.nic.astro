@@ -26,18 +26,32 @@ const currentYear = new Date().getFullYear();
   )}
   {...props}>
   <div>
-    Designed & Developed in Moscow with
-    <a
-      class='text-impact-accent hover:text-theme-link mx-2 text-nowrap'
-      href='https://astro.build/'
-      target='_blank'>
-      Astro
-      <Icon
-        class='inline'
-        icon='rocket-launch'
-        size='1.2em'
-      />
-    </a>
+    Designed & Developed with
+    <span class='text-nowrap'>
+      <a
+        class='hover:text-theme-link'
+        href='https://astro.build'
+        target='_blank'>
+        Astro
+        <Icon
+          class='inline'
+          icon='astro'
+          size='1.5em'
+        />
+      </a>
+      &
+      <a
+        class='hover:text-theme-link'
+        href='https://svelte.dev'
+        target='_blank'>
+        Svelte
+        <Icon
+          class='inline'
+          icon='svelte'
+          size='1.4em'
+        />
+      </a>
+    </span>
   </div>
 
   {

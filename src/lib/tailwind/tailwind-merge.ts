@@ -57,9 +57,10 @@ const config: any = {
         {
           bg: ['-loading', '-waiting']
         }
-      ]
+      ],
+      'pointer-effects': ['enabled', 'disabled']
     }
-    // conflictingClassGroups: {},
+    // conflictingClassGroups: {}
     // orderSensitiveModifiers: []
   }
 };

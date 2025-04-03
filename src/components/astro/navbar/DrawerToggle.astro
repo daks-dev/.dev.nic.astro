@@ -7,7 +7,10 @@ import { Icon } from '@lib/components/astro';
   class:list={['p-2', 'text-primary-500']}>
   <Icon
     icon='dots-three-outline'
-    class:list={['not-drawer:rotate-90', 'transition-transform duration-300 ease-in-out']}
+    class:list={[
+      'not-drawer:rotate-90',
+      'ready:motion-safe:transition-transform duration-300 ease-in-out'
+    ]}
     size='1.5rem'
   />
 </button>
