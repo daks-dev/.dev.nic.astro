@@ -1,12 +1,15 @@
 import type { HTMLAttributes } from 'astro/types';
 
-export type NavItem = Omit<HTMLAttributes<'a'>, 'class'> & {
+export type NavLink = Omit<HTMLAttributes<'a'>, 'class'> & {
   class?: ClassValue;
   label?: string;
   icon?: string;
-  size?: number | string;
   pointer?: boolean;
   prefetch?: boolean;
+};
+
+export type NavItem = NavLink & {
+  base?: string;
   disallow?: boolean;
   items?: NavItem[];
 };

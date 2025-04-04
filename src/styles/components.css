@@ -1,0 +1,18 @@
+@layer components {
+  header:has(~ :where(main, [role='main'])) {
+    margin-top: calc(2rem + var(--navbar-height));
+    h1 {
+      @apply text-theme-header;
+    }
+  }
+
+  [role='menuitem'] {
+    @apply pb-2.25 px-4 pt-2;
+    @apply text-theme-plain;
+    @apply hover:bg-primary-300 dark:hover:bg-primary-500 hover:text-primary-900 dark:hover:text-primary-200;
+    @apply step:text-theme-header;
+    @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;
+    @apply ready:motion-safe:transition-colors ready:duration-200;
+    @apply forced-colors:text-selected;
+  }
+}

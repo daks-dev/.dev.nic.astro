@@ -1,0 +1,83 @@
+---
+import { Link } from '@lib/components/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: ClassValue;
+  custom?: Record<string, ClassValue>;
+};
+
+const { class: className, custom = {}, role = 'menu', ...props } = Astro.props;
+
+import { drawer } from '@app/configs/nav';
+---
+
+<div
+  class:list={['flex flex-col py-2', className]}
+  {role}
+  {...props}>
+  {
+    drawer.body &&
+      drawer.body.map(
+        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => {
+          item.href = `/activity${item.href}`;
+          return (
+            <>
+              <Link
+                class:list={[custom.link, className]}
+                {role}
+                {itemprop}
+                {...item}
+              />
+              {item.items &&
+                item.items?.map((x) => {
+                  const {
+                    class: className,
+                    role = 'menuitem',
+                    base = item.href?.toString(),
+                    itemprop = 'relatedLink',
+                    ...link
+                  } = x;
+                  return (
+                    <Link
+                      class={['indent-6', custom.link, className]}
+                      {role}
+                      {itemprop}
+                      {base}
+                      {...link}
+                      base={base ?? item.href?.toString()}
+                    />
+                  );
+                })}
+            </>
+          );
+        }
+      )
+  }
+  <hr class:list={['my-2 w-10/12 self-center', 'border-gray-200 dark:border-gray-700/50']} />
+  {
+    drawer.header &&
+      drawer.header?.map(
+        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
+          <Link
+            class:list={[custom.link, className]}
+            {role}
+            {...item}
+          />
+        )
+      )
+  }
+  {
+    drawer.footer &&
+      drawer.footer.map(
+        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
+          <Link
+            class:list={[custom.link, className]}
+            {role}
+            {itemprop}
+            {...item}
+          />
+        )
+      )
+  }
+</div>

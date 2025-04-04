@@ -73,7 +73,7 @@
         ? show
         : (show
             .entries()
-            .find((x) => carousel.clientWidth < x[0])
+            .find((x) => carousel?.clientWidth < x[0])
             ?.at(1) ?? 1))
   );
   let width = $derived(carousel.clientWidth / count);

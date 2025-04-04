@@ -1,13 +1,24 @@
 ---
 import { twMerge } from '../../../tailwind/tailwind-merge.js';
 import Icon from '../icon/Icon.astro';
-// import type { HTMLAttributes } from 'astro/types';
-import type { NavItem as Props } from '../index.d.ts';
+import type { NavLink } from '../index.d.ts';
 
-// type Props = Omit<HTMLAttributes<'a'>, 'class'> & NavItem;
+type Props = NavLink & {
+  base?: string;
+};
 
-const { class: className, href, label, icon, size, pointer, prefetch, ...props } = Astro.props;
+const {
+  class: className,
+  href: __href,
+  label,
+  icon,
+  pointer,
+  prefetch,
+  base = '',
+  ...props
+} = Astro.props;
 
+const href = `${base}${__href}`.replace('//', '/');
 const current =
   Astro.url.pathname === href || Astro.url.pathname === `${href}/`
     ? 'page'
@@ -30,7 +41,6 @@ const current =
         <Icon
           {icon}
           class='disabled'
-          {size}
         />
       ) : (
         <Fragment set:html={label} />

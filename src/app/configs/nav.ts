@@ -53,7 +53,7 @@ export const activity: NavItem[] = [
   }
 ];
 
-export const draver: NavSidebar = {
+export const drawer: NavSidebar = {
   header: [
     {
       href: '/about',
@@ -126,7 +126,7 @@ export const nav: NavSite = {
       label: 'Контакты'
     }
   ],
-  sidebar: draver,
+  sidebar: drawer,
   footer: [
     {
       href: '/admin',

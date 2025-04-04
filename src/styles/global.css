@@ -54,6 +54,24 @@
   --color-theme-link: var(--color-cyan-800);
 }
 
+@custom-variant drawer (&.theme-drawer, .theme-drawer &);
+
+@import './base.css';
+@import './components.css';
+@import './utilities.css';
+
+@keyframes wiggle {
+  0%,
+  10% {
+    transform: rotate(0deg);
+  }
+  15%,
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*
 @layer base {
   body {
     @apply leading-normal;
@@ -124,7 +142,6 @@
 @layer utilities {
   :where(.readable) {
     @apply text-sm leading-relaxed sm:text-base;
-    /* @apply bp:text-lg; */
     @apply font-light;
     :where(h2, h3, h4) {
       @apply tracking-normal;
@@ -179,16 +196,4 @@
     }
   }
 }
-
-@custom-variant drawer (&.theme-drawer, .theme-drawer &);
-
-@keyframes wiggle {
-  0%,
-  10% {
-    transform: rotate(0deg);
-  }
-  15%,
-  100% {
-    transform: rotate(360deg);
-  }
-}
+*/

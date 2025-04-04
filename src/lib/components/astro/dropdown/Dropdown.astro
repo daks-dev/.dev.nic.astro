@@ -15,7 +15,7 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
 
 const { toggle, class: className, custom = {}, ...props } = Astro.props;
 
-const { href, type: _0, ...propsToggle } = toggle;
+const { href, role = 'menuitem', type: _0, ...propsToggle } = toggle;
 
 const uuid = u();
 
@@ -30,6 +30,8 @@ const Component = href ? Link : Button;
     id={`app-dropdown-toggle${uuid}`}
     class={twMerge('group', 'flex gap-x-1', 'page:enabled', className)}
     {href}
+    {role}
+    type={href ? undefined : 'button'}
     {...propsToggle}
     aria-expanded='false'
     aria-controls={`app-dropdown-appear${uuid}`}>
@@ -123,6 +125,7 @@ const Component = href ? Link : Button;
 
     handleToggle = (ev: Event) => {
       ev.preventDefault();
+      // ev.stopPropagation();
       this.hidden = !this.hidden;
     };
 

@@ -15,14 +15,19 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
 <slot name='before' />
 <div
   id='app-navbar-menu'
-  class:list={['bp:contents absolute inset-x-0', 'max-bp:top-(--navbar-height)']}
+  class:list={[
+    'bp:contents absolute inset-x-0',
+    'top-(--navbar-height)',
+    'max-h--screen-navbar',
+    'overflow-y-auto'
+  ]}
   aria-owns='app-navbar-menu-toggle'
   hidden>
   <div
     role='menu'
     class:list={[
       'relative',
-      'max-bp:flex-col bp:gap-x-3 flex',
+      'max-bp:flex-col bp:gap-x-4 flex',
       'text-base/none font-normal',
       'max-bp:bg-theme-frame',
       custom.menu,
@@ -31,40 +36,48 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
     aria-owns='app-navbar-toggle'
     {...props}>
     {
-      items.map(({ class: className, ...item }) =>
-        item.items ? (
+      items.map(({ class: className, ...item }) => {
+        item.role ??= 'menuitem';
+        item.itemprop ??= item.href && 'relatedLink';
+        return item.items ? (
           <Dropdown
             toggle={item}
             class:list={['inner', className]}
             custom={{
-              frame: 'bp:flex',
+              frame: 'bp:flex bp:items-center',
               drop: [
-                'max-bp:indent-4',
+                'max-bp:indent-6',
                 'bp:mt-2.5 bp:py-2',
                 'bp:leading-loose',
                 'bp:rounded bp:bg-neutral-100/95 bp:shadow-md bp:dark:bg-gray-700/95'
               ]
             }}>
-            {item.items?.map((item) => {
-              const { class: className, role = 'menuitem', itemprop, ...link } = item;
+            {item.items?.map((x) => {
+              const {
+                class: className,
+                role = 'menuitem',
+                itemprop = 'relatedLink',
+                base = item.href?.toString(),
+                ...link
+              } = x;
               return (
                 <Link
-                  {role}
                   class={['bp:flex items-center', custom.item, custom.link, className]}
+                  {role}
+                  {itemprop}
+                  {base}
                   {...link}
-                  itemprop={(itemprop ?? link.href) ? 'relatedLink' : undefined}
                 />
               );
             })}
           </Dropdown>
         ) : (
           <Link
-            role='menuitem'
             class:list={['inner bp:flex', className]}
             {...item}
           />
-        )
-      )
+        );
+      })
     }
   </div>
   <slot />
@@ -74,6 +87,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
 <style scoped>
   @reference "@styles/global.css";
 
+  /*
   a {
     @apply bp:py-2 px-4 py-3;
     @apply text-theme-plain;
@@ -83,12 +97,14 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
     @apply ready:transition-colors ready:duration-200;
     @apply forced-colors:text-selected;
   }
+  */
 
   .inner {
     @apply bp:self-center items-center;
-    @apply bp:pb-2.25 bp:pt-1.75;
+    @apply bp:pb-2 bp:pt-1.5;
     @apply bp:border bp:rounded-full border-transparent;
-    @apply step:border-theme-header;
+    @apply step:border-gray-500/50;
+    /* @apply step:decoration-current underline decoration-transparent underline-offset-8; */
   }
 
   .outer {
