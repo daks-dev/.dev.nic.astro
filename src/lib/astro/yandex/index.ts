@@ -17,3 +17,4 @@ export type Ym = (...x: unknown[]) => void;
 
 export { default as YandexMap } from './YandexMap.astro';
 export { default as YandexMetrika } from './YandexMetrika.astro';
+export { default as YandexMetrikaHit } from './YandexMetrikaHit.astro';

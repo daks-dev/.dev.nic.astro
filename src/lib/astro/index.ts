@@ -50,4 +50,7 @@ export { default as VideoPlaceholder } from './skeleton/VideoPlaceholder.astro';
 export { default as WidgetPlaceholder } from './skeleton/WidgetPlaceholder.astro';
 
 export { default as Video } from './video/Video.astro';
-// export { default as YandexMetrika } from './yandex/YandexMetrika.astro';
+
+export { default as YandexMap } from './yandex/YandexMap.astro';
+export { default as YandexMetrika } from './yandex/YandexMetrika.astro';
+export { default as YandexMetrikaHit } from './yandex/YandexMetrikaHit.astro';

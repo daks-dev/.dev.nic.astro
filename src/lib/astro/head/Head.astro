@@ -5,23 +5,22 @@ import pkg from 'package.json';
 const { version } = pkg;
 
 interface Props {
-  title?: string | undefined;
-  description?: string | undefined;
+  title: string;
+  description: string;
   robots?: string;
   app?: AppConfig;
   rss?: string;
   image?: string;
 }
+
 const {
-  title = 'АО НИЦ «Строительная Экспертиза»',
-  description = 'Независимая строительная экспертиза в Москве',
+  title,
+  description,
   robots = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
   app,
   rss,
-  image = '/images/logo.png'
+  image
 } = Astro.props;
-
-// : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 ---
 
 <meta charset='UTF-8' />

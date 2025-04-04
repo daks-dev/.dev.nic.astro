@@ -1,32 +1,33 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import { Head } from '@lib/astro';
+import { Head, YandexMetrika, YandexMetrikaHit } from '@lib/astro';
 import { Navbar, Drawer, Footer } from '@components/astro';
+import type { HTMLAttributes } from 'astro/types';
 
 import '@styles/global.css';
 
-import type { HTMLAttributes } from 'astro/types';
 type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> & {
-  tag?: 'main' | 'article' | 'div';
   class?: ClassValue;
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   robots?: string;
   schema?: string;
+  metrika?: boolean;
 };
 const {
-  tag: Element = 'div',
   class: className,
   title,
   description,
-  robots,
+  robots = 'noindex, nofollow',
   schema = 'WebPage',
+  metrika = true,
   ...props
 } = Astro.props;
 
-import app from '@app/configs/app';
-// import seo from '@app/configs/seo';
-// const { yandex: { counter } } = seo;
+import { app, seo } from '@app/configs';
+const {
+  yandex: { counter }
+} = seo;
 ---
 
 <html
@@ -55,8 +56,11 @@ import app from '@app/configs/app';
       <Navbar />
       <Drawer />
       <Footer />
-      <!-- YandexMetrika {counter} /-->
-      <!--script>if (typeof window !== 'undefined') import('../pwa');</script-->
     </div>
+    {metrika && (
+      <YandexMetrika {counter} />
+      <YandexMetrikaHit {counter} {title} />
+    )}
+    {/* <script>if (typeof window !== 'undefined') import('../pwa');</script> */}
   </body>
 </html>

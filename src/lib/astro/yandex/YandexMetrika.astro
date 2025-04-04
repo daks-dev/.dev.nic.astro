@@ -1,13 +1,12 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-
-type Props = HTMLAttributes<'script'> & {
+type Props = {
   counter: number | string;
   clickmap?: boolean;
   trackLinks?: boolean;
   accurateTrackBounce?: boolean;
   trackHash?: boolean;
   webvisor?: boolean;
+  type?: string;
 };
 const {
   counter,
@@ -16,7 +15,7 @@ const {
   accurateTrackBounce = true,
   trackHash = true,
   webvisor,
-  ...props
+  type
 } = Astro.props;
 
 const options = JSON.stringify({ clickmap, trackLinks, accurateTrackBounce, trackHash, webvisor });
@@ -25,15 +24,14 @@ const options = JSON.stringify({ clickmap, trackLinks, accurateTrackBounce, trac
 <app-yandex-metrika
   data-counter={counter}
   data-options={options}
-  {...props}
+  data-type={type}
 ></app-yandex-metrika>
 
 <script>
   import type { Ym } from '.';
-
   declare const ym: Ym;
 
-  class AppYandexMetrika extends HTMLScriptElement {
+  class AppYandexMetrika extends HTMLElement {
     constructor() {
       super();
     }
@@ -53,8 +51,6 @@ const options = JSON.stringify({ clickmap, trackLinks, accurateTrackBounce, trac
 
     init = () => {
       if (this.counter) {
-        // TODO: no explicit any
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ((w: any, y) => {
           w[y] = (...rest: unknown[]) => (w[y].a = w[y].a || []).push(rest);
           w[y].l = Number(new Date());
@@ -64,7 +60,7 @@ const options = JSON.stringify({ clickmap, trackLinks, accurateTrackBounce, trac
           const el = document.createElement('script');
           el.src = src;
           el.async = true;
-          if (this.type) el.type = this.type;
+          if (this.dataset.type) el.type = this.dataset.type;
           el.addEventListener('load', () => ym(this.counter, 'init', this.options), { once: true });
           document.head.appendChild(el);
         }
@@ -72,5 +68,5 @@ const options = JSON.stringify({ clickmap, trackLinks, accurateTrackBounce, trac
     };
   }
 
-  customElements.define('app-yandex-metrika', AppYandexMetrika, { extends: 'script' });
+  customElements.define('app-yandex-metrika', AppYandexMetrika);
 </script>

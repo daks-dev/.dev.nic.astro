@@ -1,0 +1,58 @@
+---
+type Props = {
+  counter: number | string;
+  title: string;
+  referer?: string;
+};
+const { counter, title, referer } = Astro.props;
+
+// const options = { data: { counter, title, referer } };
+---
+
+<app-yandex-metrika-hit
+  data-counter={counter}
+  data-title={title}
+  data-referer={referer}
+></app-yandex-metrika-hit>
+
+<script>
+  import type { Ym } from '.';
+  declare const ym: Ym;
+
+  class AppYandexMetrikaHit extends HTMLElement {
+    interval?: ReturnType<typeof setInterval>;
+
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.init();
+    }
+
+    disconnectedCallback() {
+      clearInterval(this.interval);
+    }
+
+    get counter() {
+      const counter = this.dataset.counter ? parseInt(this.dataset.counter) : NaN;
+      return isNaN(counter) ? 0 : counter;
+    }
+
+    init = () => {
+      if (this.counter) {
+        this.interval = setInterval(() => {
+          if (typeof ym !== 'undefined') {
+            ym(this.counter, 'hit', location.href, {
+              title: this.dataset.title,
+              referer: this.dataset.referer
+            });
+            clearInterval(this.interval);
+          }
+        }, 75);
+      }
+    };
+  }
+
+  customElements.define('app-yandex-metrika-hit', AppYandexMetrikaHit);
+</script>
