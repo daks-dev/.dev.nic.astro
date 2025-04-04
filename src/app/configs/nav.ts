@@ -1,4 +1,4 @@
-import type { NavItem } from '@lib/components/astro';
+import type { NavItem } from '@lib/astro';
 
 interface NavSidebar {
   header?: NavItem[];

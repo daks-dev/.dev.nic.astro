@@ -1,0 +1,21 @@
+---
+import { twMerge } from '../../tailwind/tailwind-merge.js';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'video'>, 'class'> & {
+  class?: ClassValue;
+  sources?: HTMLAttributes<'source'>[];
+  traks?: HTMLAttributes<'track'>[];
+};
+
+const { class: className, sources = [], traks = [], ...props }: Props = Astro.props;
+---
+
+<video
+  is='app-video'
+  class={twMerge(className)}
+  {...props}>
+  {sources.map((attrs) => <source {...attrs} />)}
+  {traks.map((attrs) => <trak {...attrs} />)}
+  <slot> Your browser does not support the video tag. </slot>
+</video>

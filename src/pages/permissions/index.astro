@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/components/astro';
-import { BindLightboxData } from '@lib/components/astro';
+import { Header } from '@lib/astro';
+import { BindLightboxData } from '@lib/astro';
 
 const collection = await getCollection('permissions');
 

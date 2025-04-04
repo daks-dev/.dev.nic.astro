@@ -1,7 +1,7 @@
 ---
-import { Dropdown, Link } from '@lib/components/astro';
+import { Dropdown, Link } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
-import type { NavItem } from '@lib/components/astro/index.js';
+import type { NavItem } from '@lib/astro/index.js';
 
 type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   items: NavItem[];

@@ -2,7 +2,7 @@
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Header, Figure } from '@lib/components/astro';
+import { Header, Figure } from '@lib/astro';
 
 import logo from '@assets/images/logo.webp';
 const placeholder = await getImage({ src: logo, width: 256 });
