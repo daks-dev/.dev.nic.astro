@@ -1,32 +1,50 @@
 ---
 import { Icon } from '@lib/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+  class?: ClassValue;
+  icon?: string;
+  size?: number | string;
+};
+
+const { class: className, icon = 'dots-three-outline', size = '1.5em', ...props } = Astro.props;
 ---
 
-<button
-  is='app-drawer-toggle'
-  class:list={['p-2', 'text-primary-500']}>
-  <Icon
-    icon='dots-three-outline'
-    class:list={[
-      'not-drawer:rotate-90',
-      'ready:motion-safe:transition-transform duration-300 ease-in-out'
-    ]}
-    size='1.5rem'
-  />
-</button>
+<app-drawer-toggle>
+  <template>
+    <button
+      class:list={['p-2', 'text-primary-500', className]}
+      {...props}>
+      <Icon
+        {icon}
+        class:list={[
+          'not-drawer:rotate-90',
+          'ready:motion-safe:transition-transform duration-300 ease-in-out'
+        ]}
+        {size}
+      />
+    </button>
+  </template>
+</app-drawer-toggle>
 
 <script>
-  class AppDrawerToggle extends HTMLButtonElement {
+  class AppDrawerToggle extends HTMLElement {
+    toggle: HTMLButtonElement;
+
     constructor() {
       super();
+      this.style.display = 'contents';
+      this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      this.toggle = this.querySelector('button')!;
     }
 
     connectedCallback() {
-      this.addEventListener('click', () => document.body.classList.toggle('theme-drawer'));
+      this.toggle.addEventListener('click', () => document.body.classList.toggle('theme-drawer'));
     }
 
     // disconnectedCallback() {}
   }
 
-  customElements.define('app-drawer-toggle', AppDrawerToggle, { extends: 'button' });
+  customElements.define('app-drawer-toggle', AppDrawerToggle);
 </script>

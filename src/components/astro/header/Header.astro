@@ -21,15 +21,15 @@ const {
   <slot name='before' />
   <slot>
     <h1
-      class:list={['mb-2', 'bp:text-5xl text-3xl leading-none sm:text-4xl']}
+      class:list={['bp:text-4xl text-2xl leading-normal sm:text-3xl']}
       set:html={title}
     />
   </slot>
   <slot name='tagline'>
     {
-      tagline && (
+      !Astro.slots.has('default') && (
         <div
-          class:list={['text-base uppercase']}
+          class:list={['bp:text-sm text-xs uppercase']}
           set:html={tagline}
         />
       )

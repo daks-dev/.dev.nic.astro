@@ -12,6 +12,10 @@
   @apply bp:text-xl 2xl:text-1.5xl text-base sm:text-lg;
 }
 
+@utility transition-easy {
+  @apply ready:motion-safe:transition duration-200 ease-in-out;
+}
+
 @layer utilities {
   :where(.readable) {
     @apply text-sm leading-relaxed sm:text-base;

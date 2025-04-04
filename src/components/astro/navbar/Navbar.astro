@@ -42,9 +42,11 @@ import { nav } from '@app/configs/nav';
           loading='eager'
           alt='ниц «строительная экспертиза»'
         />
-        <!--div class:list={['hidden', 'xs:max-bp:block 3xl:block']}>
+        {
+          /*<div class:list={['hidden', 'xs:max-bp:block 3xl:block']}>
           АО НИЦ <br /> «Строительная Экспертиза»
-        </div-->
+        </div> */
+        }
       </Link>
     </div>
     <MenuToggle />
@@ -67,77 +69,6 @@ import { nav } from '@app/configs/nav';
       </div>
     </div>
   </Menu>
-  <!--div
-    id='app-navbar-menu'
-    class:list={['bp:contents absolute inset-x-0', 'max-bp:top-(--navbar-height)']}
-    aria-owns='app-navbar-menu-toggle'
-    hidden>
-    <div
-      role='menu'
-      class:list={[
-        'relative',
-        // 'bp:py-1.5',
-        'flex flex-col',
-        'bp:flex-row bp:gap-x-3',
-        'text-lg font-normal',
-        'bp:text-base',
-        'max-bp:bg-theme-frame'
-      ]}>
-      {
-        nav.navbar.map(({ class: className, ...item }) =>
-          item.items ? (
-            <Dropdown
-              {item}
-              class:list={['relative flex items-center', className]}
-              custom={{
-                item: 'inner'
-              }}
-            />
-          ) : (
-            <div
-              role='menuitem'
-              class:list={['relative flex items-center', className]}>
-              <Link
-                class='inner'
-                {...item}
-              />
-            </div>
-          )
-        )
-      }
-    </div>
-    <div
-      class:list={[
-        // 'max-bp:py-2',
-        'flex justify-around',
-        'bp:items-center bp:justify-self-end',
-        'bg-theme-frame',
-        'rounded-b-md',
-        'shadow-md dark:shadow-gray-800',
-        'bp:shadow-none',
-        'bp:bg-transparent'
-      ]}>
-      {
-        /*
-        outers && (
-          <div class:list={['flex flex-wrap gap-x-3', 'bp:hidden xl:flex xl:justify-end xl:gap-0']}>
-            {outers.map(({ class: className, ...props }) => (
-              <Link
-                class:list={['outer', className]}
-                size='1.625rem'
-                {...props}
-              />
-            ))}
-          </div>
-        )
-      */
-      }
-      <div class='flex items-center'>
-        <ThemeToggle />
-      </div>
-    </div>
-  </div-->
-
   <ToTop class:list={['mt-8 w-14 p-3', 'bg-gray-300/50 dark:bg-gray-700/50', 'rounded-full']} />
 </nav>
 

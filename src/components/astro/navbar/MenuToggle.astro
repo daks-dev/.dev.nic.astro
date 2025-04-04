@@ -2,7 +2,7 @@
 import { Icon } from '@lib/astro';
 ---
 
-<menu-button>
+<app-navbar-menu-toggle>
   <template>
     <button
       id='app-navbar-menu-toggle'
@@ -27,27 +27,28 @@ import { Icon } from '@lib/astro';
       />
     </button>
   </template>
-</menu-button>
+</app-navbar-menu-toggle>
 
 <script>
   import breakpoint from '@lib/tailwind/resolve';
 
-  class MenuButton extends HTMLElement {
+  class AppNavbarMenuToggle extends HTMLElement {
     media = window.matchMedia(`(min-width: ${breakpoint})`);
-    btn: HTMLButtonElement;
+    toggle: HTMLButtonElement;
     menu: HTMLElement;
 
     constructor() {
       super();
+      this.style.display = 'contents';
       this.appendChild(this.querySelector('template')!.content.cloneNode(true));
-      this.btn = this.querySelector('button')!;
+      this.toggle = this.querySelector('button')!;
       this.menu = document.getElementById('app-navbar-menu')!;
       this.menu.hidden = true;
       this.check(this.media);
     }
 
     connectedCallback() {
-      this.btn.addEventListener('click', () => this.set(this.menu.hidden));
+      this.toggle.addEventListener('click', () => this.set(this.menu.hidden));
       this.media.addEventListener('change', this.check);
       document.addEventListener('click', this.outside);
     }
@@ -57,24 +58,24 @@ import { Icon } from '@lib/astro';
     }
 
     set = (x: boolean) => {
-      this.btn.setAttribute('aria-expanded', x ? 'true' : 'false');
+      this.toggle.setAttribute('aria-expanded', x ? 'true' : 'false');
       this.menu.hidden = !x;
     };
 
     check = (e: MediaQueryList | MediaQueryListEvent) => {
       this.set(e.matches);
-      this.btn.hidden = e.matches;
+      this.toggle.hidden = e.matches;
     };
 
     outside = (e: Event) => {
       if (
         e?.target &&
-        !this.btn.contains(e.target as Node) &&
+        !this.toggle.contains(e.target as Node) &&
         !this.menu.contains(e.target as Node)
       )
         this.check(this.media);
     };
   }
 
-  customElements.define('menu-button', MenuButton);
+  customElements.define('app-navbar-menu-toggle', AppNavbarMenuToggle);
 </script>

@@ -2,31 +2,37 @@
 import { Icon } from '@lib/astro';
 ---
 
-<theme-toggle>
-  <button
-    class:list={[
-      'group',
-      'flex items-center',
-      'rounded-full bg-neutral-200 dark:bg-gray-800',
-      'shadow-inset shadow-slate-300 dark:shadow-slate-700',
-      'ready:motion-safe:transition-colors duration-200'
-    ]}>
-    <span class='sr-only'>Dark theme</span>
-    <span
-      class:list={['toggler', 'dark:text-theme-plain text-white', 'dark:before:translate-x-full']}>
-      <Icon
-        icon='sun'
-        class='disabled'
-      />
-    </span>
-    <span class:list={['relative z-10 flex size-8 p-2', 'text-theme-plain dark:text-black']}>
-      <Icon
-        icon='moon-stars'
-        class='disabled'
-      />
-    </span>
-  </button>
-</theme-toggle>
+<app-theme-toggle>
+  <template>
+    <button
+      class:list={[
+        'group',
+        'flex items-center',
+        'rounded-full bg-neutral-200 dark:bg-gray-800',
+        'shadow-inset shadow-slate-300 dark:shadow-slate-700',
+        'ready:motion-safe:transition-colors duration-200'
+      ]}>
+      <span class='sr-only'>Dark theme</span>
+      <span
+        class:list={[
+          'toggler',
+          'dark:text-theme-plain text-white',
+          'dark:before:translate-x-full'
+        ]}>
+        <Icon
+          icon='sun'
+          class='disabled'
+        />
+      </span>
+      <span class:list={['relative z-10 flex size-8 p-2', 'text-theme-plain dark:text-black']}>
+        <Icon
+          icon='moon-stars'
+          class='disabled'
+        />
+      </span>
+    </button>
+  </template>
+</app-theme-toggle>
 
 <style scoped>
   @reference "@styles/global.css";
@@ -43,17 +49,19 @@ import { Icon } from '@lib/astro';
 </style>
 
 <script>
-  class ThemeToggle extends HTMLElement {
+  class AppThemeToggle extends HTMLElement {
     readonly class = 'theme-dark';
-    btn: Element;
+    toggle: HTMLButtonElement;
 
     constructor() {
       super();
-      this.btn = this.children[0];
+      this.style.display = 'contents';
+      this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      this.toggle = this.querySelector('button')!;
     }
 
     connectedCallback() {
-      this.btn.addEventListener('click', () => this.setTheme(!this.isDark()));
+      this.toggle.addEventListener('click', () => this.setTheme(!this.isDark()));
       this.setTheme(this.isDark());
     }
 
@@ -65,9 +73,9 @@ import { Icon } from '@lib/astro';
 
     setTheme = (dark: boolean) => {
       document.documentElement.classList[dark ? 'add' : 'remove'](this.class);
-      this.btn.setAttribute('aria-pressed', String(dark));
+      this.toggle.setAttribute('aria-pressed', String(dark));
     };
   }
 
-  customElements.define('theme-toggle', ThemeToggle);
+  customElements.define('app-theme-toggle', AppThemeToggle);
 </script>

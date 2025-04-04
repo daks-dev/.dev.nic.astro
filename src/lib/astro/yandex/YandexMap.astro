@@ -36,27 +36,34 @@ if (!strict)
   };
 ---
 
-<div
-  is='app-yandex-map'
-  {id}
-  class={twMerge('relative z-0', className)}
+<app-yandex-map
   data-geo={JSON.stringify(geo)}
   data-apikey={apikey}
   data-lang={lang}
-  data-type={type}
-  {...props}>
-</div>
+  data-type={type}>
+  <template>
+    <div
+      {id}
+      class={twMerge('relative z-0', className)}
+      {...props}>
+    </div>
+  </template>
+</app-yandex-map>
 
 <script>
   import type { YandexMapGeo, YandexMapInstance, Ymaps } from '.';
   declare const ymaps: Ymaps;
 
-  class AppYandexMap extends HTMLDivElement {
+  class AppYandexMap extends HTMLElement {
     map!: YandexMapInstance;
+    container: HTMLDivElement;
     interval?: ReturnType<typeof setTimeout>;
 
     constructor() {
       super();
+      this.style.display = 'contents';
+      this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      this.container = this.querySelector('div')!;
     }
 
     connectedCallback() {
@@ -75,7 +82,7 @@ if (!strict)
       this.interval = setInterval(() => {
         if (typeof ymaps !== 'undefined' && ymaps.ready) {
           ymaps.ready(() => {
-            this.map = new ymaps.Map(this.id, this.geo.state, this.geo.options);
+            this.map = new ymaps.Map(this.container.id, this.geo.state, this.geo.options);
             this.geo.locations?.forEach((location) => {
               this.map.geoObjects.add(
                 new ymaps.Placemark(location.geometry, location.properties, location.options)
@@ -108,5 +115,5 @@ if (!strict)
     };
   }
 
-  customElements.define('app-yandex-map', AppYandexMap, { extends: 'div' });
+  customElements.define('app-yandex-map', AppYandexMap);
 </script>
