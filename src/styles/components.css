@@ -1,6 +1,7 @@
 @layer components {
   header:has(~ :where(main, [role='main'])) {
-    margin-top: calc(2rem + var(--navbar-height));
+    margin-top: calc(1.5rem + var(--navbar-height));
+    @apply mb-8;
     h1 {
       @apply text-theme-header;
     }

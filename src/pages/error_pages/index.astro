@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/astro';
+import { Header } from '@components/astro';
 
 const title = 'О !!!';
 ---
@@ -25,7 +25,9 @@ const title = 'О !!!';
     />
   </Header>
 
-  <main class='frame mt-16 flex flex-col'>
+  <main
+    class='frame mt-16 flex flex-col'
+    itemprop='mainContentOfPage'>
     <header>
       <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
     </header>

@@ -1,8 +1,9 @@
 ---
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import { Figure } from '@lib/astro';
+import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
-import { Header, Figure } from '@lib/astro';
 
 import logo from '@assets/images/logo.webp';
 const placeholder = await getImage({ src: logo, width: 256 });
@@ -36,12 +37,11 @@ const title = 'Проекты';
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header
-    class='mb-4'
-    {title}
-  />
+  <Header {title} />
 
-  <main class='frame'>
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
     <div class='grid w-max grid-cols-[auto_1fr] items-center gap-8'>
       {
         gallery.map(({ id, image: src, caption }) => (

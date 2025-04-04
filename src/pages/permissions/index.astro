@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/astro';
+import { Header } from '@components/astro';
 import { BindLightboxData } from '@lib/astro';
 
 const collection = await getCollection('permissions');
@@ -14,7 +14,9 @@ const title = 'Допуски';
   description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
   <Header {title} />
 
-  <main class='frame'>
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
     {
       collection.map((data) => (
         <BindLightboxData

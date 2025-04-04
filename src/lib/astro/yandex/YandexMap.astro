@@ -1,10 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from '../../tailwind/tailwind-merge.js';
 import { uuid } from '../../utils';
-import twMerge from '../../tailwind/tailwind-merge.js';
 import type { YandexMapGeo } from './index.d.ts';
 
-type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'lang'> & {
   id?: string;
   class?: ClassValue;
   geo: YandexMapGeo;
@@ -13,6 +13,7 @@ type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   lang?: string;
   type?: string;
 };
+
 const {
   id = `ymap${uuid()}`,
   class: className,
@@ -48,10 +49,12 @@ if (!strict)
 
 <script>
   import type { YandexMapGeo, YandexMapInstance, Ymaps } from '.';
-
   declare const ymaps: Ymaps;
 
   class AppYandexMap extends HTMLDivElement {
+    map!: YandexMapInstance;
+    interval?: ReturnType<typeof setTimeout>;
+
     constructor() {
       super();
     }
@@ -67,10 +70,6 @@ if (!strict)
     get geo() {
       return (this.dataset.geo ? JSON.parse(this.dataset.geo) : {}) as YandexMapGeo;
     }
-
-    map!: YandexMapInstance;
-
-    interval?: ReturnType<typeof setTimeout>;
 
     ready = () => {
       this.interval = setInterval(() => {

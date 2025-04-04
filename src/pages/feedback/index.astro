@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { BindLightboxData } from '@lib/astro';
+import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
-import { Header, BindLightboxData } from '@lib/astro';
 
 const collection = await getCollection('feedback');
 
@@ -14,7 +15,9 @@ const description = 'Отзывы АО НИЦ «Строительная экс�
   {description}>
   <Header {title} />
 
-  <main class='frame'>
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
     {
       collection.map((data) => (
         <BindLightboxData

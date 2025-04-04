@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { YandexMap } from '@lib/astro';
+import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/astro';
 
 export async function getStaticPaths() {
   const collection = await getCollection('projects');
@@ -16,10 +17,44 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 
-const { title, description } = project.data;
+const { id } = project;
+const { title, description, location } = project.data;
+
+import seo from '@app/configs/seo';
+const {
+  yandex: { api }
+} = seo;
+
+const geometry = location.split(', ').map((x: string) => Number(x));
+const geo = {
+  locations: [
+    {
+      geometry,
+      properties: {
+        iconContent: `
+          <strong class="hidden sm:block pointer: coarsemax-w-[16rem] md:max-w-xs lg:max-w-none truncate">${title}</strong>
+          <strong class="sm:hidden">${id}</strong>`
+      },
+      options: {
+        preset: 'islands#nightStretchyIcon'
+      }
+    }
+  ],
+  state: {
+    center: geometry,
+    zoom: 16,
+    behaviors: ['drag', 'dblClickZoom', 'rightMouseButtonMagnifier', 'multiTouch'],
+    controls: ['zoomControl', 'fullscreenControl']
+  },
+  options: {
+    autoFitToViewport: 'always',
+    suppressMapOpenBlock: true
+  }
+};
 ---
 
 <Layout
+  class='flex flex-col'
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • [${project.id}]`}>
   <Header
@@ -27,11 +62,22 @@ const { title, description } = project.data;
     {title}
   />
 
-  <main class='frame'>
-    <hr class='mb-16' />
-    <div class='readable'>
+  <main
+    class='frame flex grow flex-col'
+    itemprop='mainContentOfPage'>
+    <div class='readable mb-8'>
       <Content />
     </div>
-    <hr class='my-16' />
+    <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
+      <YandexMap
+        class:list={[
+          'min-h-full w-full overflow-hidden',
+          'bg--waiting bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg-center bg-no-repeat dark:bg-slate-200',
+          'border-4 border-slate-400'
+        ]}
+        {geo}
+        apikey={api.maps}
+      />
+    </div>
   </main>
 </Layout>

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/astro';
+import { Header } from '@components/astro';
 
 const collection = await getCollection('news');
 
@@ -16,7 +16,7 @@ const title = 'Новости';
     {title}
   />
 
-  <main class='frame'>
+  <main class='frame' itemprop="mainContentOfPage">
     <div class='grid grid-cols-[auto_1fr] items-center gap-8'>
       {
         collection.map(({ id, data: { title, description } }) => (

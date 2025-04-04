@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/astro';
+import { Header } from '@components/astro';
 
 const title = 'Сертификация и аккредитация';
 const description = 'Сертификация и аккредитация';
@@ -26,7 +26,9 @@ const description = 'Сертификация и аккредитация';
     />
   </Header>
 
-  <main class='frame'>
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
     <header>
       <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
     </header>

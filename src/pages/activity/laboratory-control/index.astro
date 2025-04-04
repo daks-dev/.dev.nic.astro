@@ -1,9 +1,9 @@
 ---
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/astro';
+import { Header } from '@components/astro';
 
 const title = 'Лабораторный контроль';
-const description = 'Лабораторный контроль';
+const description = 'Лабораторное сопровождение строительства';
 ---
 
 <Layout
@@ -11,11 +11,9 @@ const description = 'Лабораторный контроль';
   description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
   <Header {title} />
 
-  <header class='frame'>
-    <h1 class='title'>Лабораторное сопровождение строительства</h1>
-  </header>
-
-  <div class='frame readable'>
+  <main
+    class='frame readable'
+    itemprop='mainContentOfPage'>
     <p>
       <strong>Лабораторное сопровождение</strong>, выполняемое Научно-исследовательским центром
       «Строительная экспертиза», подразделяется на два этапа. Первый этап контроля &mdash; входной
@@ -301,5 +299,5 @@ const description = 'Лабораторный контроль';
       государственным расценкам и в четко оговоренные сроки. Выезд на стройплощадку и подписание
       договора возможен в день обращения.
     </p>
-  </div>
+  </main>
 </Layout>

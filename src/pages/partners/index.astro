@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Header } from '@lib/astro';
+import { Header } from '@components/astro';
 
 const collection = await getCollection('partners');
 
@@ -17,7 +17,9 @@ const description = 'Партнёры АО НИЦ «Строительная э�
     {title}
   />
 
-  <main class='frame'>
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
     {
       collection.map(({ id, data: { title } }) => (
         <div>

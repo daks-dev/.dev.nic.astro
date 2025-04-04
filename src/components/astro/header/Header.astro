@@ -1,0 +1,39 @@
+---
+import { twMerge } from '@lib';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'header'>, 'class'> {
+  class?: ClassValue;
+  tagline?: string;
+}
+
+const {
+  class: className,
+  title,
+  tagline = 'АО НИЦ «Строительная Экспертиза»',
+  ...props
+} = Astro.props;
+---
+
+<header
+  class={twMerge('frame', 'flex flex-col gap-1', 'bp:text-left text-center', className)}
+  {...props}>
+  <slot name='before' />
+  <slot>
+    <h1
+      class:list={['mb-2', 'bp:text-5xl text-3xl leading-none sm:text-4xl']}
+      set:html={title}
+    />
+  </slot>
+  <slot name='tagline'>
+    {
+      tagline && (
+        <div
+          class:list={['text-base uppercase']}
+          set:html={tagline}
+        />
+      )
+    }
+  </slot>
+  <slot name='after' />
+</header>
