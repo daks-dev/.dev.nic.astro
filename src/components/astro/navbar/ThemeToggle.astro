@@ -1,18 +1,45 @@
 ---
+import { twMerge } from '@lib';
 import { Icon } from '@lib/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+  class?: ClassValue;
+  icon?: string;
+  label?: string;
+  duration?: number;
+  speed?: number;
+};
+
+const {
+  class: className,
+  icon = 'arrow-fat-lines-up-duotone',
+  duration = 300,
+  speed = duration * 5,
+  'aria-label': ariaLabel,
+  ...props
+} = Astro.props;
+
+const label = ariaLabel ?? 'цветовая тема';
 ---
 
 <app-theme-toggle>
   <template>
     <button
-      class:list={[
+      class={twMerge(
         'group',
         'flex items-center',
         'rounded-full bg-neutral-200 dark:bg-gray-800',
         'shadow-inset shadow-slate-300 dark:shadow-slate-700',
-        'ready:motion-safe:transition-colors duration-200'
-      ]}>
-      <span class='sr-only'>Dark theme</span>
+        'ready:motion-safe:transition-colors duration-200',
+        className
+      )}
+      aria-label={label}
+      {...props}>
+      <span
+        class='sr-only'
+        set:text={label}
+      />
       <span
         class:list={[
           'toggler',

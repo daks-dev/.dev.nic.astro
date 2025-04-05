@@ -23,7 +23,7 @@ CREATE TABLE partners (
   hidden       INTEGER
 );
 
-
+/*
 INSERT INTO partners ( id, name, email, telephone, address, url ) VALUES (
   1,
   'MR group',
@@ -53,7 +53,7 @@ INSERT INTO partners ( id, name, telephone, address, url, center, zoom ) VALUES 
   '55.628180, 37.381341',
   13
 );
-
+*/
 INSERT INTO partners ( id, name, telephone, address, url, center, zoom ) VALUES (
   4,
   'ДОНСТРОЙ',

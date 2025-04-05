@@ -11,8 +11,11 @@ const {
   width = size,
   height = size,
   gradient,
+  'aria-label': ariaLabel,
   ...props
 }: Props = Astro.props;
+
+const label = ((await Astro.slots.render('default')) || ariaLabel)?.trim();
 
 const { body = '', viewBox = '0 0 256 256' } = bundle[icon];
 
@@ -21,6 +24,15 @@ const id = `_${Math.floor((1 + Math.random()) * 0x1000)
   .substring(1)}`;
 ---
 
+{
+  label && (
+    <span
+      class='sr-only'
+      set:text={label}
+    />
+  )
+}
+
 <svg
   class:list={twMerge('linecap-round linejoin-round align-middle', className)}
   xmlns='http://www.w3.org/2000/svg'
@@ -28,7 +40,7 @@ const id = `_${Math.floor((1 + Math.random()) * 0x1000)
   {height}
   fill={gradient ? `url(#${id})` : color}
   {viewBox}
-  aria-hidden='true'
+  aria-label={label}
   {...props}>
   <g set:html={body} />
   {

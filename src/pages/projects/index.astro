@@ -6,14 +6,14 @@ import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 import logo from '@assets/images/logo.webp';
-const placeholder = await getImage({ src: logo, width: 256 });
+const placeholder = await getImage({ src: logo, width: 256, height: 256, fit: 'contain' });
 
 const collection = await getCollection('projects');
 
 const gallery = (
   await Promise.all(
     collection.map(async ({ id, data: { images, title, description } }) => {
-      const image = images?.length
+      const src = images?.length
         ? await getImage({
             src: images[0].src,
             width: 256,
@@ -23,7 +23,7 @@ const gallery = (
         : placeholder;
       return {
         id,
-        image,
+        src,
         caption: {
           title,
           description
@@ -46,7 +46,7 @@ const title = 'Проекты';
     itemprop='mainContentOfPage'>
     <div class:list={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}>
       {
-        gallery.map(({ id, image: src, caption }) => (
+        gallery.map(({ id, src, caption }) => (
           <a
             class='group relative'
             href={`/projects/${id}`}>
@@ -72,7 +72,7 @@ const title = 'Проекты';
                   'absolute bottom-0 left-0 flex h-20 w-full',
                   'flex-col justify-start',
                   'overflow-hidden p-2',
-                  'text-ellipsis text-white',
+                  'text-ellipsis leading-tight text-white',
                   'bg-gray-700/70',
                   'group-hover:opacity-0',
                   'transition-opacity duration-1000 ease-in-out'

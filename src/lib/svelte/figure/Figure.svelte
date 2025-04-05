@@ -46,7 +46,7 @@
       {#each caption as [key, val]}
         {#if val}
           {#if key === 'title'}
-            <span class={twMerge('order-first font-semibold', custom[key])}>{@html val}</span>
+            <span class={twMerge('order-first font-medium', custom[key])}>{@html val}</span>
           {:else if key === 'description'}
             <small class={twMerge('order-last', custom[key])}>{@html val}</small>
           {:else}

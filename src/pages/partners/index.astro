@@ -1,32 +1,93 @@
 ---
+import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import Layout from '@layouts/Base.astro';
+import { Figure, Sign } from '@lib/astro';
 import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({ src: logo, width: 256 });
 
 const collection = await getCollection('partners');
 
-const title = 'Партнёры';
-const description = 'Партнёры АО НИЦ «Строительная экспертиза»';
+const gallery = (
+  await Promise.all(
+    collection.map(async ({ id, data: { image, title } }) => {
+      const src = image
+        ? await getImage({
+            src: image.src,
+            width: 256,
+            height: 256,
+            fit: 'contain'
+          })
+        : placeholder;
+      return {
+        id,
+        src,
+        caption: {
+          title
+        }
+      };
+    })
+  )
+).sort((x, y) => x.id.localeCompare(y.id));
+
+const title = 'Парнёры';
 ---
 
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
-  {description}>
-  <Header
-    class='mb-4'
-    {title}
-  />
+  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
+  <Header {title} />
 
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    {
-      collection.map(({ id, data: { title } }) => (
-        <div>
-          <small>{id}</small>
-          <div class='leader'>{title}</div>
-        </div>
-      ))
-    }
+    <div
+      class:list={[
+        'grid justify-between gap-8',
+        'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'
+      ]}>
+      {
+        gallery.map(({ id, src, caption }) => (
+          <a
+            class='group relative'
+            href={`/partners/${id}`}>
+            <Sign
+              icon='link'
+              class='left-2 top-2'
+              link
+              dark
+            />
+            <Figure
+              class:list={[
+                'items-center justify-center',
+                'h-full overflow-hidden',
+                'bg-white',
+                'rounded-sm border border-gray-400 dark:border-gray-600',
+                'shadow-md shadow-black group-hover:shadow-sm',
+                'pointer-events-none',
+                'transition-easy'
+              ]}
+              custom={{
+                img: ['h-auto w-full max-w-full object-center'],
+                caption: [
+                  'h-15 absolute bottom-0 left-0 flex w-full',
+                  'flex-col justify-start',
+                  'overflow-hidden p-2',
+                  'text-ellipsis leading-tight text-white',
+                  'bg-gray-700/70',
+                  'group-hover:opacity-0',
+                  'transition-opacity duration-1000 ease-in-out'
+                ]
+              }}
+              {src}
+              {caption}
+            />
+            <small class='absolute right-2 top-2 text-black'>{id}</small>
+          </a>
+        ))
+      }
+    </div>
   </main>
 </Layout>

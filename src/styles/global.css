@@ -37,7 +37,7 @@
   --color-theme-frame: rgb(243, 245, 248);
   --color-theme-inner: rgb(233, 235, 237);
   --color-theme-plain: rgb(0, 0, 0);
-  --color-theme-header: var(--color-stone-500);
+  --color-theme-header: var(--color-stone-600);
   --color-theme-link: var(--color-cyan-700);
   --color-theme-accent: #c561f6;
 

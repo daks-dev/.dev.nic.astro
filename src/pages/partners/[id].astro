@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+import Info from '@components/astro/pages/partners/Info.astro';
+
+export async function getStaticPaths() {
+  const collection = await getCollection('partners');
+  return collection.map((partner) => {
+    return {
+      params: { id: partner.id },
+      props: { partner }
+    };
+  });
+}
+
+const { partner } = Astro.props;
+const { Content } = await render(partner);
+
+const { id } = partner;
+const { title, description } = partner.data;
+---
+
+<Layout
+  class='flex flex-col'
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • [${id}]`}>
+  <Header
+    {title}
+    tagline={`[ ${id} ]`}
+  />
+
+  <main
+    class='frame flex grow flex-col gap-4'
+    itemprop='mainContentOfPage'>
+    <div class='flex justify-between gap-8 max-md:flex-col'>
+      <div class='readable'>
+        <Info {partner} />
+        <Content />
+      </div>
+    </div>
+  </main>
+</Layout>

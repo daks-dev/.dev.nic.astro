@@ -36,12 +36,12 @@ const caption = Object.entries(__caption);
   />
   <slot>
     {
-      caption.length && (
+      caption.length > 0 && (
         <figcaption class={twMerge('flex flex-col', custom.caption)}>
           {caption.map(([key, val]) =>
             key === 'title' ? (
               <span
-                class={twMerge('order-first font-semibold', custom[key])}
+                class={twMerge('order-first font-medium', custom[key])}
                 set:html={val}
               />
             ) : key === 'description' ? (

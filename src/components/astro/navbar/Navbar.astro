@@ -29,7 +29,9 @@ import { nav } from '@app/configs/nav';
       <Link
         class:list={['group', 'flex items-center gap-4', 'text-base/tight font-medium']}
         href='/'
+        aria-label='главная страница'
         prefetch>
+        <span class='sr-only'>главная страница</span>
         <Image
           class:list={[
             'drop-shadow-2xl',

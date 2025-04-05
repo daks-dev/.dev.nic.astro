@@ -1,0 +1,85 @@
+---
+import { getImage } from 'astro:assets';
+import { Figure, Icon } from '@lib/astro';
+import type { CollectionEntry } from 'astro:content';
+
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({ src: logo, width: 320, fit: 'contain' });
+
+type Props = {
+  partner: CollectionEntry<'partners'>;
+};
+
+const { partner } = Astro.props;
+const { image, email, telephone, address, url } = partner.data;
+
+const src = image
+  ? await getImage({
+      src: image.src,
+      width: 320,
+      fit: 'contain'
+    })
+  : placeholder;
+---
+
+<div class='flex justify-between gap-8 max-md:flex-col'>
+  <Figure
+    {src}
+    class='max-md:items-center lg:shrink-0'
+    custom={{ image: 'border border-slate-400 drop-shadow-sm' }}
+  />
+  <dl class='space-y-4'>
+    <div class='flex items-center gap-4'>
+      <dt class='font-semibold text-slate-500'>
+        <Icon
+          icon='map-pin'
+          class='h-8 w-8 shrink-0 text-cyan-700'>
+          адрес:
+        </Icon>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={address || '&mdash;'}
+      />
+    </div>
+    <div class='flex items-center gap-4'>
+      <dt class='font-semibold text-slate-500'>
+        <Icon
+          icon='phone-call'
+          class='h-8 w-8 shrink-0 text-cyan-700'>
+          телефон:
+        </Icon>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={telephone || '&mdash;'}
+      />
+    </div>
+    <div class='flex items-center gap-4'>
+      <dt class='font-semibold text-slate-500'>
+        <Icon
+          icon='envelope'
+          class='h-8 w-8 shrink-0 text-cyan-700'>
+          электронная почта:
+        </Icon>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={email || '&mdash;'}
+      />
+    </div>
+    <div class='flex items-center gap-4'>
+      <dt class='font-semibold text-slate-500'>
+        <Icon
+          icon='link'
+          class='h-8 w-8 shrink-0 text-cyan-700'>
+          сайт:
+        </Icon>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={url || '&mdash;'}
+      />
+    </div>
+  </dl>
+</div>

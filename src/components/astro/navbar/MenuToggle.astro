@@ -1,12 +1,22 @@
 ---
+import { twMerge } from '@lib';
 import { Icon } from '@lib/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-controls'> & {
+  class?: ClassValue;
+};
+
+const { class: className, 'aria-label': ariaLabel, ...props } = Astro.props;
+
+const label = ariaLabel ?? 'меню навигации';
 ---
 
 <app-navbar-menu-toggle>
   <template>
     <button
       id='app-navbar-menu-toggle'
-      class:list={[
+      class={twMerge(
         'relative',
         'flex p-2',
         'text-primary-500',
@@ -15,12 +25,17 @@ import { Icon } from '@lib/astro';
         'rounded-full',
         'shadow-2xs shadow-gray-400 hover:shadow-md dark:shadow-gray-950',
         'aria-expanded:bg-gradient-to-t',
-        'bp:hidden'
-      ]}
-      aria-label='menu toggle'
+        'bp:hidden',
+        className
+      )}
+      aria-label={label}
       aria-expanded='false'
-      aria-controls='app-navbar-menu'>
-      <span class='sr-only'>menu toggle</span>
+      aria-controls='app-navbar-menu'
+      {...props}>
+      <span
+        class='sr-only'
+        set:text={label}
+      />
       <Icon
         icon='list'
         size='1.5rem'
