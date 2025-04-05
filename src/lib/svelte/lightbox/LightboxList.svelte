@@ -99,12 +99,38 @@
     fullscreen = !fullscreen;
   }
 
+  export function next(): void {
+    if (activeItem === countItems - 1) {
+      if (options.behaviour === 'loop') {
+        activeItem = 0;
+      }
+    } else {
+      activeItem++;
+    }
+  }
+
+  export function previous(): void {
+    if (activeItem === 0) {
+      if (options.behaviour === 'loop') {
+        activeItem = countItems - 1;
+      }
+    } else {
+      activeItem--;
+    }
+  }
+
   onMount(() => {
     loader?.call(null);
     if (!options.bodyScroll || scrollable) {
       toggleScroll = function () {
-        if (visible) document.body.classList.add('overflow-y-hidden');
-        else document.body.classList.remove('overflow-y-hidden');
+        if (window.scrollbars.visible)
+          if (visible) {
+            document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+            document.body.style.overflowY = 'hidden';
+          } else {
+            document.body.style.overflowY = '';
+            document.documentElement.style.paddingRight = '';
+          }
       };
     }
   });
@@ -122,6 +148,8 @@
 {#if visible}
   <Overlay
     {close}
+    {next}
+    {previous}
     {custom}
     {fullscreen}
     {options}>
@@ -132,8 +160,10 @@
       {fullscreen}
       {options} />
     <Controller
-      bind:activeItem
-      bind:countItems
+      {next}
+      {previous}
+      {activeItem}
+      {countItems}
       {options}>
       <Body
         {fullscreen}

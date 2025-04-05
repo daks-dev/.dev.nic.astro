@@ -1,18 +1,21 @@
 <script lang="ts">
-  import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import { onMount, onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
+  import { twMerge } from '../../../tailwind/tailwind-merge.js';
+  import { swipe, wheel } from '../../../utils/index.js';
   import type { Snippet } from 'svelte';
   import type { Custom, Options } from '../index.d.ts';
 
   type Props = {
     children: Snippet;
     close: () => void;
+    next?: () => void;
+    previous?: () => void;
     custom: Custom;
     options: Options;
     fullscreen: boolean;
   };
-  const { children, close, custom, options, fullscreen }: Props = $props();
+  const { children, close, next, previous, custom, options, fullscreen }: Props = $props();
 
   function handleKey(e: KeyboardEvent): void {
     if (options.enableKeyboard)
@@ -38,6 +41,21 @@
     return false;
   };
 
+  const actionSwipe = options.swipe
+    ? function (delta: { x: number; h: boolean; v: boolean }): void {
+        if (options.swipe && delta.h && !delta.v) delta.x > 0 ? previous?.() : next?.();
+      }
+    : undefined;
+
+  const actionWheel = options.wheel
+    ? function (delta: { y: number }): void {
+        if (options.wheel) {
+          delta.y > 0 && next?.();
+          delta.y < 0 && previous?.();
+        }
+      }
+    : undefined;
+
   let node: HTMLElement;
   let anchor: HTMLElement;
   let touch = $state(false);
@@ -59,6 +77,8 @@
   bind:this={node}
   in:fade={{ duration: options.duration }}
   out:fade={{ duration: options.duration && options.duration / 2 }}
+  use:swipe={next && previous && actionSwipe}
+  use:wheel={next && previous && actionWheel}
   onclick={handleClick}
   onkeydown={null}
   class={twMerge(
@@ -68,7 +88,6 @@
     'bg-black/90',
     'vector-non-scaling-stroke linecap-round linejoin-round',
     'clear-pseudo select-none',
-    'overflow-y-offset',
     options.clickableClose && 'hover:cursor-zoom-out',
     custom.overlay
   )}

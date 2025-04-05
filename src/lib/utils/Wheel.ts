@@ -28,8 +28,10 @@ class Wheel {
   };
 
   handle = (ev: WheelEvent) => {
-    if (ev.cancelable) ev.preventDefault();
-    ev.stopPropagation();
+    if (ev.cancelable) {
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
     if (this.timeout) {
       this.delta.x += ev.deltaX;
       this.delta.y += ev.deltaY;
