@@ -30,7 +30,7 @@ CREATE TABLE projects (
 
 );
 
-
+/*
 INSERT INTO projects ( id, name, address, area, units, scope, activities, location, customer ) VALUES (
   1,
   'ЖК «City Bay»',
@@ -126,7 +126,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   '55.743538, 37.510089',
   1 /* MR group */
 );
-
+*/
 INSERT INTO projects ( id, name, address, area, units, scope, activities, location, customer ) VALUES (
   9,
   'ЖК «Савеловский city»',

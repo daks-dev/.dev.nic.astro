@@ -44,11 +44,11 @@ import Menu from './Menu.astro';
 
 <script>
   class AppDrawer extends HTMLElement {
-    btn: HTMLButtonElement;
+    toggle: HTMLButtonElement;
 
     constructor() {
       super();
-      this.btn = document.querySelector('[is="app-drawer-toggle"]')!;
+      this.toggle = document.querySelector('app-drawer-toggle')!;
     }
 
     connectedCallback() {
@@ -68,7 +68,7 @@ import Menu from './Menu.astro';
         e?.target &&
         !e.defaultPrevented &&
         !this.contains(e.target as Node) &&
-        !this.btn.contains(e.target as Node)
+        !this.toggle.contains(e.target as Node)
       )
         this.close();
     };

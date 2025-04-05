@@ -39,6 +39,7 @@ const partners = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string().nonempty(),
+      description: z.string().nonempty(),
       telephone: z.string().optional(),
       email: z.string().email().optional(),
       url: z.string().url().optional(),

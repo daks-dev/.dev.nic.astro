@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { YandexMap } from '@lib/astro';
+import { BindLightboxData, YandexMap } from '@lib/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
+import Info from '@components/astro/pages/projects/Info.astro';
 
 export async function getStaticPaths() {
   const collection = await getCollection('projects');
@@ -18,7 +19,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 
 const { id } = project;
-const { title, description, location } = project.data;
+const { title, description, location, images = [] } = project.data;
 
 import seo from '@app/configs/seo';
 const {
@@ -57,14 +58,65 @@ const geo = {
   class='flex flex-col'
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • [${project.id}]`}>
-  <Header {title} />
+  <Header
+    {title}
+    tagline={`[ ${project.id} ]`}
+  />
 
   <main
-    class='frame flex grow flex-col'
+    class='frame flex grow flex-col gap-4'
     itemprop='mainContentOfPage'>
-    <div class='readable mb-8'>
-      <Content />
+    <div class='flex justify-between gap-8 max-md:flex-col'>
+      <div class='readable'>
+        <Info {project} />
+        <Content />
+      </div>
+      <div class='flex min-w-fit gap-2 md:flex-col md:items-center'>
+        {
+          project.data.images && (
+            <BindLightboxData
+              custom={{
+                thumb: 'h-fit first:mt-1',
+                inner: {
+                  img: [
+                    'hover:scale-105 hover:drop-shadow-xl',
+                    'rounded-sm drop-shadow-lg',
+                    'transition duration-500'
+                  ],
+                  caption: 'mt-2 flex flex-col pt-2'
+                }
+              }}
+              options={{ behaviour: 'loop' }}
+              data={images}
+              show={1}
+              transform={{
+                thumb: {
+                  width: 320,
+                  height: 240,
+                  fit: 'cover',
+                  quality: 80
+                },
+                modal: {
+                  width: 1024,
+                  height: 768,
+                  fit: 'inset',
+                  quality: 80
+                }
+              }}
+              sign={{ icon: 'arrows-out', dark: true }}
+            />
+          )
+        }
+        {
+          images.length > 1 && (
+            <small class='text-impact-accent whitespace-nowrap font-semibold md:self-start'>
+              [ +{images.length - 1} ]
+            </small>
+          )
+        }
+      </div>
     </div>
+
     <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
       <YandexMap
         class:list={[

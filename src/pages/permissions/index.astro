@@ -18,7 +18,7 @@ const title = 'Допуски';
     class='frame'
     itemprop='mainContentOfPage'>
     {
-      collection.map((data) => (
+      collection.map((x) => (
         <BindLightboxData
           class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
           custom={{
@@ -29,7 +29,7 @@ const title = 'Допуски';
             }
           }}
           options={{ behaviour: 'loop' }}
-          {data}
+          data={x.data.map(({ image, caption }) => ({ src: image, caption }))}
           transform={{
             thumb: {
               width: 320,

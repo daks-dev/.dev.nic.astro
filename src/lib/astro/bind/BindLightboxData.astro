@@ -5,7 +5,7 @@ import type { LightboxDataAttributes } from '../../svelte/lightbox/index.d.ts';
 import type { BindImageData } from './index.d.ts';
 
 type Props = Omit<LightboxDataAttributes, 'data'> & {
-  data: BindImageData | BindImageData[];
+  data: BindImageData[];
   transform: {
     [x in 'thumb' | 'modal']: ImageTransform;
   };
@@ -22,45 +22,22 @@ const data: {
   caption?: Record<string, string>;
 }[] = [];
 
-const load = async (x: BindImageData) => {
-  if ('data' in x && x.data) {
-    for (const { image, alt, caption: __caption = {} } of x.data) {
-      const t = await getImage({
-        src: image,
-        ...transform.thumb
-      });
-      const m = await getImage({
-        src: image,
-        ...transform.modal
-      });
-      const caption = Object.entries(__caption).reduce(
-        (acc, [key, val]) => (
-          (filter === undefined || filter.includes(key)) && (acc[key] = val), acc
-        ),
-        {} as Record<string, string>
-      );
-      data.push({
-        thumb: {
-          src: t.src,
-          attributes: t.attributes
-        },
-        modal: {
-          src: m.src,
-          attributes: m.attributes
-        },
-        alt,
-        caption
-      });
-    }
-  } else if ('src' in x) {
+const load = async (x: BindImageData[]) => {
+  for (const { src, alt, caption: __caption = {} } of x) {
     const t = await getImage({
-      src: x,
+      src,
       ...transform.thumb
     });
     const m = await getImage({
-      src: x.src,
+      src,
       ...transform.modal
     });
+    const caption = Object.entries(__caption).reduce(
+      (acc, [key, val]) => (
+        (filter === undefined || filter.includes(key)) && (acc[key] = val), acc
+      ),
+      {} as Record<string, string>
+    );
     data.push({
       thumb: {
         src: t.src,
@@ -69,13 +46,13 @@ const load = async (x: BindImageData) => {
       modal: {
         src: m.src,
         attributes: m.attributes
-      }
+      },
+      alt,
+      caption
     });
   }
 };
-
-if (__data instanceof Array) for (const x of __data) await load(x);
-else await load(__data);
+await load(__data);
 ---
 
 {

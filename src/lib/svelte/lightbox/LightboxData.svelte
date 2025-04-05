@@ -9,6 +9,7 @@
 
   const {
     data,
+    show = Infinity,
     class: className,
     custom = {},
     options = {},
@@ -56,45 +57,47 @@
   {...rest}>
   {#snippet thumbnail()}
     {#each data as { thumb, caption, modal }, idx}
-      <LightboxThumbnail class={[sign && 'group relative', 'outline-none']}>
-        {#if sign}
-          <Sign
-            class={custom.inner?.sign}
-            {...sign} />
-        {/if}
-        <Figure
-          src={thumb.src}
-          {img}
-          {caption}
-          class={['relative flex flex-col', centered && 'items-center', custom.item]}
-          custom={{
-            img: [
-              adaptive && 'h-auto w-full max-w-full object-contain',
-              rounded && 'rounded',
-              shadow && 'shadow-md hover:shadow-lg',
-              scale && 'hover:scale-105',
-              grayscale && 'grayscale hover:grayscale-0',
-              invert && 'invert hover:invert-0',
-              (shadow || scale || grayscale || invert) && 'transition duration-300 ease-in-out',
-              custom.inner?.img
-            ],
-            caption: [
-              'flex flex-col pt-2',
-              centered && 'text-center',
-              (shadow || scale) && (adaptive ? 'mt-4' : 'mt-2'),
-              custom.inner?.caption
-            ]
-          }}
-          alt={`${alt} [${idx}]`.trim()}
-          {eager}
-          {lazyload} />
-        <link
-          rel="image"
-          href={modal.src} />
-        <link
-          rel="thumbnailUrl"
-          href={thumb.src} />
-      </LightboxThumbnail>
+      {#if idx < show}
+        <LightboxThumbnail class={[sign && 'group relative', 'outline-none', custom.thumb]}>
+          {#if sign}
+            <Sign
+              class={custom.inner?.sign}
+              {...sign} />
+          {/if}
+          <Figure
+            src={thumb.src}
+            {img}
+            {caption}
+            class={['relative flex flex-col', centered && 'items-center', custom.item]}
+            custom={{
+              img: [
+                adaptive && 'h-auto w-full max-w-full object-contain',
+                rounded && 'rounded',
+                shadow && 'shadow-md hover:shadow-lg',
+                scale && 'hover:scale-105',
+                grayscale && 'grayscale hover:grayscale-0',
+                invert && 'invert hover:invert-0',
+                (shadow || scale || grayscale || invert) && 'transition duration-300 ease-in-out',
+                custom.inner?.img
+              ],
+              caption: [
+                'flex flex-col pt-2',
+                centered && 'text-center',
+                (shadow || scale) && (adaptive ? 'mt-4' : 'mt-2'),
+                custom.inner?.caption
+              ]
+            }}
+            alt={`${alt} [${idx}]`.trim()}
+            {eager}
+            {lazyload} />
+        </LightboxThumbnail>
+      {/if}
+      <link
+        rel="image"
+        href={modal.src} />
+      <link
+        rel="thumbnailUrl"
+        href={thumb.src} />
     {/each}
   {/snippet}
   {#each data as { modal: { src, attributes }, caption }}

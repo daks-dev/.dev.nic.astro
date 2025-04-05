@@ -19,8 +19,8 @@
 @layer utilities {
   :where(.readable) {
     @apply text-sm leading-relaxed sm:text-base;
-    /* @apply bp:text-lg; */
-    @apply font-light;
+    /* @apply bp:text-lg;
+    @apply font-light; */
     :where(h2, h3, h4) {
       @apply tracking-normal;
       @apply sm:text-1.5xl 2xl:text-2.5xl text-xl lg:text-2xl;

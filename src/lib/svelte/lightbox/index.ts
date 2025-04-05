@@ -26,6 +26,7 @@ export type Custom = {
   overlay?: ClassValue;
   header?: ClassValue;
   footer?: ClassValue;
+  thumb?: ClassValue;
   item?: ClassValue;
   inner?: Record<string, ClassValue>;
 };
@@ -58,6 +59,7 @@ export type LightboxDataAttributes = LightboxAttributes & {
     alt?: string;
     caption: Record<string, string>;
   }[];
+  show?: number;
   img?: Omit<ImgAttriibutes, 'src' | 'class' | 'alt'>;
   alt?: string;
   sign?: string | SignAttributes;

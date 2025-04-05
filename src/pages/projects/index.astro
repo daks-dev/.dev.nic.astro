@@ -10,26 +10,28 @@ const placeholder = await getImage({ src: logo, width: 256 });
 
 const collection = await getCollection('projects');
 
-const gallery = await Promise.all(
-  collection.map(async ({ id, data: { images, title, description } }) => {
-    const image = images?.length
-      ? await getImage({
-          src: images[0].src,
-          width: 256,
-          height: 256,
-          fit: 'cover'
-        })
-      : placeholder;
-    return {
-      id,
-      image,
-      caption: {
-        title,
-        description
-      }
-    };
-  })
-);
+const gallery = (
+  await Promise.all(
+    collection.map(async ({ id, data: { images, title, description } }) => {
+      const image = images?.length
+        ? await getImage({
+            src: images[0].src,
+            width: 256,
+            height: 256,
+            fit: 'cover'
+          })
+        : placeholder;
+      return {
+        id,
+        image,
+        caption: {
+          title,
+          description
+        }
+      };
+    })
+  )
+).sort((x, y) => x.id.localeCompare(y.id));
 
 const title = 'Проекты';
 ---
@@ -42,7 +44,7 @@ const title = 'Проекты';
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    <div class='flex w-full flex-wrap items-center justify-center gap-8'>
+    <div class:list={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}>
       {
         gallery.map(({ id, image: src, caption }) => (
           <a
@@ -62,7 +64,10 @@ const title = 'Проекты';
                 'transition-easy'
               ]}
               custom={{
-                img: 'transition-easy grayscale group-hover:grayscale-0',
+                img: [
+                  'h-auto w-full max-w-full',
+                  'transition-easy grayscale group-hover:grayscale-0'
+                ],
                 caption: [
                   'absolute bottom-0 left-0 flex h-20 w-full',
                   'flex-col justify-start',
@@ -76,6 +81,7 @@ const title = 'Проекты';
               {src}
               {caption}
             />
+            <small class='absolute right-2 top-2 text-black'>{id}</small>
           </a>
         ))
       }

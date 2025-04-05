@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+  project: CollectionEntry<'projects'>;
+};
+
+const { project } = Astro.props;
+const { address, area, area_term, area_unit, units, units_term, scope, scope_term, activities } =
+  project.data;
+---
+
+<div class='flex flex-col gap-3 md:gap-4'>
+  <dl class='flex flex-col gap-y-4'>
+    {
+      address && (
+        <div class='flex flex-wrap gap-x-2'>
+          <dt class='font-semibold text-slate-500'>Адрес:</dt>
+          <dd
+            class='flex grow'
+            set:html={address}
+          />
+        </div>
+      )
+    }
+    {
+      area && (
+        <div class='flex gap-x-2 whitespace-nowrap'>
+          <dt
+            class='font-semibold text-slate-500'
+            set:html={area_term || 'Общая площадь'}
+          />
+          <dd>
+            {area.toLocaleString()}
+            <Fragment set:html={area_unit || 'м<sup>2</sup>'} />
+          </dd>
+        </div>
+      )
+    }
+    {
+      units && (
+        <div class='flex gap-x-2'>
+          <dt
+            class='font-semibold text-slate-500'
+            set:html={units_term || 'Корпусов'}
+          />
+          :
+          <dd set:html={units} />
+        </div>
+      )
+    }
+    {
+      scope && (
+        <div class='flex gap-x-2'>
+          <dt
+            class='whitespace-nowrap font-semibold text-slate-500'
+            set:html={scope_term || 'Этажность'}
+          />
+          :
+          <dd set:html={scope} />
+        </div>
+      )
+    }
+    {
+      activities && (
+        <div class='flex flex-wrap gap-x-2'>
+          <dt class='font-semibold text-slate-500'>Виды работ:</dt>
+          <dd
+            class='text-accent'
+            set:html={activities.join(', ')}
+          />
+        </div>
+      )
+    }
+  </dl>
+</div>

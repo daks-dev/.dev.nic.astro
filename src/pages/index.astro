@@ -4,17 +4,21 @@ import Layout from '@layouts/Base.astro';
 import { Icon, Video, BindCarousel, TestimonialPlaceholder } from '@lib/astro';
 
 import microdata from '@app/configs/microdata';
-import type { ImageMetadata } from 'astro';
+
 const { email, telephone, address } = microdata.organization;
 const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
 
-const gallery = await getCollection('gallery');
-const customers = await Promise.all(
+const collection = (await getCollection('gallery'))[0].data.map(({ image, caption }) => ({
+  src: image,
+  caption
+}));
+
+const images = await Promise.all(
   Object.values(
     import.meta.glob('@assets/images/customers/*.(avif|gif|heic|heif|jpeg|jpg|png|tiff|webp)', {
       import: 'default'
     })
-  ).map(async (x) => (await x()) as ImageMetadata)
+  ).map(async (x) => ({ src: (await x()) as ImageMetadata }))
 );
 ---
 
@@ -125,7 +129,7 @@ const customers = await Promise.all(
     <div class='frame-xl my-8 flex h-36 items-center'>
       <BindCarousel
         client='load'
-        data={gallery}
+        data={collection}
         transform={{
           width: 192,
           quality: 80
@@ -192,7 +196,7 @@ const customers = await Promise.all(
       <div class='mt-8 flex flex-wrap justify-center gap-16 sm:flex-nowrap'>
         <BindCarousel
           client='load'
-          data={customers}
+          data={images}
           transform={{
             width: 192,
             quality: 80

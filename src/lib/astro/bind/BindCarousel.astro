@@ -5,7 +5,7 @@ import type { CarouselDataAttributes } from '../../svelte/carousel/index.d.ts';
 import type { BindImageData } from './index.d.ts';
 
 type Props = Omit<CarouselDataAttributes, 'data'> & {
-  data: BindImageData | BindImageData[];
+  data: BindImageData[];
   transform: ImageTransform;
   filter?: string[];
   client?: 'load' | 'idle' | 'visible'; // | (string & NonNullable<unknown>)
@@ -18,40 +18,27 @@ const data: (ImageResult & {
   caption?: Record<string, string>;
 })[] = [];
 
-const load = async (x: BindImageData) => {
-  if ('data' in x && x.data) {
-    for (const { image, alt, caption: __caption = {} } of x.data) {
-      const y = await getImage({
-        src: image,
-        ...transform
-      });
-      const caption = Object.entries(__caption).reduce(
-        (acc, [key, val]) => (
-          (filter === undefined || filter.includes(key)) && (acc[key] = val), acc
-        ),
-        {} as Record<string, string>
-      );
-      data.push({
-        src: y.src,
-        attributes: y.attributes,
-        alt,
-        caption
-      });
-    }
-  } else if ('src' in x) {
+const load = async (x: BindImageData[]) => {
+  for (const { src, alt, caption: __caption = {} } of x) {
     const y = await getImage({
-      src: x,
+      src,
       ...transform
     });
+    const caption = Object.entries(__caption).reduce(
+      (acc, [key, val]) => (
+        (filter === undefined || filter.includes(key)) && (acc[key] = val), acc
+      ),
+      {} as Record<string, string>
+    );
     data.push({
       src: y.src,
-      attributes: y.attributes
+      attributes: y.attributes,
+      alt,
+      caption
     });
   }
 };
-
-if (__data instanceof Array) for (const x of __data) await load(x);
-else await load(__data);
+await load(__data);
 ---
 
 {

@@ -1,9 +1,5 @@
-export type BindImageData =
-  | ImageMetadata
-  | {
-      data?: {
-        image: ImageMetadata;
-        alt?: string;
-        caption?: Record<string, string>;
-      }[];
-    };
+export type BindImageData = {
+  src: ImageMetadata;
+  alt?: string;
+  caption?: Record<string, string>;
+};
