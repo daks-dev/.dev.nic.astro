@@ -60,19 +60,31 @@ export const drawer: NavSidebar = {
       label: 'О предприятии'
     },
     {
+      href: '/contacts',
+      label: 'Контакты'
+    }
+  ],
+  body: activity,
+  footer: [
+    {
+      href: '/projects',
+      label: 'Проекты'
+    },
+    {
       href: '/partners',
       label: 'Партнёры'
     },
     {
       href: '/feedback',
       label: 'Отзывы'
-    }
-  ],
-  body: activity,
-  footer: [
+    },
     {
       href: '/articles',
       label: 'Инфрмация'
+    },
+    {
+      href: '/news',
+      label: 'Новости'
     },
     {
       href: '/privacy',

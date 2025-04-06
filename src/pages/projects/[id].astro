@@ -71,19 +71,19 @@ const geo = {
         <Info {project} />
         <Content />
       </div>
-      <div class='flex min-w-fit gap-2 md:flex-col md:items-center'>
+      <div class='flex gap-2 md:flex-col md:items-center'>
         {
           project.data.images && (
             <BindLightboxData
               custom={{
-                thumb: 'h-fit first:mt-1',
+                thumb: 'min-w-fit',
                 inner: {
                   img: [
                     'hover:scale-105 hover:drop-shadow-xl',
                     'rounded-sm drop-shadow-lg',
                     'transition duration-500'
                   ],
-                  caption: 'mt-2 flex flex-col pt-2'
+                  caption: 'mt-2 flex flex-col'
                 }
               }}
               options={{ behaviour: 'loop' }}

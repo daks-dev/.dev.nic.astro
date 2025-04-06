@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from 'astro:content';
+import { BindLightboxData } from '@lib/astro';
+import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const collection = await getCollection('news');
+  return collection.map((post) => {
+    return {
+      params: { id: post.id },
+      props: { post }
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { id } = post;
+const { title, description, images = [] } = post.data;
+---
+
+<Layout
+  class='flex flex-col'
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • [${id}]`}>
+  <Header
+    {title}
+    tagline={`[ ${id} ]`}
+  />
+
+  <main
+    class='frame flex grow flex-col gap-4'
+    itemprop='mainContentOfPage'>
+    <div class='flex justify-between gap-16 max-md:flex-col'>
+      {
+        post.data.images && (
+          <BindLightboxData
+            class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:order-last max-md:items-center']}
+            custom={{
+              thumb: 'min-w-48 max-w-fit first:mt-2',
+              inner: {
+                img: [
+                  'hover:scale-105 hover:drop-shadow-xl',
+                  'rounded-sm drop-shadow-lg',
+                  'transition duration-500'
+                ],
+                caption: 'mt-2 flex flex-col'
+              }
+            }}
+            options={{ behaviour: 'loop' }}
+            data={images}
+            transform={{
+              thumb: {
+                width: 320,
+                height: 240,
+                fit: 'cover',
+                quality: 80
+              },
+              modal: {
+                width: 1024,
+                height: 768,
+                fit: 'inset',
+                quality: 80
+              }
+            }}
+            sign={{ icon: 'arrows-out', dark: true }}
+          />
+        )
+      }
+      <div class='readable'>
+        <Content />
+      </div>
+    </div>
+  </main>
+</Layout>

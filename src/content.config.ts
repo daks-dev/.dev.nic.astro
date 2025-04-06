@@ -79,6 +79,7 @@ const news = defineCollection({
     z.object({
       title: z.string().nonempty(),
       description: z.string().nonempty(),
+      poster: z.number().optional().default(0),
       images: z
         .array(
           z.object({

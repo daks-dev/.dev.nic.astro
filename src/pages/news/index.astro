@@ -1,9 +1,40 @@
 ---
+import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import Layout from '@layouts/Base.astro';
+import { Figure, FormattedDate, Sign } from '@lib/astro';
 import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({ src: logo, width: 288, height: 162, fit: 'contain' });
 
 const collection = await getCollection('news');
+
+const gallery = (
+  await Promise.all(
+    collection.map(async ({ id, data: { title, description, images, poster } }) => {
+      if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+      const src =
+        images?.length && poster !== -1
+          ? await getImage({
+              src: images[poster].src,
+              width: 288,
+              height: 162,
+              fit: 'cover'
+            })
+          : placeholder;
+      return {
+        id,
+        src,
+        poster,
+        caption: {
+          title,
+          description
+        }
+      };
+    })
+  )
+).sort((x, y) => y.id.localeCompare(x.id));
 
 const title = 'Новости';
 ---
@@ -11,20 +42,57 @@ const title = 'Новости';
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header
-    class='mb-4'
-    {title}
-  />
+  <Header {title} />
 
-  <main class='frame' itemprop="mainContentOfPage">
-    <div class='grid grid-cols-[auto_1fr] items-center gap-8'>
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
+    <div
+      class:list={['grid gap-x-8 gap-y-12 lg:gap-16', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}>
       {
-        collection.map(({ id, data: { title, description } }) => (
-            <div class='shrink-0'>
-              <small>{id}</small>
-              <div class='font-semibold'>{title}</div>
-            </div>
-            <div class='grow'>{description}</div>
+        gallery.map(({ id, src, poster, caption }) => (
+          <a
+            class='group relative no-underline'
+            href={`/news/${id}`}>
+            <Sign
+              icon='link'
+              class='left-2 top-8'
+              link
+              dark
+            />
+            <Figure
+              class='pointer-events-none'
+              custom={{
+                img: [
+                  'mb-2',
+                  'h-auto w-full max-w-full',
+                  'aspect-video object-contain',
+                  'bg-neutral-500/10',
+                  'rounded-md',
+                  'group-oversee:grayscale-0 grayscale',
+                  poster === -1 && [
+                    'p-2',
+                    'group-oversee:border-inherit border-2 border-slate-400 dark:border-slate-600'
+                  ],
+                  'transition duration-500 ease-in-out'
+                ],
+                caption: ['text-theme-plain group-hover:text-theme-link', 'transition-easy']
+              }}
+              {src}
+              {caption}>
+              <FormattedDate
+                slot='before'
+                class={[
+                  'mb-2',
+                  'text-theme-header group-hover:text-theme-link font-medium leading-none',
+                  'transition-easy'
+                ]}
+                date={id}
+                parse='YY-MM-DD'
+              />
+            </Figure>
+            <small class='absolute right-2 top-2 text-black'>{id}</small>
+          </a>
         ))
       }
     </div>

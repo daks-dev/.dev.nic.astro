@@ -17,6 +17,19 @@ import { drawer } from '@app/configs/nav';
   {role}
   {...props}>
   {
+    drawer.header &&
+      drawer.header?.map(
+        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
+          <Link
+            class:list={[custom.link, className]}
+            {role}
+            {...item}
+          />
+        )
+      )
+  }
+  <hr class:list={['my-2 w-10/12 self-center', 'border-gray-200 dark:border-gray-700/50']} />
+  {
     drawer.body &&
       drawer.body.map(
         ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => {
@@ -55,18 +68,6 @@ import { drawer } from '@app/configs/nav';
       )
   }
   <hr class:list={['my-2 w-10/12 self-center', 'border-gray-200 dark:border-gray-700/50']} />
-  {
-    drawer.header &&
-      drawer.header?.map(
-        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
-          <Link
-            class:list={[custom.link, className]}
-            {role}
-            {...item}
-          />
-        )
-      )
-  }
   {
     drawer.footer &&
       drawer.footer.map(

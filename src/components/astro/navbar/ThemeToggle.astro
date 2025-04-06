@@ -31,7 +31,7 @@ const label = ariaLabel ?? 'цветовая тема';
         'flex items-center',
         'rounded-full bg-neutral-200 dark:bg-gray-800',
         'shadow-inset shadow-slate-300 dark:shadow-slate-700',
-        'ready:motion-safe:transition-colors duration-200',
+        'motion-safe:ready:transition-colors duration-200',
         className
       )}
       aria-label={label}
@@ -70,7 +70,7 @@ const label = ariaLabel ?? 'цветовая тема';
       @apply content-empty;
       @apply absolute inset-0 -z-10;
       @apply rounded-full bg-slate-400 dark:bg-slate-600;
-      @apply ready:motion-safe:transition-transform duration-300;
+      @apply duration-300 motion-safe:transition-transform;
     }
   }
 </style>

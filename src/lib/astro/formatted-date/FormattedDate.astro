@@ -1,0 +1,46 @@
+---
+import dayjs from 'dayjs';
+import custom from 'dayjs/plugin/customParseFormat.js';
+dayjs.extend(custom);
+
+import { twMerge } from '../../tailwind/tailwind-merge';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'time'>, 'class'> & {
+  date: string | Date;
+  parse: string;
+  class?: ClassValue;
+  locale?: 'en-US' | 'ru-RU';
+  year?: 'numeric' | '2-digit';
+  month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow';
+  day?: 'numeric' | '2-digit';
+};
+
+const {
+  date: __date,
+  class: className,
+  parse,
+  locale = 'ru-RU',
+  year = 'numeric',
+  month = 'long',
+  day = 'numeric',
+  ...props
+} = Astro.props;
+
+// const date = typeof __date === 'string' ? new Date(__date) : __date;
+const date = typeof __date === 'string' ? dayjs(__date, parse).toDate() : __date;
+console.log(date);
+---
+
+<time
+  class={twMerge(className)}
+  datetime={date.toISOString()}
+  {...props}>
+  {
+    date.toLocaleDateString(locale, {
+      year: 'numeric',
+      month,
+      day: 'numeric'
+    })
+  }
+</time>

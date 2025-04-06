@@ -13,7 +13,7 @@
 }
 
 @utility transition-easy {
-  @apply ready:motion-safe:transition duration-200 ease-in-out;
+  @apply motion-safe:ready:transition duration-200 ease-in-out;
 }
 
 @layer utilities {

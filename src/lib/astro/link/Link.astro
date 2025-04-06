@@ -40,8 +40,9 @@ const current =
       icon ? (
         <Icon
           {icon}
-          class='disabled'
-        />
+          class='disabled'>
+          {label}
+        </Icon>
       ) : (
         <Fragment set:html={label} />
       )
