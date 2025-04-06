@@ -8,14 +8,27 @@ type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   size?: number | string;
 };
 
-const { class: className, icon = 'dots-three-outline', size = '1.5em', ...props } = Astro.props;
+const {
+  class: className,
+  icon = 'dots-three-outline',
+  size = '1.5em',
+  'aria-label': ariaLabel,
+  ...props
+} = Astro.props;
+
+const label = ariaLabel ?? 'управление боковой панелью';
 ---
 
 <app-drawer-toggle>
   <template>
     <button
       class:list={['p-2', 'text-primary-500', className]}
+      aria-label={label}
       {...props}>
+      <span
+        class='sr-only'
+        set:text={label}
+      />
       <Icon
         {icon}
         class:list={[

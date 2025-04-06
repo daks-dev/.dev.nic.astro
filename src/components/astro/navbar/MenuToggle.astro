@@ -9,7 +9,7 @@ type Props = Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-co
 
 const { class: className, 'aria-label': ariaLabel, ...props } = Astro.props;
 
-const label = ariaLabel ?? 'меню навигации';
+const label = ariaLabel ?? 'управление меню навигации';
 ---
 
 <app-navbar-menu-toggle>
@@ -28,9 +28,9 @@ const label = ariaLabel ?? 'меню навигации';
         'bp:hidden',
         className
       )}
-      aria-label={label}
       aria-expanded='false'
       aria-controls='app-navbar-menu'
+      aria-label={label}
       {...props}>
       <span
         class='sr-only'
