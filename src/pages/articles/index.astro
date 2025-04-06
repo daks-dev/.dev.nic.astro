@@ -1,35 +1,94 @@
 ---
-import { Image } from 'astro:assets';
-import Layout from '@layouts/Base.astro';
+import { getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { Figure, Sign } from '@lib/astro';
 import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
 
-const title = 'Инфрмация';
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({ src: logo, width: 288, height: 162, fit: 'inset' });
+
+const collection = await getCollection('articles');
+
+const gallery = (
+  await Promise.all(
+    collection.map(async ({ id, data: { title, description, publishDate, images, poster } }) => {
+      if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+      const src =
+        images?.length && poster !== -1
+          ? await getImage({
+              src: images[poster].src,
+              width: 288,
+              height: 162,
+              fit: 'cover'
+            })
+          : placeholder;
+      return {
+        id,
+        publishDate,
+        src,
+        poster,
+        caption: {
+          title,
+          description
+        }
+      };
+    })
+  )
+).sort((a, b) => b.publishDate.localeCompare(a.publishDate));
+
+const title = 'Информационная база';
 ---
 
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title}>
-    <Image
-      class:list={[
-        'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
-      ]}
-      src='/assets/icons/astro.svg'
-      width={128}
-      height={128}
-      alt=''
-    />
-  </Header>
+  <Header {title} />
 
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    <header>
-      <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
-    </header>
+    <div
+      class:list={[
+        'grid gap-x-8 gap-y-12 max-sm:place-items-center',
+        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+      ]}>
+      {
+        gallery.map(({ id, publishDate, src, poster, caption }) => (
+          <a
+            class='group relative no-underline'
+            href={`/articles/${id}`}>
+            <Sign
+              icon='link'
+              class='left-2 top-2'
+              link
+              dark
+            />
+            <Figure
+              class='pointer-events-none'
+              custom={{
+                img: [
+                  'mb-2',
+                  'h-auto w-full max-w-full',
+                  'aspect-video object-contain',
+                  'bg-neutral-500/10',
+                  'rounded-md',
+                  // 'group-oversee:grayscale-0 grayscale',
+                  poster === -1 && [
+                    'p-2',
+                    'group-oversee:border-inherit border-2 border-slate-400 dark:border-slate-600'
+                  ],
+                  'transition duration-500 ease-in-out'
+                ],
+                caption: ['text-theme-plain group-hover:text-theme-link', 'transition-easy']
+              }}
+              {src}
+              {caption}
+            />
+            <small class='absolute right-2 top-2 text-black'>{publishDate}</small>
+          </a>
+        ))
+      }
+    </div>
   </main>
 </Layout>

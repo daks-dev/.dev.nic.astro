@@ -34,7 +34,7 @@ const gallery = (
       };
     })
   )
-).sort((x, y) => y.id.localeCompare(x.id));
+).sort((a, b) => b.id.localeCompare(a.id));
 
 const title = 'Новости';
 ---
@@ -85,13 +85,13 @@ const title = 'Новости';
               {caption}>
               <FormattedDate
                 slot='before'
+                date={id}
+                parse='YY-MM-DD'
                 class={[
                   'mb-2',
                   'text-theme-header group-hover:text-theme-link font-medium leading-none',
                   'transition-easy'
                 ]}
-                date={id}
-                parse='YY-MM-DD'
               />
             </Figure>
             <small class='absolute right-2 top-2 text-black'>{id}</small>

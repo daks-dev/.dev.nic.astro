@@ -8,8 +8,8 @@ import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'time'>, 'class'> & {
   date: string | Date;
-  parse: string;
   class?: ClassValue;
+  parse?: string;
   locale?: 'en-US' | 'ru-RU';
   year?: 'numeric' | '2-digit';
   month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow';
