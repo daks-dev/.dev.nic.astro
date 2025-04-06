@@ -6,7 +6,7 @@ import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 import logo from '@assets/images/logo.webp';
-const placeholder = await getImage({ src: logo, width: 256, height: 256, fit: 'contain' });
+const placeholder = await getImage({ src: logo, width: 288, height: 288, fit: 'inset' });
 
 const collection = await getCollection('projects');
 
@@ -16,8 +16,8 @@ const gallery = (
       const src = images?.length
         ? await getImage({
             src: images[0].src,
-            width: 256,
-            height: 256,
+            width: 288,
+            height: 288,
             fit: 'cover'
           })
         : placeholder;
@@ -46,8 +46,8 @@ const title = 'Проекты';
     itemprop='mainContentOfPage'>
     <div
       class:list={[
-        'grid justify-between gap-x-8 gap-y-12',
-        'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+        'grid gap-x-8 gap-y-12 max-sm:place-items-center lg:gap-16',
+        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
       ]}>
       {
         gallery.map(({ id, src, caption }) => (
@@ -62,9 +62,10 @@ const title = 'Проекты';
             />
             <Figure
               class:list={[
-                'pointer-events-none overflow-hidden',
+                'overflow-hidden',
                 'rounded-sm border border-gray-400 dark:border-gray-600',
                 'shadow-md shadow-black group-hover:shadow-sm',
+                'pointer-events-none',
                 'transition-easy'
               ]}
               custom={{
@@ -73,9 +74,9 @@ const title = 'Проекты';
                   'transition-easy grayscale group-hover:grayscale-0'
                 ],
                 caption: [
-                  'absolute bottom-0 left-0 flex h-20 w-full',
-                  'flex-col justify-start',
-                  'overflow-hidden p-2',
+                  'absolute bottom-0 left-0',
+                  'h-20 w-full overflow-hidden p-2',
+                  'flex flex-col justify-start',
                   'text-ellipsis leading-tight text-white',
                   'bg-gray-700/70',
                   'group-hover:opacity-0',

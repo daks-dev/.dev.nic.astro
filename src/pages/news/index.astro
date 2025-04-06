@@ -6,7 +6,7 @@ import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 import logo from '@assets/images/logo.webp';
-const placeholder = await getImage({ src: logo, width: 288, height: 162, fit: 'contain' });
+const placeholder = await getImage({ src: logo, width: 288, height: 162, fit: 'inset' });
 
 const collection = await getCollection('news');
 
@@ -48,7 +48,10 @@ const title = 'Новости';
     class='frame'
     itemprop='mainContentOfPage'>
     <div
-      class:list={['grid gap-x-8 gap-y-12 lg:gap-16', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}>
+      class:list={[
+        'grid gap-x-8 gap-y-12 max-sm:place-items-center',
+        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+      ]}>
       {
         gallery.map(({ id, src, poster, caption }) => (
           <a
@@ -69,7 +72,7 @@ const title = 'Новости';
                   'aspect-video object-contain',
                   'bg-neutral-500/10',
                   'rounded-md',
-                  'group-oversee:grayscale-0 grayscale',
+                  // 'group-oversee:grayscale-0 grayscale',
                   poster === -1 && [
                     'p-2',
                     'group-oversee:border-inherit border-2 border-slate-400 dark:border-slate-600'

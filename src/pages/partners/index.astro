@@ -6,7 +6,7 @@ import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 import logo from '@assets/images/logo.webp';
-const placeholder = await getImage({ src: logo, width: 256 });
+const placeholder = await getImage({ src: logo, width: 288, height: 216, fit: 'inset' });
 
 const collection = await getCollection('partners');
 
@@ -16,9 +16,9 @@ const gallery = (
       const src = image
         ? await getImage({
             src: image.src,
-            width: 256,
-            height: 256,
-            fit: 'contain'
+            width: 288,
+            height: 216,
+            fit: 'inset'
           })
         : placeholder;
       return {
@@ -45,8 +45,8 @@ const title = 'Парнёры';
     itemprop='mainContentOfPage'>
     <div
       class:list={[
-        'grid justify-between gap-x-8 gap-y-12',
-        'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'
+        'grid gap-x-8 gap-y-12 max-sm:place-items-center lg:gap-16',
+        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
       ]}>
       {
         gallery.map(({ id, src, caption }) => (
@@ -61,8 +61,8 @@ const title = 'Парнёры';
             />
             <Figure
               class:list={[
+                'overflow-hidden',
                 'items-center justify-center',
-                'h-full overflow-hidden',
                 'bg-white',
                 'rounded-sm border border-gray-400 dark:border-gray-600',
                 'shadow-md shadow-black group-hover:shadow-sm',
@@ -70,11 +70,11 @@ const title = 'Парнёры';
                 'transition-easy'
               ]}
               custom={{
-                img: ['h-auto w-full max-w-full object-center'],
+                img: ['h-auto max-w-full', 'aspect-4/3 object-contain'],
                 caption: [
-                  'h-15 absolute bottom-0 left-0 flex w-full',
-                  'flex-col justify-start',
-                  'overflow-hidden p-2',
+                  'absolute bottom-0 left-0',
+                  'h-15 w-full overflow-hidden p-2',
+                  'flex flex-col justify-start',
                   'text-ellipsis leading-tight text-white',
                   'bg-gray-700/70',
                   'group-hover:opacity-0',

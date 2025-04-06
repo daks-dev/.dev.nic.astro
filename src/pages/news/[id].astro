@@ -33,7 +33,7 @@ const { title, description, images = [] } = post.data;
   <main
     class='frame flex grow flex-col gap-4'
     itemprop='mainContentOfPage'>
-    <div class='flex justify-between gap-16 max-md:flex-col'>
+    <div class='flex gap-16 max-md:flex-col'>
       {
         post.data.images && (
           <BindLightboxData
@@ -54,7 +54,6 @@ const { title, description, images = [] } = post.data;
             transform={{
               thumb: {
                 width: 320,
-                height: 240,
                 fit: 'cover',
                 quality: 80
               },
