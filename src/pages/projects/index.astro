@@ -6,30 +6,40 @@ import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 import logo from '@assets/images/logo.webp';
-const placeholder = await getImage({ src: logo, width: 288, height: 288, fit: 'inset' });
+const placeholder = await getImage({
+  src: logo,
+  width: 288,
+  height: 288,
+  fit: 'inside',
+  quality: 80
+});
 
 const collection = await getCollection('projects');
 
-const gallery = (
+const projects = (
   await Promise.all(
-    collection.map(async ({ id, data: { images, title, description } }) => {
-      const src = images?.length
-        ? await getImage({
-            src: images[0].src,
-            width: 288,
-            height: 288,
-            fit: 'cover'
-          })
-        : placeholder;
-      return {
-        id,
-        src,
-        caption: {
-          title,
-          description
-        }
-      };
-    })
+    collection
+      .filter((x) => !x.data.hidden)
+      .map(async ({ id, data: { title, description, poster, images } }) => {
+        if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+        const src =
+          images && poster !== -1
+            ? await getImage({
+                src: images[poster].src,
+                width: 288,
+                height: 288,
+                fit: 'cover'
+              })
+            : placeholder;
+        return {
+          id,
+          src,
+          caption: {
+            title,
+            description
+          }
+        };
+      })
   )
 ).sort((a, b) => a.id.localeCompare(b.id));
 
@@ -51,7 +61,7 @@ const description = 'Реализованные проекты';
         'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
       ]}>
       {
-        gallery.map(({ id, src, caption }) => (
+        projects.map(({ id, src, caption }) => (
           <a
             class='group relative'
             href={`/projects/${id}`}>

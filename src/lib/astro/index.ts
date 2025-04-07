@@ -54,5 +54,5 @@ export { default as YandexMap } from './yandex/YandexMap.astro';
 export { default as YandexMetrika } from './yandex/YandexMetrika.astro';
 export { default as YandexMetrikaHit } from './yandex/YandexMetrikaHit.astro';
 
-export { default as BindCarousel } from './bind/BindCarousel.astro';
+export { default as BindCarouselData } from './bind/BindCarouselData.astro';
 export { default as BindLightboxData } from './bind/BindLightboxData.astro';

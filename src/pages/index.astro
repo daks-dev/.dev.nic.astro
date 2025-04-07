@@ -1,19 +1,41 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Icon, Video, BindCarousel, TestimonialPlaceholder } from '@lib/astro';
+import { Icon, Video, BindCarouselData } from '@lib/astro';
 
 import microdata from '@app/configs/microdata';
 
 const { email, telephone, address } = microdata.organization;
 const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
-
+/*
 const collection = (await getCollection('gallery'))[0].data.map(({ image, caption }) => ({
   src: image,
   caption
 }));
+*/
+import placeholder from '@assets/images/logo.webp';
 
-const images = await Promise.all(
+const collection = await getCollection('projects', ({ data }) => !data.hidden);
+const projects = (
+  await Promise.all(
+    collection.map(async ({ id, data: { priority, title, poster, images } }) => {
+      if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+      const src = images && poster !== -1 ? images[poster].src : placeholder;
+      return {
+        id,
+        priority,
+        src,
+        caption: {
+          title
+        }
+      };
+    })
+  )
+).sort((a, b) =>
+  a.priority > b.priority ? 1 : a.priority < b.priority ? 0 : a.id.localeCompare(b.id)
+);
+
+const customers = await Promise.all(
   Object.values(
     import.meta.glob('@assets/images/customers/*.(avif|gif|heic|heif|jpeg|jpg|png|tiff|webp)', {
       import: 'default'
@@ -137,9 +159,9 @@ const images = await Promise.all(
     </div>
 
     <div class='frame-xl my-8 flex h-36 items-center'>
-      <BindCarousel
+      <BindCarouselData
         client='load'
-        data={collection}
+        data={projects}
         transform={{
           width: 192,
           quality: 80
@@ -153,7 +175,8 @@ const images = await Promise.all(
         custom={{
           inner: {
             sign: 'top-1/2 left-1/2 h-10 w-10 -translate-1/2 opacity-50',
-            caption: 'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-sm'
+            caption: ['absolute bottom-0 left-0 right-0 py-1 px-2'],
+            title: 'text-sm text-white text-ellipsis font-normal truncate'
           }
         }}
         href='/projects'
@@ -204,9 +227,9 @@ const images = await Promise.all(
       </ul>
 
       <div class='mt-8 flex flex-wrap justify-center gap-16 sm:flex-nowrap'>
-        <BindCarousel
+        <BindCarouselData
           client='load'
-          data={images}
+          data={customers}
           transform={{
             width: 192,
             quality: 80
@@ -224,7 +247,7 @@ const images = await Promise.all(
             }
           }}
           href='/feedback'
-          alt='реализованный объект'
+          alt='заказчик'
           show={1}
           appear={300}
           duration={1000}
@@ -243,7 +266,6 @@ const images = await Promise.all(
             сайте, носит исключительно информационный характер и ни при каких условиях не является публичной
             офертой, определяемой положениями статьи 437 ГК РФ.
           </p>
-          <TestimonialPlaceholder />
         </div>
       </div>
     </div>

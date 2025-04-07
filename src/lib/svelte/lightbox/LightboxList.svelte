@@ -16,7 +16,6 @@
     custom = {},
     options: __options = {},
     title,
-    subtitle,
     description,
     fullscreen: __fullscreen = false,
     scrollable = false,
@@ -66,7 +65,6 @@
   setContext('openImage', openImage);
 
   let activeItemTitle = $derived(items[activeItem]?.title || title);
-  let activeItemSubTitle = $derived(items[activeItem]?.subtitle || subtitle);
   let activeItemDescription = $derived(items[activeItem]?.description || description);
 
   $effect(() => {
@@ -177,7 +175,6 @@
       {custom}
       {fullscreen}
       title={activeItemTitle}
-      subtitle={activeItemSubTitle}
       description={activeItemDescription}
       {status} />
   </Overlay>

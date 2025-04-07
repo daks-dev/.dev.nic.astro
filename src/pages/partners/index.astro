@@ -6,7 +6,13 @@ import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 import logo from '@assets/images/logo.webp';
-const placeholder = await getImage({ src: logo, width: 288, height: 216, fit: 'inset' });
+const placeholder = await getImage({
+  src: logo,
+  width: 288,
+  height: 216,
+  fit: 'inside',
+  quality: 80
+});
 
 const collection = await getCollection('partners');
 
@@ -18,7 +24,8 @@ const gallery = (
             src: image.src,
             width: 288,
             height: 216,
-            fit: 'inset'
+            fit: 'inside',
+            quality: 80
           })
         : placeholder;
       return {

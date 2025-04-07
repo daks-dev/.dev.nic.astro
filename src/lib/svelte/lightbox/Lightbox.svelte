@@ -14,7 +14,6 @@
     custom = {},
     options: __options = {},
     title,
-    subtitle,
     description,
     fullscreen: __fullscreen = false,
     scrollable = false,
@@ -104,7 +103,6 @@
       {custom}
       {fullscreen}
       {title}
-      {subtitle}
       {description} />
   </Overlay>
 {/if}

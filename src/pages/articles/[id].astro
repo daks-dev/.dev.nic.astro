@@ -45,6 +45,7 @@ const { title, description, publishDate, images = [] } = post.data;
       {
         post.data.images && (
           <BindLightboxData
+            data={images}
             class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:items-center']}
             custom={{
               thumb: 'min-w-48 max-w-fit first:mt-2',
@@ -53,12 +54,10 @@ const { title, description, publishDate, images = [] } = post.data;
                   'hover:scale-105 hover:drop-shadow-xl',
                   'rounded-sm drop-shadow-lg',
                   'transition duration-500'
-                ],
-                caption: 'mt-2 flex flex-col'
+                ]
               }
             }}
             options={{ behaviour: 'loop' }}
-            data={images}
             transform={{
               thumb: {
                 width: 320,
@@ -68,11 +67,13 @@ const { title, description, publishDate, images = [] } = post.data;
               modal: {
                 width: 1024,
                 height: 768,
-                fit: 'inset',
+                fit: 'inside',
                 quality: 80
               }
             }}
             sign={{ icon: 'arrows-out', dark: true }}
+            {title}
+            {description}
             alt={title.toLowerCase()}
           />
         )

@@ -82,8 +82,7 @@ const geo = {
                     'hover:scale-105 hover:drop-shadow-xl',
                     'rounded-sm drop-shadow-lg',
                     'transition duration-500'
-                  ],
-                  caption: 'mt-2 flex flex-col'
+                  ]
                 }
               }}
               options={{ behaviour: 'loop' }}
@@ -99,11 +98,13 @@ const geo = {
                 modal: {
                   width: 1024,
                   height: 768,
-                  fit: 'inset',
+                  fit: 'inside',
                   quality: 80
                 }
               }}
               sign={{ icon: 'arrows-out', dark: true }}
+              {title}
+              {description}
               alt={title.toLowerCase()}
             />
           )

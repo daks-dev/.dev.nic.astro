@@ -1,4 +1,5 @@
 ---
+import { getEntry } from 'astro:content';
 import { BindLightboxData, YandexMap } from '@lib/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
@@ -37,13 +38,7 @@ const geo = {
   }
 };
 
-const images = await Promise.all(
-  Object.values(
-    import.meta.glob('@assets/images/contacts/*.(avif|gif|heic|heif|jpeg|jpg|png|tiff|webp)', {
-      import: 'default'
-    })
-  ).map(async (x) => ({ src: (await x()) as ImageMetadata }))
-);
+const images = (await getEntry('gallery', 'contacts'))?.data;
 
 const title = 'Контактная информация';
 const description = 'Контактная информация';
@@ -60,39 +55,44 @@ const description = 'Контактная информация';
     itemprop='mainContentOfPage'>
     <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
       <Info />
-      <BindLightboxData
-        class='md:mt-2'
-        custom={{
-          thumb: 'min-w-fit',
-          inner: {
-            img: [
-              'hover:scale-105 hover:drop-shadow-xl',
-              'rounded-sm drop-shadow-lg',
-              'transition duration-500'
-            ],
-            caption: 'mt-2 flex flex-col'
-          }
-        }}
-        options={{ behaviour: 'loop' }}
-        data={images}
-        show={1}
-        transform={{
-          thumb: {
-            width: 320,
-            height: 240,
-            fit: 'cover',
-            quality: 80
-          },
-          modal: {
-            width: 1024,
-            height: 768,
-            fit: 'inset',
-            quality: 80
-          }
-        }}
-        sign={{ icon: 'arrows-out', dark: true }}
-        alt={title.toLowerCase()}
-      />
+      {
+        images && (
+          <BindLightboxData
+            class='md:mt-2'
+            custom={{
+              thumb: 'min-w-fit',
+              inner: {
+                img: [
+                  'hover:scale-105 hover:drop-shadow-xl',
+                  'rounded-sm drop-shadow-lg',
+                  'transition duration-500'
+                ]
+              }
+            }}
+            options={{ behaviour: 'loop' }}
+            data={images}
+            show={1}
+            transform={{
+              thumb: {
+                width: 320,
+                height: 240,
+                fit: 'cover',
+                quality: 80
+              },
+              modal: {
+                width: 1024,
+                height: 768,
+                fit: 'inside',
+                quality: 80
+              }
+            }}
+            sign={{ icon: 'arrows-out', dark: true }}
+            {title}
+            description='АО НИЦ «Строительная Экспертиза»'
+            alt={title.toLowerCase()}
+          />
+        )
+      }
     </div>
 
     <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>

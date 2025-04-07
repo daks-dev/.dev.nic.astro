@@ -17,6 +17,7 @@ const projects = defineCollection({
       scope: z.string().optional(),
       scope_term: z.string().optional(),
       activities: z.array(z.string()).optional(),
+      poster: z.number().optional().default(0),
       images: z
         .array(
           z.object({
@@ -84,7 +85,7 @@ const news = defineCollection({
       images: z
         .array(
           z.object({
-            src: image(),
+            src: z.preprocess((val) => `./${val}`, image()),
             alt: z.string().optional().default('')
           })
         )
@@ -127,22 +128,16 @@ const permissions = defineCollection({
 });
 
 const gallery = defineCollection({
-  loader: file('src/content/gallery/index.yaml'),
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: 'src/content/gallery' }),
   schema: ({ image }) =>
     z.array(
       z.object({
-        image: z.preprocess((val) => `./${val}`, image()),
-        caption: z
-          .object({
-            title: z.string().optional().optional(),
-            subtitle: z.string().optional().optional(),
-            description: z.string().optional().optional()
-          })
-          .optional()
-          .default({})
+        src: z.preprocess((val) => `./${val}`, image()),
+        alt: z.string().optional().default('')
       })
     )
 });
+
 export const collections = {
   projects,
   partners,

@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+// import { BindCarouselData, BindLightboxData } from '@lib/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
@@ -10,27 +10,10 @@ const description = 'Судебная экспертиза';
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title}>
-    <Image
-      class:list={[
-        'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
-      ]}
-      src='/assets/icons/astro.svg'
-      width={128}
-      height={128}
-      alt=''
-    />
-  </Header>
+  <Header {title} />
 
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    <header>
-      <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
-    </header>
   </main>
 </Layout>

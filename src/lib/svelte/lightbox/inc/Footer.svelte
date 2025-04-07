@@ -6,20 +6,19 @@
   type Props = Omit<SvelteHTMLElements['div'], 'class' | 'title'> & {
     custom: Custom;
     title?: string;
-    subtitle?: string;
     description?: string;
     fullscreen: boolean;
     status?: Status;
   };
-  const { custom, title, subtitle, description, fullscreen, status }: Props = $props();
+  const { custom, title, description, fullscreen, status }: Props = $props();
 </script>
 
 <div class={twMerge('scoped', 'relative z-30', fullscreen && 'fullscreen', custom.footer)}>
   <div
     class={twMerge(
-      'min-h-24 pt-1 sm:min-h-12',
-      'grid grid-cols-2 items-center gap-2',
-      'text-white/50 hover:text-white',
+      'min-h-24 pt-2 sm:min-h-12',
+      'grid grid-cols-2 items-center',
+      'text-sm leading-snug text-white/50 hover:text-white',
       'cursor-default',
       custom.inner?.cuption
     )}>
@@ -33,11 +32,6 @@
         class={twMerge('whitespace-nowrap font-mono', title && 'text-right', custom.inner?.status)}>
         {status.activeItem + 1} <sup>[{status.countItems}]</sup>
       </div>
-    {/if}
-    {#if subtitle}
-      <span class={twMerge('col-span-2', custom.inner?.subtitle)}>
-        {@html subtitle}
-      </span>
     {/if}
     {#if description}
       <small class={twMerge('col-span-2', custom.inner?.description)}>

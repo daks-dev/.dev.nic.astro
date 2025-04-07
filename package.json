@@ -47,7 +47,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "nanostores": "^0.11.4",
     "sharp": "^0.33.5",
-    "svelte": "^5.25.7",
+    "svelte": "^5.25.8",
     "svelte-check": "^4.1.5",
     "tailwind-merge": "3.0.2",
     "tailwindcss": "^4.1.3",

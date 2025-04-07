@@ -6,7 +6,6 @@ import type { SignAttributes } from '../sign/index.d.ts';
 export type Item = {
   id: number;
   title: string;
-  subtitle: string;
   description: string;
 };
 
@@ -43,7 +42,6 @@ export type LightboxAttributes = Omit<SvelteHTMLElements['div'], 'class' | 'titl
   class?: ClassValue;
   custom?: Custom;
   title?: string;
-  subtitle?: string;
   description?: string;
   options?: Options;
   fullscreen?: boolean;

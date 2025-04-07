@@ -23,9 +23,7 @@ const title = 'Допуски';
           class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
           custom={{
             inner: {
-              img: 'h-auto w-full max-w-full',
-              caption: 'mt-2 text-sm',
-              title: 'text-slate-700 dark:text-slate-400'
+              img: 'h-auto w-full max-w-full'
             }
           }}
           options={{ behaviour: 'loop' }}
@@ -41,6 +39,9 @@ const title = 'Допуски';
             }
           }}
           sign={{ icon: 'arrows-out', class: 'top-2 left-2', dark: true }}
+          {title}
+          description='АО НИЦ «Строительная Экспертиза»'
+          alt='допуск'
         />
       ))
     }

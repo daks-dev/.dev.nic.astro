@@ -14,7 +14,6 @@
     custom = {},
     options = {},
     title: __title,
-    subtitle: __subtitle,
     description: __description,
     img,
     alt = '',
@@ -100,12 +99,15 @@
         href={thumb.src} />
     {/each}
   {/snippet}
-  {#each data as { modal: { src, attributes }, caption }}
-    <LightboxModal {...caption}>
+  {#each data as { modal: { src }, caption: { title, description } }}
+    <LightboxModal
+      title={title ?? __title}
+      description={description ?? __description}>
       <Img
-        class="bg--loading bg-10% bg-center bg-no-repeat"
+        class="bg--loading bg-[size:20%] bg-center bg-no-repeat"
         {src}
-        {...attributes} />
+        decoding="async"
+        loading="lazy" />
     </LightboxModal>
   {/each}
 </LightboxList>

@@ -1,7 +1,11 @@
 ---
-import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { BindCarouselData, BindLightboxData } from '@lib/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
+
+const carousel = (await getEntry('gallery', 'inspection/carousel'))?.data;
+const lightbox = (await getEntry('gallery', 'inspection/lightbox'))?.data;
 
 const title = 'Обследование зданий и сооружений';
 const description = 'Обследование зданий и сооружений';
@@ -10,27 +14,111 @@ const description = 'Обследование зданий и сооружени
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title}>
-    <Image
-      class:list={[
-        'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
-      ]}
-      src='/assets/icons/astro.svg'
-      width={128}
-      height={128}
-      alt=''
-    />
-  </Header>
+  <Header {title} />
 
   <main
-    class='frame'
+    class='frame readable'
     itemprop='mainContentOfPage'>
-    <header>
-      <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
-    </header>
+    {
+      carousel && (
+        <div
+          class:list={[
+            'max-sm:hidden',
+            'float-right my-1 ml-8 h-64 w-48 overflow-hidden',
+            'bg--loading bg-neutral-200 bg-[size:30%] bg-center bg-no-repeat dark:bg-neutral-800',
+            'rounded-md'
+          ]}>
+          <BindCarouselData
+            client='load'
+            data={carousel}
+            transform={{
+              width: 192,
+              height: 256,
+              fit: 'cover',
+              quality: 80
+            }}
+            alt={`${title.toLowerCase()} 0`}
+            show={1}
+            controls=''
+            appear={300}
+            duration={1000}
+            delay={5000}
+            autoplay
+            aria-label='техническое обследование зданий и сооружений ниц «строительная экспертиза»'
+          />
+        </div>
+      )
+    }
+
+    <p>
+      Комплексное <b>техническое обследование зданий и сооружений</b> гражданского и промышленного назначения,
+      в том числе технически сложных и уникальных, является одним из основных направлений деятельности
+      Научно-технического центра «Строительная экспертиза».
+    </p>
+    <p>
+      И к этому есть все предпосылки. Многолетний опыт работы, современное высокоточное оборудование
+      и, конечно же, бригады высококлассных профессионалов &mdash; обследователей, конструкторов и
+      расчетчиков.
+    </p>
+    <p>
+      Каждая бригада состоит не только из обследователей проводящих оценку состояния строительных
+      конструкций и инженерных сетей здания, но и специалистов по прочностям, дефектоскопистов, а
+      также расчетчиков, в совершенстве владеющих не только плоскостными расчетами конструкций, но и
+      современными расчетными комплексами, такими как SCAD, Лира, Мономах и другие.
+    </p>
+    <p>
+      Одним из основных преимуществ наших Технических отчетов и Экспертных заключений является
+      полнота и корректность предложений в Рекомендациях по дальнейшей эксплуатации зданий, которые
+      формируются на основе выводов по результатам проведенного обследования. Вы не встретите в
+      наших отчетах фраз типа «Отремонтировать по отдельно разработанному проекту» или
+      «Предусмотреть усиление до начала эксплуатации». Цены на обследование зданий и сооружений
+      соответствуют развернутым инструкциям и рекомендациям с конкретным описанием мер для решения
+      каждой проблемы.
+    </p>
+    <p>
+      Рекомендации, разрабатываемые нашими специалистами, максимально подробны и представляют собой
+      проектные и технологические решения по устранению выявленных дефектов, а также предложения по
+      использованию строительных материалов.
+    </p>
+
+    {
+      lightbox && (
+        <BindLightboxData
+          data={lightbox}
+          class='mt-16 justify-center gap-4 lg:gap-8'
+          custom={{
+            inner: {
+              img: [
+                'h-auto w-full max-w-full',
+                'rounded-md',
+                'shadow-sm shadow-black hover:shadow-md',
+                'hover:scale-105',
+                'motion-safe:ready:transition duration-300'
+              ],
+              title: 'mt-2'
+            }
+          }}
+          options={{ behaviour: 'loop' }}
+          transform={{
+            thumb: {
+              width: 320,
+              height: 180,
+              fit: 'cover',
+              quality: 80
+            },
+            modal: {
+              width: 1024,
+              height: 768,
+              fit: 'inside',
+              quality: 80
+            }
+          }}
+          sign={{ icon: 'arrows-out', dark: true }}
+          {title}
+          description='АО НИЦ «Строительная Экспертиза»'
+          alt={`${title.toLowerCase()} 1`}
+        />
+      )
+    }
   </main>
 </Layout>
