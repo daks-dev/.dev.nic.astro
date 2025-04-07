@@ -27,20 +27,21 @@ import { nav } from '@app/configs/nav';
     <div class='-ml-3.5 flex items-center gap-x-7'>
       <DrawerToggle />
       <Link
-        class:list={['group', 'flex items-center gap-4', 'text-base/tight font-medium']}
+        class:list={['group h-10', 'flex items-center gap-4', 'text-base/tight font-medium']}
         href='/'
         aria-label='главная страница'
         prefetch>
         <span class='sr-only'>главная страница</span>
         <Image
           class:list={[
+            'h-full max-h-full w-auto',
             'drop-shadow-2xl',
             'group-hover:drop-shadow-deep',
             'ready:animate-[wiggle_20s_ease-in-out_infinite]'
           ]}
           src={logo}
-          width={40}
-          height={40}
+          width={80}
+          height={80}
           loading='eager'
           alt='ниц «строительная экспертиза»'
         />
