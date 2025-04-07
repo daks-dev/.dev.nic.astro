@@ -1,0 +1,122 @@
+---
+import { twMerge } from '../../tailwind/tailwind-merge';
+import type { HTMLAttributes } from 'astro/types';
+
+import svg from './default.svg?raw';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: ClassValue;
+  delay?: number | string;
+  duration?: number | string;
+};
+const { class: className, delay = 1500, duration = 5000, ...props } = Astro.props;
+---
+
+<app-backstage
+  data-delay={delay}
+  data-duration={duration}>
+  <template>
+    <div
+      class={twMerge(
+        'fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-700',
+        'transition-opacity ease-out',
+        className
+      )}
+      {...props}
+      aria-hidden='true'>
+      <slot>
+        <Fragment set:html={svg} />
+        {
+          /*
+        <svg
+          class='3xl:w-[10vmin] w-[35vmin] sm:w-[30vmin] md:w-[25vmin] lg:w-[20vmin] 2xl:w-[15vmin]'
+          viewBox='0 0 24 24'
+          fill='currentColor'>
+          <rect
+            width='6'
+            height='14'
+            x='1'
+            y='4'>
+            <animate
+              id='svgSpinnersBarsFade0'
+              fill='freeze'
+              attributeName='opacity'
+              begin='0;svgSpinnersBarsFade1.end-0.25s'
+              dur='0.75s'
+              values='1;.2'>
+            </animate>
+          </rect>
+          <rect
+            width='6'
+            height='14'
+            x='9'
+            y='4'
+            opacity='.4'>
+            <animate
+              fill='freeze'
+              attributeName='opacity'
+              begin='svgSpinnersBarsFade0.begin+0.15s'
+              dur='0.75s'
+              values='1;.2'>
+            </animate>
+          </rect>
+          <rect
+            width='6'
+            height='14'
+            x='17'
+            y='4'
+            opacity='.3'>
+            <animate
+              id='svgSpinnersBarsFade1'
+              fill='freeze'
+              attributeName='opacity'
+              begin='svgSpinnersBarsFade0.begin+0.3s'
+              dur='0.75s'
+              values='1;.2'>
+            </animate>
+          </rect>
+        </svg>
+        */
+        }
+      </slot>
+    </div>
+  </template>
+</app-backstage>
+
+<script>
+  class AppBackstage extends HTMLElement {
+    backstage: HTMLDivElement;
+
+    constructor() {
+      super();
+      this.style.display = 'contents';
+      this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      this.backstage = this.querySelector('div')!;
+    }
+
+    connectedCallback() {
+      window.addEventListener('load', this.delete, { once: true });
+    }
+
+    disconnectedCallback() {}
+
+    get duration() {
+      return this.dataset.duration ? Number(this.dataset.duration) : 5000;
+    }
+
+    get delay() {
+      return this.dataset.delay ? Number(this.dataset.delay) : 75;
+    }
+
+    delete = () => {
+      setTimeout(() => {
+        this.backstage.style.transitionDuration = `${this.dataset.duration}ms`;
+        this.backstage.style.pointerEvents = this.backstage.style.touchAction = 'none';
+        this.backstage.style.opacity = '0';
+        setTimeout(() => this.remove(), Number(this.dataset.duration));
+      }, Number(this.dataset.delay));
+    };
+  }
+
+  customElements.define('app-backstage', AppBackstage);
+</script>

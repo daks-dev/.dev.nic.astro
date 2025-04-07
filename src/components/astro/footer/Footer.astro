@@ -21,37 +21,34 @@ const currentYear = new Date().getFullYear();
     'frame-xl',
     'py-5',
     'grid grid-cols-1 items-center justify-center gap-2 sm:grid-cols-3',
-    'text-theme-plain text-center text-sm',
+    'text-theme-plain text-center text-sm leading-none',
     className
   )}
   {...props}>
-  <div>
-    Designed & Developed with
-    <span class='text-nowrap'>
-      <a
-        class='hover:text-theme-link inline-block'
-        href='https://astro.build'
-        target='_blank'>
-        Astro
-        <Icon
-          class='inline'
-          icon='astro'
-          size='1.5em'
-        />
-      </a>
-      &
-      <a
-        class='hover:text-theme-link'
-        href='https://svelte.dev'
-        target='_blank'>
-        Svelte
-        <Icon
-          class='inline'
-          icon='svelte'
-          size='1.4em'
-        />
-      </a>
-    </span>
+  <div class='text-nowrap'>
+    <a
+      class='hover:text-theme-link inline-block'
+      href='https://astro.build'
+      target='_blank'>
+      <Icon
+        class='inline'
+        icon='astro'
+        size='1.5em'
+      />
+      Astro
+    </a>
+    <span class='px-2'>&mdash;</span>
+    <a
+      class='hover:text-theme-link'
+      href='https://svelte.dev'
+      target='_blank'>
+      <Icon
+        class='inline'
+        icon='svelte'
+        size='1.4em'
+      />
+      Svelte
+    </a>
   </div>
 
   {
@@ -70,7 +67,7 @@ const currentYear = new Date().getFullYear();
   }
 
   <Timer client:load />
-  <div>&copy; {currentYear} DAKS.DEV</div>
+  <small>&copy; {currentYear} DAKS.DEV</small>
 </footer>
 
 <style scoped>
@@ -78,7 +75,7 @@ const currentYear = new Date().getFullYear();
 
   .link {
     @apply text-primary-400 dark:text-primary-400;
-    @apply oversee:decoration-current underline decoration-transparent underline-offset-4;
+    @apply underline decoration-transparent underline-offset-4 hover:decoration-current;
     @apply transition-colors duration-500;
   }
 </style>
