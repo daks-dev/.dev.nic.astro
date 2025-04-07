@@ -38,7 +38,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   123196,
   8,
   '11-52',
-  'строительный контроль',
+  'технический надзор',
   '55.830566, 37.401680',
   1 /* MR group */
 );
@@ -50,7 +50,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   398916,
   12,
   '4-30',
-  'строительный контроль',
+  'технический надзор',
   '55.721045, 37.691570',
   1 /* MR group */
 );
@@ -62,7 +62,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   123169,
   5,
   '31',
-  'строительный контроль',
+  'технический надзор',
   '55.878918, 37.479139',
   1 /* MR group */
 );
@@ -74,7 +74,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   359500 ,
   6,
   '26-29',
-  'строительный контроль',
+  'технический надзор',
   '55.841178, 37.494277',
   1 /* MR group */
 );
@@ -86,7 +86,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   358000,
   13,
   '10-17',
-  'строительный контроль',
+  'технический надзор',
   '55.536466, 37.724581',
   1 /* MR group */
 );
@@ -98,7 +98,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   228000,
   5,
   '10-17',
-  'строительный контроль',
+  'технический надзор',
   '55.530962, 37.723323',
   1 /* MR group */
 );
@@ -110,7 +110,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   191295 ,
   7,
   '25',
-  'строительный контроль',
+  'технический надзор',
   '55.755608, 37.509196',
   1 /* MR group */
 );
@@ -122,7 +122,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   127000 ,
   3,
   '6-42',
-  'строительный контроль',
+  'технический надзор',
   '55.743538, 37.510089',
   1 /* MR group */
 );
@@ -134,7 +134,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   84871 ,
   2,
   '19',
-  'строительный контроль',
+  'технический надзор',
   '55.805243, 37.590652',
   1 /* MR group */
 );
@@ -146,7 +146,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   50824,
   3,
   '23',
-  'строительный контроль',
+  'технический надзор',
   '55.764122, 37.798535',
   1 /* MR group */
 );

@@ -11,6 +11,7 @@ type Props = {
 };
 
 const { partner } = Astro.props;
+const { id } = partner;
 const { image, email, telephone, address, url } = partner.data;
 
 const src = image
@@ -25,9 +26,14 @@ const src = image
 <div class='flex justify-between gap-8 max-md:flex-col'>
   <Figure
     {src}
-    class='max-md:items-center lg:shrink-0'
-    custom={{ image: 'border border-slate-400 drop-shadow-sm' }}
-  />
+    class='max-w-80 max-md:items-center'
+    custom={{ image: 'border border-slate-400 drop-shadow-sm' }}>
+    <small
+      class='mt-2'
+      set:text={`[ ${id} ]`}
+    />
+  </Figure>
+
   <dl class='space-y-4'>
     <div class='flex items-center gap-4'>
       <dt class='font-semibold text-slate-500'>

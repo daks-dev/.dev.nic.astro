@@ -53,7 +53,7 @@ INSERT INTO partners ( id, name, telephone, address, url, center, zoom ) VALUES 
   '55.628180, 37.381341',
   13
 );
-*/
+
 INSERT INTO partners ( id, name, telephone, address, url, center, zoom ) VALUES (
   4,
   'ДОНСТРОЙ',
@@ -71,7 +71,7 @@ INSERT INTO partners ( id, name, telephone, address, url ) VALUES (
   '119002, г. Москва, ул. Арбат, д. 10 (БЦ Midland Plaza, 3-тий этаж)',
   'www.dsk1.ru'
 );
-
+*/
 INSERT INTO partners ( id, name, telephone, address, url ) VALUES (
   6,
   'Группа компаний ФСК',
