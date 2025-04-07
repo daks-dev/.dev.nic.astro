@@ -47,9 +47,9 @@ const {
   <body
     itemscope
     itemtype={`https://schema.org/${schema}`}>
-    <div class='relative flex flex-col min-h-screen'>
+    <div class='relative flex min-h-screen flex-col'>
       <div
-        class:list={['flex flex-col grow', className]}
+        class:list={['flex grow flex-col', className]}
         {...props}>
         <slot />
       </div>
@@ -57,10 +57,17 @@ const {
       <Drawer />
       <Footer />
     </div>
-    {metrika && (
-      <YandexMetrika {counter} />
-      <YandexMetrikaHit {counter} {title} />
-    )}
+    {
+      metrika && (
+        <>
+          <YandexMetrika {counter} />
+          <YandexMetrikaHit
+            {counter}
+            {title}
+          />
+        </>
+      )
+    }
     {/* <script>if (typeof window !== 'undefined') import('../pwa');</script> */}
   </body>
 </html>

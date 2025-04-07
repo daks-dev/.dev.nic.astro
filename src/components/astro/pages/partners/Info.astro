@@ -12,7 +12,7 @@ type Props = {
 
 const { partner } = Astro.props;
 const { id } = partner;
-const { image, email, telephone, address, url } = partner.data;
+const { title, email, telephone, address, url, image } = partner.data;
 
 const src = image
   ? await getImage({
@@ -27,7 +27,8 @@ const src = image
   <Figure
     {src}
     class='max-w-80 max-md:items-center'
-    custom={{ image: 'border border-slate-400 drop-shadow-sm' }}>
+    custom={{ image: 'border border-slate-400 drop-shadow-sm' }}
+    alt={title.toLowerCase()}>
     <small
       class='mt-2'
       set:text={`[ ${id} ]`}

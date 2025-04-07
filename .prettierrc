@@ -13,39 +13,19 @@
   "bracketSameLine": true,
   "vueIndentScriptAndStyle": false,
   "embeddedLanguageFormatting": "auto",
-  "tailwindConfig": "./src/styles/global.css",
-  "tailwindAttributes": [
-    "class",
-    "class:list",
-    "custom",
-    "className",
-    "ngClass"
-  ],
-  "tailwindFunctions": [
-    "twMerge",
-    "twJoin",
-    "classnames",
-    "clsx",
-    "ctl"
-  ],
-  "plugins": [
-    "prettier-plugin-astro",
-    "prettier-plugin-svelte",
-    "prettier-plugin-tailwindcss"
-  ],
+  "tailwindStylesheet": "./src/styles/global.css",
+  "tailwindAttributes": ["class", "class:list", "custom", "className", "ngClass"],
+  "tailwindFunctions": ["twMerge", "twJoin", "classnames", "clsx", "ctl"],
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
   "overrides": [
     {
-      "files": [
-        "**/*.astro"
-      ],
+      "files": ["**/*.astro"],
       "options": {
         "parser": "astro"
       }
     },
     {
-      "files": [
-        "**/*.svelte"
-      ],
+      "files": ["**/*.svelte"],
       "options": {
         "parser": "svelte"
       }

@@ -1,35 +1,110 @@
 ---
-import { Image } from 'astro:assets';
-import Layout from '@layouts/Base.astro';
+import { BindLightboxData, YandexMap } from '@lib/astro';
 import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+import Info from '@components/astro/pages/contacts/Info.astro';
 
-const title = 'Контакты';
+import seo from '@app/configs/seo';
+const {
+  yandex: { api }
+} = seo;
+
+const geo = {
+  locations: [
+    {
+      geometry: [55.771174, 37.60589],
+      properties: {
+        iconContent: '<strong class="tracking-wider">АО НИЦ «СЭ»</strong>',
+        balloonContentHeader: 'АО НИЦ «Строительная экспертиза»',
+        balloonContentBody:
+          '<img class=mx-auto src=/assets/images/ymap.webp width=192 height=192 />',
+        balloonContentFooter:
+          '<div class=text-center>время работы: 9 <sup>00</sup> -- 19 <sup>00</sup></div>'
+      },
+      options: {
+        preset: 'islands#nightStretchyIcon'
+      }
+    }
+  ],
+  state: {
+    center: [55.771174, 37.60589],
+    zoom: 17,
+    behaviors: ['drag', 'dblClickZoom', 'rightMouseButtonMagnifier', 'multiTouch'],
+    controls: ['zoomControl', 'fullscreenControl']
+  },
+  options: {
+    autoFitToViewport: 'always'
+  }
+};
+
+const images = await Promise.all(
+  Object.values(
+    import.meta.glob('@assets/images/contacts/*.(avif|gif|heic|heif|jpeg|jpg|png|tiff|webp)', {
+      import: 'default'
+    })
+  ).map(async (x) => ({ src: (await x()) as ImageMetadata }))
+);
+
+const title = 'Контактная информация';
+const description = 'Контактная информация';
 ---
 
 <Layout
+  class='flex flex-col'
   title={`${title} • НИЦ «Строительная экспертиза»`}
-  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title}>
-    <Image
-      class:list={[
-        'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
-      ]}
-      src='/assets/icons/astro.svg'
-      width={128}
-      height={128}
-      alt=''
-    />
-  </Header>
+  description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
+  <Header {title} />
 
   <main
-    class='frame'
+    class='frame flex grow flex-col gap-4'
     itemprop='mainContentOfPage'>
-    <header>
-      <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
-    </header>
+    <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
+      <Info />
+      <BindLightboxData
+        class='md:mt-2'
+        custom={{
+          thumb: 'min-w-fit',
+          inner: {
+            img: [
+              'hover:scale-105 hover:drop-shadow-xl',
+              'rounded-sm drop-shadow-lg',
+              'transition duration-500'
+            ],
+            caption: 'mt-2 flex flex-col'
+          }
+        }}
+        options={{ behaviour: 'loop' }}
+        data={images}
+        show={1}
+        transform={{
+          thumb: {
+            width: 320,
+            height: 240,
+            fit: 'cover',
+            quality: 80
+          },
+          modal: {
+            width: 1024,
+            height: 768,
+            fit: 'inset',
+            quality: 80
+          }
+        }}
+        sign={{ icon: 'arrows-out', dark: true }}
+        alt={title.toLowerCase()}
+      />
+    </div>
+
+    <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
+      <YandexMap
+        class:list={[
+          'min-h-full w-full overflow-hidden',
+          'bg--waiting bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg-center bg-no-repeat dark:bg-slate-200',
+          'border-4 border-slate-400'
+        ]}
+        {geo}
+        apikey={api.maps}
+      />
+    </div>
   </main>
 </Layout>

@@ -1,0 +1,81 @@
+---
+import { Icon } from '@lib/astro';
+
+import microdata from '@app/configs/microdata';
+const { itemtype, name, logo, email, telephone, address } = microdata.organization;
+
+const canonical = import.meta.env.PUBLIC_APP_CANONICAL
+  ? new URL(import.meta.env.PUBLIC_APP_CANONICAL).origin
+  : '';
+---
+
+<div
+  class:list={['flex flex-col content-start', 'text-theme-link text-lg lg:text-xl']}
+  itemscope
+  {itemtype}>
+  <a
+    class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-sky-500'
+    href="tel://{telephone.replace(/[\s-()]/g, '')}">
+    <Icon
+      icon='phone-call'
+      class='-mt-0.5 inline h-10 w-10 px-1'
+    />
+    <span
+      itemprop='telephone'
+      set:text={telephone}
+    />
+  </a>
+  <a
+    class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-sky-500'
+    href='mailto:{email}'>
+    <Icon
+      icon='envelope'
+      class='-mt-px inline h-10 w-10 px-1'
+    />
+    <span
+      itemprop='email'
+      set:text={email}
+    />
+  </a>
+  <div
+    style={{ display: 'contents' }}
+    itemprop='address'
+    itemscope
+    itemtype={address.itemtype}>
+    <a
+      rel='nofollow noreferrer'
+      class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-sky-500'
+      href={address.url}
+      target='_blank'
+      itemprop='url'>
+      <Icon
+        icon='map-pin'
+        class='-mt-0.5 inline h-10 w-10 px-1'
+      />
+      <span
+        itemprop='postalCode'
+        set:text={address.postalCode}
+      />,
+      <span
+        itemprop='addressLocality'
+        set:html={address.addressLocality}
+      />,
+      <span
+        itemprop='streetAddress'
+        set:html={address.streetAddress}
+      />
+    </a>
+    <meta
+      itemprop='addressRegion'
+      content={address.addressRegion}
+    />
+  </div>
+  <meta
+    itemprop='name'
+    content={name}
+  />
+  <link
+    itemprop='logo'
+    href={`${canonical}${logo}`}
+  />
+</div>
