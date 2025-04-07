@@ -87,27 +87,16 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
 <style scoped>
   @reference "@styles/global.css";
 
-  /*
-  a {
-    @apply bp:py-2 px-4 py-3;
-    @apply text-theme-plain;
-    @apply step:text-theme-header;
-    @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;
-    @apply hover:bg-primary-300 dark:hover:bg-primary-500 hover:text-primary-900 dark:hover:text-primary-200;
-    @apply ready:transition-colors ready:duration-200;
-    @apply forced-colors:text-selected;
-  }
-  */
-
   .inner {
     @apply bp:self-center items-center;
     @apply bp:pb-2 bp:pt-1.5;
     @apply bp:border bp:rounded-full border-transparent;
     @apply step:border-gray-500/50;
-    /* @apply step:decoration-current underline decoration-transparent underline-offset-8; */
   }
 
   .outer {
-    @apply text-impact-hard dark:text-impact-hard ready:transition-colors ready:duration-200 hover:text-impact-text dark:hover:text-impact-text flex p-2 no-underline;
+    @apply flex p-2;
+    @apply text-impact-hard dark:text-impact-hard hover:text-impact-text dark:hover:text-impact-text no-underline;
+    @apply motion-safe:ready:transition-colors duration-200;
   }
 </style>

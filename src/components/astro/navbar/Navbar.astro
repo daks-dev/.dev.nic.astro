@@ -1,15 +1,21 @@
 ---
-import { Image } from 'astro:assets';
-import { Link } from '@lib/astro';
+import { getImage } from 'astro:assets';
+import { Img, Link } from '@lib/astro';
 import DrawerToggle from './DrawerToggle.astro';
 import Menu from './Menu.astro';
 import MenuToggle from './MenuToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
-import logo from '@assets/images/logo.icon.webp';
-
 import { nav } from '@app/configs/nav';
+
+import logo from '@assets/images/logo.icon.webp';
+const src = await getImage({
+  src: logo,
+  width: 80,
+  height: 80,
+  fit: 'contain'
+});
 ---
 
 <nav
@@ -27,29 +33,24 @@ import { nav } from '@app/configs/nav';
     <div class='-ml-3.5 flex items-center gap-x-7'>
       <DrawerToggle />
       <Link
-        class:list={['group h-10', 'flex items-center gap-4', 'text-base/tight font-medium']}
         href='/'
         aria-label='главная страница'
         prefetch>
-        <span class='sr-only'>главная страница</span>
-        <Image
+        <span
+          class='sr-only'
+          set:text='главная страница'
+        />
+        <Img
           class:list={[
-            'h-full max-h-full w-auto',
-            'drop-shadow-2xl',
-            'group-hover:drop-shadow-deep',
+            'hover:drop-shadow-deep drop-shadow-2xl',
             'ready:animate-[wiggle_20s_ease-in-out_infinite]'
           ]}
-          src={logo}
-          width={80}
-          height={80}
-          loading='eager'
+          {src}
+          width={40}
+          height={40}
           alt='ниц «строительная экспертиза»'
+          eager
         />
-        {
-          /*<div class:list={['hidden', 'xs:max-bp:block 3xl:block']}>
-          АО НИЦ <br /> «Строительная Экспертиза»
-        </div> */
-        }
       </Link>
     </div>
     <MenuToggle />
@@ -74,25 +75,3 @@ import { nav } from '@app/configs/nav';
   </Menu>
   <ToTop class:list={['mt-8 w-14 p-3', 'bg-gray-300/50 dark:bg-gray-700/50', 'rounded-full']} />
 </nav>
-
-<style scoped>
-  @reference "@styles/global.css";
-
-  /*
-  .inner {
-    @apply px-4 py-2;
-    @apply bp:px-3 bp:pt-1 bp:pb-1.5;
-    @apply text-theme-plain;
-    @apply step:text-theme-header step:border-theme-header;
-    @apply page:text-impact-hard bp:page:text-white dark:bp:page:text-black bp:page:bg-primary-400;
-    @apply hover:bg-primary-300 dark:hover:bg-primary-500 hover:text-primary-900 dark:hover:text-primary-200;
-    @apply bp:border bp:rounded-full border-transparent;
-    @apply bp:ready:transition-colors bp:ready:duration-200;
-    @apply forced-colors:text-selected;
-  }
-
-  .outer {
-    @apply text-impact-hard dark:text-impact-hard ready:transition-colors ready:duration-200 hover:text-impact-text dark:hover:text-impact-text flex p-2 no-underline;
-  }
-    */
-</style>
