@@ -3,7 +3,9 @@ import pkg from 'package.json';
 import app from '@app/configs/app';
 const { id, scope, name, shortName, description, display, backgroundColor, themeColor } = app;
 
-const pathname = process.env.APP_CANONICAL ? new URL(process.env.APP_CANONICAL).pathname : './';
+const pathname = import.meta.env.PUBLIC_APP_CANONICAL
+  ? new URL(import.meta.env.PUBLIC_APP_CANONICAL).pathname
+  : './';
 
 const any = [128, 192, 256, 384, 512];
 const maskable = [192, 384, 512];

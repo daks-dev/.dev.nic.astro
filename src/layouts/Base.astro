@@ -7,20 +7,20 @@ import type { HTMLAttributes } from 'astro/types';
 import '@styles/global.css';
 
 type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> & {
+  schema?: string;
   class?: ClassValue;
   title: string;
   description: string;
   robots?: string;
-  schema?: string;
-  metrika?: boolean;
+  noMetrika?: boolean;
 };
 const {
+  schema = 'WebPage',
   class: className,
   title,
   description,
-  robots = 'noindex, nofollow',
-  schema = 'WebPage',
-  metrika = false,
+  robots,
+  noMetrika,
   ...props
 } = Astro.props;
 
@@ -56,7 +56,7 @@ const {
       <Footer />
     </div>
     {
-      metrika && (
+      !noMetrika && (
         <>
           <YandexMetrika {counter} />
           <YandexMetrikaHit

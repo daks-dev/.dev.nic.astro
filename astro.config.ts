@@ -17,7 +17,8 @@ export default defineConfig({
     preserveScriptOrder: true
   },
 
-  site: 'https://dev.stroyexp.info',
+  // site: import.meta.env.PUBLIC_APP_CANONICAL, // 'https://stroyexp.info',
+  site: 'https://stroyexp.info',
   base: '/',
   trailingSlash: 'never',
 

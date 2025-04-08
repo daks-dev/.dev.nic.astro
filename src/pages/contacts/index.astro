@@ -45,6 +45,7 @@ const description = 'Контактная информация';
 ---
 
 <Layout
+  schema='ContactPage'
   class='flex flex-col'
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
@@ -52,7 +53,7 @@ const description = 'Контактная информация';
     <Header {title} />
 
     <main
-      class='frame flex grow flex-col gap-4'
+      class='frame mb-0 flex grow flex-col gap-4'
       itemprop='mainContentOfPage'>
       <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
         <ContactsData />
