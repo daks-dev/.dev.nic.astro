@@ -58,77 +58,83 @@ const geo = {
   class='flex flex-col'
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • [${id}]`}>
-  <Header
-    {title}
-    tagline={`[ ${id} ]`}
-  />
+  <div class='flex min-h-screen grow flex-col'>
+    <Header
+      {title}
+      tagline={description ?? `[ ${id} ]`}
+    />
 
-  <main
-    class='frame flex grow flex-col gap-4'
-    itemprop='mainContentOfPage'>
-    <div class='mb-2 flex justify-between gap-8 max-md:flex-col'>
-      <div class='readable'>
-        <Info {project} />
-        <Content />
+    <main
+      class='frame flex grow flex-col gap-4'
+      itemprop='mainContentOfPage'>
+      <div class='mb-2 flex justify-between gap-8 max-md:flex-col'>
+        <div class='readable'>
+          <Info {project} />
+          <Content />
+          <div
+            class='text-xs'
+            set:text={`[ ${id} ]`}
+          />
+        </div>
+        <div class='flex gap-2 md:flex-col md:items-center'>
+          {
+            project.data.images && (
+              <BindLightboxData
+                custom={{
+                  thumb: 'min-w-fit',
+                  inner: {
+                    img: [
+                      'hover:scale-105 hover:drop-shadow-xl',
+                      'rounded-sm drop-shadow-lg',
+                      'transition duration-500'
+                    ]
+                  }
+                }}
+                options={{ behaviour: 'loop' }}
+                data={images}
+                show={1}
+                transform={{
+                  thumb: {
+                    width: 320,
+                    height: 240,
+                    fit: 'cover',
+                    quality: 80
+                  },
+                  modal: {
+                    width: 1024,
+                    height: 768,
+                    fit: 'inside',
+                    quality: 80
+                  }
+                }}
+                sign={{ icon: 'arrows-out', dark: true }}
+                {title}
+                {description}
+                alt={title.toLowerCase()}
+              />
+            )
+          }
+          {
+            images.length > 1 && (
+              <small class='text-impact-accent whitespace-nowrap font-semibold md:self-start'>
+                [ +{images.length - 1} ]
+              </small>
+            )
+          }
+        </div>
       </div>
-      <div class='flex gap-2 md:flex-col md:items-center'>
-        {
-          project.data.images && (
-            <BindLightboxData
-              custom={{
-                thumb: 'min-w-fit',
-                inner: {
-                  img: [
-                    'hover:scale-105 hover:drop-shadow-xl',
-                    'rounded-sm drop-shadow-lg',
-                    'transition duration-500'
-                  ]
-                }
-              }}
-              options={{ behaviour: 'loop' }}
-              data={images}
-              show={1}
-              transform={{
-                thumb: {
-                  width: 320,
-                  height: 240,
-                  fit: 'cover',
-                  quality: 80
-                },
-                modal: {
-                  width: 1024,
-                  height: 768,
-                  fit: 'inside',
-                  quality: 80
-                }
-              }}
-              sign={{ icon: 'arrows-out', dark: true }}
-              {title}
-              {description}
-              alt={title.toLowerCase()}
-            />
-          )
-        }
-        {
-          images.length > 1 && (
-            <small class='text-impact-accent whitespace-nowrap font-semibold md:self-start'>
-              [ +{images.length - 1} ]
-            </small>
-          )
-        }
-      </div>
-    </div>
 
-    <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
-      <YandexMap
-        class:list={[
-          'min-h-full w-full overflow-hidden',
-          'bg--waiting bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg-center bg-no-repeat dark:bg-slate-200',
-          'border-4 border-slate-400'
-        ]}
-        {geo}
-        apikey={api.maps}
-      />
-    </div>
-  </main>
+      <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
+        <YandexMap
+          class:list={[
+            'min-h-full w-full overflow-hidden',
+            'bg--waiting bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg-center bg-no-repeat dark:bg-slate-200',
+            'border-4 border-slate-400'
+          ]}
+          {geo}
+          apikey={api.maps}
+        />
+      </div>
+    </main>
+  </div>
 </Layout>

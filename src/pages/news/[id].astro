@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { BindLightboxData } from '@lib/astro';
+import { FormattedDate, BindLightboxData } from '@lib/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
@@ -25,10 +25,15 @@ const { title, description, images = [] } = post.data;
   class='flex flex-col'
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • [${id}]`}>
-  <Header
-    {title}
-    tagline={`[ ${id} ]`}
-  />
+  <Header {title}>
+    <FormattedDate
+      slot='tagline'
+      date={id}
+      parse='YY-MM-DD'
+      class='bp:text-sm text-xs uppercase'
+      itemprop='publishDate'
+    />
+  </Header>
 
   <main
     class='frame flex grow flex-col gap-4'
@@ -39,14 +44,7 @@ const { title, description, images = [] } = post.data;
           <BindLightboxData
             class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:order-last max-md:items-center']}
             custom={{
-              thumb: 'min-w-48 max-w-fit first:mt-2',
-              inner: {
-                img: [
-                  'hover:scale-105 hover:drop-shadow-xl',
-                  'rounded-sm drop-shadow-lg',
-                  'transition duration-500'
-                ]
-              }
+              thumb: 'min-w-48 max-w-fit first:mt-2'
             }}
             options={{ behaviour: 'loop' }}
             data={images}
@@ -67,11 +65,19 @@ const { title, description, images = [] } = post.data;
             {title}
             {description}
             alt={title.toLowerCase()}
+            adaptive
+            scale
+            shadow
+            rounded
           />
         )
       }
       <div class='readable'>
         <Content />
+        <div
+          class='text-xs'
+          set:text={`[ ${id} ]`}
+        />
       </div>
     </div>
   </main>

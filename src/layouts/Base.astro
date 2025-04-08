@@ -47,12 +47,10 @@ const {
   <body
     itemscope
     itemtype={`https://schema.org/${schema}`}>
-    <div class='relative flex min-h-screen flex-col'>
-      <div
-        class:list={['flex grow flex-col', className]}
-        {...props}>
-        <slot />
-      </div>
+    <div
+      class='relative flex min-h-screen flex-col'
+      {...props}>
+      <slot />
       <Navbar />
       <Drawer />
       <Footer />

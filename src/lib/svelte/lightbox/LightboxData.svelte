@@ -72,11 +72,15 @@
               img: [
                 adaptive && 'h-auto w-full max-w-full object-contain',
                 rounded && 'rounded',
-                shadow && 'shadow-md hover:shadow-lg',
+                shadow && [
+                  scale ? 'shadow-sm hover:shadow-md' : 'shadow-md hover:shadow-sm',
+                  'shadow-black'
+                ],
                 scale && 'hover:scale-105',
                 grayscale && 'grayscale hover:grayscale-0',
                 invert && 'invert hover:invert-0',
-                (shadow || scale || grayscale || invert) && 'transition duration-300 ease-in-out',
+                (shadow || scale || grayscale || invert) &&
+                  'motion-safe:ready:transition duration-300 ease-in-out',
                 custom.inner?.img
               ],
               caption: [

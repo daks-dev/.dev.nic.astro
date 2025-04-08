@@ -7,16 +7,17 @@ const description =
 ---
 
 <Layout
+  class=''
   title={`${title} • НИЦ «Строительная экспертиза»`}
   {description}>
-  <main class='frame min-h--screen-navbar flex grow flex-col pt-[calc(var(--navbar-height)+2rem)]'>
+  <main class='frame pt-(--navbar-height) flex min-h-screen grow'>
     <object
       class:list={[
         'lazy',
-        'flex grow',
+        'grow',
         'bg-radial-c',
-        'from-neutral-400 to-transparent dark:from-gray-600',
-        'border-2 border-slate-300 dark:border-slate-500'
+        'from-neutral-400 to-transparent dark:from-gray-600'
+        //'border-2 border-slate-300 dark:border-slate-500'
         //'shadow-md shadow-black hover:shadow-sm dark:shadow-gray-500'
         //'rounded-lg'
       ]}

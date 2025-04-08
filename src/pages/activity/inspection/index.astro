@@ -26,7 +26,8 @@ const description = 'Обследование зданий и сооружени
             'max-sm:hidden',
             'float-right my-1 ml-8 h-64 w-48 overflow-hidden',
             'bg--loading bg-neutral-200 bg-[size:30%] bg-center bg-no-repeat dark:bg-neutral-800',
-            'rounded-md'
+            'rounded-xs lg:rounded-sm',
+            'shadow-md shadow-gray-700 hover:shadow-sm dark:shadow-gray-900'
           ]}>
           <BindCarouselData
             client='load'
@@ -37,6 +38,12 @@ const description = 'Обследование зданий и сооружени
               fit: 'cover',
               quality: 80
             }}
+            custom={{
+              inner: {
+                sign: 'left-2 top-2'
+              }
+            }}
+            href='/articles/hilti-ps-200-s-ferroscan'
             alt={`${title.toLowerCase()} 0`}
             show={1}
             controls=''
@@ -44,6 +51,11 @@ const description = 'Обследование зданий и сооружени
             duration={1000}
             delay={5000}
             autoplay
+            sign={{
+              icon: 'link',
+              link: true,
+              dark: true
+            }}
             aria-label='техническое обследование зданий и сооружений ниц «строительная экспертиза»'
           />
         </div>
@@ -86,18 +98,6 @@ const description = 'Обследование зданий и сооружени
         <BindLightboxData
           data={lightbox}
           class='mt-16 justify-center gap-4 lg:gap-8'
-          custom={{
-            inner: {
-              img: [
-                'h-auto w-full max-w-full',
-                'rounded-md',
-                'shadow-sm shadow-black hover:shadow-md',
-                'hover:scale-105',
-                'motion-safe:ready:transition duration-300'
-              ],
-              title: 'mt-2'
-            }
-          }}
           options={{ behaviour: 'loop' }}
           transform={{
             thumb: {
@@ -117,6 +117,10 @@ const description = 'Обследование зданий и сооружени
           {title}
           description='АО НИЦ «Строительная Экспертиза»'
           alt={`${title.toLowerCase()} 1`}
+          adaptive
+          scale
+          shadow
+          rounded
         />
       )
     }

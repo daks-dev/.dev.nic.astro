@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/projects' }),
@@ -17,21 +17,20 @@ const projects = defineCollection({
       scope: z.string().optional(),
       scope_term: z.string().optional(),
       activities: z.array(z.string()).optional(),
-      poster: z.number().optional().default(0),
-      images: z
-        .array(
-          z.object({
-            src: image(),
-            alt: z.string().optional().default('')
-          })
-        )
-        .optional(),
       customer: z
         .number()
         .transform((x) => x.toFixed().padStart(3, '0'))
         .optional(),
       priority: z.number().int().min(0).max(9).optional().default(0),
-      hidden: z.boolean().optional().default(false)
+      hidden: z.boolean().optional().default(false),
+      poster: z.number().optional().default(0),
+      images: z.array(
+        z.object({
+          src: image(),
+          alt: z.string().optional().default(''),
+          caption: z.record(z.string(), z.string()).optional()
+        })
+      )
     })
 });
 
@@ -45,14 +44,15 @@ const partners = defineCollection({
       email: z.string().email().optional(),
       url: z.string().url().optional(),
       address: z.string().optional(),
-      image: z.object({
-        src: image(),
-        alt: z.string().optional().default('')
-      }),
       center: z.string().optional(),
       zoom: z.number().positive().optional().default(10),
       priority: z.number().int().min(0).max(9).optional().default(0),
-      hidden: z.boolean().optional().default(false)
+      hidden: z.boolean().optional().default(false),
+      image: z.object({
+        src: image(),
+        alt: z.string().optional().default(''),
+        caption: z.record(z.string(), z.string()).optional()
+      })
     })
 });
 
@@ -68,7 +68,8 @@ const articles = defineCollection({
         .array(
           z.object({
             src: image(),
-            alt: z.string().optional().default('')
+            alt: z.string().optional().default(''),
+            caption: z.record(z.string(), z.string()).optional()
           })
         )
         .optional()
@@ -86,45 +87,12 @@ const news = defineCollection({
         .array(
           z.object({
             src: z.preprocess((val) => `./${val}`, image()),
-            alt: z.string().optional().default('')
+            alt: z.string().optional().default(''),
+            caption: z.record(z.string(), z.string()).optional()
           })
         )
         .optional()
     })
-});
-
-const feedback = defineCollection({
-  loader: file('src/content/feedback/index.yaml'),
-  schema: ({ image }) =>
-    z.array(
-      z.object({
-        image: z.preprocess((val) => `./${val}`, image()),
-        caption: z
-          .object({
-            title: z.string().optional(),
-            description: z.string().optional()
-          })
-          .optional()
-          .default({})
-      })
-    )
-});
-
-const permissions = defineCollection({
-  loader: file('src/content/permissions/index.yaml'),
-  schema: ({ image }) =>
-    z.array(
-      z.object({
-        image: z.preprocess((val) => `./${val}`, image()),
-        caption: z
-          .object({
-            title: z.string().optional(),
-            description: z.string().optional()
-          })
-          .optional()
-          .default({})
-      })
-    )
 });
 
 const gallery = defineCollection({
@@ -133,7 +101,8 @@ const gallery = defineCollection({
     z.array(
       z.object({
         src: z.preprocess((val) => `./${val}`, image()),
-        alt: z.string().optional().default('')
+        alt: z.string().optional().default(''),
+        caption: z.record(z.string(), z.string()).optional()
       })
     )
 });
@@ -141,8 +110,6 @@ const gallery = defineCollection({
 export const collections = {
   projects,
   partners,
-  permissions,
-  feedback,
   articles,
   news,
   gallery

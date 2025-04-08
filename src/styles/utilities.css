@@ -1,6 +1,7 @@
 @import '@lib/tailwind/css/readable.css';
 
 @utility min-h--screen-navbar {
+  /*height: calc(100vh - var(--navbar-height));*/
   min-height: calc(100vh - var(--navbar-height));
 }
 @utility max-h--screen-navbar {

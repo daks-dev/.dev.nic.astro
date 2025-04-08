@@ -27,10 +27,10 @@ const src = image
   <Figure
     {src}
     class='max-w-80 max-md:items-center'
-    custom={{ image: 'border border-slate-400 drop-shadow-sm' }}
+    custom={{ img: 'border border-slate-400' }}
     alt={title.toLowerCase()}>
-    <small
-      class='mt-2'
+    <div
+      class='mt-2 text-xs'
       set:text={`[ ${id} ]`}
     />
   </Figure>

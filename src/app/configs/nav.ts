@@ -67,8 +67,18 @@ export const drawer: NavSidebar = {
   body: activity,
   footer: [
     {
+      href: '/regulation',
+      label: 'Регламент',
+      rel: 'help'
+    },
+    {
       href: '/projects',
       label: 'Проекты'
+    },
+    {
+      href: '/permissions',
+      label: 'Допуски',
+      class: 'bp:max-lg:hidden'
     },
     {
       href: '/partners',
@@ -101,13 +111,13 @@ export const nav: NavSite = {
       items: activity
     },
     {
-      href: '/projects',
-      label: 'Проекты'
-    },
-    {
       href: '/regulation',
       label: 'Регламент',
       rel: 'help'
+    },
+    {
+      href: '/projects',
+      label: 'Проекты'
     },
     {
       href: '/permissions',

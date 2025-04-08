@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 import { BindLightboxData } from '@lib/astro';
 
-const collection = await getCollection('permissions');
+const images = (await getEntry('gallery', 'permissions'))?.data;
 
 const title = 'Допуски';
 ---
@@ -18,16 +18,11 @@ const title = 'Допуски';
     class='frame'
     itemprop='mainContentOfPage'>
     {
-      collection.map((x) => (
+      images && (
         <BindLightboxData
           class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
-          custom={{
-            inner: {
-              img: 'h-auto w-full max-w-full'
-            }
-          }}
           options={{ behaviour: 'loop' }}
-          data={x.data.map(({ image, caption }) => ({ src: image, caption }))}
+          data={images}
           transform={{
             thumb: {
               width: 320,
@@ -41,9 +36,12 @@ const title = 'Допуски';
           sign={{ icon: 'arrows-out', class: 'top-2 left-2', dark: true }}
           {title}
           description='АО НИЦ «Строительная Экспертиза»'
-          alt='допуск'
+          alt='допуск ниц «строительная экспертиза»'
+          adaptive
+          scale
+          shadow
         />
-      ))
+      )
     }
   </main>
 </Layout>

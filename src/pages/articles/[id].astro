@@ -41,6 +41,10 @@ const { title, description, publishDate, images = [] } = post.data;
     <div class='flex gap-16 max-md:flex-col'>
       <div class='readable'>
         <Content />
+        <div
+          class='text-xs'
+          set:text={`[ ${id} ]`}
+        />
       </div>
       {
         post.data.images && (
@@ -48,14 +52,7 @@ const { title, description, publishDate, images = [] } = post.data;
             data={images}
             class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:items-center']}
             custom={{
-              thumb: 'min-w-48 max-w-fit first:mt-2',
-              inner: {
-                img: [
-                  'hover:scale-105 hover:drop-shadow-xl',
-                  'rounded-sm drop-shadow-lg',
-                  'transition duration-500'
-                ]
-              }
+              thumb: 'min-w-48 max-w-fit first:mt-2'
             }}
             options={{ behaviour: 'loop' }}
             transform={{
@@ -75,6 +72,10 @@ const { title, description, publishDate, images = [] } = post.data;
             {title}
             {description}
             alt={title.toLowerCase()}
+            adaptive
+            scale
+            shadow
+            rounded
           />
         )
       }

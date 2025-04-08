@@ -1,8 +1,11 @@
 ---
+import { getEntry } from 'astro:content';
 import { BindLightboxData } from '@lib/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
+const images = (await getEntry('gallery', 'certification-accreditation'))?.data;
+/*
 const images = await Promise.all(
   Object.values(
     import.meta.glob(
@@ -13,7 +16,7 @@ const images = await Promise.all(
     )
   ).map(async (x) => ({ src: (await x()) as ImageMetadata }))
 );
-
+*/
 const title = 'Сертификация и аккредитация';
 const description = 'Сертификация и аккредитация';
 ---
@@ -26,40 +29,38 @@ const description = 'Сертификация и аккредитация';
   <main
     class:list={['frame readable', 'flex flex-col md:block']}
     itemprop='mainContentOfPage'>
-    <BindLightboxData
-      data={images}
-      class={[
-        'md:float-right max-md:order-2 max-md:mt-8 md:my-1 md:ml-8',
-        'flex flex-col place-content-center gap-y-8'
-      ]}
-      custom={{
-        inner: {
-          img: [
-            'hover:scale-105',
-            'shadow-sm shadow-black hover:shadow-md',
-            'motion-safe:ready:transition duration-300'
-          ]
-        }
-      }}
-      options={{ behaviour: 'loop' }}
-      transform={{
-        thumb: {
-          width: 288,
-          fit: 'cover',
-          quality: 80
-        },
-        modal: {
-          width: 1024,
-          height: 768,
-          fit: 'inside',
-          quality: 80
-        }
-      }}
-      sign={{ icon: 'arrows-out', dark: true }}
-      {title}
-      description='АО НИЦ «Строительная Экспертиза»'
-      alt={title.toLowerCase()}
-    />
+    {
+      images && (
+        <BindLightboxData
+          data={images}
+          class={[
+            'max-md:order-2 max-md:mt-8 md:float-right md:my-1 md:ml-8',
+            'flex flex-col place-content-center gap-y-8'
+          ]}
+          options={{ behaviour: 'loop' }}
+          transform={{
+            thumb: {
+              width: 288,
+              fit: 'cover',
+              quality: 80
+            },
+            modal: {
+              width: 1024,
+              height: 768,
+              fit: 'inside',
+              quality: 80
+            }
+          }}
+          sign={{ icon: 'arrows-out', dark: true }}
+          {title}
+          description='АО НИЦ «Строительная Экспертиза»'
+          alt={title.toLowerCase()}
+          adaptive
+          scale
+          shadow
+        />
+      )
+    }
 
     <p>
       <b>Сертификация</b> это процедура подтверждения соответствия, посредством которой независимая от

@@ -9,12 +9,12 @@ import Menu from './Menu.astro';
     'top-(--navbar-height) w-(--drawer-width) fixed bottom-0 z-40',
     'drawer:translate-x-0 2xl:-translate-x-[(100%_-_3rem)] -translate-x-full',
     'flex',
-    'overflow-x-hidden',
+    'overflow-hidden',
     'bg-theme-frame shadow-xl shadow-gray-300 dark:shadow-gray-950',
     'border-gray-700/50 dark:border-l',
     'motion-safe:ready:transition-transform duration-200 ease-in-out'
   ]}>
-  <Menu class='flex grow flex-col' />
+  <Menu class='grow overflow-y-auto pb-8 pt-4' />
 
   <div
     class:list={[

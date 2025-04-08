@@ -48,63 +48,62 @@ const description = 'Контактная информация';
   class='flex flex-col'
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title} />
+  <div class='flex min-h-screen grow flex-col'>
+    <Header {title} />
 
-  <main
-    class='frame flex grow flex-col gap-4'
-    itemprop='mainContentOfPage'>
-    <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
-      <Info />
-      {
-        images && (
-          <BindLightboxData
-            class='md:mt-2'
-            custom={{
-              thumb: 'min-w-fit',
-              inner: {
-                img: [
-                  'hover:scale-105 hover:drop-shadow-xl',
-                  'rounded-sm drop-shadow-lg',
-                  'transition duration-500'
-                ]
-              }
-            }}
-            options={{ behaviour: 'loop' }}
-            data={images}
-            show={1}
-            transform={{
-              thumb: {
-                width: 320,
-                height: 240,
-                fit: 'cover',
-                quality: 80
-              },
-              modal: {
-                width: 1024,
-                height: 768,
-                fit: 'inside',
-                quality: 80
-              }
-            }}
-            sign={{ icon: 'arrows-out', dark: true }}
-            {title}
-            description='АО НИЦ «Строительная Экспертиза»'
-            alt={title.toLowerCase()}
-          />
-        )
-      }
-    </div>
+    <main
+      class='frame flex grow flex-col gap-4'
+      itemprop='mainContentOfPage'>
+      <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
+        <Info />
+        {
+          images && (
+            <BindLightboxData
+              class='md:mt-2'
+              custom={{
+                thumb: 'min-w-fit'
+              }}
+              options={{ behaviour: 'loop' }}
+              data={images}
+              show={1}
+              transform={{
+                thumb: {
+                  width: 320,
+                  height: 240,
+                  fit: 'cover',
+                  quality: 80
+                },
+                modal: {
+                  width: 1024,
+                  height: 768,
+                  fit: 'inside',
+                  quality: 80
+                }
+              }}
+              sign={{ icon: 'arrows-out', dark: true }}
+              {title}
+              description='АО НИЦ «Строительная Экспертиза»'
+              alt={title.toLowerCase()}
+              adaptive
+              scale
+              shadow
+              rounded
+            />
+          )
+        }
+      </div>
 
-    <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
-      <YandexMap
-        class:list={[
-          'min-h-full w-full overflow-hidden',
-          'bg--waiting bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg-center bg-no-repeat dark:bg-slate-200',
-          'border-4 border-slate-400'
-        ]}
-        {geo}
-        apikey={api.maps}
-      />
-    </div>
-  </main>
+      <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
+        <YandexMap
+          class:list={[
+            'min-h-full w-full overflow-hidden',
+            'bg--waiting bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg-center bg-no-repeat dark:bg-slate-200',
+            'border-4 border-slate-400'
+          ]}
+          {geo}
+          apikey={api.maps}
+        />
+      </div>
+    </main>
+  </div>
 </Layout>

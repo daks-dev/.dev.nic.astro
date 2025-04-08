@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 import { BindLightboxData } from '@lib/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
-const collection = await getCollection('feedback');
+const images = (await getEntry('gallery', 'feedback'))?.data;
 
 const title = 'Отзывы заказчиков';
 const description = 'Отзывы заказчиков';
@@ -19,17 +19,20 @@ const description = 'Отзывы заказчиков';
     class='frame'
     itemprop='mainContentOfPage'>
     {
-      collection.map((x) => (
+      images && (
         <BindLightboxData
           class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
           custom={{
-            item: 'h-full bg-white',
-            inner: {
-              img: 'h-auto w-full max-w-full'
-            }
+            item: [
+              'h-full',
+              'bg-white',
+              'shadow-sm shadow-black hover:shadow-md',
+              'hover:scale-105',
+              'motion-safe:ready:transition duration-300 ease-in-out'
+            ]
           }}
           options={{ behaviour: 'loop' }}
-          data={x.data.map(({ image, caption }) => ({ src: image, caption }))}
+          data={images}
           transform={{
             thumb: {
               width: 320,
@@ -43,9 +46,10 @@ const description = 'Отзывы заказчиков';
           sign={{ icon: 'arrows-out', dark: true }}
           {title}
           description='АО НИЦ «Строительная экспертиза»'
-          alt='отзыв заказчика'
+          alt='отзыв заказчика о ниц «строительная экспертиза»'
+          adaptive
         />
-      ))
+      )
     }
   </main>
 </Layout>
