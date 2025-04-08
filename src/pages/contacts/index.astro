@@ -3,7 +3,7 @@ import { getEntry } from 'astro:content';
 import { BindLightboxData, YandexMap } from '@lib/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
-import Info from '@components/astro/pages/contacts/Info.astro';
+import ContactsData from '@components/astro/pages/contacts/ContactsData.astro';
 
 import seo from '@app/configs/seo';
 const {
@@ -55,7 +55,7 @@ const description = 'Контактная информация';
       class='frame flex grow flex-col gap-4'
       itemprop='mainContentOfPage'>
       <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
-        <Info />
+        <ContactsData />
         {
           images && (
             <BindLightboxData

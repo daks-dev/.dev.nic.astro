@@ -1,7 +1,9 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
+import ActivityCard from '@components/astro/pages/activity/ActivityCard.astro';
+
+import { activity } from '@app/configs/nav';
 
 const title = 'Деятельность';
 const description = 'Деятельность';
@@ -10,27 +12,30 @@ const description = 'Деятельность';
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
   description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
-  <Header {title}>
-    <Image
-      class:list={[
-        'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
-      ]}
-      src='/assets/icons/astro.svg'
-      width={128}
-      height={128}
-      alt=''
-    />
-  </Header>
+  <Header {title} />
 
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    <header>
-      <h1 class='text-center text-3xl'>АО НИЦ «Строительная Экспертиза» • {title}</h1>
-    </header>
+    <div class:list={['mx-auto w-fit', 'grid grid-cols-none gap-8 md:grid-cols-2 lg:gap-16']}>
+      {
+        activity &&
+          activity.map(({ href, label }) => (
+            <ActivityCard
+              class='oversee:bg-slate-300/20 w-full'
+              href={`/activity${href}`}>
+              <div
+                slot='header'
+                class:list={[
+                  'leader',
+                  'transition-easy text-accent dark:text-accent group-oversee:text-brand',
+                  'group-oversee:drop-shadow-md'
+                ]}
+                set:html={label}
+              />
+            </ActivityCard>
+          ))
+      }
+    </div>
   </main>
 </Layout>

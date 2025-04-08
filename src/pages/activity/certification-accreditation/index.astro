@@ -5,18 +5,7 @@ import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
 const images = (await getEntry('gallery', 'certification-accreditation'))?.data;
-/*
-const images = await Promise.all(
-  Object.values(
-    import.meta.glob(
-      '@assets/images/certification-accreditation/*.(avif|gif|heic|heif|jpeg|jpg|png|tiff|webp)',
-      {
-        import: 'default'
-      }
-    )
-  ).map(async (x) => ({ src: (await x()) as ImageMetadata }))
-);
-*/
+
 const title = 'Сертификация и аккредитация';
 const description = 'Сертификация и аккредитация';
 ---

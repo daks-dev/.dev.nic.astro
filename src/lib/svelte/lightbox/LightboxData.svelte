@@ -15,8 +15,9 @@
     options = {},
     title: __title,
     description: __description,
-    img,
+    img: __img,
     alt = '',
+    figcaption,
     sign: __sign,
     grid,
     adaptive,
@@ -31,6 +32,14 @@
     loader = lazyload ? () => document?.lazyload?.update() : undefined,
     ...rest
   }: Props = $props();
+
+  const img = Object.assign(
+    {
+      rel: 'thumbnailUrl',
+      itemprop: 'thumbnailUrl'
+    },
+    __img
+  );
 
   const sign = __sign
     ? typeof __sign === 'string'
@@ -64,9 +73,9 @@
               {...sign} />
           {/if}
           <Figure
-            src={thumb.src}
+            src={thumb}
             {img}
-            {caption}
+            caption={figcaption ? caption : undefined}
             class={['relative flex flex-col', centered && 'items-center', custom.item]}
             custom={{
               img: [
@@ -98,9 +107,6 @@
       <link
         rel="image"
         href={modal.src} />
-      <link
-        rel="thumbnailUrl"
-        href={thumb.src} />
     {/each}
   {/snippet}
   {#each data as { modal: { src }, caption: { title, description } }}

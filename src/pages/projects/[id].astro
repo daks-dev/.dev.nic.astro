@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import { BindLightboxData, YandexMap } from '@lib/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
-import Info from '@components/astro/pages/projects/Info.astro';
+import ProjectInfo from '@components/astro/pages/projects/ProjectInfo.astro';
 
 export async function getStaticPaths() {
   const collection = await getCollection('projects');
@@ -69,7 +69,7 @@ const geo = {
       itemprop='mainContentOfPage'>
       <div class='mb-2 flex justify-between gap-8 max-md:flex-col'>
         <div class='readable'>
-          <Info {project} />
+          <ProjectInfo {project} />
           <Content />
           <div
             class='text-xs'

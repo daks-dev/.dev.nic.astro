@@ -23,9 +23,6 @@
     ...img,
     src,
     alt,
-    // loading: lazyload || !eager ? <const>'lazy' : <const>'eager',
-    // decoding: <const>'async',
-    itemprop: 'image',
     loaded
   };
 

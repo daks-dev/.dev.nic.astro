@@ -60,6 +60,7 @@ export type LightboxDataAttributes = LightboxAttributes & {
   show?: number;
   img?: Omit<ImgAttriibutes, 'src' | 'class' | 'alt'>;
   alt?: string;
+  figcaption?: boolean;
   sign?: string | SignAttributes;
   grid?: boolean;
   adaptive?: boolean;

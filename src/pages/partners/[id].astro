@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
-import Info from '@components/astro/pages/partners/Info.astro';
+import PartnerInfo from '@components/astro/pages/partners/PartnerInfo.astro';
 
 export async function getStaticPaths() {
   const collection = await getCollection('partners');
@@ -35,7 +35,7 @@ const { title, description } = partner.data;
     itemprop='mainContentOfPage'>
     <div class='flex justify-between gap-8 max-md:flex-col'>
       <div class='readable'>
-        <Info {partner} />
+        <PartnerInfo {partner} />
         <Content />
       </div>
     </div>

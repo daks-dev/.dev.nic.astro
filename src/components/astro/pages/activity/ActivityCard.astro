@@ -1,0 +1,69 @@
+---
+import { twMerge } from '@lib';
+import { Icon, Sign } from '@lib/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
+  class?: ClassValue;
+  href?: string;
+  size?: number | string;
+  animate?: string;
+};
+
+const {
+  children,
+  class: className,
+  href,
+  size = '4em',
+  animate, // 'animate-pulse oversee:animation-paused';
+  ...props
+}: Props = Astro.props;
+---
+
+<a
+  class={twMerge(
+    'group relative',
+    'p-7 py-4',
+    'flex flex-col',
+    'text-slate-600 dark:text-slate-400',
+    'rounded-sm border border-current shadow-sm',
+    animate,
+    className
+  )}
+  {href}
+  {...props}>
+  <Sign
+    icon='link'
+    link
+    small
+  />
+  <slot name='header' />
+  <div class='mb-7 mt-2 flex grow flex-col justify-center pl-4'>
+    <slot>
+      <div>
+        Объектов реализовано:
+        <span class='text-brand text-2xl'>...</span>
+      </div>
+      <div>
+        Объекты в работе:
+        <span class='text-brand text-2xl'>...</span>
+      </div>
+    </slot>
+  </div>
+  <div class='flex items-start gap-5'>
+    <Icon
+      icon='user-circle'
+      class='transition-easy group-oversee:drop-shadow-md drop-shadow-lg'
+      {size}
+    />
+    <div class='flex grow flex-col gap-3 opacity-75'>
+      <small>руководитель направления:</small>
+      <div
+        class='transition-easy group-oversee:drop-shadow-none flex grow flex-col gap-2 opacity-75 drop-shadow-lg'>
+        <div class='h-2.5 w-3/4 rounded-full bg-current'></div>
+        <div class='h-2 w-full rounded-full bg-current'></div>
+      </div>
+    </div>
+  </div>
+  <span class='sr-only'>loading...</span>
+</a>
