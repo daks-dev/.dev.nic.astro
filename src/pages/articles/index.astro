@@ -8,8 +8,8 @@ import Layout from '@layouts/Base.astro';
 import logo from '@assets/images/logo.webp';
 const placeholder = await getImage({
   src: logo,
-  width: 288,
-  height: 162,
+  width: 320,
+  height: 180,
   fit: 'inside',
   quality: 80
 });
@@ -24,8 +24,8 @@ const gallery = (
         images?.length && poster !== -1
           ? await getImage({
               src: images[poster].src,
-              width: 288,
-              height: 162,
+              width: 320,
+              height: 180,
               fit: 'cover'
             })
           : placeholder;
@@ -62,7 +62,7 @@ const title = 'Информационная база';
       {
         gallery.map(({ id, publishDate, src, poster, caption }) => (
           <a
-            class='group relative no-underline'
+            class:list={['group relative', 'w-full max-w-80', 'no-underline']}
             href={`/articles/${id}`}>
             <Sign
               icon='link'
@@ -80,7 +80,6 @@ const title = 'Информационная база';
                   'bg-neutral-500/10',
                   'rounded',
                   'shadow-md shadow-black group-hover:shadow-sm',
-                  // 'group-hover:grayscale-0 grayscale',
                   poster === -1 && [
                     'p-2',
                     'border-2 border-slate-400 group-hover:border-inherit dark:border-slate-600'

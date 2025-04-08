@@ -8,8 +8,8 @@ import Layout from '@layouts/Base.astro';
 import logo from '@assets/images/logo.webp';
 const placeholder = await getImage({
   src: logo,
-  width: 288,
-  height: 216,
+  width: 320,
+  height: 180,
   fit: 'inside',
   quality: 80
 });
@@ -22,8 +22,8 @@ const gallery = (
       const src = image
         ? await getImage({
             src: image.src,
-            width: 288,
-            height: 216,
+            width: 320,
+            height: 180,
             fit: 'inside',
             quality: 80
           })
@@ -58,7 +58,7 @@ const title = 'Парнёры';
       {
         gallery.map(({ id, src, caption }) => (
           <a
-            class='group relative'
+            class:list={['group relative', 'w-full max-w-80', 'no-underline']}
             href={`/partners/${id}`}>
             <Sign
               icon='link'
@@ -85,7 +85,7 @@ const title = 'Парнёры';
                   'text-ellipsis leading-tight text-white',
                   'bg-gray-700/70',
                   'group-hover:opacity-0',
-                  'transition-opacity duration-1000 ease-in-out'
+                  'motion-safe:ready:transition-opacity duration-1000 ease-in-out'
                 ]
               }}
               {src}

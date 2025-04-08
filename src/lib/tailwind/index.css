@@ -14,9 +14,6 @@
   --aspect-A4l: 877 / 620;
 
   --shadow-inset: inset 0 0 0 1px var(--tw-shadow-color);
-
-  --drop-shadow-deep: 0 5px 3px rgb(0 0 0 / 0.5);
-  --drop-shadow-hard: 0 5px 3px rgb(0 0 0 / 0.8);
 }
 
 @import './css/base';

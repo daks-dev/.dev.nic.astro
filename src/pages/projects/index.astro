@@ -8,8 +8,8 @@ import Layout from '@layouts/Base.astro';
 import logo from '@assets/images/logo.webp';
 const placeholder = await getImage({
   src: logo,
-  width: 288,
-  height: 288,
+  width: 320,
+  height: 320,
   fit: 'inside',
   quality: 80
 });
@@ -26,8 +26,8 @@ const projects = (
           images && poster !== -1
             ? await getImage({
                 src: images[poster].src,
-                width: 288,
-                height: 288,
+                width: 320,
+                height: 320,
                 fit: 'cover'
               })
             : placeholder;
@@ -63,7 +63,7 @@ const description = 'Реализованные проекты';
       {
         projects.map(({ id, src, caption }) => (
           <a
-            class='group relative'
+            class:list={['group relative', 'w-full max-w-80', 'no-underline']}
             href={`/projects/${id}`}>
             <Sign
               icon='link'
@@ -82,6 +82,7 @@ const description = 'Реализованные проекты';
               custom={{
                 img: [
                   'h-auto w-full max-w-full',
+                  'aspect-square object-contain',
                   'transition-easy grayscale group-hover:grayscale-0'
                 ],
                 caption: [
@@ -91,7 +92,7 @@ const description = 'Реализованные проекты';
                   'text-ellipsis leading-tight text-white',
                   'bg-gray-700/70',
                   'group-hover:opacity-0',
-                  'transition-opacity duration-1000 ease-in-out'
+                  'motion-safe:ready:transition-opacity duration-1000 ease-in-out'
                 ]
               }}
               {src}

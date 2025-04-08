@@ -28,7 +28,8 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
     class:list={[
       'relative',
       'max-bp:flex-col bp:gap-x-4 flex',
-      'text-base/none font-normal',
+      'max-bp:pt-4',
+      'bp:leading-none text-base/relaxed font-normal',
       'max-bp:bg-theme-frame',
       custom.menu,
       className
@@ -48,7 +49,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
               drop: [
                 'max-bp:indent-6',
                 'bp:mt-2.5 bp:py-2',
-                'bp:leading-loose',
+                'bp:leading-relaxed',
                 'bp:rounded bp:bg-neutral-100/95 bp:shadow-md bp:dark:bg-gray-700/95'
               ]
             }}>

@@ -52,10 +52,10 @@ const customers = (
         <h1
           class:list={[
             'mb-4',
-            'font-extrabold leading-tight',
+            'max-xs:text-center font-extrabold leading-tight',
             'text-4xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl',
             'dark:text-primary-200 text-primary-700',
-            'text-shadow-3 shadow-gray-400 dark:shadow-gray-700'
+            'text-shadow-lg text-shadow-gray-400 dark:text-shadow-black'
           ]}>
           <span class='block text-[125%]'>АО НИЦ</span>
           Строительная экспертиза
@@ -64,15 +64,15 @@ const customers = (
           class:list={[
             'mb-8',
             'font-normal uppercase',
-            'xs:text-md text-sm lg:text-lg',
+            'xs:text-md max-xs:text-center text-sm lg:text-lg',
             'text-gray-500 dark:text-gray-400'
           ]}>
           один из лидеров на строительном рынке в области консалтинга, лабораторного сопровождения
           строительства, обследования зданий и сооружений
         </p>
-        <div class='xs:hidden flex justify-around'>
+        <div class='xs:hidden mb-8 flex justify-around'>
           <a
-            class='shadow-md shadow-slate-500/20'
+            class='drop-shadow-slate-400 dark:drop-shadow-black drop-shadow'
             href=`tel://${telephone.replace(/[\s-()]/g, '')}`
             aria-label='позвонить'>
             <span
@@ -85,7 +85,7 @@ const customers = (
             />
           </a>
           <a
-            class='shadow-md shadow-slate-500/20'
+            class='drop-shadow-slate-400 dark:drop-shadow-black drop-shadow'
             href=`mailto:${email}`
             aria-label='отправить сообщение'>
             <span
@@ -224,7 +224,7 @@ const customers = (
         <li>выполнение строительного контроля при возведении памятника П.А. Столыпину.</li>
       </ul>
 
-      <div class='mt-8 flex flex-wrap justify-center gap-16 sm:flex-nowrap'>
+      <div class='mt-8 flex flex-wrap justify-center gap-x-16 gap-y-8 sm:flex-nowrap'>
         <BindCarouselData
           client='load'
           data={customers}
@@ -261,13 +261,11 @@ const customers = (
           }}
           aria-label='отзывы заказчиков ниц «строительная экспертиза»'
         />
-        <div class='placeholders flex flex-col justify-center'>
-          <p class='text-accent mb-8 text-sm'>
-            <span class='text-xl font-bold'>&#10004;</span> Любая информация, представленная на данном
-            сайте, носит исключительно информационный характер и ни при каких условиях не является публичной
-            офертой, определяемой положениями статьи 437 ГК РФ.
-          </p>
-        </div>
+        <p class='text-theme-header text-justify text-sm'>
+          <span class='text-xl font-bold'>&#10004;</span> Любая информация, представленная на данном
+          сайте, носит исключительно информационный характер и ни при каких условиях не является публичной
+          офертой, определяемой положениями статьи 437 ГК РФ.
+        </p>
       </div>
     </div>
   </main>

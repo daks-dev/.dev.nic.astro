@@ -39,17 +39,6 @@
 @utility content-empty {
   content: '';
 }
-
-@utility text-shadow {
-  text-shadow: 1px 1px 2px var(--color-gray-700);
-}
-@utility text-shadow-none {
-  text-shadow: none;
-}
-@utility text-shadow-* {
-  text-shadow: calc(1px * --value(integer)) calc(1px * --value(integer))
-    calc(1.5px * --value(integer)) var(--tw-shadow-color, var(--color-gray-700));
-}
 /*
 @utility bg-* {
   background-size: --value(percentage);
