@@ -1,0 +1,4 @@
+rewrite
+  ^/portfolio$
+  /projects
+  permanent;
