@@ -7,41 +7,39 @@ import microdata from '@app/configs/microdata';
 
 const { email, telephone, address } = microdata.organization;
 const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
-/*
-const collection = (await getCollection('gallery'))[0].data.map(({ image, caption }) => ({
-  src: image,
-  caption
-}));
-*/
+
 import placeholder from '@assets/images/logo.webp';
 
-const collection = await getCollection('projects', ({ data }) => !data.hidden);
 const projects = (
   await Promise.all(
-    collection.map(async ({ id, data: { priority, title, poster, images } }) => {
-      if (poster !== -1) poster = images && poster < images.length ? poster : -1;
-      const src = images && poster !== -1 ? images[poster].src : placeholder;
-      return {
-        id,
-        priority,
-        src,
-        caption: {
-          title
-        }
-      };
-    })
+    (await getCollection('projects', ({ data }) => !data.hidden)).map(
+      async ({ id, data: { priority, title, poster, images } }) => {
+        if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+        const src = images && poster !== -1 ? images[poster].src : placeholder;
+        return {
+          id,
+          priority,
+          src,
+          caption: { title }
+        };
+      }
+    )
   )
 ).sort((a, b) =>
   a.priority > b.priority ? 1 : a.priority < b.priority ? 0 : a.id.localeCompare(b.id)
 );
 
-const customers = await Promise.all(
-  Object.values(
-    import.meta.glob('@assets/images/customers/*.(avif|gif|heic|heif|jpeg|jpg|png|tiff|webp)', {
-      import: 'default'
-    })
-  ).map(async (x) => ({ src: (await x()) as ImageMetadata }))
-);
+const customers = (
+  await Promise.all(
+    (await getCollection('partners', ({ data }) => !data.hidden)).map(
+      async ({ id, data: { image, title } }) => ({
+        id,
+        src: image.src,
+        caption: { title }
+      })
+    )
+  )
+).sort((a, b) => a.id.localeCompare(b.id));
 ---
 
 <Layout
@@ -241,8 +239,11 @@ const customers = await Promise.all(
             'shadow-md shadow-gray-700 dark:shadow-gray-900 hover:shadow-sm'
           ]}
           custom={{
+            item: 'justify-center bg-white',
             inner: {
-              img: 'max-w-full px-8 py-4 bg-white',
+              img: 'max-w-full p-8',
+              caption: ['absolute bottom-0 left-0 right-0 py-1 px-2'],
+              title: 'text-xs text-slate-700 text-ellipsis font-normal truncate',
               sign: 'top-2 left-2'
             }
           }}

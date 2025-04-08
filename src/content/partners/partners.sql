@@ -23,7 +23,6 @@ CREATE TABLE partners (
   hidden       INTEGER
 );
 
-/*
 INSERT INTO partners ( id, name, email, telephone, address, url ) VALUES (
   1,
   'MR group',
@@ -71,7 +70,7 @@ INSERT INTO partners ( id, name, telephone, address, url ) VALUES (
   '119002, г. Москва, ул. Арбат, д. 10 (БЦ Midland Plaza, 3-тий этаж)',
   'www.dsk1.ru'
 );
-*/
+
 INSERT INTO partners ( id, name, telephone, address, url ) VALUES (
   6,
   'Группа компаний ФСК',
@@ -93,7 +92,7 @@ INSERT INTO partners ( id, name, telephone, address, url, center, zoom ) VALUES 
 INSERT INTO partners ( id, name, telephone, address, url, center, zoom ) VALUES (
   8,
   'Группа ПСН',
-  '7 (495) 132-16-72',
+  '+7 (495) 132-16-72',
   '115114, г. Москва, Дербеневская наб., д. 7, стр. 10 (Деловой квартал «Новоспасский»)',
   'www.psngroup.ru',
   '55.560150, 37.577506',
