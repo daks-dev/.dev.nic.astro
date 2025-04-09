@@ -1,20 +1,15 @@
 ---
+import { twMerge } from '@lib';
 import { Icon } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-controls'> & {
+  icon: string;
   class?: ClassValue;
-  icon?: string;
   size?: number | string;
 };
 
-const {
-  class: className,
-  icon = 'dots-three-outline',
-  size = '1.5em',
-  'aria-label': ariaLabel,
-  ...props
-} = Astro.props;
+const { icon, class: className, size = '1.5em', 'aria-label': ariaLabel, ...props } = Astro.props;
 
 const label = ariaLabel ?? 'управление боковой панелью';
 ---
@@ -22,8 +17,11 @@ const label = ariaLabel ?? 'управление боковой панелью';
 <app-drawer-toggle>
   <template>
     <button
-      class:list={['p-2', 'text-primary-500', className]}
+      id='app-drawer-toggle'
+      class={twMerge('p-2', 'text-primary-500', className)}
       aria-label={label}
+      aria-expanded='false'
+      aria-controls='app-drawer'
       {...props}>
       <span
         class='sr-only'
@@ -31,10 +29,6 @@ const label = ariaLabel ?? 'управление боковой панелью';
       />
       <Icon
         {icon}
-        class:list={[
-          'not-drawer:rotate-90',
-          'motion-safe:ready:transition-transform duration-300 ease-in-out'
-        ]}
         {size}
       />
     </button>
@@ -42,6 +36,8 @@ const label = ariaLabel ?? 'управление боковой панелью';
 </app-drawer-toggle>
 
 <script>
+  import { $drawer } from './store';
+
   class AppDrawerToggle extends HTMLElement {
     toggle: HTMLButtonElement;
 
@@ -53,10 +49,16 @@ const label = ariaLabel ?? 'управление боковой панелью';
     }
 
     connectedCallback() {
-      this.toggle.addEventListener('click', () => document.body.classList.toggle('theme-drawer'));
+      $drawer.listen((x) => this.toggle.setAttribute('aria-expanded', String(x)));
+      this.toggle.addEventListener('click', this.handle);
     }
 
     // disconnectedCallback() {}
+
+    handle = (e: Event) => {
+      e.preventDefault();
+      $drawer.set(!$drawer.get());
+    };
   }
 
   customElements.define('app-drawer-toggle', AppDrawerToggle);

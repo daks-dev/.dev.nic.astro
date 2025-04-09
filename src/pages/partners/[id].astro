@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { Header } from '@components/astro';
-import Layout from '@layouts/Base.astro';
 import PartnerInfo from '@components/astro/pages/partners/PartnerInfo.astro';
+import ProjectsList from '@components/astro/pages/projects/ProjectsList.astro';
+import Layout from '@layouts/Base.astro';
 
 export async function getStaticPaths() {
   const collection = await getCollection('partners');
@@ -19,6 +20,11 @@ const { Content } = await render(partner);
 
 const { id } = partner;
 const { title, description } = partner.data;
+
+const collection = await getCollection(
+  'projects',
+  ({ data }) => !data.hidden && data.customer === id
+);
 ---
 
 <Layout
@@ -39,5 +45,6 @@ const { title, description } = partner.data;
         <Content />
       </div>
     </div>
+    <ProjectsList {collection} />
   </main>
 </Layout>

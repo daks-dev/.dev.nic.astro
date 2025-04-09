@@ -46,8 +46,8 @@ const customers = (
   class='gap-8'
   title='НИЦ «Строительная экспертиза»'
   description='Независимая строительная экспертиза в Москве • АО НИЦ «Строительная Экспертиза»'>
-  <header class='frame-xl max-2xl:mb-0'>
-    <div class='grid w-full gap-8 pt-8 lg:grid-cols-12'>
+  <header class='frame-xl mb-0 lg:mb-4'>
+    <div class='grid w-full gap-8 lg:grid-cols-12 lg:pt-8'>
       <div class='mr-auto place-self-center lg:col-span-7 2xl:col-span-8'>
         <h1
           class:list={[
@@ -70,7 +70,7 @@ const customers = (
           один из лидеров на строительном рынке в области консалтинга, лабораторного сопровождения
           строительства, обследования зданий и сооружений
         </p>
-        <div class='xs:hidden mb-8 flex justify-around'>
+        <div class='xs:hidden mb-2 flex justify-around'>
           <a
             class='drop-shadow-slate-400 dark:drop-shadow-black drop-shadow'
             href=`tel://${telephone.replace(/[\s-()]/g, '')}`
@@ -158,7 +158,7 @@ const customers = (
 
     <div class='frame-xl my-8 flex h-36 items-center'>
       <BindCarouselData
-        client='load'
+        client='visible'
         data={projects}
         transform={{
           width: 192,
@@ -226,7 +226,7 @@ const customers = (
 
       <div class='mt-8 flex flex-wrap justify-center gap-x-16 gap-y-8 sm:flex-nowrap'>
         <BindCarouselData
-          client='load'
+          client='visible'
           data={customers}
           transform={{
             width: 192,

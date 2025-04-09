@@ -1,7 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import { Img, Link } from '@lib/astro';
-import DrawerToggle from './DrawerToggle.astro';
+import DrawerToggle from '../drawer/DrawerToggle.astro';
 import Menu from './Menu.astro';
 import MenuToggle from './MenuToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
@@ -31,7 +31,13 @@ const src = await getImage({
   ]}>
   <div class:list={['flex items-center justify-between', 'menu-header']}>
     <div class='-ml-3.5 flex items-center gap-x-7'>
-      <DrawerToggle />
+      <DrawerToggle
+        icon='dots-three-outline'
+        class:list={[
+          'not-aria-expanded:rotate-90',
+          'motion-safe:ready:transition-transform duration-300 ease-in-out'
+        ]}
+      />
       <Link
         href='/'
         aria-label='главная страница'

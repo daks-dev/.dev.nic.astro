@@ -1,4 +1,5 @@
 ---
+import { twMerge } from '@lib';
 import { Link } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
@@ -13,7 +14,7 @@ import { drawer } from '@app/configs/nav';
 ---
 
 <div
-  class:list={['flex flex-col', className]}
+  class={twMerge('flex flex-col', className)}
   {role}
   {...props}>
   {

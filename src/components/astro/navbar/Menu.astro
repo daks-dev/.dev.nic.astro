@@ -1,9 +1,10 @@
 ---
+import { twMerge } from '@lib';
 import { Dropdown, Link } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 import type { NavItem } from '@lib/astro/index.js';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'aria-owns'> & {
   items: NavItem[];
   class?: ClassValue;
   custom?: Record<string, ClassValue>;
@@ -25,7 +26,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
   hidden>
   <div
     role='menu'
-    class:list={[
+    class={twMerge(
       'relative',
       'max-bp:flex-col bp:gap-x-4 flex',
       'max-bp:pt-4',
@@ -33,7 +34,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
       'max-bp:bg-theme-frame',
       custom.menu,
       className
-    ]}
+    )}
     aria-owns='app-navbar-toggle'
     {...props}>
     {

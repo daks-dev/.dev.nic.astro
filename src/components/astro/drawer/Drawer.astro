@@ -1,19 +1,32 @@
 ---
+import { twMerge } from '@lib';
 import { Icon } from '@lib/astro';
 import Menu from './Menu.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'aside'>, 'class' | 'aria-owns'> & {
+  class?: ClassValue;
+};
+
+const { class: className, ...props } = Astro.props;
 ---
 
 <aside
   is='app-drawer'
-  class:list={[
+  id='app-drawer'
+  class={twMerge(
     'top-(--navbar-height) w-(--drawer-width) fixed bottom-0 z-40',
-    'drawer:translate-x-0 2xl:-translate-x-[(100%_-_3rem)] -translate-x-full',
+    'not-aria-hidden:translate-x-0 2xl:-translate-x-[(100%_-_3rem)] -translate-x-full',
     'flex',
     'overflow-hidden',
     'bg-theme-frame shadow-xl shadow-gray-300 dark:shadow-gray-950',
     'border-gray-700/50 dark:border-l',
-    'motion-safe:ready:transition-transform duration-200 ease-in-out'
-  ]}>
+    'motion-safe:ready:transition-transform duration-200 ease-in-out',
+    className
+  )}
+  aria-owns='app-drawer-toggle'
+  aria-hidden='true'
+  {...props}>
   <Menu class='grow overflow-y-auto pb-8 pt-4' />
 
   <div
@@ -43,34 +56,25 @@ import Menu from './Menu.astro';
 </aside>
 
 <script>
-  class AppDrawer extends HTMLElement {
-    toggle: HTMLButtonElement;
+  import { $drawer } from './store';
 
+  class AppDrawer extends HTMLElement {
     constructor() {
       super();
-      this.toggle = document.querySelector('app-drawer-toggle')!;
     }
 
     connectedCallback() {
+      $drawer.listen((x) => this.setAttribute('aria-hidden', String(!x)));
       document.addEventListener('click', this.outside);
     }
 
     disconnectedCallback() {
+      $drawer.off();
       document.removeEventListener('click', this.outside);
     }
 
-    close = () => {
-      document.body.classList.remove('theme-drawer');
-    };
-
     outside = (e: Event) => {
-      if (
-        e?.target &&
-        !e.defaultPrevented &&
-        !this.contains(e.target as Node) &&
-        !this.toggle.contains(e.target as Node)
-      )
-        this.close();
+      if (e?.target && !e.defaultPrevented && !this.contains(e.target as Node)) $drawer.set(false);
     };
   }
 

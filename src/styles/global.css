@@ -54,8 +54,6 @@
   --color-theme-link: var(--color-cyan-700);
 }
 
-@custom-variant drawer (&.theme-drawer, .theme-drawer &);
-
 @import './base.css';
 @import './components.css';
 @import './utilities.css';
