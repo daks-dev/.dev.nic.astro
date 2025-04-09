@@ -16,7 +16,7 @@
 <div class={twMerge('scoped', 'relative z-30', fullscreen && 'fullscreen', custom.footer)}>
   <div
     class={twMerge(
-      'min-h-24 pt-2 sm:min-h-12',
+      'min-h-24 px-4 pt-2 sm:min-h-12',
       'grid grid-cols-2 items-center',
       'text-sm leading-snug text-white/50 hover:text-white',
       'cursor-default',
@@ -48,7 +48,6 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding-inline: 1rem;
     }
   }
 </style>

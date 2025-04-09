@@ -13,14 +13,16 @@ Disallow: /search
 Disallow: /article$
 Disallow: /article/
 Disallow: /contact$
-Disallow: /docs
-Disallow: /services
-Disallow: /tolerances
-Disallow: /work
+Disallow: /docs/
+Disallow: /services/
+Disallow: /tolerances/
+Disallow: /work/
 #
 Disallow: /images/
 Disallow: /node/
-Disallow: /site/
+Disallow: /sites/
+#
+Disallow: /*?field_*
 #
 Disallow: /articles/test
 Disallow: /news/23-10-31

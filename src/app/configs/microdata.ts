@@ -4,7 +4,7 @@ const config = {
     name: 'АО НИЦ «Строительная экспертиза»',
     logo: '/assets/images/logo.webp',
     email: 'mail@stroyexp.info',
-    telephone: '+7 (495) 323-99-23',
+    telephone: '+7 (495) 363-47-23',
     address: {
       itemtype: 'http://schema.org/PostalAddress',
       postalCode: '127006',
