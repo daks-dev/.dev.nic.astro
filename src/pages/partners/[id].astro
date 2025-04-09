@@ -45,6 +45,13 @@ const collection = await getCollection(
         <Content />
       </div>
     </div>
-    <ProjectsList {collection} />
+    {
+      !!collection.length && (
+        <ProjectsList
+          class='mt-8'
+          {collection}
+        />
+      )
+    }
   </main>
 </Layout>

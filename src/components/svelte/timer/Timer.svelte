@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'nanostores';
   import { persistentAtom } from '@nanostores/persistent';
-  import { twMerge } from '../../tailwind/tailwind-merge.js';
+  import { twMerge } from '@lib';
   import type { HTMLTimeAttributes } from 'svelte/elements';
 
   type Props = Omit<HTMLTimeAttributes, 'class'> & {
@@ -28,12 +28,12 @@
     };
   });
 
-  const format = (x: number) => {
-    if (isNaN(x)) return '--:--';
-    const d = Math.floor(x / (3600 * 24));
-    const h = Math.floor((x % (3600 * 24)) / 3600);
-    const m = Math.floor((x % 3600) / 60);
-    const s = Math.floor(x % 60);
+  const format = (s: number) => {
+    if (isNaN(s)) return '--:--';
+    const d = Math.floor(s / (3600 * 24));
+    const h = Math.floor((s % (3600 * 24)) / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    s = Math.floor(s % 60);
     return (
       (d ? `${d.toString()} - ` : '') +
       (h ? `${h.toString().padStart(2, '0')}:` : '') +

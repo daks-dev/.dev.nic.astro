@@ -15,7 +15,12 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
   {itemtype}>
   <a
     class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-sky-500'
-    href="tel://{telephone.replace(/[\s-()]/g, '')}">
+    href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+    aria-label='позвонить'>
+    <span
+      class='sr-only'
+      set:text='позвонить'
+    />
     <Icon
       icon='phone-call'
       class='-mt-0.5 inline h-10 w-10 px-1'
@@ -27,7 +32,12 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
   </a>
   <a
     class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-sky-500'
-    href='mailto:{email}'>
+    href=`mailto:${email}`
+    aria-label='отправить сообщение'>
+    <span
+      class='sr-only'
+      set:text='отправить сообщение'
+    />
     <Icon
       icon='envelope'
       class='-mt-px inline h-10 w-10 px-1'

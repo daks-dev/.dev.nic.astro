@@ -47,7 +47,7 @@ const customers = (
   title='НИЦ «Строительная экспертиза»'
   description='Независимая строительная экспертиза в Москве • АО НИЦ «Строительная Экспертиза»'>
   <header class='frame-xl mb-0 lg:mb-4'>
-    <div class='grid w-full gap-8 lg:grid-cols-12 lg:pt-8'>
+    <div class='grid w-full gap-8 pt-8 lg:grid-cols-12'>
       <div class='mr-auto place-self-center lg:col-span-7 2xl:col-span-8'>
         <h1
           class:list={[
@@ -70,9 +70,14 @@ const customers = (
           один из лидеров на строительном рынке в области консалтинга, лабораторного сопровождения
           строительства, обследования зданий и сооружений
         </p>
-        <div class='xs:hidden mb-2 flex justify-around'>
+        <div class='xs:hidden flex justify-around'>
           <a
-            class='drop-shadow-slate-400 dark:drop-shadow-black drop-shadow'
+            class:list={[
+              'p-3',
+              // 'text-slate-500',
+              'rounded-lg',
+              'shadow-xs shadow-gray-400 dark:shadow-black'
+            ]}
             href=`tel://${telephone.replace(/[\s-()]/g, '')}`
             aria-label='позвонить'>
             <span
@@ -81,11 +86,16 @@ const customers = (
             />
             <Icon
               icon='phone-call'
-              class='size-16 text-cyan-600 dark:text-cyan-700'
+              class='size-12'
             />
           </a>
           <a
-            class='drop-shadow-slate-400 dark:drop-shadow-black drop-shadow'
+            class:list={[
+              'p-3',
+              // 'text-slate-500',
+              'rounded-lg',
+              'shadow-xs shadow-gray-400 dark:shadow-black'
+            ]}
             href=`mailto:${email}`
             aria-label='отправить сообщение'>
             <span
@@ -94,7 +104,7 @@ const customers = (
             />
             <Icon
               icon='envelope'
-              class='size-16 text-cyan-600 dark:text-cyan-700'
+              class='size-12'
             />
           </a>
         </div>

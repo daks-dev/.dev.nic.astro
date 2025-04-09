@@ -1,4 +1,5 @@
 ---
+import { atom } from 'nanostores';
 import { getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { twMerge } from '@lib';
@@ -9,6 +10,8 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   collection: CollectionEntry<'projects'>[];
   class?: ClassValue;
 };
+
+export const mode = atom<'app' | 'list' | 'map'>('app');
 
 const { collection, class: className } = Astro.props;
 

@@ -2,14 +2,17 @@
 import { twMerge } from '@lib';
 import { Icon } from '@lib/astro';
 import DrawerToggle from './DrawerToggle.astro';
-import Menu from './Menu.astro';
+import DrawerMenu from './DrawerMenu.astro';
+import microdata from '@app/configs/microdata';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'aside'>, 'class' | 'aria-owns'> & {
+type Props = Omit<HTMLAttributes<'aside'>, 'class' | 'inert' | 'aria-owns'> & {
   class?: ClassValue;
 };
 
 const { class: className, ...props } = Astro.props;
+
+const { email, telephone } = microdata.organization;
 ---
 
 <aside
@@ -17,7 +20,7 @@ const { class: className, ...props } = Astro.props;
   id='app-drawer'
   class={twMerge(
     'top-(--navbar-height) w-(--drawer-width) fixed bottom-0 z-40',
-    'not-aria-hidden:translate-x-0 2xl:-translate-x-[(100%_-_3rem)] -translate-x-full',
+    'not-has-inert:translate-x-0 2xl:-translate-x-[(100%_-_3rem)] -translate-x-full',
     'flex',
     'overflow-hidden',
     'bg-theme-frame shadow-xl shadow-gray-300 dark:shadow-gray-950',
@@ -26,10 +29,8 @@ const { class: className, ...props } = Astro.props;
     className
   )}
   aria-owns='app-drawer-toggle'
-  aria-hidden='true'
   {...props}>
-  <Menu class='grow overflow-y-auto pb-8 pt-4' />
-
+  <DrawerMenu class='grow overflow-y-auto pb-8 pt-4' />
   <div
     class:list={[
       'flex flex-col items-center gap-y-3',
@@ -39,7 +40,12 @@ const { class: className, ...props } = Astro.props;
     ]}>
     <a
       class='p-2'
-      href='#'>
+      href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+      aria-label='позвонить'>
+      <span
+        class='sr-only'
+        set:text='позвонить'
+      />
       <Icon
         icon='phone-call'
         size='1.5em'
@@ -47,7 +53,12 @@ const { class: className, ...props } = Astro.props;
     </a>
     <a
       class='p-2'
-      href='#'>
+      href=`mailto:${email}`
+      aria-label='отправить сообщение'>
+      <span
+        class='sr-only'
+        set:text='отправить сообщение'
+      />
       <Icon
         icon='envelope'
         size='1.5em'
@@ -68,12 +79,17 @@ const { class: className, ...props } = Astro.props;
   import { $drawer } from './store';
 
   class AppDrawer extends HTMLElement {
+    menu: HTMLElement;
+
     constructor() {
       super();
+      this.menu = this.querySelector('[role="menu"]')!;
     }
 
     connectedCallback() {
-      $drawer.listen((x) => this.setAttribute('aria-hidden', String(!x)));
+      $drawer.listen((x) =>
+        x ? this.menu.removeAttribute('inert') : this.menu.setAttribute('inert', '')
+      );
       document.addEventListener('astro:page-load', this.close);
       document.addEventListener('click', this.outside);
     }
@@ -89,7 +105,7 @@ const { class: className, ...props } = Astro.props;
     };
 
     outside = (e: Event) => {
-      if (e?.target && !e.defaultPrevented && !this.contains(e.target as Node)) $drawer.set(false);
+      if (e?.target && !e.defaultPrevented && !this.contains(e.target as Node)) this.close();
     };
   }
 

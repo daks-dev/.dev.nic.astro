@@ -11,7 +11,7 @@ class Swipe {
 
   constructor(el: HTMLElement, cb: (x: SwipeDelta) => void, touch = true, mouse = true) {
     if (touch) {
-      el.addEventListener('touchstart', this.touch.start /*, { passive: true }*/);
+      el.addEventListener('touchstart', this.touch.start, { passive: true });
       el.addEventListener('touchend', this.touch.end, { passive: true });
     }
     if (mouse) {

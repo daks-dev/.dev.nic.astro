@@ -57,7 +57,7 @@ const {
     observer.observe(e, { attributes: true, attributeFilter: ['class'] });
     set();
     document.addEventListener('astro:after-swap', set);
-  })(document.documentElement, localStorage, 'set::theme', 'theme-dark');
+  })(document.documentElement, localStorage, 'app::theme', 'theme-dark');
 </script>
 
 {

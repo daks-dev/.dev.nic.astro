@@ -7,6 +7,7 @@ export { default as Icon } from './icon/Icon.svelte';
 export { default as Figure } from './figure/Figure.svelte';
 
 export { default as FormattedDate } from './formatted-date/FormattedDate.svelte';
+export { default as ListMode } from './list-mode/ListMode.svelte';
 export { default as Sign } from './sign/Sign.svelte';
 export { default as Timer } from './timer/Timer.svelte';
 

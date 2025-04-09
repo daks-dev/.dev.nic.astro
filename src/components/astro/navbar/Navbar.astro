@@ -2,8 +2,8 @@
 import { getImage } from 'astro:assets';
 import { Img, Link } from '@lib/astro';
 import DrawerToggle from '../drawer/DrawerToggle.astro';
-import Menu from './Menu.astro';
-import MenuToggle from './MenuToggle.astro';
+import NavbarMenu from './NavbarMenu.astro';
+import NavbarMenuToggle from './NavbarMenuToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import ToTop from './ToTop.astro';
 
@@ -59,9 +59,9 @@ const src = await getImage({
         />
       </Link>
     </div>
-    <MenuToggle />
+    <NavbarMenuToggle />
   </div>
-  <Menu items={nav.navbar}>
+  <NavbarMenu items={nav.navbar}>
     <div
       class:list={[
         'max-bp:py-2',
@@ -78,6 +78,6 @@ const src = await getImage({
         <ThemeToggle />
       </div>
     </div>
-  </Menu>
+  </NavbarMenu>
   <ToTop class:list={['mt-8 w-14 p-3', 'bg-gray-300/50 dark:bg-gray-700/50', 'rounded-full']} />
 </nav>

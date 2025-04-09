@@ -17,13 +17,14 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
 <div
   id='app-navbar-menu'
   class:list={[
+    'max-bp:inert:hidden',
     'bp:contents absolute inset-x-0',
     'top-(--navbar-height)',
     'max-h--screen-navbar',
     'overflow-y-auto'
   ]}
-  aria-owns='app-navbar-menu-toggle'
-  hidden>
+  inert
+  aria-owns='app-navbar-menu-toggle'>
   <div
     role='menu'
     class={twMerge(

@@ -38,7 +38,7 @@
   --color-theme-inner: rgb(233, 235, 237);
   --color-theme-plain: rgb(0, 0, 0);
   --color-theme-header: var(--color-stone-600);
-  --color-theme-link: var(--color-cyan-800);
+  --color-theme-link: var(--color-cyan-600);
   --color-theme-accent: #c561f6;
 
   --navbar-height: 3.75rem;

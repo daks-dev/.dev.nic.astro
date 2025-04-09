@@ -3,19 +3,20 @@ import { twMerge } from '@lib';
 import { Link } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'role'> & {
   class?: ClassValue;
   custom?: Record<string, ClassValue>;
 };
 
-const { class: className, custom = {}, role = 'menu', ...props } = Astro.props;
+const { class: className, custom = {}, ...props } = Astro.props;
 
 import { drawer } from '@app/configs/nav';
 ---
 
 <div
   class={twMerge('flex flex-col', className)}
-  {role}
+  role='menu'
+  inert
   {...props}>
   {
     drawer.header &&
