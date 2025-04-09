@@ -1,6 +1,7 @@
 ---
 import { twMerge } from '@lib';
 import { Icon } from '@lib/astro';
+import DrawerToggle from './DrawerToggle.astro';
 import Menu from './Menu.astro';
 import type { HTMLAttributes } from 'astro/types';
 
@@ -52,6 +53,14 @@ const { class: className, ...props } = Astro.props;
         size='1.5em'
       />
     </a>
+    <DrawerToggle
+      icon='sign-in'
+      class:list={[
+        'mt-auto',
+        'aria-expanded:rotate-180',
+        'motion-safe:ready:transition-transform duration-300 ease-in-out'
+      ]}
+    />
   </div>
 </aside>
 
@@ -65,13 +74,19 @@ const { class: className, ...props } = Astro.props;
 
     connectedCallback() {
       $drawer.listen((x) => this.setAttribute('aria-hidden', String(!x)));
+      document.addEventListener('astro:page-load', this.close);
       document.addEventListener('click', this.outside);
     }
 
     disconnectedCallback() {
       $drawer.off();
+      document.removeEventListener('astro:page-load', this.close);
       document.removeEventListener('click', this.outside);
     }
+
+    close = () => {
+      $drawer.set(false);
+    };
 
     outside = (e: Event) => {
       if (e?.target && !e.defaultPrevented && !this.contains(e.target as Node)) $drawer.set(false);
