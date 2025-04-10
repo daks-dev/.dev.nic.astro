@@ -49,15 +49,15 @@ const Component = href ? Link : Button;
       'bp:absolute bp:top-full static',
       'w-max min-w-full overflow-hidden',
       'flex flex-col',
-      'aria-hidden:disabled aria-hidden:opacity-0',
-      'aria-hidden:my-0 aria-hidden:max-h-0 aria-hidden:py-0 aria-hidden:text-[0] aria-hidden:leading-[0]',
-      'max-bp:aria-hidden:max-w-0',
+      'inert:disabled inert:opacity-0',
+      'inert:my-0 inert:max-h-0 inert:py-0 inert:text-[0] inert:leading-[0]',
+      'max-bp:inert:max-w-0',
       'bp:origin-top origin-top-left',
-      'ready:transition-all ready:duration-200',
+      'motion-safe:ready:transition-all duration-200',
       custom.drop
     )}
-    aria-owns={`app-dropdown-toggle${uuid}`}
-    aria-hidden='true'>
+    inert
+    aria-owns={`app-dropdown-toggle${uuid}`}>
     <slot />
   </div>
 </div>
@@ -89,24 +89,20 @@ const Component = href ? Link : Button;
 
     toggle = this.children[0] as HTMLAnchorElement;
 
-    drop = this.children[1] as HTMLDivElement;
-
-    actives = this.drop.querySelectorAll('a, button, [role="button"]');
+    dropper = this.children[1] as HTMLDivElement;
 
     get hidden() {
-      return this.drop.getAttribute('aria-hidden') === 'true';
+      return this.dropper.hasAttribute('inert');
     }
 
     set hidden(val) {
       if (this.hidden !== val) {
         if (val) {
           this.toggle.setAttribute('aria-expanded', 'false');
-          this.drop.setAttribute('aria-hidden', 'true');
-          this.actives.forEach((el) => el.setAttribute('tabindex', '-1'));
+          this.dropper.setAttribute('inert', '');
         } else {
           this.toggle.setAttribute('aria-expanded', 'true');
-          this.drop.removeAttribute('aria-hidden');
-          this.actives.forEach((el) => el.removeAttribute('tabindex'));
+          this.dropper.removeAttribute('inert');
         }
       }
     }
@@ -115,11 +111,11 @@ const Component = href ? Link : Button;
       this.hidden = true;
       if (this.media.matches)
         if (this.offsetLeft + this.clientWidth / 2 < window.innerWidth / 2) {
-          this.drop.style.left = '0';
-          this.drop.style.right = '';
+          this.dropper.style.left = '0';
+          this.dropper.style.right = '';
         } else {
-          this.drop.style.left = '';
-          this.drop.style.right = '0';
+          this.dropper.style.left = '';
+          this.dropper.style.right = '0';
         }
     };
 
@@ -130,7 +126,7 @@ const Component = href ? Link : Button;
     };
 
     handleNavigate = (ev: Event) => {
-      ev.preventDefault();
+      if (ev.cancelable) ev.preventDefault();
       if (this.toggle.pathname)
         if (this.toggle.getAttribute('aria-current') === 'page') beep(250, 150, 75);
         else navigate(this.toggle.pathname);

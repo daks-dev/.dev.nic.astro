@@ -19,3 +19,5 @@ export { default as LightboxData } from './lightbox/LightboxData.svelte';
 export { default as LightboxList } from './lightbox/LightboxList.svelte';
 export { default as LightboxModal } from './lightbox/LightboxModal.svelte';
 export { default as LightboxThumbnail } from './lightbox/LightboxThumbnail.svelte';
+
+export { default as YandexMetrikaHit } from './yandex/YandexMetrikaHit.svelte';

@@ -12,12 +12,13 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import compress from 'astro-compress';
 
+// import { sveltekit } from '@sveltejs/kit/vite';
+
 export default defineConfig({
   experimental: {
     preserveScriptOrder: true
   },
 
-  // site: import.meta.env.PUBLIC_APP_CANONICAL, // 'https://stroyexp.info',
   site: 'https://stroyexp.info',
   base: '/',
   trailingSlash: 'never',
@@ -44,7 +45,7 @@ export default defineConfig({
         '@iconset': fileURLToPath(new URL('./src/assets/icons/bundle', import.meta.url))
       }
     },
-    plugins: [tailwindcss(), yaml()]
+    plugins: [yaml(), tailwindcss()]
   },
 
   scopedStyleStrategy: 'where',

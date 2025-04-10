@@ -3,7 +3,7 @@ import { twMerge } from '@lib';
 import { Icon } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'tabindex' | 'aria-hidden'> & {
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'inert' | 'tabindex'> & {
   class?: ClassValue;
   icon?: string;
   label?: string;
@@ -29,14 +29,14 @@ const label = ariaLabel ?? 'перемотка наверх';
       class={twMerge(
         'fixed right-4 top-12 z-40 flex w-10',
         'origin-center opacity-30 hover:opacity-100',
-        'aria-hidden:disabled aria-hidden:scale-0 aria-hidden:opacity-0',
+        'inert:disabled inert:scale-0 inert:opacity-0',
         'select-none',
         'motion-safe:ready:transition delay-150 ease-in-out',
         className
       )}
       style={`transition-duration: ${duration}ms`}
+      inert
       tabindex='-1'
-      aria-hidden='true'
       aria-label={label}
       data-speed={speed}
       {...props}>
@@ -91,12 +91,12 @@ const label = ariaLabel ?? 'перемотка наверх';
         this.switch.classList.add('opacity-75');
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => this.switch.classList.remove('opacity-75'), 500);
-      }
-      this.switch.setAttribute('aria-hidden', String(!scroll));
+        this.switch.removeAttribute('inert');
+      } else this.switch.setAttribute('inert', '');
     };
 
     handle = (ev: Event) => {
-      ev.preventDefault();
+      if (ev.cancelable) ev.preventDefault();
       ev.stopPropagation();
       scroll.toTop({ duration: this.speed });
     };

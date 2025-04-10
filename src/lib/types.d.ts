@@ -1,10 +1,21 @@
 // <reference types="astro" />
+// <reference types="astro/client" />
 // <reference types="svelte" />
+/// <reference types="@sveltejs/kit" />
 
 /*
 type Astro = import('astro').AstroGlobal;
 declare const Astro: Readonly<Astro>;
 */
+
+declare namespace App {
+  interface Locals {
+    user: {
+      uuid: ReturnType<typeof crypto.randomUUID>; // string;
+      name: string;
+    };
+  }
+}
 
 /*
 interface AstroInstance {
@@ -15,12 +26,11 @@ interface AstroInstance {
   default: AstroComponentFactory;
 }
 */
-
 declare module '*.astro' {
   import type { AstroComponentFactory } from 'astro/runtime/server/index.d.ts';
-  export default class Component extends AstroComponentFactory {}
   export const file: string;
   export const url: string | undefined;
+  export default class Component extends AstroComponentFactory {}
 }
 
 declare module '*.yml' {

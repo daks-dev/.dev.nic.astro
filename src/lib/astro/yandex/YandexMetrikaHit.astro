@@ -2,17 +2,15 @@
 type Props = {
   counter: number | string;
   title: string;
-  referer?: string;
 };
-const { counter, title, referer } = Astro.props;
-
-// const options = { data: { counter, title, referer } };
+const { counter, title } = Astro.props;
+const href = Astro.url.href;
 ---
 
 <app-yandex-metrika-hit
   data-counter={counter}
   data-title={title}
-  data-referer={referer}
+  data-href={href}
 ></app-yandex-metrika-hit>
 
 <script>
@@ -20,7 +18,7 @@ const { counter, title, referer } = Astro.props;
   declare const ym: Ym;
 
   class AppYandexMetrikaHit extends HTMLElement {
-    interval?: ReturnType<typeof setInterval>;
+    interval!: ReturnType<typeof setInterval>;
 
     constructor() {
       super();
@@ -43,9 +41,8 @@ const { counter, title, referer } = Astro.props;
       if (this.counter) {
         this.interval = setInterval(() => {
           if (typeof ym !== 'undefined') {
-            ym(this.counter, 'hit', location.href, {
-              title: this.dataset.title,
-              referer: this.dataset.referer
+            ym(this.counter, 'hit', this.dataset.href, {
+              title: this.dataset.title
             });
             clearInterval(this.interval);
           }

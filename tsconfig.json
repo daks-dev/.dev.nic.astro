@@ -36,6 +36,7 @@
   },
   "include": [
     ".astro/types.d.ts",
+    "*.js",
     "*.ts",
     "src/**/*.js",
     "src/**/*.jsx",
@@ -44,5 +45,5 @@
     "src/**/*.astro",
     "src/**/*.svelte"
   ],
-  "exclude": ["build/", "dist/", "node_modules/"]
+  "exclude": ["build/", "dist/", "**/node_modules/**"]
 }
