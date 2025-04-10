@@ -1,5 +1,4 @@
 ---
-import { atom } from 'nanostores';
 import { getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { twMerge } from '@lib';
@@ -10,8 +9,6 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   collection: CollectionEntry<'projects'>[];
   class?: ClassValue;
 };
-
-export const mode = atom<'app' | 'list' | 'map'>('app');
 
 const { collection, class: className } = Astro.props;
 
@@ -26,7 +23,7 @@ const placeholder = await getImage({
 
 const projects = (
   await Promise.all(
-    collection.map(async ({ id, data: { title, description, poster, images } }) => {
+    collection.map(async ({ id, data: { priority, title, description, poster, images } }) => {
       if (poster !== -1) poster = images && poster < images.length ? poster : -1;
       const src =
         images && poster !== -1
@@ -39,6 +36,7 @@ const projects = (
           : placeholder;
       return {
         id,
+        priority,
         src,
         caption: {
           title,
@@ -47,7 +45,9 @@ const projects = (
       };
     })
   )
-).sort((a, b) => a.id.localeCompare(b.id));
+).sort((a, b) =>
+  a.priority > b.priority ? -1 : a.priority < b.priority ? 1 : a.id.localeCompare(b.id)
+);
 ---
 
 <div

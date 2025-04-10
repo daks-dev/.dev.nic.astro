@@ -126,7 +126,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, activities, locati
   '55.743538, 37.510089',
   1 /* MR group */
 );
-*/
+
 INSERT INTO projects ( id, name, address, area, units, scope, activities, location, customer ) VALUES (
   9,
   'ЖК «Савеловский city»',
@@ -261,7 +261,7 @@ INSERT INTO projects ( id, name, address, area, units, scope, location, customer
   '55.643184, 37.398304',
   3 /* Столица */
 );
-
+*/
 INSERT INTO projects ( id, name, address, area, area_term, area_unit, units, activities, location ) VALUES (
   21,
   'ФГБУ НМИЦ Кардиологии',

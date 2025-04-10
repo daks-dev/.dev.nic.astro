@@ -67,16 +67,13 @@ const geo = {
     <main
       class='frame mb-0 flex grow flex-col gap-4'
       itemprop='mainContentOfPage'>
-      <div class='mb-2 flex justify-between gap-8 max-md:flex-col'>
+      <div class='mb-4 flex justify-between gap-8 max-md:flex-col'>
         <div class='readable'>
           <ProjectInfo {project} />
+          <hr class:list={['mx-auto my-2 w-10/12', 'border-gray-200 dark:border-gray-700']} />
           <Content />
-          <div
-            class='text-xs'
-            set:text={`[ ${id} ]`}
-          />
         </div>
-        <div class='flex gap-2 md:flex-col md:items-center'>
+        <div class='flex place-content-center gap-2 md:flex-col md:items-center'>
           {
             project.data.images && (
               <BindLightboxData

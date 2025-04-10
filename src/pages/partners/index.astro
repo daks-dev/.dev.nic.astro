@@ -18,7 +18,7 @@ const collection = await getCollection('partners');
 
 const gallery = (
   await Promise.all(
-    collection.map(async ({ id, data: { image, title } }) => {
+    collection.map(async ({ id, data: { priority, image, title } }) => {
       const src = image
         ? await getImage({
             src: image.src,
@@ -30,6 +30,7 @@ const gallery = (
         : placeholder;
       return {
         id,
+        priority,
         src,
         caption: {
           title
@@ -37,7 +38,9 @@ const gallery = (
       };
     })
   )
-).sort((a, b) => a.id.localeCompare(b.id));
+).sort((a, b) =>
+  a.priority > b.priority ? -1 : a.priority < b.priority ? 1 : a.id.localeCompare(b.id)
+);
 
 const title = 'Парнёры';
 ---
