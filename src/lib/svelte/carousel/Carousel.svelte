@@ -210,7 +210,7 @@
         style:transform="translate3d(-{width * tween.current}px, 0px, 0px)">
         {#each data as { alt, caption, ...image }, idx}
           <Figure
-            src={image.src}
+            src={image}
             {img}
             {caption}
             class={custom.item}
