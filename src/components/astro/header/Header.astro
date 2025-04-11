@@ -5,18 +5,26 @@ import type { HTMLAttributes } from 'astro/types';
 interface Props extends Omit<HTMLAttributes<'header'>, 'class'> {
   class?: ClassValue;
   tagline?: string;
+  center?: boolean;
 }
 
 const {
   class: className,
   title,
   tagline = 'АО НИЦ «Строительная Экспертиза»',
+  center,
   ...props
 } = Astro.props;
 ---
 
 <header
-  class={twMerge('frame', 'flex flex-col gap-1', 'text-center md:text-left', className)}
+  class={twMerge(
+    'frame',
+    'flex flex-col gap-1',
+    'text-center',
+    !center && 'md:text-left',
+    className
+  )}
   {...props}>
   <slot name='before' />
   <slot>

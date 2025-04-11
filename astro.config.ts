@@ -58,6 +58,7 @@ export default defineConfig({
     mdx(),
 
     sitemap({
+      filter: (x) => !/\/(204|403)$/.test(x),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date()
@@ -94,23 +95,24 @@ export default defineConfig({
     }),
 
     AstroPWA({
-      mode: import.meta.env.PROD ? 'production' : 'development',
+      mode: 'production',
       base: '/',
       scope: '/',
-      // includeAssets: ['favicon.svg'],
+      includeAssets: ['favicon.ico', 'favicon/192.png'],
       registerType: 'autoUpdate',
       workbox: {
         // skipWaiting: true,
-        // globDirectory: 'build',
+        globDirectory: 'build',
         globPatterns: [
           '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
         ],
+        globIgnores: ['404*', '500*'],
         maximumFileSizeToCacheInBytes: 2500000,
-        navigateFallback: '/404'
+        navigateFallback: '/204'
       },
       devOptions: {
-        enabled: true,
-        navigateFallbackAllowlist: [/^\/404$/]
+        enabled: false
+        // navigateFallbackAllowlist: [/^\//]
       },
       experimental: {
         // directoryAndTrailingSlashHandler: true

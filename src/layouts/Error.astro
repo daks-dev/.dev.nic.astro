@@ -4,18 +4,23 @@ import Layout from './Base.astro';
 interface Props {
   status?: string;
 }
-const { status: title = '404' } = Astro.props;
+const { status = '404' } = Astro.props;
+
+const title = status === '204' ? 'Service Worker' : status;
 
 let description: string;
-switch (title) {
+switch (status) {
+  case '204':
+    description = 'Содержимое не найдено'; // 'No Content'
+    break;
   case '403':
-    description = 'Forbidden';
+    description = 'Доступ запрещён'; // 'Forbidden'
     break;
   case '404':
-    description = 'Not Found';
+    description = 'Страница не найдена'; // 'Not Found'
     break;
   case '500':
-    description = 'Internal Server Error';
+    description = 'Внутренняя ошибка сервера'; // 'Internal Server Error'
     break;
   default:
     description = '?';

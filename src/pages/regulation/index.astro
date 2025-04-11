@@ -1,4 +1,5 @@
 ---
+import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 const title = 'Регламент';
@@ -10,13 +11,13 @@ const description =
   class=''
   title={`${title} • НИЦ «Строительная экспертиза»`}
   {description}>
-  <main class='frame pt-(--navbar-height) flex min-h-screen grow'>
+  <main class:list={['frame pt-(--navbar-height) min-h-screen', 'flex grow']}>
     <object
       class:list={[
         'lazy',
-        'grow',
-        'bg-radial-c',
-        'from-neutral-400 to-transparent dark:from-gray-600',
+        'flex grow flex-col items-center justify-around',
+        'bg-linear-to-b',
+        'from-transparent to-neutral-200 dark:to-gray-800',
         //'border-2 border-slate-300 dark:border-slate-500'
         'shadow-md shadow-black hover:shadow-sm'
         //'rounded-lg'
@@ -25,12 +26,16 @@ const description =
       data-src='/docs/regulation.pdf'
       title='Регламент АО НИЦ «Строительная экспертиза»'
       aria-label='регламент'>
+      <Header
+        {title}
+        center
+      />
       <a
         class:list={[
-          'mx-auto self-center',
-          'tracking-wide sm:text-base',
-          'bg-neutral-300 hover:bg-slate-500 dark:bg-slate-700',
-          'button rounded-xs border border-slate-500'
+          'px-4 pb-2.5 pt-1.5',
+          'text-lg leading-none tracking-wide',
+          'bg-neutral-300 dark:bg-slate-700',
+          'rounded-xs border border-slate-500'
         ]}
         href='/docs/regulation.pdf'
         target='_blank'>

@@ -85,7 +85,7 @@ export const drawer: NavSidebar = {
       label: 'Партнёры'
     },
     {
-      href: '/feedback',
+      href: '/feedbacks',
       label: 'Отзывы'
     },
     {
@@ -129,7 +129,7 @@ export const nav: NavSite = {
       label: 'Партнёры'
     },
     {
-      href: '/feedback',
+      href: '/feedbacks',
       label: 'Отзывы',
       class: 'bp:max-xl:hidden'
     },

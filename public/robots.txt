@@ -1,6 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 #
+Disallow: /204
 Disallow: /403
 Disallow: /404
 Disallow: /500
@@ -22,6 +23,7 @@ Disallow: /sites/
 #
 Disallow: /*?field_*
 #
+Disallow: /feedback$
 Disallow: /articles/test
 Disallow: /news/23-10-31
 Disallow: /news/23-11-01

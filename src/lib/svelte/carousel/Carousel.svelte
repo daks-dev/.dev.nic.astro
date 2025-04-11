@@ -193,7 +193,7 @@
       use:swipe={actionSwipe}
       use:wheel={handle('wheel') ? actionWheel : undefined}
       class={twMerge(
-        'w-full overflow-x-hidden',
+        'h-fit min-h-fit w-full min-w-full overflow-hidden',
         'select-none',
         rest.href ? 'cursor-pointer' : auto || wait ? 'cursor-wait' : 'cursor-ew-resize'
       )}>
