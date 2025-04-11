@@ -13,7 +13,7 @@
     light && 'bg-white/20',
     dark && 'bg-black/20',
     auto && 'bg-black/20 dark:bg-white/20',
-    link ? 'text-sky-600 dark:text-sky-400' : 'text-white',
+    link ? 'text-blue-600 dark:text-blue-400' : 'text-white',
     'opacity-70',
     'group-hover:mt-2 group-hover:animate-bounce group-hover:opacity-100',
     className

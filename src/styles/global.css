@@ -12,6 +12,20 @@
     'Open Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
 
+  --color-orange-*: initial;
+  --color-amber-*: initial;
+  --color-yellow-*: initial;
+  --color-lime-*: initial;
+  --color-emerald-*: initial;
+  --color-teal-*: initial;
+  --color-sky-*: initial;
+  --color-indigo-*: initial;
+  --color-violet-*: initial;
+  --color-fuchsia-*: initial;
+  --color-pink-*: initial;
+  --color-rose-*: initial;
+  --color-zinc-*: initial;
+
   --color-primary: var(--color-white);
   --color-primary-50: var(--color-slate-50);
   --color-primary-100: var(--color-slate-100);
@@ -38,7 +52,7 @@
   --color-theme-inner: rgb(233, 235, 237);
   --color-theme-plain: rgb(0, 0, 0);
   --color-theme-header: var(--color-stone-600);
-  --color-theme-link: var(--color-cyan-600);
+  --color-theme-link: var(--color-cyan-700);
   --color-theme-accent: #c561f6;
 
   --navbar-height: 3.75rem;
@@ -51,7 +65,6 @@
   --color-theme-inner: rgb(40, 42, 45);
   --color-theme-plain: rgb(155, 163, 180);
   --color-theme-header: var(--color-stone-400);
-  --color-theme-link: var(--color-cyan-700);
 }
 
 @import './base.css';

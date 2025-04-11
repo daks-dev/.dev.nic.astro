@@ -1,6 +1,6 @@
 ---
 import { twMerge } from '@lib';
-import { Link } from '@lib/astro';
+import { Icon, Link } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'div'>, 'class' | 'role'> & {
@@ -39,11 +39,23 @@ import { drawer } from '@app/configs/nav';
           return (
             <>
               <Link
-                class:list={[custom.link, className]}
+                class:list={[
+                  'flex flex-nowrap items-center justify-between gap-x-1',
+                  custom.link,
+                  className
+                ]}
                 {role}
                 {itemprop}
-                {...item}
-              />
+                {...item}>
+                {item.items && (
+                  <Icon
+                    slot='after'
+                    icon='caret-down'
+                    class='disabled'
+                    size='1em'
+                  />
+                )}
+              </Link>
               {item.items &&
                 item.items?.map((x) => {
                   const {
