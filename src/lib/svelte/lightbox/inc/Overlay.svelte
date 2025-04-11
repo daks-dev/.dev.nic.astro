@@ -7,7 +7,7 @@
   import type { Custom, Options } from '../index.d.ts';
 
   type Props = {
-    children: Snippet;
+    children: Snippet<[]>;
     close: () => void;
     next?: () => void;
     previous?: () => void;
@@ -15,6 +15,7 @@
     options: Options;
     fullscreen: boolean;
   };
+
   const { children, close, next, previous, custom, options, fullscreen }: Props = $props();
 
   function handleKey(e: KeyboardEvent): void {

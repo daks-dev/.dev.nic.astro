@@ -10,6 +10,7 @@
     countItems: number;
     activeItem: number;
   };
+
   const { next, previous, class: className, options, countItems, activeItem }: Props = $props();
 
   const handleClick = (e: Event) => {

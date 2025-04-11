@@ -11,7 +11,7 @@ class Wheel {
   callback: (x: WheelDelta) => void;
 
   constructor(el: HTMLElement, cb: (x: WheelDelta) => void) {
-    el.addEventListener('wheel', this.handle /*, { passive: false }*/);
+    el.addEventListener('wheel', this.handle /*, { passive: true }*/);
     this.destroy = () => {
       el.removeEventListener('wheel', this.handle, true);
       clearTimeout(this.timeout);
@@ -28,10 +28,8 @@ class Wheel {
   };
 
   handle = (ev: WheelEvent) => {
-    if (ev.cancelable) {
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
+    if (ev.cancelable) ev.preventDefault();
+    ev.stopPropagation();
     if (this.timeout) {
       this.delta.x += ev.deltaX;
       this.delta.y += ev.deltaY;

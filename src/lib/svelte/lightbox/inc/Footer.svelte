@@ -2,15 +2,17 @@
   import { twMerge } from '../../../tailwind/tailwind-merge.js';
   import type { Custom, Status } from '../index.d.ts';
 
-  import type { SvelteHTMLElements } from 'svelte/elements';
-  type Props = Omit<SvelteHTMLElements['div'], 'class' | 'title'> & {
+  type Props = {
     custom: Custom;
     title?: string;
     description?: string;
     fullscreen: boolean;
     status?: Status;
   };
-  const { custom, title, description, fullscreen, status }: Props = $props();
+
+  const { custom, title, description, fullscreen, status, ...rest }: Props = $props();
+
+  const list = status && status.countItems > 1;
 </script>
 
 <div class={twMerge('scoped', 'relative z-30', fullscreen && 'fullscreen', custom.footer)}>
@@ -23,11 +25,11 @@
       custom.inner?.cuption
     )}>
     {#if title}
-      <div class={twMerge('font-semibold', custom.inner?.title)}>
+      <div class={twMerge('font-semibold', !list && 'col-span-2', custom.inner?.title)}>
         {@html title}
       </div>
     {/if}
-    {#if status}
+    {#if list}
       <div
         class={twMerge('whitespace-nowrap font-mono', title && 'text-right', custom.inner?.status)}>
         {status.activeItem + 1} <sup>[{status.countItems}]</sup>

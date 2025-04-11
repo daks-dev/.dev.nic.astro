@@ -9,6 +9,7 @@
     options: Options;
     fullscreen: boolean;
   };
+
   const { close, toogleFullscreen, custom, options, fullscreen }: Props = $props();
 </script>
 

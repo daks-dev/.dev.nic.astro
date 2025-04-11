@@ -1,5 +1,5 @@
 ---
-import { getImage } from 'astro:assets';
+// import { getImage } from 'astro:assets';
 import { Img, Link } from '@lib/astro';
 import DrawerToggle from '../drawer/DrawerToggle.astro';
 import NavbarMenu from './NavbarMenu.astro';
@@ -9,13 +9,15 @@ import ToTop from './ToTop.astro';
 
 import { nav } from '@app/configs/nav';
 
-import logo from '@assets/images/logo.icon.webp';
+import logo from '@assets/images/logo.navbar.webp';
+/*
 const src = await getImage({
   src: logo,
   width: 80,
   height: 80,
   fit: 'contain'
 });
+*/
 ---
 
 <nav
@@ -51,10 +53,10 @@ const src = await getImage({
             'drop-shadow-black drop-shadow-xs hover:drop-shadow-sm',
             'ready:animate-[wiggle_20s_ease-in-out_infinite]'
           ]}
-          {src}
+          src={logo}
           width={40}
           height={40}
-          alt='ниц «строительная экспертиза»'
+          alt='ао ниц «строительная экспертиза»'
           eager
         />
       </Link>

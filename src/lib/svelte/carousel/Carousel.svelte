@@ -59,7 +59,7 @@
 
   function handle(x: string, cb?: () => void): boolean {
     const res = controls.indexOf('all') > -1 || controls.indexOf(x) > -1;
-    res && cb?.call(null);
+    res && cb?.();
     return res;
   }
 
@@ -145,7 +145,7 @@
         ? loader.update()
         : (loader = lazyloader({
             container: carousel,
-            callback_loaded: (x: unknown) => loaded?.call(x)
+            callback_loaded: (x: HTMLElement | Event) => loaded?.(x)
           }));
     (auto = autoplay) && timeout(play, pause);
   }

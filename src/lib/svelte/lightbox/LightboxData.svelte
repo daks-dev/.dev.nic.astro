@@ -109,13 +109,14 @@
         href={modal.src} />
     {/each}
   {/snippet}
-  {#each data as { modal: { src }, caption: { title, description } }}
+  {#each data as { modal: { src, attributes }, caption: { title, description } }}
     <LightboxModal
       title={title ?? __title}
       description={description ?? __description}>
       <Img
         class="bg--loading bg-[size:20%] bg-center bg-no-repeat"
         {src}
+        {...attributes}
         decoding="async"
         loading="lazy" />
     </LightboxModal>

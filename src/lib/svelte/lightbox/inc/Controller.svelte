@@ -4,13 +4,14 @@
   import type { Options } from '../index.d.ts';
 
   type Props = {
-    children: Snippet;
+    children: Snippet<[]>;
     next: () => void;
     previous: () => void;
     activeItem: number;
     countItems: number;
     options: Options;
   };
+
   const { children, next, previous, activeItem, countItems, options }: Props = $props();
 
   function handleKey(e: KeyboardEvent): void {
