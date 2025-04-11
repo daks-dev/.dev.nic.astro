@@ -1,18 +1,18 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'astro/config';
 
-// import AstroPWA from '@vite-pwa/astro';
-
 // import node from '@astrojs/node';
 
-import svelte from '@astrojs/svelte';
+// import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import yaml from '@rollup/plugin-yaml';
-import mdx from '@astrojs/mdx';
+
+import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import compress from 'astro-compress';
+import AstroPWA from '@vite-pwa/astro';
 
-// import { sveltekit } from '@sveltejs/kit/vite';
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   experimental: {
@@ -91,20 +91,21 @@ export default defineConfig({
       Image: false,
       SVG: false,
       Logger: 1
-    })
+    }),
 
-    /*AstroPWA({
+    AstroPWA({
       mode: 'production',
       base: '/',
       scope: '/',
       // includeAssets: ['favicon.svg'],
       registerType: 'autoUpdate',
       workbox: {
-        skipWaiting: true,
+        // skipWaiting: true,
         globDirectory: 'build/',
-        globPatterns: [*/
-    // '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
-    /*]
+        globPatterns: [
+          '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
+        ],
+        maximumFileSizeToCacheInBytes: 3000000
         // navigateFallback: '/'
       },
       devOptions: {
@@ -114,7 +115,7 @@ export default defineConfig({
       experimental: {
         // directoryAndTrailingSlashHandler: true
       }
-    })*/
+    })
   ],
 
   markdown: {
