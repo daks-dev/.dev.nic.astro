@@ -94,23 +94,23 @@ export default defineConfig({
     }),
 
     AstroPWA({
-      mode: 'production',
+      mode: import.meta.env.PROD ? 'production' : 'development',
       base: '/',
       scope: '/',
       // includeAssets: ['favicon.svg'],
       registerType: 'autoUpdate',
       workbox: {
         // skipWaiting: true,
-        globDirectory: 'build/',
+        // globDirectory: 'build',
         globPatterns: [
           '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
         ],
-        maximumFileSizeToCacheInBytes: 3000000
-        // navigateFallback: '/'
+        maximumFileSizeToCacheInBytes: 2500000,
+        navigateFallback: '/404'
       },
       devOptions: {
-        enabled: false
-        // navigateFallbackAllowlist: [/^\//]
+        enabled: true,
+        navigateFallbackAllowlist: [/^\/404$/]
       },
       experimental: {
         // directoryAndTrailingSlashHandler: true
