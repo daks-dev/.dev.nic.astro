@@ -3,8 +3,8 @@ User-agent: *
 #
 Disallow: /204
 Disallow: /403
-Disallow: /404
-Disallow: /500
+Disallow: /404.html
+Disallow: /500.html
 #
 Disallow: /admin
 Disallow: /search
@@ -21,6 +21,7 @@ Disallow: /images/
 Disallow: /node/
 Disallow: /sites/
 #
+Disallow: /_app/
 Disallow: /*?field_*
 #
 Disallow: /feedback$

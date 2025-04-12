@@ -10,7 +10,7 @@ import yaml from '@rollup/plugin-yaml';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import compress from 'astro-compress';
-import AstroPWA from '@vite-pwa/astro';
+// import AstroPWA from '@vite-pwa/astro';
 
 import mdx from '@astrojs/mdx';
 
@@ -92,9 +92,9 @@ export default defineConfig({
       Image: false,
       SVG: false,
       Logger: 1
-    }),
+    })
 
-    AstroPWA({
+    /*AstroPWA({
       mode: 'production',
       base: '/',
       scope: '/',
@@ -103,9 +103,9 @@ export default defineConfig({
       workbox: {
         // skipWaiting: true,
         globDirectory: 'build',
-        globPatterns: [
-          '**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
-        ],
+        globPatterns: [*/
+    //'**/*.{html,css,js,json,txt,ico,svg,png,jpg,jpeg,gif,webp,avif,woff,woff2,ttf,eot}'
+    /*],
         globIgnores: ['404*', '500*'],
         maximumFileSizeToCacheInBytes: 2500000,
         navigateFallback: '/204'
@@ -117,7 +117,7 @@ export default defineConfig({
       experimental: {
         // directoryAndTrailingSlashHandler: true
       }
-    })
+    })*/
   ],
 
   markdown: {
