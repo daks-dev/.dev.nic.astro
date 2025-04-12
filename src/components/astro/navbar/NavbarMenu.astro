@@ -36,7 +36,6 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
       custom.menu,
       className
     )}
-    aria-owns='app-navbar-toggle'
     {...props}>
     {
       items.map(({ class: className, ...item }) => {

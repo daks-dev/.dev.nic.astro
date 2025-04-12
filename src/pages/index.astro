@@ -48,7 +48,10 @@ const customers = (
   description='Независимая строительная экспертиза в Москве • АО НИЦ «Строительная Экспертиза»'>
   <header class='frame-xl mb-0 lg:mb-4'>
     <div class='grid w-full gap-8 pt-8 lg:grid-cols-12'>
-      <div class='mr-auto place-self-center lg:col-span-7 2xl:col-span-8'>
+      <div
+        class='mr-auto place-self-center lg:col-span-7 2xl:col-span-8'
+        itemscope
+        itemtype='https://schema.org/LocalBusiness'>
         <h1
           class:list={[
             'mb-4',
@@ -60,13 +63,18 @@ const customers = (
           <span class='block text-[125%]'>АО НИЦ</span>
           Строительная экспертиза
         </h1>
+        <meta
+          itemprop='name'
+          content='АО НИЦ «Строительная Экспертиза»'
+        />
         <p
           class:list={[
             'mb-8',
             'font-normal uppercase',
             'xs:text-md max-xs:text-center text-sm lg:text-lg',
             'text-gray-500 dark:text-gray-400'
-          ]}>
+          ]}
+          itemprop='description'>
           один из лидеров на строительном рынке в области консалтинга, лабораторного сопровождения
           строительства, обследования зданий и сооружений
         </p>
@@ -86,7 +94,7 @@ const customers = (
             />
             <Icon
               icon='phone-call'
-              class='size-12'
+              class='size-16'
             />
           </a>
           <a
@@ -104,22 +112,29 @@ const customers = (
             />
             <Icon
               icon='envelope'
-              class='size-12'
+              class='size-16'
             />
           </a>
         </div>
         <div class='xs:flex hidden flex-col gap-y-2 text-slate-600 dark:text-slate-400'>
           <a
             class='text-3xl font-semibold transition duration-200 ease-in-out hover:text-blue-500 xl:text-4xl'
-            href=`tel://${telephone.replace(/[\s-()]/g, '')}`>
-            {telephone}
-          </a>
+            href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+            itemprop='telephone'
+            set:text={telephone}
+          />
+          <meta
+            itemprop='email'
+            content={email}
+          />
           <a
             rel='nofollow noreferrer'
             class='text-lg transition-all duration-200 ease-in-out hover:text-blue-500 xl:text-xl'
             href={address.url}
             target='_blank'
-            itemprop='url'
+            itemscope
+            itemtype='https://schema.org/PostalAddress'
+            itemprop='address'
             set:html={addressFull}
           />
         </div>

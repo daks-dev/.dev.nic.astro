@@ -52,7 +52,7 @@
   --color-theme-inner: rgb(233, 235, 237);
   --color-theme-plain: rgb(0, 0, 0);
   --color-theme-header: var(--color-stone-600);
-  --color-theme-link: var(--color-cyan-700);
+  --color-theme-link: var(--color-cyan-600);
   --color-theme-accent: #c561f6;
 
   --navbar-height: 3.75rem;
@@ -63,7 +63,7 @@
   --color-theme-flat: rgb(20, 22, 25);
   --color-theme-frame: rgb(35, 37, 45);
   --color-theme-inner: rgb(40, 42, 45);
-  --color-theme-plain: rgb(155, 163, 180);
+  --color-theme-plain: rgb(183, 188, 199);
   --color-theme-header: var(--color-stone-400);
 }
 

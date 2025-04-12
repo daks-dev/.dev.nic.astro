@@ -14,6 +14,7 @@ type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> & {
   description: string;
   robots?: string;
   noMetrika?: boolean;
+  noPwa?: boolean;
 };
 const {
   schema = 'WebPage',
@@ -22,6 +23,7 @@ const {
   description,
   robots,
   noMetrika,
+  noPwa,
   ...props
 } = Astro.props;
 
@@ -67,6 +69,6 @@ const {
         </>
       )
     }
-    {/*<script>if (typeof window !== 'undefined') import('../pwa')</script>*/}
+    {!noPwa && <script>if (typeof window !== 'undefined') import('../pwa')</script>}
   </body>
 </html>

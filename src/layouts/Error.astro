@@ -6,11 +6,11 @@ interface Props {
 }
 const { status = '404' } = Astro.props;
 
-const title = status === '204' ? 'Service Worker' : status;
+const title = status === 'fallback' ? 'Service Worker' : status;
 
 let description: string;
 switch (status) {
-  case '204':
+  case 'fallback':
     description = 'Содержимое не найдено'; // 'No Content'
     break;
   case '403':

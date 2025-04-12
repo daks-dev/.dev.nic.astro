@@ -58,7 +58,6 @@ const label = ariaLabel ?? 'управление меню навигации';
       this.appendChild(this.querySelector('template')!.content.cloneNode(true));
       this.toggle = this.querySelector('button')!;
       this.menu = document.getElementById('app-navbar-menu')!;
-      // this.menu.hidden = true;
       this.check(this.media);
     }
 
@@ -74,12 +73,14 @@ const label = ariaLabel ?? 'управление меню навигации';
 
     set = (x: boolean) => {
       this.toggle.setAttribute('aria-expanded', x ? 'true' : 'false');
-      // this.menu.hidden = !x;
       x ? this.menu.removeAttribute('inert') : this.menu.setAttribute('inert', '');
     };
 
     check = (e: MediaQueryList | MediaQueryListEvent) => {
       this.set(e.matches);
+      /*e.matches
+        ? this.menu.removeAttribute('aria-owns')
+        : this.menu.setAttribute('aria-owns', 'app-navbar-menu-toggle');*/
       this.toggle.hidden = e.matches;
     };
 

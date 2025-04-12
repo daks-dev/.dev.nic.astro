@@ -71,6 +71,7 @@ const { email, telephone } = microdata.organization;
         'aria-expanded:rotate-180',
         'motion-safe:ready:transition-transform duration-300 ease-in-out'
       ]}
+      uuid='drawer'
     />
   </div>
 </aside>
@@ -84,6 +85,10 @@ const { email, telephone } = microdata.organization;
     constructor() {
       super();
       this.menu = this.querySelector('[role="menu"]')!;
+      this.setAttribute(
+        'aria-owns',
+        [...document.querySelectorAll('[id|="app-drawer-toggle"]')].map((x) => x.id).join(' ')
+      );
     }
 
     connectedCallback() {

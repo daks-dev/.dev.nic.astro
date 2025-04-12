@@ -7,17 +7,26 @@ type Props = Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-co
   icon: string;
   class?: ClassValue;
   size?: number | string;
+  uuid?: string;
 };
 
-const { icon, class: className, size = '1.5em', 'aria-label': ariaLabel, ...props } = Astro.props;
+const {
+  icon,
+  class: className,
+  size = '1.5em',
+  uuid,
+  'aria-label': ariaLabel,
+  ...props
+} = Astro.props;
 
-const label = ariaLabel ?? 'управление боковой панелью';
+const id = `app-drawer-toggle${uuid ? `-${uuid}` : ''}`;
+const label = `${ariaLabel ?? 'управление боковой панелью'}${uuid ? ` [${uuid}]` : ''}`;
 ---
 
 <app-drawer-toggle>
   <template>
     <button
-      id='app-drawer-toggle'
+      {id}
       class={twMerge('p-2', 'text-primary-500', className)}
       aria-label={label}
       aria-expanded='false'
