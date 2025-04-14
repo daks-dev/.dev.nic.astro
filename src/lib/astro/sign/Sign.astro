@@ -2,22 +2,12 @@
 import { twMerge } from '../../tailwind/tailwind-merge.js';
 import type { SignAttributes as Props } from './index.d.ts';
 
-const {
-  icon,
-  class: className,
-  link = false,
-  small = false,
-  auto = false,
-  dark = false,
-  light = false,
-  ...props
-}: Props = Astro.props;
+const { custom, class: className, link, small, auto, dark, light, ...props }: Props = Astro.props;
 ---
 
 <div
   class={twMerge(
     'absolute left-1 top-1 z-10',
-    small ? 'size-5' : 'size-7',
     (auto || light || dark) && 'rounded-full p-1',
     light && 'bg-white/20',
     dark && 'bg-black/20',
@@ -28,5 +18,5 @@ const {
     className
   )}
   {...props}>
-  <span class:list={[icon, 'size-full']}></span>
+  <span class={twMerge('block', small ? 'size-4' : 'size-6', custom)}></span>
 </div>

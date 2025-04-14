@@ -1,6 +1,5 @@
 ---
 import { twMerge } from '../../tailwind/tailwind-merge.js';
-import Icon from '../icon/Icon.astro';
 import type { NavLink } from '../index.d.ts';
 
 type Props = NavLink & {
@@ -38,11 +37,10 @@ const current =
   <slot>
     {
       icon ? (
-        <Icon
-          {icon}
-          class='disabled'>
-          {label}
-        </Icon>
+        <span
+          class={twMerge('bg-only bold', icon)}
+          set:html={label}
+        />
       ) : (
         <Fragment set:html={label} />
       )

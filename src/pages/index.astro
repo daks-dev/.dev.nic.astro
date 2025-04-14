@@ -92,7 +92,7 @@ const customers = (
               class='sr-only'
               set:text='позвонить'
             />
-            <span class:list={['icon-[ph--phone-call]', 'size-14']}></span>
+            <span class:list={['iconify ph--phone-call', 'block size-14']}></span>
           </a>
           <a
             class:list={[
@@ -107,7 +107,7 @@ const customers = (
               class='sr-only'
               set:text='отправить сообщение'
             />
-            <span class:list={['icon-[ph--envelope]', 'size-16']}></span>
+            <span class:list={['iconify ph--envelope', 'block size-16']}></span>
           </a>
         </div>
         <div class='xs:flex hidden flex-col gap-y-2 text-slate-600 dark:text-slate-400'>
@@ -191,7 +191,7 @@ const customers = (
         ]}
         custom={{
           inner: {
-            sign: 'top-1/2 left-1/2 h-10 w-10 -translate-1/2 opacity-50',
+            sign: 'top-1/2 left-1/2 -translate-1/2 p-2 opacity-80',
             caption: ['absolute bottom-0 left-0 right-0 py-1 px-2'],
             title: 'text-sm text-white text-ellipsis font-normal truncate'
           }
@@ -209,7 +209,7 @@ const customers = (
         duration={20000}
         stream
         sign={{
-          icon: 'icon-[ph--link]',
+          custom: ['iconify ph--link', 'size-8'],
           link: true,
           dark: true
         }}
@@ -274,7 +274,7 @@ const customers = (
           delay={5000}
           autoplay
           sign={{
-            icon: 'icon-[ph--link]',
+            custom: 'iconify ph--link',
             link: true,
             dark: true
           }}

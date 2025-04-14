@@ -1,5 +1,4 @@
 ---
-// import { getImage } from 'astro:assets';
 import { Img, Link } from '@lib/astro';
 import DrawerToggle from '../drawer/DrawerToggle.astro';
 import NavbarMenu from './NavbarMenu.astro';
@@ -34,9 +33,9 @@ const src = await getImage({
   <div class:list={['flex items-center justify-between', 'menu-header']}>
     <div class='-ml-3.5 flex items-center gap-x-7'>
       <DrawerToggle
-        class:list={[
-          'icon-[ph--dots-three-outline-vertical]',
-          'size-7 p-1.5',
+        custom={['iconify ph--dots-three-outline-vertical', 'block size-7']}
+        class={[
+          'p-1.5',
           'text-primary-500',
           'aria-expanded:rotate-90',
           'motion-safe:ready:transition-transform duration-300 ease-in-out'
@@ -63,7 +62,15 @@ const src = await getImage({
         />
       </Link>
     </div>
-    <NavbarMenuToggle />
+    <NavbarMenuToggle
+      custom={['iconify ph--list', 'block size-6']}
+      class={[
+        'p-2',
+        'text-primary-500',
+        'rounded-full',
+        'shadow-2xs shadow-gray-400 hover:shadow-md dark:shadow-gray-950'
+      ]}
+    />
   </div>
   <NavbarMenu items={nav.navbar}>
     <div
@@ -83,5 +90,8 @@ const src = await getImage({
       </div>
     </div>
   </NavbarMenu>
-  <ToTop class:list={['mt-8 w-14 p-3', 'bg-gray-300/50 dark:bg-gray-700/50', 'rounded-full']} />
+  <ToTop
+    custom={['iconify ph--arrow-fat-lines-up-duotone', 'size-8']}
+    class={['mt-8 p-2', 'text-slate-500', 'bg-gray-300/50 dark:bg-gray-700/50', 'rounded-full']}
+  />
 </nav>

@@ -5,7 +5,9 @@
 @import '@lib/tailwind/index.css';
 @source '../';
 
-@plugin "@iconify/tailwind4";
+@plugin "@iconify/tailwind4" {
+  prefixes: ph;
+}
 
 @theme {
   --breakpoint-bp: 58rem;

@@ -33,32 +33,34 @@ const { email, telephone } = microdata.organization;
   <DrawerMenu class='grow overflow-y-auto pb-8 pt-4' />
   <div
     class:list={[
-      'flex flex-col items-center gap-y-5',
+      'flex flex-col items-center gap-y-2',
       'w-12 py-5',
       'text-primary-500',
       'border-l border-gray-200 dark:border-gray-700/50'
     ]}>
     <a
-      class:list={['icon-[ph--phone-call]', 'size-6 p-2']}
+      class='p-2'
       href=`tel://${telephone.replace(/[\s-()]/g, '')}`
       aria-label='позвонить'>
       <span
         class='sr-only'
         set:text='позвонить'
       />
+      <span class:list={['iconify ph--phone-call', 'block size-6']}></span>
     </a>
     <a
-      class:list={['icon-[ph--envelope]', 'mb-5 size-6 p-2']}
+      class='mb-5 p-2'
       href=`mailto:${email}`
       aria-label='отправить сообщение'>
       <span
         class='sr-only'
         set:text='отправить сообщение'
       />
+      <span class:list={['iconify ph--envelope', 'block size-6']}></span>
     </a>
 
     <Link
-      class:list={['icon-[ph--buildings]', 'size-6 p-2', 'page:text-theme-header']}
+      class:list={['p-2', 'page:text-theme-header']}
       href='/projects'
       aria-label='реализованные проекты'
       itemprop='relatedLink'>
@@ -66,9 +68,10 @@ const { email, telephone } = microdata.organization;
         class='sr-only'
         set:text='реализованные проекты'
       />
+      <span class:list={['iconify ph--buildings', 'block size-6']}></span>
     </Link>
     <Link
-      class:list={['icon-[ph--certificate]', 'size-6 p-2', 'page:text-theme-header']}
+      class:list={['p-2', 'page:text-theme-header']}
       href='/permissions'
       aria-label='допуски и сертификаты'
       itemprop='relatedLink'>
@@ -76,9 +79,10 @@ const { email, telephone } = microdata.organization;
         class='sr-only'
         set:text='допуски и сертификаты'
       />
+      <span class:list={['iconify ph--certificate', 'block size-6']}></span>
     </Link>
     <Link
-      class:list={['icon-[ph--trophy]', 'size-6 p-2', 'page:text-theme-header']}
+      class:list={['p-2', 'page:text-theme-header']}
       href='/feedbacks'
       aria-label='отзывы заказчиков'
       itemprop='relatedLink'>
@@ -86,13 +90,13 @@ const { email, telephone } = microdata.organization;
         class='sr-only'
         set:text='отзывы заказчиков'
       />
+      <span class:list={['iconify ph--trophy', 'block size-6']}></span>
     </Link>
 
     <DrawerToggle
-      class:list={[
-        'icon-[ph--sign-in]',
-        'size-6 p-2',
-        'mt-auto',
+      custom={['iconify ph--sign-in', 'size-6']}
+      class={[
+        'p-2 mt-auto',
         'aria-expanded:rotate-180',
         'motion-safe:ready:transition-transform duration-500 ease-in-out'
       ]}

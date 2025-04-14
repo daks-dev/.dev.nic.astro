@@ -1,6 +1,6 @@
 ---
 import { twMerge } from '@lib';
-import { Icon, Sign } from '@lib/astro';
+import { Sign } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
@@ -14,6 +14,7 @@ const {
   children,
   class: className,
   href,
+  itemprop = 'relatedLink',
   size = '4em',
   animate, // 'animate-pulse hover:animation-paused';
   ...props
@@ -32,11 +33,13 @@ const {
     className
   )}
   {href}
+  {itemprop}
   {...props}>
   <Sign
-    icon='icon-[ph--link]'
+    custom={['iconify ph--link', 'size-8']}
+    class='left-auto right-2 top-2 p-2 opacity-50'
     link
-    small
+    dark
   />
   <slot name='header' />
   <div class='mb-7 mt-2 flex grow flex-col justify-center pl-4'>
@@ -52,11 +55,9 @@ const {
     </slot>
   </div>
   <div class='flex items-start gap-5'>
-    <Icon
-      icon='user-circle'
-      class='drop-shadow-gray-500 dark:drop-shadow-black drop-shadow-md'
-      {size}
-    />
+    <div class='drop-shadow-gray-500 dark:drop-shadow-black drop-shadow-md'>
+      <span class:list={['iconify ph--user-circle', 'bold size-16']}></span>
+    </div>
     <div class='flex grow flex-col gap-3 opacity-75'>
       <small>руководитель направления:</small>
       <div class='transition-easy flex grow flex-col gap-2 opacity-75'>

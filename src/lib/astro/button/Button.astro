@@ -1,16 +1,14 @@
 ---
 import { twMerge } from '../../tailwind/tailwind-merge.js';
-import Icon from '../icon/Icon.astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
   class?: ClassValue;
+  icon?: ClassValue;
   label?: string;
-  icon?: string;
-  size?: number | string;
 };
 
-const { class: className, label, icon, size, ...props } = Astro.props;
+const { class: className, icon, label, ...props } = Astro.props;
 ---
 
 <button
@@ -21,10 +19,9 @@ const { class: className, label, icon, size, ...props } = Astro.props;
   <slot>
     {
       icon ? (
-        <Icon
-          {icon}
-          class='disabled'
-          {size}
+        <span
+          class={twMerge('bg-only bold', icon)}
+          set:html={label}
         />
       ) : (
         <Fragment set:html={label} />

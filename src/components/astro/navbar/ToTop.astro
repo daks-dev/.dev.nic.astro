@@ -1,22 +1,21 @@
 ---
 import { twMerge } from '@lib';
-import { Icon } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'inert' | 'tabindex'> & {
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'inert'> & {
+  custom: ClassValue;
   class?: ClassValue;
-  icon?: string;
-  label?: string;
   duration?: number;
   speed?: number;
 };
 
 const {
+  custom,
   class: className,
-  icon = 'arrow-fat-lines-up-duotone',
+  tabindex = '-1',
+  'aria-label': ariaLabel,
   duration = 300,
   speed = duration * 5,
-  'aria-label': ariaLabel,
   ...props
 } = Astro.props;
 
@@ -27,16 +26,16 @@ const label = ariaLabel ?? 'перемотка наверх';
   <template>
     <button
       class={twMerge(
-        'fixed right-4 top-12 z-40 flex w-10',
+        'fixed right-4 top-12 z-40',
         'origin-center opacity-30 hover:opacity-100',
-        'inert:disabled inert:scale-0 inert:opacity-0',
+        'inert:scale-0 inert:opacity-0',
         'select-none',
         'motion-safe:ready:transition delay-150 ease-in-out',
         className
       )}
       style={`transition-duration: ${duration}ms`}
       inert
-      tabindex='-1'
+      {tabindex}
       aria-label={label}
       data-speed={speed}
       {...props}>
@@ -45,10 +44,7 @@ const label = ariaLabel ?? 'перемотка наверх';
         set:text={label}
       />
       <slot>
-        <Icon
-          {icon}
-          class='disabled h-auto w-full'
-        />
+        <span class={twMerge('block', custom)}></span>
       </slot>
     </button>
   </template>

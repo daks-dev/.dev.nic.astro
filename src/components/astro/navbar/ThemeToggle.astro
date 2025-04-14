@@ -1,6 +1,5 @@
 ---
 import { twMerge } from '@lib';
-import { Icon } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
@@ -28,9 +27,10 @@ const label = ariaLabel ?? 'цветовая тема';
     <button
       class={twMerge(
         'group',
-        'flex items-center',
-        'rounded-full bg-neutral-200 dark:bg-gray-800',
-        'shadow-inset shadow-slate-300 dark:shadow-slate-700',
+        'my-1 flex items-center',
+        'select-none',
+        'rounded-full border border-gray-300 dark:border-gray-700',
+        'shadow-inset shadow-slate-300 dark:shadow-slate-600',
         'motion-safe:ready:transition-colors duration-200',
         className
       )}
@@ -40,23 +40,17 @@ const label = ariaLabel ?? 'цветовая тема';
         class='sr-only'
         set:text={label}
       />
-      <span
+      <div
         class:list={[
           'toggler',
           'dark:text-theme-plain text-white',
           'dark:before:translate-x-full'
         ]}>
-        <Icon
-          icon='sun'
-          class='disabled'
-        />
-      </span>
-      <span class:list={['relative z-10 flex size-8 p-2', 'text-theme-plain dark:text-black']}>
-        <Icon
-          icon='moon-stars'
-          class='disabled'
-        />
-      </span>
+        <span class:list={['iconify ph--sun', 'block size-5']}></span>
+      </div>
+      <div class:list={['relative z-10 flex p-1.5', 'text-theme-plain dark:text-black']}>
+        <span class:list={['iconify ph--moon-stars', 'block size-5']}></span>
+      </div>
     </button>
   </template>
 </app-theme-toggle>
@@ -65,7 +59,7 @@ const label = ariaLabel ?? 'цветовая тема';
   @reference "@styles/global.css";
 
   .toggler {
-    @apply relative z-10 flex size-8 p-2;
+    @apply relative z-10 flex p-1.5;
     &::before {
       @apply content-empty;
       @apply absolute inset-0 -z-10;

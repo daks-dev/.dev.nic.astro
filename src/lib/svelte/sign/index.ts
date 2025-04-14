@@ -1,7 +1,7 @@
 import type { SvelteHTMLElements } from 'svelte/elements';
 
 export type SignAttributes = Omit<SvelteHTMLElements['div'], 'class'> & {
-  icon: string;
+  custom: ClassValue;
   class?: ClassValue;
 } & {
   [x in 'link' | 'small' | 'light' | 'dark' | 'auto']?: boolean;

@@ -54,9 +54,9 @@ const config: any = {
           iconify: ['', 'color']
         }
       ],
-      icon: [
+      'iconify-icon': [
         {
-          icon: [(x: string) => /(\w+)--([\w\d-]+)/.test(x)]
+          icon: [(x: string) => /^\[([\w-]+)--([\w\d-]+)\]$/.test(x)]
         }
       ]
     }
@@ -65,10 +65,12 @@ const config: any = {
   }
 };
 
-const expand: any = import.meta.glob('/twmerge.config.js', {
-  eager: true,
-  import: 'default'
-})['/twmerge.config.js'];
+const expand: any = Object.values(
+  import.meta.glob('/twmerge.config.(js|ts)', {
+    eager: true,
+    import: 'default'
+  })
+)[0];
 
 if (expand) {
   [

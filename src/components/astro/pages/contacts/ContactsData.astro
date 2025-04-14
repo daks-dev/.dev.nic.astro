@@ -13,7 +13,7 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
   {itemtype}>
   <a
     class:list={[
-      'flex items-center gap-x-4',
+      'flex items-center gap-x-3',
       'py-2 pl-2 pr-4',
       'hover:bg-slate-500/10',
       'rounded-lg'
@@ -24,7 +24,7 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
       class='sr-only'
       set:text='позвонить'
     />
-    <span class:list={['icon-[ph--phone-call]', 'mt-1 block size-10']}></span>
+    <span class:list={['iconify ph--phone-call', 'mt-1 block size-10']}></span>
     <span
       itemprop='telephone'
       set:text={telephone}
@@ -32,7 +32,7 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
   </a>
   <a
     class:list={[
-      'flex items-center gap-x-4',
+      'flex items-center gap-x-3',
       'py-2 pl-2 pr-4',
       'hover:bg-slate-500/10',
       'rounded-lg'
@@ -43,7 +43,7 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
       class='sr-only'
       set:text='отправить сообщение'
     />
-    <span class:list={['icon-[ph--envelope]', 'mt-1 block size-10']}></span>
+    <span class:list={['iconify ph--envelope', 'mt-1 block size-10']}></span>
     <span
       itemprop='email'
       set:text={email}
@@ -57,7 +57,7 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
     <a
       rel='nofollow noreferrer'
       class:list={[
-        'flex items-center gap-x-4',
+        'flex items-center gap-x-3',
         'py-2 pl-2 pr-4',
         'hover:bg-slate-500/10',
         'rounded-lg'
@@ -65,7 +65,7 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
       href={address.url}
       target='_blank'
       itemprop='url'>
-      <span class:list={['icon-[ph--map-pin]', 'mt-1 block size-10']}></span>
+      <span class:list={['iconify ph--map-pin', 'mt-1 block size-10']}></span>
       <div>
         <span
           itemprop='postalCode'

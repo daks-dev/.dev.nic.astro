@@ -24,7 +24,7 @@
   const sign = __sign
     ? typeof __sign === 'string'
       ? {
-          icon: __sign,
+          custom: __sign,
           dark: true
         }
       : __sign

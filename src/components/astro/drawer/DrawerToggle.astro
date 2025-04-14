@@ -3,11 +3,12 @@ import { twMerge } from '@lib';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-controls'> & {
+  custom: ClassValue;
   class?: ClassValue;
   uuid?: string;
 };
 
-const { class: className, uuid, 'aria-label': ariaLabel, ...props } = Astro.props;
+const { custom, class: className, uuid, 'aria-label': ariaLabel, ...props } = Astro.props;
 
 const id = `app-drawer-toggle${uuid ? `-${uuid}` : ''}`;
 const label = `${ariaLabel ?? 'управление боковой панелью'}${uuid ? ` [${uuid}]` : ''}`;
@@ -17,7 +18,7 @@ const label = `${ariaLabel ?? 'управление боковой панель�
   <template>
     <button
       {id}
-      class={twMerge(className)}
+      class={twMerge('flex', className)}
       aria-label={label}
       aria-expanded='false'
       aria-controls='app-drawer'
@@ -26,6 +27,7 @@ const label = `${ariaLabel ?? 'управление боковой панель�
         class='sr-only'
         set:text={label}
       />
+      <span class={twMerge(custom)}></span>
     </button>
   </template>
 </app-drawer-toggle>
