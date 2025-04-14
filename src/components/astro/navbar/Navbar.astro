@@ -34,9 +34,11 @@ const src = await getImage({
   <div class:list={['flex items-center justify-between', 'menu-header']}>
     <div class='-ml-3.5 flex items-center gap-x-7'>
       <DrawerToggle
-        icon='dots-three-outline'
         class:list={[
-          'not-aria-expanded:rotate-90',
+          'icon-[ph--dots-three-outline-vertical]',
+          'size-7 p-1.5',
+          'text-primary-500',
+          'aria-expanded:rotate-90',
           'motion-safe:ready:transition-transform duration-300 ease-in-out'
         ]}
       />

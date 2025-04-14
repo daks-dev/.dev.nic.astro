@@ -1,6 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
-import { Figure, Icon } from '@lib/astro';
+import { Figure } from '@lib/astro';
 import type { CollectionEntry } from 'astro:content';
 
 import logo from '@assets/images/logo.webp';
@@ -37,12 +37,10 @@ const src = image
 
   <dl class='space-y-4'>
     <div class='flex items-center gap-4'>
-      <dt class='font-semibold text-slate-500'>
-        <Icon
-          icon='map-pin'
-          class='h-8 w-8 shrink-0 text-cyan-700'>
-          адрес:
-        </Icon>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='адрес'>
+        <span class:list={['icon-[ph--map-pin]', 'block size-8']}></span>
       </dt>
       <dd
         class='flex grow'
@@ -50,12 +48,10 @@ const src = image
       />
     </div>
     <div class='flex items-center gap-4'>
-      <dt class='font-semibold text-slate-500'>
-        <Icon
-          icon='phone-call'
-          class='h-8 w-8 shrink-0 text-cyan-700'>
-          телефон:
-        </Icon>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='телефон'>
+        <span class:list={['icon-[ph--phone-call]', 'block size-8']}></span>
       </dt>
       <dd
         class='flex grow'
@@ -63,12 +59,10 @@ const src = image
       />
     </div>
     <div class='flex items-center gap-4'>
-      <dt class='font-semibold text-slate-500'>
-        <Icon
-          icon='envelope'
-          class='h-8 w-8 shrink-0 text-cyan-700'>
-          электронная почта:
-        </Icon>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='электронная почта'>
+        <span class:list={['icon-[ph--envelope]', 'block size-8']}></span>
       </dt>
       <dd
         class='flex grow'
@@ -76,12 +70,10 @@ const src = image
       />
     </div>
     <div class='flex items-center gap-4'>
-      <dt class='font-semibold text-slate-500'>
-        <Icon
-          icon='link'
-          class='h-8 w-8 shrink-0 text-cyan-700'>
-          сайт:
-        </Icon>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='сайт'>
+        <span class:list={['icon-[ph--link-simple]', 'block size-8']}></span>
       </dt>
       <dd
         class='flex grow'

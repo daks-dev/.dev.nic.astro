@@ -6,11 +6,11 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import yaml from '@rollup/plugin-yaml';
 
-import svelte from '@astrojs/svelte';
 import mdx from '@astrojs/mdx';
+import svelte from '@astrojs/svelte';
 
-import sitemap from '@astrojs/sitemap';
 import compress from 'astro-compress';
+import sitemap from '@astrojs/sitemap';
 
 import AstroPWA from '@vite-pwa/astro';
 

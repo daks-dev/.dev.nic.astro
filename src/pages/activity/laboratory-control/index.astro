@@ -1,5 +1,5 @@
 ---
-import { Icon, Link } from '@lib/astro';
+import { Link } from '@lib/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
@@ -28,21 +28,24 @@ const description = 'Лабораторное сопровождение стр�
                 'w-full px-3 py-4',
                 'flex flex-col items-center',
                 'text-center text-base',
-                'hover:bg-slate-500/20',
+                'bg-slate-500/10 hover:bg-slate-500/20',
                 'rounded-xl'
               ]}
               href={`/activity/laboratory-control${href}`}
               {itemprop}
               {...item}>
-              <Icon
-                class={[
-                  'text-slate-600 group-hover:scale-125 group-hover:text-current',
-                  'vector-non-scaling-stroke stroke-1 transition duration-500 ease-in-out'
+              <span
+                class:list={[
+                  'icon-[ph--file-text]',
+                  'size-18 p-1',
+                  'group-hover:text-theme-link text-slate-600 group-hover:scale-125',
+                  'motion-safe:ready:transition duration-500 ease-in-out'
                 ]}
-                icon='file-text'
-                size='7em'
               />
-              <b set:text={label} />
+              <b
+                class='pb-2'
+                set:text={label}
+              />
             </Link>
           ))}
         </div>

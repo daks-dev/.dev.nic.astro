@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
-import { Icon, Video, BindCarouselData } from '@lib/astro';
+import { Video, BindCarouselData } from '@lib/astro';
 
 import microdata from '@app/configs/microdata';
 
@@ -81,7 +81,7 @@ const customers = (
         <div class='xs:hidden flex justify-around'>
           <a
             class:list={[
-              'p-3',
+              'flex size-20 items-center justify-center',
               // 'text-slate-500',
               'rounded-lg',
               'shadow-xs shadow-gray-400 dark:shadow-black'
@@ -92,17 +92,14 @@ const customers = (
               class='sr-only'
               set:text='позвонить'
             />
-            <Icon
-              icon='phone-call'
-              class='size-16'
-            />
+            <span class:list={['icon-[ph--phone-call]', 'size-14']}></span>
           </a>
           <a
             class:list={[
-              'p-3',
+              'flex size-20 items-center justify-center',
               // 'text-slate-500',
               'rounded-lg',
-              'shadow-xs shadow-gray-400 dark:shadow-black'
+              'shadow-sm shadow-gray-400 dark:shadow-black'
             ]}
             href=`mailto:${email}`
             aria-label='отправить сообщение'>
@@ -110,10 +107,7 @@ const customers = (
               class='sr-only'
               set:text='отправить сообщение'
             />
-            <Icon
-              icon='envelope'
-              class='size-16'
-            />
+            <span class:list={['icon-[ph--envelope]', 'size-16']}></span>
           </a>
         </div>
         <div class='xs:flex hidden flex-col gap-y-2 text-slate-600 dark:text-slate-400'>
@@ -215,7 +209,7 @@ const customers = (
         duration={20000}
         stream
         sign={{
-          icon: 'link',
+          icon: 'icon-[ph--link]',
           link: true,
           dark: true
         }}
@@ -280,7 +274,7 @@ const customers = (
           delay={5000}
           autoplay
           sign={{
-            icon: 'link',
+            icon: 'icon-[ph--link]',
             link: true,
             dark: true
           }}

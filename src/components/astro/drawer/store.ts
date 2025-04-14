@@ -1,3 +1,3 @@
 import { atom } from 'nanostores';
 
-export const $drawer = atom<boolean>(false);
+export const drawer = atom<boolean>(false);

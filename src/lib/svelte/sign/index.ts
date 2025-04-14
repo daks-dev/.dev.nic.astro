@@ -1,6 +1,9 @@
-import type { IconAttributes } from '../icon/index.d.ts';
+import type { SvelteHTMLElements } from 'svelte/elements';
 
-export type SignAttributes = IconAttributes & {
+export type SignAttributes = Omit<SvelteHTMLElements['div'], 'class'> & {
+  icon: string;
+  class?: ClassValue;
+} & {
   [x in 'link' | 'small' | 'light' | 'dark' | 'auto']?: boolean;
 };
 

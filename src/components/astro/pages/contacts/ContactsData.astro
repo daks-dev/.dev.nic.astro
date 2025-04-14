@@ -1,6 +1,4 @@
 ---
-import { Icon } from '@lib/astro';
-
 import microdata from '@app/configs/microdata';
 const { itemtype, name, logo, email, telephone, address } = microdata.organization;
 
@@ -14,34 +12,38 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
   itemscope
   {itemtype}>
   <a
-    class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-blue-500'
+    class:list={[
+      'flex items-center gap-x-4',
+      'py-2 pl-2 pr-4',
+      'hover:bg-slate-500/10',
+      'rounded-lg'
+    ]}
     href=`tel://${telephone.replace(/[\s-()]/g, '')}`
     aria-label='позвонить'>
     <span
       class='sr-only'
       set:text='позвонить'
     />
-    <Icon
-      icon='phone-call'
-      class='-mt-0.5 inline h-10 w-10 px-1'
-    />
+    <span class:list={['icon-[ph--phone-call]', 'mt-1 block size-10']}></span>
     <span
       itemprop='telephone'
       set:text={telephone}
     />
   </a>
   <a
-    class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-blue-500'
+    class:list={[
+      'flex items-center gap-x-4',
+      'py-2 pl-2 pr-4',
+      'hover:bg-slate-500/10',
+      'rounded-lg'
+    ]}
     href=`mailto:${email}`
     aria-label='отправить сообщение'>
     <span
       class='sr-only'
       set:text='отправить сообщение'
     />
-    <Icon
-      icon='envelope'
-      class='-mt-px inline h-10 w-10 px-1'
-    />
+    <span class:list={['icon-[ph--envelope]', 'mt-1 block size-10']}></span>
     <span
       itemprop='email'
       set:text={email}
@@ -54,26 +56,30 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
     itemtype={address.itemtype}>
     <a
       rel='nofollow noreferrer'
-      class='rounded-lg py-2 pl-12 pr-2 -indent-12 hover:bg-slate-500/10 hover:text-blue-500'
+      class:list={[
+        'flex items-center gap-x-4',
+        'py-2 pl-2 pr-4',
+        'hover:bg-slate-500/10',
+        'rounded-lg'
+      ]}
       href={address.url}
       target='_blank'
       itemprop='url'>
-      <Icon
-        icon='map-pin'
-        class='-mt-0.5 inline h-10 w-10 px-1'
-      />
-      <span
-        itemprop='postalCode'
-        set:text={address.postalCode}
-      />,
-      <span
-        itemprop='addressLocality'
-        set:html={address.addressLocality}
-      />,
-      <span
-        itemprop='streetAddress'
-        set:html={address.streetAddress}
-      />
+      <span class:list={['icon-[ph--map-pin]', 'mt-1 block size-10']}></span>
+      <div>
+        <span
+          itemprop='postalCode'
+          set:text={address.postalCode}
+        />,
+        <span
+          itemprop='addressLocality'
+          set:html={address.addressLocality}
+        />,
+        <span
+          itemprop='streetAddress'
+          set:html={address.streetAddress}
+        />
+      </div>
     </a>
     <meta
       itemprop='addressRegion'

@@ -43,22 +43,22 @@ const config: any = {
           rounded: ['5xl', '6xl']
         }
       ],
-      'inset-shadow': [
-        {
-          'inset-shadow': ['var']
-        }
-      ],
-      'text-shadow': [
-        {
-          'text-shadow': ['', 'none', (x: string) => Number(x) > 0]
-        }
-      ],
       'bg-image': [
         {
           bg: ['-loading', '-waiting']
         }
       ],
-      'pointer-effects': ['enabled', 'disabled']
+      'pointer-effects': ['enabled', 'disabled'],
+      iconify: [
+        {
+          iconify: ['', 'color']
+        }
+      ],
+      icon: [
+        {
+          icon: [(x: string) => /(\w+)--([\w\d-]+)/.test(x)]
+        }
+      ]
     }
     // conflictingClassGroups: {}
     // orderSensitiveModifiers: []

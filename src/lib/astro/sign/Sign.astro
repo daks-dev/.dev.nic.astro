@@ -1,8 +1,9 @@
 ---
-import Icon from '../icon/Icon.astro';
+import { twMerge } from '../../tailwind/tailwind-merge.js';
 import type { SignAttributes as Props } from './index.d.ts';
 
 const {
+  icon,
   class: className,
   link = false,
   small = false,
@@ -13,11 +14,11 @@ const {
 }: Props = Astro.props;
 ---
 
-<Icon
-  class={[
+<div
+  class={twMerge(
     'absolute left-1 top-1 z-10',
     small ? 'size-5' : 'size-7',
-    (auto || light || dark) && 'rounded-full p-1 shadow-md',
+    (auto || light || dark) && 'rounded-full p-1',
     light && 'bg-white/20',
     dark && 'bg-black/20',
     auto && 'bg-black/20 dark:bg-white/20',
@@ -25,6 +26,7 @@ const {
     'opacity-70',
     'group-hover:mt-2 group-hover:animate-bounce group-hover:opacity-100',
     className
-  ]}
-  {...props}
-/>
+  )}
+  {...props}>
+  <span class:list={[icon, 'size-full']}></span>
+</div>

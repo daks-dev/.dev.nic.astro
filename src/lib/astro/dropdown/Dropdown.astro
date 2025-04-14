@@ -2,7 +2,6 @@
 import { twMerge } from '../../tailwind/tailwind-merge.js';
 import Button from '../button/Button.astro';
 import Link from '../link/Link.astro';
-import Icon from '../icon/Icon.astro';
 import { uuid as u } from '../../utils/index.js';
 import type { HTMLAttributes } from 'astro/types';
 import type { NavItem } from '../index.d.ts';
@@ -35,12 +34,15 @@ const Component = href ? Link : Button;
     {...propsToggle}
     aria-expanded='false'
     aria-controls={`app-dropdown-appear${uuid}`}>
-    <Icon
+    <span
       slot='after'
-      icon='caret-up'
-      class='disabled -rotate-90 group-aria-expanded:rotate-180'
-      size='.75em'
-    />
+      class:list={[
+        'icon-[ph--caret-left-bold] font-bold',
+        'block size-3',
+        'group-aria-expanded:-rotate-90',
+        'disabled'
+      ]}
+    ></span>
   </Component>
 
   <div

@@ -1,6 +1,9 @@
-import type { IconAttributes } from '../icon/index.d.ts';
+import type { HTMLAttributes } from 'astro/types';
 
-export type SignAttributes = IconAttributes & {
+export type SignAttributes = Omit<HTMLAttributes<'div'>, 'class'> & {
+  icon: string;
+  class?: ClassValue;
+} & {
   [x in 'link' | 'small' | 'light' | 'dark' | 'auto']?: boolean;
 };
 

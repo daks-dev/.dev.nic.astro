@@ -1,7 +1,8 @@
+// <reference types="vite/client" />
 // <reference types="astro" />
 // <reference types="astro/client" />
 // <reference types="svelte" />
-/// <reference types="@sveltejs/kit" />
+// <reference types="@sveltejs/kit" />
 
 /*
 type Astro = import('astro').AstroGlobal;

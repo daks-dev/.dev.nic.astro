@@ -1,15 +1,15 @@
 <script lang="ts">
-  import Icon from '../icon/Icon.svelte';
+  import { twMerge } from '../../tailwind/tailwind-merge.js';
   import type { SignAttributes as Props } from './index.d.ts';
 
-  const { class: className, link, small, auto, dark, light, ...rest }: Props = $props();
+  const { icon, class: className, link, small, auto, dark, light, ...rest }: Props = $props();
 </script>
 
-<Icon
-  class={[
+<div
+  class={twMerge(
     'absolute left-1 top-1 z-10',
     small ? 'size-5' : 'size-7',
-    (auto || light || dark) && 'rounded-full p-1 shadow-md',
+    (auto || light || dark) && 'rounded-full p-1',
     light && 'bg-white/20',
     dark && 'bg-black/20',
     auto && 'bg-black/20 dark:bg-white/20',
@@ -17,5 +17,7 @@
     'opacity-70',
     'group-hover:mt-2 group-hover:animate-bounce group-hover:opacity-100',
     className
-  ]}
-  {...rest} />
+  )}
+  {...rest}>
+  <span class={[icon, 'size-full']}></span>
+</div>

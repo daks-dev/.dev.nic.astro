@@ -1,23 +1,13 @@
 ---
 import { twMerge } from '@lib';
-import { Icon } from '@lib/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-controls'> & {
-  icon: string;
   class?: ClassValue;
-  size?: number | string;
   uuid?: string;
 };
 
-const {
-  icon,
-  class: className,
-  size = '1.5em',
-  uuid,
-  'aria-label': ariaLabel,
-  ...props
-} = Astro.props;
+const { class: className, uuid, 'aria-label': ariaLabel, ...props } = Astro.props;
 
 const id = `app-drawer-toggle${uuid ? `-${uuid}` : ''}`;
 const label = `${ariaLabel ?? 'управление боковой панелью'}${uuid ? ` [${uuid}]` : ''}`;
@@ -27,7 +17,7 @@ const label = `${ariaLabel ?? 'управление боковой панель�
   <template>
     <button
       {id}
-      class={twMerge('p-2', 'text-primary-500', className)}
+      class={twMerge(className)}
       aria-label={label}
       aria-expanded='false'
       aria-controls='app-drawer'
@@ -36,16 +26,12 @@ const label = `${ariaLabel ?? 'управление боковой панель�
         class='sr-only'
         set:text={label}
       />
-      <Icon
-        {icon}
-        {size}
-      />
     </button>
   </template>
 </app-drawer-toggle>
 
 <script>
-  import { $drawer } from './store';
+  import { drawer } from './store';
 
   class AppDrawerToggle extends HTMLElement {
     toggle: HTMLButtonElement;
@@ -58,7 +44,7 @@ const label = `${ariaLabel ?? 'управление боковой панель�
     }
 
     connectedCallback() {
-      $drawer.listen((x) => this.toggle.setAttribute('aria-expanded', String(x)));
+      drawer.listen((x) => this.toggle.setAttribute('aria-expanded', String(x)));
       this.toggle.addEventListener('click', this.handle);
     }
 
@@ -66,7 +52,7 @@ const label = `${ariaLabel ?? 'управление боковой панель�
 
     handle = (e: Event) => {
       e.preventDefault();
-      $drawer.set(!$drawer.get());
+      drawer.set(!drawer.get());
     };
   }
 
