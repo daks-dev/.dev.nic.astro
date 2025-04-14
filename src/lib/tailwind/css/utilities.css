@@ -46,7 +46,7 @@
 }
 */
 @utility bg-only {
-  display: inline-block;
+  display: flex;
   overflow: hidden;
   text-align: left;
   text-indent: -9999em;

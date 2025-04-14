@@ -39,58 +39,63 @@ const { email, telephone } = microdata.organization;
       'border-l border-gray-200 dark:border-gray-700/50'
     ]}>
     <a
-      class='p-2'
+      class:list={['p-2', 'text-primary-500']}
       href=`tel://${telephone.replace(/[\s-()]/g, '')}`
       aria-label='позвонить'>
       <span
-        class='sr-only'
+        class:list={['iconify ph--phone-call', 'bg-only size-6']}
         set:text='позвонить'
       />
-      <span class:list={['iconify ph--phone-call', 'block size-6']}></span>
     </a>
     <a
-      class='mb-5 p-2'
+      class:list={['mb-5 p-2', 'text-primary-500']}
       href=`mailto:${email}`
       aria-label='отправить сообщение'>
       <span
-        class='sr-only'
+        class:list={['iconify ph--envelope', 'bg-only size-6']}
         set:text='отправить сообщение'
       />
-      <span class:list={['iconify ph--envelope', 'block size-6']}></span>
     </a>
 
     <Link
-      class:list={['p-2', 'page:text-theme-header']}
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+      href='/activity'
+      aria-label='деятельность'
+      itemprop='relatedLink'>
+      <span
+        class:list={['iconify ph--hard-hat', 'bg-only size-6']}
+        set:text='деятельность'
+      />
+    </Link>
+    <Link
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
       href='/projects'
       aria-label='реализованные проекты'
       itemprop='relatedLink'>
       <span
-        class='sr-only'
+        class:list={['iconify ph--buildings', 'bg-only size-6']}
         set:text='реализованные проекты'
       />
-      <span class:list={['iconify ph--buildings', 'block size-6']}></span>
     </Link>
     <Link
-      class:list={['p-2', 'page:text-theme-header']}
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
       href='/permissions'
       aria-label='допуски и сертификаты'
       itemprop='relatedLink'>
       <span
-        class='sr-only'
+        class:list={['iconify ph--certificate', 'bg-only size-6']}
         set:text='допуски и сертификаты'
       />
-      <span class:list={['iconify ph--certificate', 'block size-6']}></span>
     </Link>
     <Link
-      class:list={['p-2', 'page:text-theme-header']}
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
       href='/feedbacks'
       aria-label='отзывы заказчиков'
       itemprop='relatedLink'>
       <span
-        class='sr-only'
+        class:list={['iconify ph--trophy', 'bg-only size-6']}
         set:text='отзывы заказчиков'
       />
-      <span class:list={['iconify ph--trophy', 'block size-6']}></span>
     </Link>
 
     <DrawerToggle

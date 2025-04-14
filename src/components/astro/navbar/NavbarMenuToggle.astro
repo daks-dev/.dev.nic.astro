@@ -28,10 +28,9 @@ const label = ariaLabel ?? 'управление меню навигации';
       aria-label={label}
       {...props}>
       <span
-        class='sr-only'
+        class={twMerge('bg-only', custom)}
         set:text={label}
       />
-      <span class={twMerge(custom)}></span>
     </button>
   </template>
 </app-navbar-menu-toggle>

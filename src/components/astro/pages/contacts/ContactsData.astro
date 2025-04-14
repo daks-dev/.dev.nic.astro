@@ -21,10 +21,9 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
     href=`tel://${telephone.replace(/[\s-()]/g, '')}`
     aria-label='позвонить'>
     <span
-      class='sr-only'
+      class:list={['iconify ph--phone-call', 'bg-only mt-1 size-10']}
       set:text='позвонить'
     />
-    <span class:list={['iconify ph--phone-call', 'mt-1 block size-10']}></span>
     <span
       itemprop='telephone'
       set:text={telephone}
@@ -40,10 +39,9 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
     href=`mailto:${email}`
     aria-label='отправить сообщение'>
     <span
-      class='sr-only'
+      class:list={['iconify ph--envelope', 'bg-only mt-1 size-10']}
       set:text='отправить сообщение'
     />
-    <span class:list={['iconify ph--envelope', 'mt-1 block size-10']}></span>
     <span
       itemprop='email'
       set:text={email}
@@ -65,7 +63,10 @@ const canonical = import.meta.env.PUBLIC_APP_CANONICAL
       href={address.url}
       target='_blank'
       itemprop='url'>
-      <span class:list={['iconify ph--map-pin', 'mt-1 block size-10']}></span>
+      <span
+        class:list={['iconify ph--map-pin', 'bg-only mt-1 size-10']}
+        set:text='почтовый адрес'
+      />
       <div>
         <span
           itemprop='postalCode'

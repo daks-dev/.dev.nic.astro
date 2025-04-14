@@ -89,10 +89,9 @@ const customers = (
             href=`tel://${telephone.replace(/[\s-()]/g, '')}`
             aria-label='позвонить'>
             <span
-              class='sr-only'
+              class:list={['iconify ph--phone-call', 'bg-only size-14']}
               set:text='позвонить'
             />
-            <span class:list={['iconify ph--phone-call', 'block size-14']}></span>
           </a>
           <a
             class:list={[
@@ -104,16 +103,16 @@ const customers = (
             href=`mailto:${email}`
             aria-label='отправить сообщение'>
             <span
-              class='sr-only'
+              class:list={['iconify ph--envelope', 'bg-only size-16']}
               set:text='отправить сообщение'
             />
-            <span class:list={['iconify ph--envelope', 'block size-16']}></span>
           </a>
         </div>
         <div class='xs:flex hidden flex-col gap-y-2 text-slate-600 dark:text-slate-400'>
           <a
             class='text-3xl font-semibold transition duration-200 ease-in-out hover:text-blue-500 xl:text-4xl'
             href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+            aria-label='позвонить'
             itemprop='telephone'
             set:text={telephone}
           />
@@ -126,6 +125,7 @@ const customers = (
             class='text-lg transition-all duration-200 ease-in-out hover:text-blue-500 xl:text-xl'
             href={address.url}
             target='_blank'
+            aria-label='отправить сообщение'
             itemscope
             itemtype='https://schema.org/PostalAddress'
             itemprop='address'

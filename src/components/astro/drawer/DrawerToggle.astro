@@ -24,10 +24,9 @@ const label = `${ariaLabel ?? 'управление боковой панель�
       aria-controls='app-drawer'
       {...props}>
       <span
-        class='sr-only'
+        class={twMerge('bg-only', custom)}
         set:text={label}
       />
-      <span class={twMerge(custom)}></span>
     </button>
   </template>
 </app-drawer-toggle>
