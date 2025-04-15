@@ -1,7 +1,8 @@
 ---
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import { Figure, Sign } from '@daks.dev/astro.sdk/astro';
+import { Figure, FormattedDate, Sign } from '@daks.dev/astro.sdk/astro';
+import { BindModeList } from '@daks.dev/astro.sdk/svelte';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
@@ -54,47 +55,89 @@ const title = 'Информационная база';
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    <div
-      class:list={[
-        'grid gap-x-8 gap-y-12 max-sm:place-items-center',
-        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
-      ]}>
-      {
-        gallery.map(({ id, publishDate, src, poster, caption }) => (
-          <a
-            class:list={['group relative', 'w-full max-w-80', 'no-underline']}
-            href={`/articles/${id}`}>
-            <Sign
-              custom='iconify ph--link'
-              class='left-2 top-2'
-              link
-              dark
-            />
-            <Figure
-              class='pointer-events-none'
-              custom={{
-                img: [
-                  'mb-2',
-                  'h-auto w-full max-w-full',
-                  'aspect-video object-contain',
-                  'bg-neutral-500/10',
-                  'rounded',
-                  'shadow-md shadow-black group-hover:shadow-sm',
-                  poster === -1 && [
-                    'p-2',
-                    'border-2 border-slate-400 group-hover:border-inherit dark:border-slate-600'
+    <BindModeList
+      client:load
+      class='-mt-4 mb-4'
+      length={gallery.length}>
+      <div
+        slot='app'
+        class:list={[
+          'grid gap-x-8 gap-y-12 max-sm:place-items-center',
+          'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+        ]}>
+        {
+          gallery.map(({ id, publishDate, src, poster, caption }) => (
+            <a
+              class:list={['group relative', 'w-full max-w-80', 'no-underline']}
+              href={`/articles/${id}`}
+              itemprop='relatedLink'>
+              <Sign
+                custom='iconify ph--link'
+                class='top-2 left-2'
+                link
+                dark
+              />
+              <Figure
+                class='pointer-events-none'
+                custom={{
+                  img: [
+                    'mb-2',
+                    'h-auto w-full max-w-full',
+                    'aspect-video object-contain',
+                    'bg-neutral-500/10',
+                    'rounded',
+                    'shadow-md shadow-black group-hover:shadow-sm',
+                    poster === -1 && [
+                      'p-2',
+                      'border-2 border-slate-400 group-hover:border-inherit dark:border-slate-600'
+                    ],
+                    'transition duration-500 ease-in-out'
                   ],
-                  'transition duration-500 ease-in-out'
-                ],
-                caption: ['text-theme-plain group-hover:text-theme-link', 'transition-easy']
-              }}
-              {src}
-              {caption}
-            />
-            <small class='absolute right-2 top-2 text-black'>{publishDate}</small>
-          </a>
-        ))
-      }
-    </div>
+                  caption: ['text-theme-plain group-hover:text-theme-link', 'transition-easy']
+                }}
+                {src}
+                {caption}
+              />
+              <small class='absolute top-2 right-2 text-black'>{publishDate}</small>
+            </a>
+          ))
+        }
+      </div>
+      <div
+        slot='list'
+        class='flex flex-col'>
+        {
+          gallery.map(({ id, publishDate, caption: { title, description } }, idx) => (
+            <a
+              class:list={[
+                'group',
+                'px-2 py-4',
+                'grid grid-cols-[32px_minmax(0,_1fr)_160px] md:grid-cols-[32px_288px_minmax(0,_1fr)_160px]',
+                'items-center',
+                'no-underline',
+                'odd:bg-slate-400/20',
+                'oversee:text-sky-500 oversee:!bg-slate-400/40'
+              ]}
+              href={`/articles/${id}`}
+              itemprop='relatedLink'>
+              <small set:text={idx + 1} />
+              <span
+                class='text-slate-600 dark:text-slate-400 group-oversee:!text-inherit'
+                set:html={title}
+              />
+              <small
+                class='max-md:hidden'
+                set:html={description}
+              />
+              <FormattedDate
+                class='text-right font-mono'
+                date={publishDate ?? ''}
+                parse='YY-MM-DD'
+              />
+            </a>
+          ))
+        }
+      </div>
+    </BindModeList>
   </main>
 </Layout>

@@ -29,8 +29,6 @@
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@lib": ["src/lib"],
-      "@lib/*": ["src/lib/*"],
       "@styles/*": ["src/styles/*"]
     }
   },
@@ -45,5 +43,5 @@
     "src/**/*.astro",
     "src/**/*.svelte"
   ],
-  "exclude": ["build/", "dist/", "**/node_modules/**"]
+  "exclude": ["build/", "dev-dist/", "dist/", "**/node_modules/**"]
 }
