@@ -1,5 +1,5 @@
 ---
-import { twMerge } from '@lib';
+import { twMerge } from '@daks.dev/astro.sdk';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-controls'> & {
@@ -17,7 +17,7 @@ const label = ariaLabel ?? 'управление меню навигации';
     <button
       id='app-navbar-menu-toggle'
       class={twMerge(
-        'bp:hidden flex',
+        'flex bp:hidden',
         // 'bg-gradient-to-b',
         // 'from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900',
         //'aria-expanded:bg-gradient-to-t',
@@ -36,7 +36,7 @@ const label = ariaLabel ?? 'управление меню навигации';
 </app-navbar-menu-toggle>
 
 <script>
-  import breakpoint from '@lib/tailwind/resolve';
+  const breakpoint = import.meta.env.PUBLIC_BREAKPOINT ?? '50rem';
 
   class AppNavbarMenuToggle extends HTMLElement {
     media = window.matchMedia(`(min-width: ${breakpoint})`);

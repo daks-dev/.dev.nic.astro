@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import { twMerge } from '@lib';
-import { Head, YandexMetrika, YandexMetrikaHit } from '@lib/astro';
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Head, YandexMetrika, YandexMetrikaHit } from '@daks.dev/astro.sdk/astro';
 import { Navbar, Drawer, Footer } from '@components/astro';
 import type { HTMLAttributes } from 'astro/types';
 
@@ -22,7 +22,7 @@ const {
   title,
   description,
   robots,
-  noMetrika,
+  noMetrika, //  = import.meta.env.DEV,
   noPwa,
   ...props
 } = Astro.props;
@@ -59,7 +59,7 @@ const {
       <Footer />
     </div>
     {
-      !noMetrika && (
+      !noMetrika && import.meta.env.PROD && (
         <>
           <YandexMetrika {counter} />
           <YandexMetrikaHit

@@ -2,7 +2,7 @@
 
 /* @import 'tailwindcss'; */
 
-@import '@lib/tailwind/index.css';
+@import '@daks.dev/astro.sdk/tailwind/index.css';
 @source '../';
 
 @plugin "@iconify/tailwind4" {

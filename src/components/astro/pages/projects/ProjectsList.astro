@@ -1,8 +1,8 @@
 ---
 import { getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { twMerge } from '@lib';
-import { Figure, Sign } from '@lib/astro';
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Figure, Sign } from '@daks.dev/astro.sdk/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'div'>, 'class'> & {

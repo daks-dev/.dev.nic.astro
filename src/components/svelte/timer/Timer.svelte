@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'nanostores';
   import { persistentAtom } from '@nanostores/persistent';
-  import { twMerge } from '@lib';
+  import { twMerge } from '@daks.dev/astro.sdk';
   import type { HTMLTimeAttributes } from 'svelte/elements';
 
   type Props = Omit<HTMLTimeAttributes, 'class'> & {

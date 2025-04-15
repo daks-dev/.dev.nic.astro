@@ -1,4 +1,4 @@
-import type { NavItem } from '@lib/astro';
+import type { NavItem } from '@daks.dev/astro.sdk/astro';
 
 interface NavSidebar {
   header?: NavItem[];

@@ -1,5 +1,5 @@
 ---
-import { twMerge } from '@lib';
+import { twMerge } from '@daks.dev/astro.sdk';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'inert'> & {
@@ -48,7 +48,7 @@ const label = ariaLabel ?? 'перемотка наверх';
 </app-to-top>
 
 <script>
-  import { scroll } from '@lib';
+  import { scroll } from '@daks.dev/astro.sdk';
 
   class AppToTop extends HTMLElement {
     switch: HTMLButtonElement;

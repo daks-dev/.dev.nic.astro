@@ -59,6 +59,12 @@ export default defineConfig({
 
   vite: {
     logLevel: 'info',
+    ssr: {
+      noExternal: ['@daks.dev/astro.sdk']
+    },
+    optimizeDeps: {
+      exclude: ['@daks.dev/astro.sdk']
+    },
     // server: { fs: { strict: false },
     // build: { target: 'esnext' },
     // define: { 'process.env': process.env },
