@@ -2,3 +2,9 @@ export { default as Drawer } from './drawer/Drawer.astro';
 export { default as Footer } from './footer/Footer.astro';
 export { default as Header } from './header/Header.astro';
 export { default as Navbar } from './navbar/Navbar.astro';
+
+export { default as ActivityCard } from './activity/ActivityCard.astro';
+export { default as ContactsData } from './contacts/ContactsData.astro';
+export { default as PartnerInfo } from './partners/PartnerInfo.astro';
+export { default as ProjectInfo } from './projects/ProjectInfo.astro';
+export { default as ProjectsList } from './projects/ProjectsList.astro';

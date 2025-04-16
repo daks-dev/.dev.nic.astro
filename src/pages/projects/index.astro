@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { Header } from '@components/astro';
-import ProjectsList from '@components/astro/pages/projects/ProjectsList.astro';
+import { Header, ProjectsList } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 const collection = await getCollection('projects', ({ data }) => !data.hidden);

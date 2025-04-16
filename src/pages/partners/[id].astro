@@ -1,8 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { Header } from '@components/astro';
-import PartnerInfo from '@components/astro/pages/partners/PartnerInfo.astro';
-import ProjectsList from '@components/astro/pages/projects/ProjectsList.astro';
+import { Header, PartnerInfo, ProjectsList } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
 export async function getStaticPaths() {
@@ -46,7 +44,7 @@ const collection = await getCollection(
       </div>
     </div>
     {
-      !!collection.length && (
+      Boolean(collection.length) && (
         <ProjectsList
           class='mt-8'
           {collection}

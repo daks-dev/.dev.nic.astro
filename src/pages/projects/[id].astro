@@ -1,9 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { BindLightboxData, YandexMap } from '@daks.dev/astro.sdk/astro';
-import { Header } from '@components/astro';
+import { Header, ProjectInfo } from '@components/astro';
 import Layout from '@layouts/Base.astro';
-import ProjectInfo from '@components/astro/pages/projects/ProjectInfo.astro';
 
 export async function getStaticPaths() {
   const collection = await getCollection('projects');
@@ -112,7 +111,7 @@ const geo = {
           }
           {
             images.length > 1 && (
-              <small class='text-impact-accent whitespace-nowrap font-semibold md:self-start'>
+              <small class='font-semibold whitespace-nowrap text-impact-accent md:self-start'>
                 [ +{images.length - 1} ]
               </small>
             )
@@ -120,11 +119,11 @@ const geo = {
         </div>
       </div>
 
-      <div class='xs:h-[35vmax] flex h-[40vmax] grow sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
+      <div class='flex h-[40vmax] grow xs:h-[35vmax] sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
         <YandexMap
           class:list={[
             'min-h-full w-full overflow-hidden',
-            'bg--waiting bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg-center bg-no-repeat dark:bg-slate-200',
+            'bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg--waiting bg-center bg-no-repeat dark:bg-slate-200',
             'border-4 border-slate-400'
           ]}
           {geo}
