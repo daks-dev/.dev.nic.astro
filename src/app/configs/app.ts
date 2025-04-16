@@ -15,8 +15,8 @@ const config: AppConfig = {
   id: '/',
   scope: '/',
 
-  name: 'АО НИЦ «СЭ»',
-  shortName: 'НИЦ «СЭ»',
+  name: 'АО НИЦ «Строительная экспертиза»',
+  shortName: 'Строительная Экспертиза',
   description: 'Независимая строительная экспертиза в Москве',
 
   displayOverride: ['fullscreen', 'minimal-ui'],

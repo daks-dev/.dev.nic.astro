@@ -1,4 +1,5 @@
 ---
+import { DEV } from 'esm-env';
 import { ClientRouter } from 'astro:transitions';
 import { twMerge } from '@daks.dev/astro.sdk';
 import { Head, YandexMetrika, YandexMetrikaHit } from '@daks.dev/astro.sdk/astro';
@@ -22,7 +23,7 @@ const {
   title,
   description,
   robots,
-  noMetrika, //  = import.meta.env.DEV,
+  noMetrika = DEV,
   noPwa,
   ...props
 } = Astro.props;
@@ -59,7 +60,7 @@ const {
       <Footer />
     </div>
     {
-      !noMetrika && import.meta.env.PROD && (
+      !noMetrika && (
         <>
           <YandexMetrika {counter} />
           <YandexMetrikaHit
