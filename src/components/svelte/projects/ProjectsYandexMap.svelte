@@ -139,9 +139,10 @@
   class={twMerge(className)}>
   <YandexMap
     class={[
-      'ymaps--left-copyright h-full w-full',
-      grayscale && 'grayscale oversee:grayscale-0',
-      sepia && 'sepia oversee:sepia-0'
+      'h-full w-full',
+      'ymaps--left-copyright',
+      grayscale && 'grayscale hover:grayscale-0',
+      sepia && 'sepia hover:sepia-0'
     ]}
     {geo}
     apikey={api.maps} />

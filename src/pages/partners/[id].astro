@@ -17,7 +17,7 @@ const { partner } = Astro.props;
 const { Content } = await render(partner);
 
 const { id } = partner;
-const { title, description } = partner.data;
+const { title, description, center, zoom } = partner.data;
 
 const projects = await getCollection(
   'projects',
@@ -48,6 +48,8 @@ const projects = await getCollection(
         <ProjectsList
           class='mt-8'
           collection={projects}
+          {center}
+          {zoom}
         />
       )
     }
