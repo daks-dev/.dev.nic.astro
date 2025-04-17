@@ -94,13 +94,15 @@ const description = 'Контактная информация';
 
       <div class='flex h-[40vmax] grow xs:h-[35vmax] sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
         <YandexMap
-          class:list={[
-            'min-h-full w-full overflow-hidden',
-            'bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg--waiting bg-center bg-no-repeat dark:bg-slate-200',
-            'border-4 border-slate-400'
-          ]}
           {geo}
           apikey={api.maps}
+          class={[
+            'min-h-full w-full overflow-hidden',
+            'bg--waiting bg-center bg-no-repeat',
+            'bg-[size:25%] sm:bg-[size:20%] md:bg-[size:10%]',
+            'bg-gray-100 dark:bg-slate-200',
+            'border-4 border-slate-400'
+          ]}
         />
       </div>
     </main>

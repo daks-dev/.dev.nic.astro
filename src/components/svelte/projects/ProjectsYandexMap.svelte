@@ -1,20 +1,57 @@
 <script lang="ts">
-  // @ts-nocheck
-  import { BROWSER } from 'esm-env';
-  import { onMount } from 'svelte';
+  // import { BROWSER } from 'esm-env';
+  // import { onMount } from 'svelte';
   import { fade, fly, scale } from 'svelte/transition';
   import { sineIn } from 'svelte/easing';
-  import { beforeNavigate } from '$app/navigation';
-  import { twMerge, YandexMap, type YandexMapInstance } from '@daks.dev/svelte.sdk';
+  // import { beforeNavigate } from '$app/navigation';
+  import { twMerge } from '@daks.dev/astro.sdk';
+  import { YandexMap } from '@daks.dev/astro.sdk/svelte';
+  // import type { YandexMapInstance } from '@daks.dev/astro.sdk/svelte';
 
-  let className: ClassName = undefined;
-  export { className as class };
+  import seo from '@app/configs/seo';
+  const {
+    yandex: { api }
+  } = seo;
 
-  // export let grayscale = false;
-  // export let sepia = false;
+  type Project = {
+    id: string;
+    src: ImageResult;
+    caption: {
+      title: string;
+      description: string;
+    };
+    address: string;
+    area?: string;
+    area_term?: string;
+    area_unit?: string;
+    activities?: string[];
+    location: string;
+  };
 
-  export let flyed = false;
-  export let scaled = false;
+  type Props = {
+    projects: Project[];
+    center?: string;
+    zoom?: number; // (x: number) => (x < 768 && 10) || (x < 1024 && 10.3) || (x < 1280 && 10) || 10.3;
+    tag?: 'div' | 'aside';
+    class?: ClassValue;
+    grayscale?: true;
+    sepia?: true;
+    flyed?: true;
+    scaled?: true;
+  };
+
+  const {
+    projects,
+    center = '55.727154, 37.593857',
+    zoom = 9,
+    tag = 'div',
+    class: className,
+    grayscale,
+    sepia,
+    flyed,
+    scaled
+  }: Props = $props();
+
   const animate = flyed ? fly : scaled ? scale : fade;
   const options = flyed
     ? {
@@ -37,41 +74,32 @@
           easing: sineIn
         };
 
-  export let tag = 'div';
-
-  export let projects: Project[];
-  export let center = '55.727154, 37.593857';
-  export let zoom = 9.2;
-
-  let map: YandexMapInstance = {};
+  // let map: YandexMapInstance = {};
 
   const body = (el: Project) => {
     let res = '---';
-    if (el.address || el.activities || el.area || el.note) {
+    if (el.address || el.activities || el.area) {
       res = '<div class="flex flex-col pt-0.5">';
       if (el.address) res = `${res}<span>${el.address}</span>`;
       if (el.area) {
         res = `${res}<span>${(el.area_term || 'Общая площадь').toLocaleLowerCase()}: `;
         res = `${res}${el.area.toLocaleString()} ${el.area_unit || 'м<sup>2</sup>'}</span>`;
       }
-      if (el.note) res = `${res}<small>${el.note}</small>`;
       if (el.activities) res = `${res}<small>[ ${el.activities} ]</small>`;
       res = `${res}</div>`;
     }
     return res;
   };
 
-  const footer = (el: Project) => {
-    const href = `href="/projects/${el.id.toString().padStart(3, '0')}"`;
-    return `<a class="block w-full -mt-0.5 py-0.5 text-sky-700 oversee:text-brand" ${href}">подробнее...</a>`;
-  };
+  const footer = (el: Project) =>
+    `<a class="block w-full -mt-0.5 py-0.5 text-sky-700 oversee:text-brand" href=/projects/${el.id}>подробнее...</a>`;
 
-  const data = {
+  const geo = {
     locations: projects.map((el, idx) => ({
       geometry: el.location.split(', ').map((x: string) => Number(x)),
       properties: {
         iconContent: idx + 1,
-        balloonContentHeader: `${el.name} <sup class="font-normal">(${idx + 1})</sup>`,
+        balloonContentHeader: `${el.caption.title} <sup class="font-normal">(${idx + 1})</sup>`,
         balloonContentBody: body(el),
         balloonContentFooter: footer(el)
       },
@@ -98,25 +126,23 @@
     //map.controls.get('fullscreenControl').exitFullscreen();
   }
   */
-  beforeNavigate(() => map?.controls?.get('fullscreenControl')?.exitFullscreen());
+  // beforeNavigate(() => map?.controls?.get('fullscreenControl')?.exitFullscreen());
 
-  let visible = false;
-  onMount(() => (visible = BROWSER));
+  // let visible = $state(false);
+  // onMount(() => (visible = BROWSER));
 </script>
 
-{#if visible}
-  <svelte:element
-    this={tag}
-    in:animate={options}
-    id="ymap"
-    class={twMerge(className)}>
-    <YandexMap
-      bind:map
-      class={twMerge(
-        'ymaps--left-copyright h-full w-full'
-        // grayscale && 'grayscale oversee:grayscale-0'
-        // sepia && 'sepia oversee:sepia-0'
-      )}
-      {data} />
-  </svelte:element>
-{/if}
+<svelte:element
+  this={tag}
+  in:animate={options}
+  id="ymap"
+  class={twMerge(className)}>
+  <YandexMap
+    class={[
+      'ymaps--left-copyright h-full w-full',
+      grayscale && 'grayscale oversee:grayscale-0',
+      sepia && 'sepia oversee:sepia-0'
+    ]}
+    {geo}
+    apikey={api.maps} />
+</svelte:element>

@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import { Header, ProjectsList } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
-const collection = await getCollection('projects', ({ data }) => !data.hidden);
+const projects = await getCollection('projects', ({ data }) => !data.hidden);
 
 const title = 'Реализованные проекты';
 const description = 'Реализованные проекты';
@@ -17,6 +17,6 @@ const description = 'Реализованные проекты';
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    <ProjectsList {collection} />
+    <ProjectsList collection={projects} />
   </main>
 </Layout>

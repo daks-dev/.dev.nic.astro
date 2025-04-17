@@ -3,9 +3,9 @@ const config = {
     counter: 38547645,
     searchid: 2732123,
     api: {
-      maps: '431a6518-24b7-4169-8872-7b78cf425d5e',
-      siteSearch: 'e966b7a5-b62f-4ac6-9e2e-7c837e9eaa27',
-      validator: '26fe28c0-0a93-44a4-b502-2cbf899566ae'
+      maps: 'f4b9bbf7-f7a5-4cae-89d0-ad01ae492097',
+      siteSearch: 'e8dd8453-b4da-4e80-ad01-e691986fa2e2',
+      validator: 'aae9c0ee-0e2a-443e-a6e0-ea6932ce0e4f'
     }
   }
 };

@@ -19,7 +19,7 @@ const { Content } = await render(partner);
 const { id } = partner;
 const { title, description } = partner.data;
 
-const collection = await getCollection(
+const projects = await getCollection(
   'projects',
   ({ data }) => !data.hidden && data.customer === id
 );
@@ -44,10 +44,10 @@ const collection = await getCollection(
       </div>
     </div>
     {
-      Boolean(collection.length) && (
+      Boolean(projects.length) && (
         <ProjectsList
           class='mt-8'
-          {collection}
+          collection={projects}
         />
       )
     }

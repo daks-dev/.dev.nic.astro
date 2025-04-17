@@ -1,18 +1,21 @@
-import type { NavItem } from '@daks.dev/astro.sdk/astro';
+import type { HTMLAttributes } from 'astro/types';
+import type { NavItem } from '@daks.dev/astro.sdk';
+
+type Item = Omit<HTMLAttributes<'a'>, 'class'> & NavItem;
 
 interface NavSidebar {
-  header?: NavItem[];
-  body?: NavItem[];
-  footer?: NavItem[];
+  header?: Item[];
+  body?: Item[];
+  footer?: Item[];
 }
 
 interface NavSite {
-  navbar: NavItem[];
+  navbar: Item[];
   sidebar?: NavSidebar;
-  footer?: NavItem[];
+  footer?: Item[];
 }
 
-export const activity: NavItem[] = [
+export const activity: Item[] = [
   {
     href: '/inspection',
     label: 'Обследование зданий и сооружений'

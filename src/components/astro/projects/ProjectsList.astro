@@ -4,14 +4,18 @@ import type { CollectionEntry } from 'astro:content';
 import { twMerge } from '@daks.dev/astro.sdk';
 import { Figure, Sign } from '@daks.dev/astro.sdk/astro';
 import { BindModeList } from '@daks.dev/astro.sdk/svelte';
-import type { HTMLAttributes } from 'astro/types';
+import ProjectsYandexMap from './ProjectsYandexMap.astro';
+// import { ProjectsList as SvelteProjectsList } from '@components/svelte';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+type Props = {
   collection: CollectionEntry<'projects'>[];
   class?: ClassValue;
+  grayscale?: true;
+  center?: string;
+  zoom?: number;
 };
 
-const { collection, class: className } = Astro.props;
+const { collection, class: className, grayscale, center, zoom } = Astro.props;
 
 import logo from '@assets/images/logo.webp';
 const placeholder = await getImage({
@@ -27,7 +31,19 @@ const projects = (
     collection.map(
       async ({
         id,
-        data: { priority, title, description, address, area, area_unit, poster, images }
+        data: {
+          priority,
+          poster,
+          images,
+          title,
+          description,
+          address,
+          area,
+          area_term,
+          area_unit,
+          activities,
+          location
+        }
       }) => {
         if (poster !== -1) poster = images && poster < images.length ? poster : -1;
         const src =
@@ -42,14 +58,17 @@ const projects = (
         return {
           id,
           priority,
-          address,
-          area,
-          area_unit,
           src,
           caption: {
             title,
             description
-          }
+          },
+          address,
+          area,
+          area_term,
+          area_unit,
+          activities,
+          location
         };
       }
     )
@@ -59,8 +78,21 @@ const projects = (
 );
 ---
 
-<BindModeList
+{
+  /*
+<SvelteProjectsList
   client:load
+  {projects}
+  class={className}
+  {grayscale}
+  {center}
+  {zoom}
+/>
+*/
+}
+
+<BindModeList
+  client:only='svelte'
   class='-mt-4 mb-4'
   length={projects.length}>
   <div
@@ -74,7 +106,8 @@ const projects = (
       projects.map(({ id, src, caption }) => (
         <a
           class:list={['group relative', 'w-full max-w-80', 'no-underline']}
-          href={`/projects/${id}`}>
+          href={`/projects/${id}`}
+          itemprop='relatedLink'>
           <Sign
             custom='iconify ph--link'
             class='top-2 left-2'
@@ -93,7 +126,7 @@ const projects = (
               img: [
                 'h-auto w-full max-w-full',
                 'aspect-square object-contain',
-                'grayscale transition-easy group-hover:grayscale-0'
+                grayscale && ['grayscale group-hover:grayscale-0', 'transition-easy']
               ],
               caption: [
                 'absolute bottom-0 left-0',
@@ -127,13 +160,13 @@ const projects = (
             'items-center',
             'no-underline',
             'odd:bg-slate-400/20',
-            'oversee:text-sky-500 oversee:!bg-slate-400/40'
+            'hover:text-sky-500 hover:!bg-slate-400/40'
           ]}
           href={`/articles/${id}`}
           itemprop='relatedLink'>
           <small set:text={idx + 1} />
           <span
-            class='text-slate-600 dark:text-slate-400 group-oversee:!text-inherit'
+            class='text-slate-600 group-hover:!text-inherit dark:text-slate-400'
             set:html={title}
           />
           <small
@@ -148,4 +181,18 @@ const projects = (
       ))
     }
   </div>
+
+  <ProjectsYandexMap
+    slot='map'
+    class={[
+      'w-full aspect-square lg:aspect-video',
+      'bg--waiting bg-center bg-no-repeat',
+      'bg-[size:25%] sm:bg-[size:20%] md:bg-[size:10%]',
+      'bg-gray-100 dark:bg-slate-200',
+      'border-4 border-slate-400'
+    ]}
+    {projects}
+    {center}
+    {zoom}
+  />
 </BindModeList>
