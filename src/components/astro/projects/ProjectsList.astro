@@ -3,7 +3,7 @@ import { getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { twMerge } from '@daks.dev/astro.sdk';
 import { Figure, Sign } from '@daks.dev/astro.sdk/astro';
-import { BindModeList } from '@daks.dev/astro.sdk/svelte';
+import { BindListMode } from '@daks.dev/astro.sdk/svelte';
 import ProjectsYandexMap from './ProjectsYandexMap.astro';
 // import { ProjectsList as SvelteProjectsList } from '@components/svelte';
 
@@ -59,10 +59,8 @@ const projects = (
           id,
           priority,
           src,
-          caption: {
-            title,
-            description
-          },
+          title,
+          description,
           address,
           area,
           area_term,
@@ -88,22 +86,21 @@ const projects = (
   {center}
   {zoom}
 />
-*/
+  */
 }
 
-<BindModeList
+<BindListMode
   client:only='svelte'
-  class='-mt-4 mb-4'
+  class={twMerge('-mt-4 mb-4', className)}
   length={projects.length}>
   <div
     slot='app'
-    class={twMerge(
+    class:list={[
       'grid gap-x-8 gap-y-12 max-sm:place-items-center lg:gap-16',
-      'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
-      className
-    )}>
+      'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+    ]}>
     {
-      projects.map(({ id, src, caption }) => (
+      projects.map(({ id, src, title, description }) => (
         <a
           class:list={['group relative', 'w-full max-w-80', 'no-underline']}
           href={`/projects/${id}`}
@@ -139,7 +136,7 @@ const projects = (
               ]
             }}
             {src}
-            {caption}
+            caption={{ title, description }}
           />
           <small class='absolute top-2 right-2 text-black'>{id}</small>
         </a>
@@ -151,7 +148,7 @@ const projects = (
     slot='list'
     class='flex flex-col'>
     {
-      projects.map(({ id, caption: { title }, address, area, area_unit }, idx) => (
+      projects.map(({ id, title, address, area, area_unit }, idx) => (
         <a
           class:list={[
             'group',
@@ -195,4 +192,4 @@ const projects = (
     {center}
     {zoom}
   />
-</BindModeList>
+</BindListMode>

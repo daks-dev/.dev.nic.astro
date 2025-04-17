@@ -65,9 +65,7 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['@daks.dev/astro.sdk']
     },
-    server: {
-      fs: { strict: false }
-    },
+    // server: { fs: { strict: false } },
     // build: { target: 'esnext' },
     // define: { 'process.env': process.env },
     resolve: {

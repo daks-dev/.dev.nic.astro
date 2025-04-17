@@ -13,10 +13,8 @@ type Project = {
   id: string;
   priority: number;
   src: ImageResult;
-  caption: {
-    title: string;
-    description: string;
-  };
+  title: string;
+  description: string;
   address: string;
   area?: number;
   area_term?: string;
@@ -66,7 +64,7 @@ const geo = {
     geometry: el.location.split(', ').map((x: string) => Number(x)),
     properties: {
       iconContent: idx + 1,
-      balloonContentHeader: `${el.caption.title} <sup class="font-normal">[${idx + 1}]</sup>`,
+      balloonContentHeader: `${el.title} <sup class="font-normal">[${idx + 1}]</sup>`,
       balloonContentBody: body(el),
       balloonContentFooter: footer(el)
     },

@@ -2,7 +2,7 @@
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { Figure, FormattedDate, Sign } from '@daks.dev/astro.sdk/astro';
-import { BindModeList } from '@daks.dev/astro.sdk/svelte';
+import { BindListMode } from '@daks.dev/astro.sdk/svelte';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
@@ -35,10 +35,8 @@ const gallery = (
         publishDate,
         src,
         poster,
-        caption: {
-          title,
-          description
-        }
+        title,
+        description
       };
     })
   )
@@ -55,7 +53,7 @@ const title = 'Информационная база';
   <main
     class='frame'
     itemprop='mainContentOfPage'>
-    <BindModeList
+    <BindListMode
       client:load
       class='-mt-4 mb-4'
       length={gallery.length}>
@@ -66,7 +64,7 @@ const title = 'Информационная база';
           'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
         ]}>
         {
-          gallery.map(({ id, publishDate, src, poster, caption }) => (
+          gallery.map(({ id, publishDate, src, poster, title, description }) => (
             <a
               class:list={['group relative', 'w-full max-w-80', 'no-underline']}
               href={`/articles/${id}`}
@@ -96,7 +94,7 @@ const title = 'Информационная база';
                   caption: ['text-theme-plain group-hover:text-theme-link', 'transition-easy']
                 }}
                 {src}
-                {caption}
+                caption={{ title, description }}
               />
               <small class='absolute top-2 right-2 text-black'>{publishDate}</small>
             </a>
@@ -107,7 +105,7 @@ const title = 'Информационная база';
         slot='list'
         class='flex flex-col'>
         {
-          gallery.map(({ id, publishDate, caption: { title, description } }, idx) => (
+          gallery.map(({ id, publishDate, title, description }, idx) => (
             <a
               class:list={[
                 'group',
@@ -138,6 +136,6 @@ const title = 'Информационная база';
           ))
         }
       </div>
-    </BindModeList>
+    </BindListMode>
   </main>
 </Layout>
