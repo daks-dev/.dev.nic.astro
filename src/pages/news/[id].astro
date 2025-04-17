@@ -23,14 +23,14 @@ const { title, description, images = [] } = post.data;
 
 <Layout
   class='flex flex-col'
-  title={`${title} • НИЦ «Строительная экспертиза»`}
+  title={`${title} • [${id}] • НИЦ «Строительная экспертиза»`}
   description={`${description} • [${id}]`}>
   <Header {title}>
     <FormattedDate
       slot='tagline'
       date={id}
       parse='YY-MM-DD'
-      class='bp:text-sm text-xs uppercase'
+      class='text-xs uppercase bp:text-sm'
       itemprop='publishDate'
     />
   </Header>
@@ -44,7 +44,7 @@ const { title, description, images = [] } = post.data;
           <BindLightboxData
             class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:order-last max-md:items-center']}
             custom={{
-              thumb: 'min-w-48 max-w-fit first:mt-2'
+              thumb: 'max-w-fit min-w-48 first:mt-2'
             }}
             options={{ behaviour: 'loop' }}
             data={images}

@@ -30,7 +30,7 @@ const { title, description, publishDate, images = [] } = post.data;
       slot='tagline'
       date={publishDate}
       parse='YY-MM-DD'
-      class='bp:text-sm text-xs uppercase'
+      class='text-xs uppercase bp:text-sm'
       itemprop='publishDate'
     />
   </Header>
@@ -52,7 +52,7 @@ const { title, description, publishDate, images = [] } = post.data;
             data={images}
             class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:items-center']}
             custom={{
-              thumb: 'min-w-48 max-w-fit first:mt-2'
+              thumb: 'max-w-fit min-w-48 first:mt-2'
             }}
             options={{ behaviour: 'loop' }}
             transform={{
