@@ -21,10 +21,10 @@ export async function GET() {
   </msapplication>
 </browserconfig>
     `
-      .trim()
       .replace(/\n/g, '')
       .replace(/\s{2,}/g, ' ')
-      .replace(/> </g, '><'),
+      .replace(/> </g, '><')
+      .trim(),
     {
       headers: {
         'Content-Type': 'application/xml'

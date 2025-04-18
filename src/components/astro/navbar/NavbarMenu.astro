@@ -98,7 +98,6 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
 
   .outer {
     @apply flex p-2;
-    @apply text-impact-hard no-underline hover:text-impact-text dark:text-impact-hard dark:hover:text-impact-text;
-    @apply duration-200 motion-safe:ready:transition-colors;
+    @apply transition-easy;
   }
 </style>

@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
-const title = '...';
+const title = 'Панель администратора';
 ---
 
 <Layout
@@ -15,10 +15,7 @@ const title = '...';
     <Image
       class:list={[
         'w-full max-w-xs self-center',
-        'bg-linear-135 dark:bg-linear-315',
-        'from-impact-soft to-impact-hard',
-        'rounded-3xl',
-        'shadow-md shadow-gray-300 dark:shadow-gray-800'
+        'drop-shadow-lg drop-shadow-gray-500 dark:drop-shadow-gray-700'
       ]}
       src='/assets/icons/astro.svg'
       width={128}

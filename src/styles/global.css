@@ -43,20 +43,13 @@
   --color-primary-900: var(--color-slate-900);
   --color-primary-950: var(--color-slate-950);
 
-  --color-impact: #7611a6;
-  --color-impact-soft: #1c0056;
-  --color-impact-hard: #c561f6;
-  --color-impact-accent: #ca7879;
-  --color-impact-text: #ffffff;
-  --color-impact-subtle: rgba(197, 97, 247, 0.3333);
-  --color-impact-overlay: rgba(119, 17, 177, 0.3333);
-
   --color-theme-flat: rgb(250, 252, 255);
   --color-theme-frame: rgb(243, 245, 248);
   --color-theme-inner: rgb(233, 235, 237);
   --color-theme-plain: rgb(0, 0, 0);
   --color-theme-header: var(--color-stone-600);
   --color-theme-link: var(--color-cyan-600);
+  --color-theme-impact: #7611a6;
   --color-theme-accent: #c561f6;
 
   --navbar-height: 3.75rem;
