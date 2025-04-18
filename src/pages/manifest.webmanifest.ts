@@ -1,7 +1,17 @@
-import pkg from 'package.json';
+// import pkg from 'package.json';
 
 import app from '@app/configs/app';
-const { id, scope, name, shortName, description, display, backgroundColor, themeColor } = app;
+const {
+  id,
+  scope,
+  name,
+  shortName,
+  description,
+  displayOverride,
+  display,
+  backgroundColor,
+  themeColor
+} = app;
 
 const pathname = import.meta.env.PUBLIC_APP_CANONICAL
   ? new URL(import.meta.env.PUBLIC_APP_CANONICAL).pathname
@@ -22,7 +32,7 @@ const push = (arr = any, purpose = 'any') => {
           : '';
     const file = png ? `${val}.png` : val;
     icons.push({
-      src: `/favicon/${dir}${file}?v=${pkg.version}`,
+      src: `/favicon/${dir}${file}`,
       sizes: png ? `${val}x${val}` : 'any',
       type: `image/${png ? 'png' : 'svg+xml'}`,
       purpose
@@ -35,16 +45,17 @@ push(maskable, 'maskable');
 push(monochrome, 'monochrome');
 
 const data = {
-  name,
-  short_name: shortName,
-  description,
-  icons,
   id,
   start_url: pathname,
   scope,
+  display_override: displayOverride,
   display,
   background_color: backgroundColor,
-  theme_color: themeColor
+  theme_color: themeColor,
+  name,
+  short_name: shortName,
+  description,
+  icons
 };
 
 export const prerender = true;

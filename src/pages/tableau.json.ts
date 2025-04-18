@@ -11,7 +11,7 @@ const data = {
   version,
   api_version: 1,
   layout: {
-    logo: `${canonical}/favicon/tableau/60.png?v=${version}`, //encodeURIComponent()
+    logo: `${canonical}/favicon/tableau/60.png`, //encodeURIComponent()
     color: app.tileColor,
     show_title: true
   }

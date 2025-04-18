@@ -1,5 +1,4 @@
-import pkg from 'package.json';
-const { version } = pkg;
+// import pkg from 'package.json';
 
 import app from '@app/configs/app';
 
@@ -12,11 +11,11 @@ export async function GET() {
 <browserconfig>
   <msapplication>
     <tile>
-      <square70x70logo src="/favicon/mstile/70.png?v=${version}" />
-      <square150x150logo src="/favicon/mstile/150.png?v=${version}" />
-      <square310x310logo src="/favicon/mstile/310.png?v=${version}" />
-      <wide310x150logo src="/favicon/mstile/310x150.png?v=${version}" />
-      <TileImage src="/favicon/mstile/150.png?v=${version}" />
+      <square70x70logo src="/favicon/mstile/70.png" />
+      <square150x150logo src="/favicon/mstile/150.png" />
+      <square310x310logo src="/favicon/mstile/310.png" />
+      <wide310x150logo src="/favicon/mstile/310x150.png" />
+      <TileImage src="/favicon/mstile/150.png" />
       <TileColor>${app.tileColor}</TileColor>
     </tile>
   </msapplication>
