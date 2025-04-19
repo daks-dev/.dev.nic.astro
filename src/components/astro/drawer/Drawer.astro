@@ -20,7 +20,7 @@ const { email, telephone } = microdata.organization;
   id='app-drawer'
   class={twMerge(
     'fixed top-(--navbar-height) bottom-0 z-40 w-(--drawer-width)',
-    '-translate-x-full not-has-inert:translate-x-0 2xl:-translate-x-[(100%_-_3rem)]',
+    '-translate-x-full not-has-[nav[inert]]:translate-x-0 2xl:-translate-x-[(100%_-_3rem)]',
     'flex',
     'overflow-hidden',
     'bg-theme-frame shadow-xl shadow-gray-300 dark:shadow-gray-950',
@@ -60,60 +60,45 @@ const { email, telephone } = microdata.organization;
     <Link
       class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
       href='/activity'
+      icon={['iconify ph--hard-hat', 'size-6']}
       aria-label='деятельность'
-      itemprop='relatedLink'>
-      <span
-        class:list={['iconify ph--hard-hat', 'bg-only size-6']}
-        set:text='деятельность'
-      />
-    </Link>
+      itemprop='relatedLink'
+    />
     <Link
       class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
       href='/projects'
+      icon={['iconify ph--buildings', 'size-6']}
       aria-label='реализованные проекты'
-      itemprop='relatedLink'>
-      <span
-        class:list={['iconify ph--buildings', 'bg-only size-6']}
-        set:text='реализованные проекты'
-      />
-    </Link>
+      itemprop='relatedLink'
+    />
     <Link
       class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
       href='/permissions'
+      icon={['iconify ph--certificate', 'bg-only size-6']}
       aria-label='допуски и сертификаты'
-      itemprop='relatedLink'>
-      <span
-        class:list={['iconify ph--certificate', 'bg-only size-6']}
-        set:text='допуски и сертификаты'
-      />
-    </Link>
+      itemprop='relatedLink'
+    />
     <Link
       class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
       href='/feedbacks'
+      icon={['iconify ph--trophy', 'bg-only size-6']}
       aria-label='отзывы заказчиков'
-      itemprop='relatedLink'>
-      <span
-        class:list={['iconify ph--trophy', 'bg-only size-6']}
-        set:text='отзывы заказчиков'
-      />
-    </Link>
+      itemprop='relatedLink'
+    />
 
     <Link
       class:list={['mt-auto mb-5 p-2', 'text-primary-500']}
       href='/admin'
-      aria-label='панель администратора'>
-      <span
-        class:list={['iconify ph--sliders', 'bg-only size-6']}
-        set:text='панель администратора'
-      />
-    </Link>
+      icon={['iconify ph--sliders', 'size-6']}
+      aria-label='панель администратора'
+    />
 
     <DrawerToggle
       custom={['iconify ph--sign-in', 'size-6']}
-      class={[
+      class:list={[
         'p-2',
         'aria-expanded:rotate-180',
-        'motion-safe:ready:transition-transform duration-500 ease-in-out'
+        'duration-500 ease-in-out motion-safe:ready:transition-transform'
       ]}
       uuid='drawer'
     />

@@ -13,7 +13,7 @@ const { class: className, custom = {}, ...props } = Astro.props;
 import { drawer } from '@app/configs/nav';
 ---
 
-<div
+<nav
   class={twMerge('flex flex-col', className)}
   role='menu'
   inert
@@ -94,4 +94,4 @@ import { drawer } from '@app/configs/nav';
         )
       )
   }
-</div>
+</nav>

@@ -19,15 +19,15 @@ const src = await getImage({
 */
 ---
 
-<nav
+<div
   id='app-navbar'
   class:list={[
-    'fixed left-0 top-0 z-50',
+    'fixed top-0 left-0 z-50',
     'h-(--navbar-height) w-full px-5',
     'grid grid-cols-[1fr_auto] place-content-center gap-x-3',
     'bp:grid-cols-[1fr_auto_1fr]',
     'bg-theme-frame',
-    'onscroll:shadow-md shadow-xs shadow-gray-200 dark:shadow-black'
+    'shadow-xs shadow-gray-200 dark:shadow-black onscroll:shadow-md'
     // 'border-b border-gray-100 dark:border-gray-900'
   ]}>
   <div class:list={['flex items-center justify-between', 'menu-header']}>
@@ -44,14 +44,14 @@ const src = await getImage({
       <Link
         href='/'
         aria-label='главная страница'
-        prefetch>
+        data-astro-prefetch>
         <span
           class='sr-only'
           set:text='главная страница'
         />
         <Img
           class:list={[
-            'drop-shadow-black drop-shadow-xs hover:drop-shadow-sm',
+            'drop-shadow-xs drop-shadow-black hover:drop-shadow-sm',
             'ready:animate-[wiggle_20s_ease-in-out_infinite]'
           ]}
           src={logo}
@@ -64,7 +64,7 @@ const src = await getImage({
     </div>
     <NavbarMenuToggle
       custom={['iconify ph--list', 'size-6']}
-      class={[
+      class:list={[
         'p-2',
         'text-primary-500',
         'rounded-full',
@@ -79,7 +79,7 @@ const src = await getImage({
         'flex justify-around',
         'bp:items-center bp:justify-self-end',
         'bg-theme-frame',
-        'border-primary-200 dark:border-primary-800 border-t',
+        'border-t border-primary-200 dark:border-primary-800',
         'rounded-b-md',
         'shadow-md dark:shadow-gray-800',
         'bp:shadow-none',
@@ -92,6 +92,11 @@ const src = await getImage({
   </NavbarMenu>
   <ToTop
     custom={['iconify ph--arrow-fat-lines-up-duotone', 'size-8']}
-    class={['mt-8 p-2', 'text-slate-500', 'bg-gray-300/50 dark:bg-gray-700/50', 'rounded-full']}
+    class:list={[
+      'mt-8 p-2',
+      'text-slate-500',
+      'bg-gray-300/50 dark:bg-gray-700/50',
+      'rounded-full'
+    ]}
   />
-</nav>
+</div>

@@ -111,44 +111,53 @@ export const nav: NavSite = {
     {
       href: '/activity',
       label: 'Деятельность',
+      'data-astro-prefetch': '',
       items: activity
     },
     {
       href: '/regulation',
       label: 'Регламент',
+      'data-astro-prefetch': '',
       rel: 'help'
     },
     {
       href: '/projects',
-      label: 'Проекты'
+      label: 'Проекты',
+      'data-astro-prefetch': ''
     },
     {
       href: '/permissions',
       label: 'Допуски',
-      class: 'bp:max-lg:hidden'
+      class: 'bp:max-lg:hidden',
+      'data-astro-prefetch': ''
     },
     {
       href: '/partners',
-      label: 'Партнёры'
+      label: 'Партнёры',
+      'data-astro-prefetch': ''
     },
     {
       href: '/feedbacks',
       label: 'Отзывы',
-      class: 'bp:max-xl:hidden'
+      class: 'bp:max-xl:hidden',
+      'data-astro-prefetch': ''
     },
     {
       href: '/articles',
       label: 'Инфрмация',
-      class: 'bp:max-2xl:hidden'
+      class: 'bp:max-2xl:hidden',
+      'data-astro-prefetch': ''
     },
     {
       href: '/news',
       label: 'Новости',
+      'data-astro-prefetch': '',
       class: 'bp:max-xl:hidden'
     },
     {
       href: '/contacts',
-      label: 'Контакты'
+      label: 'Контакты',
+      'data-astro-prefetch': ''
     }
   ],
   sidebar: drawer,

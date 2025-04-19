@@ -25,7 +25,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
   ]}
   inert
   aria-owns='app-navbar-menu-toggle'>
-  <div
+  <nav
     role='menu'
     class={twMerge(
       'relative',
@@ -64,7 +64,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
               } = x;
               return (
                 <Link
-                  class={['items-center bp:flex', custom.item, custom.link, className]}
+                  class:list={['items-center bp:flex', custom.item, custom.link, className]}
                   {role}
                   {itemprop}
                   {base}
@@ -81,7 +81,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
         );
       })
     }
-  </div>
+  </nav>
   <slot />
 </div>
 <slot name='after' />
