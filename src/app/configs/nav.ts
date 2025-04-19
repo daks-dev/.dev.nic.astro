@@ -1,21 +1,12 @@
-import type { HTMLAttributes } from 'astro/types';
 import type { NavItem } from '@daks.dev/astro.sdk';
 
-type Item = Omit<HTMLAttributes<'a'>, 'class'> & NavItem;
-
 interface NavSidebar {
-  header?: Item[];
-  body?: Item[];
-  footer?: Item[];
+  header?: NavItem[];
+  body?: NavItem[];
+  footer?: NavItem[];
 }
 
-interface NavSite {
-  navbar: Item[];
-  sidebar?: NavSidebar;
-  footer?: Item[];
-}
-
-export const activity: Item[] = [
+export const activity: NavItem[] = [
   {
     href: '/inspection',
     label: 'Обследование зданий и сооружений'
@@ -30,11 +21,13 @@ export const activity: Item[] = [
     items: [
       {
         href: '/electric-heating',
-        label: 'Электропрогрев'
+        label: 'Электропрогрев',
+        'data-astro-prefetch': 'hover'
       },
       {
         href: '/field-tests',
-        label: 'Натурные испытания'
+        label: 'Натурные испытания',
+        'data-astro-prefetch': 'hover'
       }
     ]
   },
@@ -56,11 +49,66 @@ export const activity: Item[] = [
   }
 ];
 
-export const drawer: NavSidebar = {
+export const navbar: NavItem[] = [
+  {
+    href: '/activity',
+    label: 'Деятельность',
+    'data-astro-prefetch': '',
+    items: activity
+  },
+  {
+    href: '/regulation',
+    label: 'Регламент',
+    'data-astro-prefetch': 'hover',
+    rel: 'help'
+  },
+  {
+    href: '/projects',
+    label: 'Проекты',
+    'data-astro-prefetch': ''
+  },
+  {
+    href: '/permissions',
+    label: 'Допуски',
+    class: 'bp:max-lg:hidden',
+    'data-astro-prefetch': ''
+  },
+  {
+    href: '/partners',
+    label: 'Партнёры',
+    'data-astro-prefetch': ''
+  },
+  {
+    href: '/feedbacks',
+    label: 'Отзывы',
+    class: 'bp:max-xl:hidden',
+    'data-astro-prefetch': ''
+  },
+  {
+    href: '/articles',
+    label: 'Инфрмация',
+    class: 'bp:max-2xl:hidden',
+    'data-astro-prefetch': ''
+  },
+  {
+    href: '/news',
+    label: 'Новости',
+    'data-astro-prefetch': '',
+    class: 'bp:max-xl:hidden'
+  },
+  {
+    href: '/contacts',
+    label: 'Контакты',
+    'data-astro-prefetch': ''
+  }
+];
+
+export const sidebar: NavSidebar = {
   header: [
     {
       href: '/about',
-      label: 'О предприятии'
+      label: 'О предприятии',
+      'data-astro-prefetch': 'hover'
     },
     {
       href: '/contacts',
@@ -101,82 +149,33 @@ export const drawer: NavSidebar = {
     },
     {
       href: '/privacy',
-      label: 'Политика конфиденциальности'
+      label: 'Политика конфиденциальности',
+      'data-astro-prefetch': 'hover'
     }
   ]
 };
 
-export const nav: NavSite = {
-  navbar: [
-    {
-      href: '/activity',
-      label: 'Деятельность',
-      'data-astro-prefetch': '',
-      items: activity
-    },
-    {
-      href: '/regulation',
-      label: 'Регламент',
-      'data-astro-prefetch': '',
-      rel: 'help'
-    },
-    {
-      href: '/projects',
-      label: 'Проекты',
-      'data-astro-prefetch': ''
-    },
-    {
-      href: '/permissions',
-      label: 'Допуски',
-      class: 'bp:max-lg:hidden',
-      'data-astro-prefetch': ''
-    },
-    {
-      href: '/partners',
-      label: 'Партнёры',
-      'data-astro-prefetch': ''
-    },
-    {
-      href: '/feedbacks',
-      label: 'Отзывы',
-      class: 'bp:max-xl:hidden',
-      'data-astro-prefetch': ''
-    },
-    {
-      href: '/articles',
-      label: 'Инфрмация',
-      class: 'bp:max-2xl:hidden',
-      'data-astro-prefetch': ''
-    },
-    {
-      href: '/news',
-      label: 'Новости',
-      'data-astro-prefetch': '',
-      class: 'bp:max-xl:hidden'
-    },
-    {
-      href: '/contacts',
-      label: 'Контакты',
-      'data-astro-prefetch': ''
-    }
-  ],
-  sidebar: drawer,
-  footer: [
-    {
-      href: '/admin',
-      label: 'ic:outline-settings' // &#128736;
-    },
-    {
-      href: '/regulation',
-      label: 'Регламент'
-    },
-    {
-      href: '/permissions',
-      label: 'Допуски'
-    },
-    {
-      href: '/contacts',
-      label: 'Контакты'
-    }
-  ]
+export const footer: NavItem[] = [
+  {
+    href: '/admin',
+    label: 'ic:outline-settings' // &#128736;
+  },
+  {
+    href: '/regulation',
+    label: 'Регламент'
+  },
+  {
+    href: '/permissions',
+    label: 'Допуски'
+  },
+  {
+    href: '/contacts',
+    label: 'Контакты'
+  }
+];
+
+export default {
+  navbar,
+  sidebar,
+  footer
 };

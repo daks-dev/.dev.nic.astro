@@ -2,13 +2,13 @@
 import { twMerge } from '@daks.dev/astro.sdk';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'button'>, 'class'> & {
+interface Props extends Omit<HTMLAttributes<'button'>, 'class'> {
   class?: ClassValue;
   icon?: string;
   label?: string;
   duration?: number;
   speed?: number;
-};
+}
 
 const {
   class: className,
@@ -31,7 +31,7 @@ const label = ariaLabel ?? 'цветовая тема';
         'select-none',
         'rounded-full border border-gray-300 dark:border-gray-700',
         'shadow-inset shadow-slate-300 dark:shadow-slate-600',
-        'motion-safe:ready:transition-colors duration-200',
+        'duration-200 motion-safe:ready:transition-colors',
         className
       )}
       aria-label={label}
@@ -43,7 +43,7 @@ const label = ariaLabel ?? 'цветовая тема';
       <div
         class:list={[
           'toggler',
-          'dark:text-theme-plain text-white',
+          'text-white dark:text-theme-plain',
           'dark:before:translate-x-full'
         ]}>
         <span class:list={['iconify ph--sun', 'block size-5']}></span>

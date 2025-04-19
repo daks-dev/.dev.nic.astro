@@ -3,14 +3,14 @@ import { twMerge } from '@daks.dev/astro.sdk';
 import { Link } from '@daks.dev/astro.sdk/astro';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class' | 'role'> & {
+interface Props extends Omit<HTMLAttributes<'div'>, 'class' | 'role'> {
   class?: ClassValue;
   custom?: Record<string, ClassValue>;
-};
+}
 
 const { class: className, custom = {}, ...props } = Astro.props;
 
-import { drawer } from '@app/configs/nav';
+import { sidebar } from '@app/configs/nav';
 ---
 
 <nav
@@ -19,8 +19,8 @@ import { drawer } from '@app/configs/nav';
   inert
   {...props}>
   {
-    drawer.header &&
-      drawer.header?.map(
+    sidebar.header &&
+      sidebar.header?.map(
         ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
           <Link
             class:list={[custom.link, className]}
@@ -33,8 +33,8 @@ import { drawer } from '@app/configs/nav';
   }
   <hr class:list={['my-2 w-10/12 self-center', 'border-gray-200 dark:border-gray-700/50']} />
   {
-    drawer.body &&
-      drawer.body.map(
+    sidebar.body &&
+      sidebar.body.map(
         ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => {
           item.href = `/activity${item.href}`;
           return (
@@ -82,8 +82,8 @@ import { drawer } from '@app/configs/nav';
   }
   <hr class:list={['my-2 w-10/12 self-center', 'border-gray-200 dark:border-gray-700/50']} />
   {
-    drawer.footer &&
-      drawer.footer.map(
+    sidebar.footer &&
+      sidebar.footer.map(
         ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
           <Link
             class:list={[custom.link, className]}

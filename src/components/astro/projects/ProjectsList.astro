@@ -5,15 +5,14 @@ import { twMerge } from '@daks.dev/astro.sdk';
 import { Figure, Sign } from '@daks.dev/astro.sdk/astro';
 import { BindListMode } from '@daks.dev/astro.sdk/svelte';
 import ProjectsYandexMap from './ProjectsYandexMap.astro';
-// import { ProjectsList as SvelteProjectsList } from '@components/svelte';
 
-type Props = {
+interface Props {
   collection: CollectionEntry<'projects'>[];
   class?: ClassValue;
   grayscale?: true;
   center?: string;
   zoom?: number;
-};
+}
 
 const { collection, class: className, grayscale, center, zoom } = Astro.props;
 
@@ -75,19 +74,6 @@ const projects = (
   a.priority > b.priority ? -1 : a.priority < b.priority ? 1 : a.id.localeCompare(b.id)
 );
 ---
-
-{
-  /*
-<SvelteProjectsList
-  client:load
-  {projects}
-  class={className}
-  {grayscale}
-  {center}
-  {zoom}
-/>
-  */
-}
 
 <BindListMode
   client:only='svelte'

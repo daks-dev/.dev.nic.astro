@@ -6,9 +6,9 @@ import type { CollectionEntry } from 'astro:content';
 import logo from '@assets/images/logo.webp';
 const placeholder = await getImage({ src: logo, width: 320, fit: 'contain' });
 
-type Props = {
+interface Props {
   partner: CollectionEntry<'partners'>;
-};
+}
 
 const { partner } = Astro.props;
 const { id } = partner;

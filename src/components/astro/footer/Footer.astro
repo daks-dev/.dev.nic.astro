@@ -4,9 +4,9 @@ import { Icon } from '@daks.dev/astro.sdk/astro';
 import { Timer } from '@daks.dev/astro.sdk/svelte';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'footer'>, 'class'> & {
+interface Props extends Omit<HTMLAttributes<'footer'>, 'class'> {
   class?: ClassValue;
-};
+}
 
 const { class: className, ...props } = Astro.props;
 

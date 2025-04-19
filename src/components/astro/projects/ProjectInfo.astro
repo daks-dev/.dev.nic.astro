@@ -2,12 +2,11 @@
 import { getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
-type Props = {
+interface Props {
   project: CollectionEntry<'projects'>;
-};
+}
 
 const { project } = Astro.props;
-
 const {
   address,
   area,
@@ -22,23 +21,6 @@ const {
 } = project.data;
 
 const customer = idc && (await getEntry('partners', idc))?.data.title;
-
-/*
-const data = idc && (await getEntry('partners', idc))?.data;
-const customer = data && {
-  id,
-  title: data.title,
-  image: data.image && {
-    src: await getImage({
-      src: data.image.src,
-      width: 256,
-      fit: 'contain',
-      quality: 80
-    }),
-    alt: data.image.alt
-  }
-};
-*/
 ---
 
 <dl class='space-y-3'>
@@ -75,7 +57,7 @@ const customer = data && {
   {
     scope && (
       <div class='flex gap-x-2'>
-        <dt class='whitespace-nowrap font-semibold text-slate-500'>{scope_term || 'Этажность'}:</dt>
+        <dt class='font-semibold whitespace-nowrap text-slate-500'>{scope_term || 'Этажность'}:</dt>
         <dd set:html={scope} />
       </div>
     )

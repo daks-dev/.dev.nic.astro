@@ -4,11 +4,11 @@ import { Dropdown, Link } from '@daks.dev/astro.sdk/astro';
 import type { HTMLAttributes } from 'astro/types';
 import type { NavItem } from '@daks.dev/astro.sdk';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class' | 'aria-owns'> & {
+interface Props extends Omit<HTMLAttributes<'div'>, 'class' | 'aria-owns'> {
   items: NavItem[];
   class?: ClassValue;
   custom?: Record<string, ClassValue>;
-};
+}
 
 const { items, class: className, custom = {}, ...props } = Astro.props;
 ---

@@ -2,12 +2,12 @@
 import { twMerge } from '@daks.dev/astro.sdk';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'inert'> & {
+interface Props extends Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'inert'> {
   custom: ClassValue;
   class?: ClassValue;
   duration?: number;
   speed?: number;
-};
+}
 
 const {
   custom,
@@ -26,11 +26,11 @@ const label = ariaLabel ?? 'перемотка наверх';
   <template>
     <button
       class={twMerge(
-        'fixed right-4 top-12 z-40',
+        'fixed top-12 right-4 z-40',
         'origin-center opacity-30 hover:opacity-100',
         'inert:scale-0 inert:opacity-0',
         'select-none',
-        'motion-safe:ready:transition delay-150 ease-in-out',
+        'delay-150 ease-in-out motion-safe:ready:transition',
         className
       )}
       style={`transition-duration: ${duration}ms`}

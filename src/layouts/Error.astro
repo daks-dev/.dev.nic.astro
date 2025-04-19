@@ -4,6 +4,7 @@ import Layout from './Base.astro';
 interface Props {
   status?: string;
 }
+
 const { status = '404' } = Astro.props;
 
 const title = status === '204' ? 'Service Worker' : status;

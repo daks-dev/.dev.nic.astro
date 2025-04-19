@@ -3,12 +3,12 @@ import { DEV } from 'esm-env';
 import { ClientRouter } from 'astro:transitions';
 import { twMerge } from '@daks.dev/astro.sdk';
 import { Head, YandexMetrika, YandexMetrikaHit } from '@daks.dev/astro.sdk/astro';
-import { Navbar, Drawer, Footer } from '@components/astro';
+import { Navbar, Sidebar, Footer } from '@components/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 import '@styles/global.css';
 
-type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> & {
+interface Props extends Omit<HTMLAttributes<'div'>, 'class' | 'title'> {
   schema?: string;
   class?: ClassValue;
   title: string;
@@ -16,7 +16,8 @@ type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> & {
   robots?: string;
   noMetrika?: boolean;
   noPwa?: boolean;
-};
+}
+
 const {
   schema = 'WebPage',
   class: className,
@@ -56,7 +57,7 @@ const {
       {...props}>
       <slot />
       <Navbar />
-      <Drawer />
+      <Sidebar />
       <Footer />
     </div>
     {

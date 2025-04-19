@@ -1,14 +1,14 @@
 ---
 import { twMerge } from '@daks.dev/astro.sdk';
 import { Link } from '@daks.dev/astro.sdk/astro';
-import DrawerToggle from './DrawerToggle.astro';
-import DrawerMenu from './DrawerMenu.astro';
+import SidebarToggle from './SidebarToggle.astro';
+import SidebarMenu from './SidebarMenu.astro';
 import microdata from '@app/configs/microdata';
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = Omit<HTMLAttributes<'aside'>, 'class' | 'inert' | 'aria-owns'> & {
+interface Props extends Omit<HTMLAttributes<'aside'>, 'class' | 'inert' | 'aria-owns'> {
   class?: ClassValue;
-};
+}
 
 const { class: className, ...props } = Astro.props;
 
@@ -16,10 +16,10 @@ const { email, telephone } = microdata.organization;
 ---
 
 <aside
-  is='app-drawer'
-  id='app-drawer'
+  is='app-sidebar'
+  id='app-sidebar'
   class={twMerge(
-    'fixed top-(--navbar-height) bottom-0 z-40 w-(--drawer-width)',
+    'fixed top-(--navbar-height) bottom-0 z-40 w-(--sidebar-width)',
     '-translate-x-full not-has-[nav[inert]]:translate-x-0 2xl:-translate-x-[(100%_-_3rem)]',
     'flex',
     'overflow-hidden',
@@ -28,9 +28,9 @@ const { email, telephone } = microdata.organization;
     'duration-200 ease-in-out motion-safe:ready:transition-transform',
     className
   )}
-  aria-owns='app-drawer-toggle'
+  aria-owns='app-sidebar-toggle'
   {...props}>
-  <DrawerMenu class='grow overflow-y-auto py-5' />
+  <SidebarMenu class='grow overflow-y-auto py-5' />
   <div
     class:list={[
       'flex flex-col items-center gap-y-2',
@@ -93,22 +93,22 @@ const { email, telephone } = microdata.organization;
       aria-label='панель администратора'
     />
 
-    <DrawerToggle
+    <SidebarToggle
       custom={['iconify ph--sign-in', 'size-6']}
       class:list={[
         'p-2',
         'aria-expanded:rotate-180',
         'duration-500 ease-in-out motion-safe:ready:transition-transform'
       ]}
-      uuid='drawer'
+      uuid='sidebar'
     />
   </div>
 </aside>
 
 <script>
-  import { drawer } from './store';
+  import { sidebar } from './store';
 
-  class AppDrawer extends HTMLElement {
+  class AppSidebar extends HTMLElement {
     menu: HTMLElement;
 
     constructor() {
@@ -116,12 +116,12 @@ const { email, telephone } = microdata.organization;
       this.menu = this.querySelector('[role="menu"]')!;
       this.setAttribute(
         'aria-owns',
-        [...document.querySelectorAll('[id|="app-drawer-toggle"]')].map((x) => x.id).join(' ')
+        [...document.querySelectorAll('[id|="app-sidebar-toggle"]')].map((x) => x.id).join(' ')
       );
     }
 
     connectedCallback() {
-      drawer.listen((x) =>
+      sidebar.listen((x) =>
         x ? this.menu.removeAttribute('inert') : this.menu.setAttribute('inert', '')
       );
       document.addEventListener('astro:page-load', this.close);
@@ -129,13 +129,13 @@ const { email, telephone } = microdata.organization;
     }
 
     disconnectedCallback() {
-      drawer.off();
+      sidebar.off();
       document.removeEventListener('astro:page-load', this.close);
       document.removeEventListener('click', this.outside);
     }
 
     close = () => {
-      drawer.set(false);
+      sidebar.set(false);
     };
 
     outside = (e: Event) => {
@@ -143,5 +143,5 @@ const { email, telephone } = microdata.organization;
     };
   }
 
-  customElements.define('app-drawer', AppDrawer, { extends: 'aside' });
+  customElements.define('app-sidebar', AppSidebar, { extends: 'aside' });
 </script>

@@ -53,7 +53,7 @@
   --color-theme-accent: #c561f6;
 
   --navbar-height: 3.75rem;
-  --drawer-width: min(25rem, 100vw);
+  --sidebar-width: min(25rem, 100vw);
 }
 
 :root.theme-dark {
