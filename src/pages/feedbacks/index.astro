@@ -1,0 +1,56 @@
+---
+import { getEntry } from 'astro:content';
+import { BindLightboxData } from '@daks.dev/astro.sdk/astro';
+import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+const images = (await getEntry('gallery', 'feedbacks'))?.data;
+
+const title = 'Отзывы заказчиков';
+const description = 'Отзывы заказчиков';
+---
+
+<Layout
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • АО НИЦ «Строительная экспертиза»`}>
+  <Header {title} />
+
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
+    {
+      images && (
+        <BindLightboxData
+          class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
+          custom={{
+            item: [
+              'h-full',
+              'bg-white',
+              'shadow-sm shadow-black hover:shadow-md',
+              'hover:scale-105',
+              'motion-safe:ready:transition duration-300 ease-in-out'
+            ]
+          }}
+          options={{ behaviour: 'loop' }}
+          data={images}
+          transform={{
+            thumb: {
+              width: 320,
+              quality: 80
+            },
+            modal: {
+              width: 800,
+              fit: 'inside',
+              quality: 80
+            }
+          }}
+          sign={{ custom: 'iconify ph--arrows-out', dark: true }}
+          {title}
+          description='АО НИЦ «Строительная экспертиза»'
+          alt='отзыв заказчика о ниц «строительная экспертиза»'
+          adaptive
+        />
+      )
+    }
+  </main>
+</Layout>

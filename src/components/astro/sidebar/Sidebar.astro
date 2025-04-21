@@ -1,0 +1,149 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Link } from '@daks.dev/astro.sdk/astro';
+import SidebarToggle from './SidebarToggle.astro';
+import SidebarMenu from './SidebarMenu.astro';
+import microdata from '@app/configs/microdata';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'aside'>, 'class' | 'inert' | 'aria-owns'> {
+  class?: ClassValue;
+}
+
+const { class: className, ...props } = Astro.props;
+
+const { email, telephone } = microdata.organization;
+---
+
+<aside
+  is='app-sidebar'
+  id='app-sidebar'
+  class={twMerge(
+    'fixed top-(--navbar-height) bottom-0 z-40 w-(--sidebar-width)',
+    '-translate-x-full not-has-[nav[inert]]:translate-x-0 2xl:-translate-x-[(100%_-_3rem)]',
+    'flex',
+    'overflow-hidden',
+    'bg-theme-frame',
+    'border-gray-700/50 dark:border-l',
+    'shadow-xl shadow-gray-300 dark:shadow-gray-950',
+    'duration-200 ease-in-out motion-safe:ready:transition-transform',
+    className
+  )}
+  aria-owns='app-sidebar-toggle'
+  {...props}>
+  <SidebarMenu class='grow overflow-y-auto py-5' />
+  <div
+    class:list={[
+      'flex flex-col items-center gap-y-2',
+      'w-12 py-5',
+      'text-primary-500',
+      'bg-theme-inner',
+      'border-l border-gray-200 dark:border-gray-700/50'
+    ]}>
+    <a
+      class:list={['p-2', 'text-primary-500']}
+      href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+      aria-label='позвонить'>
+      <span
+        class:list={['iconify ph--phone-call', 'bg-only size-6']}
+        set:text='позвонить'
+      />
+    </a>
+    <a
+      class:list={['mb-5 p-2', 'text-primary-500']}
+      href=`mailto:${email}`
+      aria-label='отправить сообщение'>
+      <span
+        class:list={['iconify ph--envelope', 'bg-only size-6']}
+        set:text='отправить сообщение'
+      />
+    </a>
+
+    <Link
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+      href='/activity'
+      icon={['iconify ph--hard-hat', 'size-6']}
+      aria-label='деятельность'
+      itemprop='relatedLink'
+    />
+    <Link
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+      href='/projects'
+      icon={['iconify ph--buildings', 'size-6']}
+      aria-label='реализованные проекты'
+      itemprop='relatedLink'
+    />
+    <Link
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+      href='/permissions'
+      icon={['iconify ph--certificate', 'bg-only size-6']}
+      aria-label='допуски и сертификаты'
+      itemprop='relatedLink'
+    />
+    <Link
+      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+      href='/feedbacks'
+      icon={['iconify ph--trophy', 'bg-only size-6']}
+      aria-label='отзывы заказчиков'
+      itemprop='relatedLink'
+    />
+
+    <Link
+      class:list={['mt-auto mb-5 p-2', 'text-primary-500']}
+      href='/admin'
+      icon={['iconify ph--sliders', 'size-6']}
+      aria-label='панель администратора'
+    />
+
+    <SidebarToggle
+      custom={['iconify ph--sign-in', 'size-6']}
+      class:list={[
+        'min-h-10 min-w-10 p-2',
+        'aria-expanded:rotate-180',
+        'duration-500 ease-in-out motion-safe:ready:transition-transform'
+      ]}
+      uuid='sidebar'
+    />
+  </div>
+</aside>
+
+<script>
+  import { sidebar } from './store';
+
+  class AppSidebar extends HTMLElement {
+    menu: HTMLElement;
+
+    constructor() {
+      super();
+      this.menu = this.querySelector('[role="menu"]')!;
+      this.setAttribute(
+        'aria-owns',
+        [...document.querySelectorAll('[id|="app-sidebar-toggle"]')].map((x) => x.id).join(' ')
+      );
+    }
+
+    connectedCallback() {
+      sidebar.listen((x) =>
+        x ? this.menu.removeAttribute('inert') : this.menu.setAttribute('inert', '')
+      );
+      document.addEventListener('astro:page-load', this.close);
+      document.addEventListener('click', this.outside);
+    }
+
+    disconnectedCallback() {
+      sidebar.off();
+      document.removeEventListener('astro:page-load', this.close);
+      document.removeEventListener('click', this.outside);
+    }
+
+    close = () => {
+      sidebar.set(false);
+    };
+
+    outside = (e: Event) => {
+      if (e?.target && !e.defaultPrevented && !this.contains(e.target as Node)) this.close();
+    };
+  }
+
+  customElements.define('app-sidebar', AppSidebar, { extends: 'aside' });
+</script>

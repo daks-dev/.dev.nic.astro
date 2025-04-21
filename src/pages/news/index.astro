@@ -1,0 +1,148 @@
+---
+import { getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { Figure, FormattedDate, Sign } from '@daks.dev/astro.sdk/astro';
+import { BindListMode } from '@daks.dev/astro.sdk/svelte';
+import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({
+  src: logo,
+  width: 320,
+  height: 180,
+  fit: 'inside',
+  quality: 80
+});
+
+const collection = await getCollection('news');
+
+const gallery = (
+  await Promise.all(
+    collection.map(async ({ id, data: { title, description, images, poster } }) => {
+      if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+      const src =
+        images?.length && poster !== -1
+          ? await getImage({
+              src: images[poster].src,
+              width: 320,
+              height: 180,
+              fit: 'cover'
+            })
+          : placeholder;
+      return {
+        id,
+        src,
+        poster,
+        title,
+        description
+      };
+    })
+  )
+).sort((a, b) => b.id.localeCompare(a.id));
+
+const title = 'Новости';
+---
+
+<Layout
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
+  <Header {title} />
+
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
+    <BindListMode
+      client:load
+      class='-mt-4 mb-4'
+      length={gallery.length}>
+      <div
+        slot='app'
+        class:list={[
+          'grid gap-x-8 gap-y-12 max-sm:place-items-center',
+          'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+        ]}>
+        {
+          gallery.map(({ id, src, poster, title, description }) => (
+            <a
+              class:list={['group relative', 'w-full max-w-80', 'no-underline']}
+              href={`/news/${id}`}
+              itemprop='relatedLink'>
+              <Sign
+                custom='iconify ph--link'
+                class='top-8 left-2'
+                link
+                dark
+              />
+              <Figure
+                class='pointer-events-none'
+                custom={{
+                  img: [
+                    'mb-2',
+                    'h-auto w-full max-w-full',
+                    'aspect-video object-contain',
+                    'bg-neutral-300/10',
+                    'rounded',
+                    'shadow-md shadow-black group-hover:shadow-sm',
+                    // 'group-hover:grayscale-0 grayscale',
+                    poster === -1 && 'p-2',
+                    'duration-500 ease-in-out motion-safe:ready:transition'
+                  ],
+                  caption: ['text-theme-plain group-hover:text-theme-link', 'transition-easy']
+                }}
+                {src}
+                caption={{ title, description }}>
+                <FormattedDate
+                  slot='before'
+                  date={id}
+                  parse='YY-MM-DD'
+                  class={[
+                    'mb-2',
+                    'leading-none font-medium text-theme-header group-hover:text-theme-link',
+                    'transition-easy'
+                  ]}
+                />
+              </Figure>
+              <small class='absolute top-8 right-2 text-black'>{id}</small>
+            </a>
+          ))
+        }
+      </div>
+      <div
+        slot='list'
+        class='flex flex-col'>
+        {
+          gallery.map(({ id, title, description }, idx) => (
+            <a
+              class:list={[
+                'group',
+                'px-2 py-4',
+                'grid grid-cols-[32px_minmax(0,_1fr)_160px] md:grid-cols-[32px_288px_minmax(0,_1fr)_160px]',
+                'items-center',
+                'no-underline',
+                'odd:bg-slate-400/20',
+                'oversee:text-sky-500 oversee:!bg-slate-400/40'
+              ]}
+              href={`/news/${id}`}
+              itemprop='relatedLink'>
+              <small set:text={idx + 1} />
+              <span
+                class='text-slate-600 dark:text-slate-400 group-oversee:!text-inherit'
+                set:html={title}
+              />
+              <small
+                class='max-md:hidden'
+                set:html={description}
+              />
+              <FormattedDate
+                class='text-right font-mono'
+                date={id ?? ''}
+                parse='YY-MM-DD'
+              />
+            </a>
+          ))
+        }
+      </div>
+    </BindListMode>
+  </main>
+</Layout>

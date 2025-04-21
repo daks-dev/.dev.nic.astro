@@ -1,0 +1,110 @@
+---
+import { getEntry } from 'astro:content';
+import { BindLightboxData, YandexMap } from '@daks.dev/astro.sdk/astro';
+import { Header, ContactsData } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+import seo from '@app/configs/seo';
+const {
+  yandex: { api }
+} = seo;
+
+const geo = {
+  locations: [
+    {
+      geometry: [55.771174, 37.60589],
+      properties: {
+        iconContent: '<strong class="tracking-wider">Строительная Экспертиза</strong>',
+        balloonContentHeader: 'АО НИЦ «Строительная экспертиза»',
+        balloonContentBody:
+          '<img class=mx-auto src=/assets/images/ymap.webp width=192 height=192 />',
+        balloonContentFooter:
+          '<div class=text-center>время работы: 9 <sup>00</sup> -- 19 <sup>00</sup></div>'
+      },
+      options: {
+        preset: 'islands#nightStretchyIcon'
+      }
+    }
+  ],
+  state: {
+    center: [55.771174, 37.60589],
+    zoom: 17,
+    behaviors: ['drag', 'dblClickZoom', 'rightMouseButtonMagnifier', 'multiTouch'],
+    controls: ['zoomControl', 'fullscreenControl']
+  },
+  options: {
+    autoFitToViewport: 'always'
+  }
+};
+
+const images = (await getEntry('gallery', 'contacts'))?.data;
+
+const title = 'Контактная информация';
+const description = 'Контактная информация';
+---
+
+<Layout
+  schema='ContactPage'
+  class='flex flex-col'
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
+  <div class='flex min-h-screen grow flex-col'>
+    <Header {title} />
+
+    <main
+      class='frame mb-0 flex grow flex-col gap-4'
+      itemprop='mainContentOfPage'>
+      <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
+        <ContactsData />
+        {
+          images && (
+            <BindLightboxData
+              class='md:mt-2'
+              custom={{
+                thumb: 'min-w-fit'
+              }}
+              options={{ behaviour: 'loop' }}
+              data={images}
+              show={1}
+              transform={{
+                thumb: {
+                  width: 320,
+                  height: 240,
+                  fit: 'cover',
+                  quality: 80
+                },
+                modal: {
+                  width: 800,
+                  fit: 'inside',
+                  quality: 80
+                }
+              }}
+              sign={{ custom: 'iconify ph--arrows-out', dark: true }}
+              {title}
+              description='АО НИЦ «Строительная Экспертиза»'
+              alt={title.toLowerCase()}
+              adaptive
+              scale
+              shadow
+              rounded
+            />
+          )
+        }
+      </div>
+
+      <div class='flex h-[40vmax] grow xs:h-[35vmax] sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
+        <YandexMap
+          {geo}
+          apikey={api.maps}
+          class={[
+            'min-h-full w-full overflow-hidden',
+            'bg--waiting bg-center bg-no-repeat',
+            'bg-[size:25%] sm:bg-[size:20%] md:bg-[size:10%]',
+            'bg-gray-100 dark:bg-slate-200',
+            'border-4 border-slate-400'
+          ]}
+        />
+      </div>
+    </main>
+  </div>
+</Layout>

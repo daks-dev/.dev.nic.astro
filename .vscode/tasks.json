@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": ["$tsc"],
+      "label": "start",
+      "detail": "astro dev --port=3000"
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "problemMatcher": ["$tsc"],
+      "label": "dev",
+      "detail": "astro dev --local-development --port=3000"
+    },
+    {
+      "type": "npm",
+      "script": "check",
+      "problemMatcher": ["$tsc"],
+      "label": "check",
+      "detail": "astro check && svelte-check"
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "group": "build",
+      "problemMatcher": ["$tsc"],
+      "label": "build",
+      "detail": "astro build"
+    },
+    {
+      "type": "npm",
+      "script": "preview",
+      "problemMatcher": ["$tsc"],
+      "label": "preview",
+      "detail": "astro preview --port=3000"
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "problemMatcher": ["$tsc"],
+      "label": "lint",
+      "detail": "pnpm run:prettier --check . && eslint . && stylelint src"
+    },
+    {
+      "type": "npm",
+      "script": "format",
+      "problemMatcher": ["$tsc"],
+      "label": "format",
+      "detail": "pnpm run:prettier --write ."
+    },
+    {
+      "type": "npm",
+      "script": "run:update",
+      "problemMatcher": ["$tsc"],
+      "label": "update",
+      "detail": "pnpm up"
+    }
+  ]
+}

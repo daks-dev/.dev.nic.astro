@@ -1,0 +1,135 @@
+---
+import { getCollection, render } from 'astro:content';
+import { BindLightboxData, YandexMap } from '@daks.dev/astro.sdk/astro';
+import { Header, ProjectInfo } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const collection = await getCollection('projects');
+  return collection.map((project) => {
+    return {
+      params: { id: project.id },
+      props: { project }
+    };
+  });
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const { id } = project;
+const { title, description, location, images = [] } = project.data;
+
+import seo from '@app/configs/seo';
+const {
+  yandex: { api }
+} = seo;
+
+const geometry = location.split(', ').map((x: string) => Number(x));
+const geo = {
+  locations: [
+    {
+      geometry,
+      properties: {
+        iconContent: `
+          <strong class="hidden sm:block pointer: coarsemax-w-[16rem] md:max-w-xs lg:max-w-none truncate">${title}</strong>
+          <strong class="sm:hidden">${id}</strong>`
+      },
+      options: {
+        preset: 'islands#nightStretchyIcon'
+      }
+    }
+  ],
+  state: {
+    center: geometry,
+    zoom: 16,
+    behaviors: ['drag', 'dblClickZoom', 'rightMouseButtonMagnifier', 'multiTouch'],
+    controls: ['zoomControl', 'fullscreenControl']
+  },
+  options: {
+    autoFitToViewport: 'always',
+    suppressMapOpenBlock: true
+  }
+};
+---
+
+<Layout
+  class='flex flex-col'
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • [${id}]`}>
+  <div class='flex min-h-screen grow flex-col'>
+    <Header
+      {title}
+      tagline={description ?? `[ ${id} ]`}
+    />
+
+    <main
+      class='frame mb-0 flex grow flex-col gap-4'
+      itemprop='mainContentOfPage'>
+      <div class='mb-4 flex justify-between gap-8 max-md:flex-col'>
+        <div class='readable'>
+          <ProjectInfo {project} />
+          <hr class:list={['mx-auto my-2 w-10/12', 'border-gray-200 dark:border-gray-700']} />
+          <Content />
+        </div>
+        <div class='flex place-content-center gap-2 md:flex-col md:items-center'>
+          {
+            project.data.images && (
+              <BindLightboxData
+                custom={{
+                  thumb: 'min-w-fit',
+                  inner: {
+                    img: [
+                      'hover:scale-105 hover:drop-shadow-xl',
+                      'rounded-sm drop-shadow-lg',
+                      'transition duration-500'
+                    ]
+                  }
+                }}
+                options={{ behaviour: 'loop' }}
+                data={images}
+                show={1}
+                transform={{
+                  thumb: {
+                    width: 320,
+                    height: 240,
+                    fit: 'cover',
+                    quality: 80
+                  },
+                  modal: {
+                    width: 800,
+                    fit: 'inside',
+                    quality: 80
+                  }
+                }}
+                sign={{ custom: 'iconify ph--arrows-out', dark: true }}
+                {title}
+                {description}
+                alt={title.toLowerCase()}
+              />
+            )
+          }
+          {
+            images.length > 1 && (
+              <small class='font-semibold whitespace-nowrap text-theme-accent md:self-start'>
+                [ +{images.length - 1} ]
+              </small>
+            )
+          }
+        </div>
+      </div>
+
+      <div class='flex h-[40vmax] grow xs:h-[35vmax] sm:h-[30vmax] md:h-[25vmax] lg:h-auto'>
+        <YandexMap
+          class:list={[
+            'min-h-full w-full overflow-hidden',
+            'bg-25% sm:bg-20% md:bg-10% bg-gray-100 bg--waiting bg-center bg-no-repeat dark:bg-slate-200',
+            'border-4 border-slate-400'
+          ]}
+          {geo}
+          apikey={api.maps}
+        />
+      </div>
+    </main>
+  </div>
+</Layout>

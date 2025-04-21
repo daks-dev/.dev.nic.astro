@@ -1,0 +1,48 @@
+@layer base {
+  body {
+    @apply leading-normal;
+    @apply bg-theme-flat text-theme-plain;
+  }
+
+  a {
+    @apply text-theme-link page:text-theme-header;
+  }
+
+  h1 {
+    @apply leading-relaxed;
+    @apply text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl;
+  }
+
+  h2 {
+    @apply leading-relaxed;
+    @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl;
+  }
+
+  h3 {
+    @apply text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl;
+  }
+
+  h4 {
+    @apply text-lg sm:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl;
+  }
+
+  h5 {
+    @apply text-base sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl;
+  }
+
+  :where(h1, h2, h3, h4, h5) {
+    @apply font-medium;
+  }
+
+  :where(h1, h2) {
+    @apply leading-tight;
+  }
+
+  :where(h3, h4, h5) {
+    @apply leading-snug;
+  }
+
+  :where(a, button) {
+    @apply cursor-pointer;
+  }
+}

@@ -1,0 +1,65 @@
+@import '@daks.dev/astro.sdk/tailwind/css/readable.css';
+
+@utility min-h--screen-navbar {
+  /*height: calc(100vh - var(--navbar-height));*/
+  min-height: calc(100vh - var(--navbar-height));
+}
+@utility max-h--screen-navbar {
+  max-height: calc(100vh - var(--navbar-height));
+}
+
+@utility leader {
+  @apply text-primary-800 dark:text-primary-400;
+  @apply text-base sm:text-lg bp:text-xl 2xl:text-1.5xl;
+}
+
+@utility transition-easy {
+  @apply duration-200 ease-in-out motion-safe:ready:transition;
+}
+
+@layer utilities {
+  :where(.readable) {
+    @apply text-sm leading-relaxed sm:text-base;
+    :where(h2, h3, h4) {
+      @apply tracking-normal;
+      @apply text-xl sm:text-1.5xl lg:text-2xl 2xl:text-2.5xl;
+    }
+    :where(p) {
+      @apply xs:text-justify;
+    }
+    :where(a) {
+      @apply hover:decoration-inherit;
+    }
+    :where(b, strong) {
+      @apply font-medium;
+    }
+    :where(table, th, td) {
+      @apply border-slate-500 dark:border-slate-400;
+      @apply cursor-default;
+    }
+    :where(th, td) {
+      @apply sm:px-2.5 sm:py-2;
+    }
+    :where(th) {
+      @apply font-medium;
+      @apply text-slate-600 dark:text-slate-400;
+    }
+    :where(tr) {
+      @apply hover:bg-neutral-200 dark:hover:bg-gray-700;
+    }
+    :where(blockquote) {
+      @apply text-gray-500 dark:text-gray-400;
+      @apply border-slate-500 dark:border-slate-400;
+    }
+    :where(.leader) {
+      @apply leading-relaxed;
+      &:not(:first-child) {
+        @apply mt-6;
+      }
+    }
+  }
+
+  :where(.snap-start, .snap-center) {
+    scroll-margin-top: var(--navbar-height);
+  }
+}

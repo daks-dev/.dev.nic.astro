@@ -1,0 +1,40 @@
+---
+import Layout from '@layouts/Base.astro';
+import { Header, ActivityCard } from '@components/astro';
+
+import { activity } from '@app/configs/nav';
+
+const title = 'Деятельность';
+const description = 'Деятельность';
+---
+
+<Layout
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
+  <Header {title} />
+
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
+    <div class:list={['mx-auto w-fit', 'grid grid-cols-none gap-8 md:grid-cols-2 lg:gap-16']}>
+      {
+        activity &&
+          activity.map(({ href, label }) => (
+            <ActivityCard
+              class='w-full hover:bg-slate-300/20'
+              href={`/activity${href}`}>
+              <div
+                slot='header'
+                class:list={[
+                  'leader',
+                  'transition-easy group-hover:text-theme-link',
+                  'drop-shadow-black group-hover:drop-shadow-sm'
+                ]}
+                set:html={label}
+              />
+            </ActivityCard>
+          ))
+      }
+    </div>
+  </main>
+</Layout>

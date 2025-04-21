@@ -1,0 +1,181 @@
+---
+import { getImage } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Figure, Sign } from '@daks.dev/astro.sdk/astro';
+import { BindListMode } from '@daks.dev/astro.sdk/svelte';
+import ProjectsYandexMap from './ProjectsYandexMap.astro';
+
+interface Props {
+  collection: CollectionEntry<'projects'>[];
+  class?: ClassValue;
+  grayscale?: true;
+  center?: string;
+  zoom?: number;
+}
+
+const { collection, class: className, grayscale, center, zoom } = Astro.props;
+
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({
+  src: logo,
+  width: 320,
+  height: 320,
+  fit: 'inside',
+  quality: 80
+});
+
+const projects = (
+  await Promise.all(
+    collection.map(
+      async ({
+        id,
+        data: {
+          priority,
+          poster,
+          images,
+          title,
+          description,
+          address,
+          area,
+          area_term,
+          area_unit,
+          activities,
+          location
+        }
+      }) => {
+        if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+        const src =
+          images && poster !== -1
+            ? await getImage({
+                src: images[poster].src,
+                width: 320,
+                height: 320,
+                fit: 'cover'
+              })
+            : placeholder;
+        return {
+          id,
+          priority,
+          src,
+          title,
+          description,
+          address,
+          area,
+          area_term,
+          area_unit,
+          activities,
+          location
+        };
+      }
+    )
+  )
+).sort((a, b) =>
+  a.priority > b.priority ? -1 : a.priority < b.priority ? 1 : a.id.localeCompare(b.id)
+);
+---
+
+<BindListMode
+  client:only='svelte'
+  class={twMerge('-mt-4 mb-4', className)}
+  length={projects.length}>
+  <div
+    slot='app'
+    class:list={[
+      'grid gap-x-8 gap-y-12 max-sm:place-items-center lg:gap-16',
+      'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+    ]}>
+    {
+      projects.map(({ id, src, title, description }) => (
+        <a
+          class:list={['group relative', 'w-full max-w-80', 'no-underline']}
+          href={`/projects/${id}`}
+          itemprop='relatedLink'>
+          <Sign
+            custom='iconify ph--link'
+            class='top-2 left-2'
+            link
+            dark
+          />
+          <Figure
+            class:list={[
+              'overflow-hidden',
+              'rounded-sm border border-gray-400 dark:border-gray-600',
+              'shadow-md shadow-black group-hover:shadow-sm',
+              'pointer-events-none',
+              'transition-easy'
+            ]}
+            custom={{
+              img: [
+                'h-auto w-full max-w-full',
+                'aspect-square object-contain',
+                grayscale && ['grayscale group-hover:grayscale-0', 'transition-easy']
+              ],
+              caption: [
+                'absolute bottom-0 left-0',
+                'h-20 w-full overflow-hidden p-2',
+                'flex flex-col justify-start',
+                'leading-tight text-ellipsis text-white',
+                'bg-gray-700/70',
+                'group-hover:opacity-0',
+                'duration-1000 ease-in-out motion-safe:ready:transition-opacity'
+              ]
+            }}
+            {src}
+            caption={{ title, description }}
+          />
+          <small class='absolute top-2 right-2 text-black'>{id}</small>
+        </a>
+      ))
+    }
+  </div>
+
+  <div
+    slot='list'
+    class='flex flex-col'>
+    {
+      projects.map(({ id, title, address, area, area_unit }, idx) => (
+        <a
+          class:list={[
+            'group',
+            'px-2 py-4',
+            'grid grid-cols-[32px_minmax(0,_1fr)_96px] md:grid-cols-[32px_288px_minmax(0,_1fr)_96px]',
+            'items-center',
+            'no-underline',
+            'odd:bg-slate-400/20',
+            'hover:text-sky-500 hover:!bg-slate-400/40'
+          ]}
+          href={`/projects/${id}`}
+          itemprop='relatedLink'>
+          <small set:text={idx + 1} />
+          <span
+            class='text-slate-600 group-hover:!text-inherit dark:text-slate-400'
+            set:html={title}
+          />
+          <small
+            class='max-md:hidden'
+            set:html={address}
+          />
+          <span class='text-right'>
+            {Number(area).toLocaleString()}
+            <small set:html={area_unit || 'м<sup>2</sup>'} />
+          </span>
+        </a>
+      ))
+    }
+  </div>
+
+  <ProjectsYandexMap
+    slot='map'
+    class={[
+      'w-full aspect-square lg:aspect-video',
+      'bg--waiting bg-center bg-no-repeat',
+      'bg-[size:25%] sm:bg-[size:20%] md:bg-[size:10%]',
+      'bg-gray-100 dark:bg-slate-200',
+      'border-4 border-slate-400'
+    ]}
+    {projects}
+    {center}
+    {zoom}
+  />
+</BindListMode>

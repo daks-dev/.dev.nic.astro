@@ -1,0 +1,90 @@
+---
+import { getEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const {
+  address,
+  area,
+  area_term,
+  area_unit,
+  units,
+  units_term,
+  scope,
+  scope_term,
+  activities,
+  customer: idc
+} = project.data;
+
+const customer = idc && (await getEntry('partners', idc))?.data.title;
+---
+
+<dl class='space-y-3'>
+  {
+    address && (
+      <div class='flex flex-wrap gap-x-2'>
+        <dt class='font-semibold text-slate-500'>Адрес:</dt>
+        <dd
+          class='flex grow'
+          set:html={address}
+        />
+      </div>
+    )
+  }
+  {
+    area && (
+      <div class='flex gap-x-2 whitespace-nowrap'>
+        <dt class='font-semibold text-slate-500'>{area_term || 'Общая площадь'}:</dt>
+        <dd>
+          {area.toLocaleString()}
+          <Fragment set:html={area_unit || 'м<sup>2</sup>'} />
+        </dd>
+      </div>
+    )
+  }
+  {
+    units && (
+      <div class='flex gap-x-2'>
+        <dt class='font-semibold text-slate-500'>{units_term || 'Корпусов'}:</dt>
+        <dd set:html={units} />
+      </div>
+    )
+  }
+  {
+    scope && (
+      <div class='flex gap-x-2'>
+        <dt class='font-semibold whitespace-nowrap text-slate-500'>{scope_term || 'Этажность'}:</dt>
+        <dd set:html={scope} />
+      </div>
+    )
+  }
+  {
+    activities && (
+      <div class='flex flex-wrap gap-x-2'>
+        <dt class='font-semibold text-slate-500'>Виды работ:</dt>
+        <dd
+          class='text-accent'
+          set:html={activities.join(', ')}
+        />
+      </div>
+    )
+  }
+  {
+    customer && (
+      <div class='flex flex-wrap gap-x-2'>
+        <dt class='font-semibold text-slate-500'>Заказчик:</dt>
+        <dd>
+          <a
+            class='text-2xl/none'
+            href={`/partners/${idc}`}
+            set:text={customer}
+          />
+        </dd>
+      </div>
+    )
+  }
+</dl>

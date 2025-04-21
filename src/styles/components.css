@@ -1,0 +1,30 @@
+@layer components {
+  header:has(~ :where(main, [role='main'])) {
+    margin-top: calc(2rem + var(--navbar-height));
+    @apply mb-12;
+    h1 {
+      @apply text-theme-header;
+    }
+  }
+
+  :where(main, [role='main']) {
+    margin-bottom: 2rem;
+  }
+
+  a:not([role='menuitem']) {
+    @apply underline decoration-transparent decoration-1 underline-offset-8;
+    @apply text-theme-link hover:text-theme-link-hover hover:decoration-inherit;
+    @apply transition-colors duration-300 ease-in-out;
+  }
+
+  [role='menuitem'] {
+    @apply px-4 pt-1.75 pb-2;
+    @apply text-theme-plain;
+    @apply hover:bg-primary-300 hover:text-primary-900 dark:hover:bg-primary-500 dark:hover:text-primary-200;
+    @apply border border-transparent;
+    @apply step:border-gray-500/50 step:text-theme-header;
+    @apply page:bg-primary-400 page:text-white dark:page:text-black;
+    @apply duration-200 motion-safe:ready:transition-colors;
+    @apply forced-colors:text-selected;
+  }
+}

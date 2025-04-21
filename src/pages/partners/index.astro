@@ -1,0 +1,103 @@
+---
+import { getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { Figure, Sign } from '@daks.dev/astro.sdk/astro';
+import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({
+  src: logo,
+  width: 320,
+  height: 180,
+  fit: 'inside',
+  quality: 80
+});
+
+const collection = await getCollection('partners');
+
+const gallery = (
+  await Promise.all(
+    collection.map(async ({ id, data: { priority, image, title } }) => {
+      const src = image
+        ? await getImage({
+            src: image.src,
+            width: 320,
+            height: 180,
+            fit: 'inside',
+            quality: 80
+          })
+        : placeholder;
+      return {
+        id,
+        priority,
+        src,
+        caption: {
+          title
+        }
+      };
+    })
+  )
+).sort((a, b) =>
+  a.priority > b.priority ? -1 : a.priority < b.priority ? 1 : a.id.localeCompare(b.id)
+);
+
+const title = 'Парнёры';
+---
+
+<Layout
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
+  <Header {title} />
+
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
+    <div
+      class:list={[
+        'grid gap-x-8 gap-y-12 max-sm:place-items-center lg:gap-16',
+        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+      ]}>
+      {
+        gallery.map(({ id, src, caption }) => (
+          <a
+            class:list={['group relative', 'w-full max-w-80', 'no-underline']}
+            href={`/partners/${id}`}>
+            <Sign
+              custom='iconify ph--link'
+              class='left-2 top-2'
+              link
+              dark
+            />
+            <Figure
+              class:list={[
+                'overflow-hidden',
+                'items-center justify-center',
+                'bg-white',
+                'rounded border border-gray-400 dark:border-gray-600',
+                'shadow-md shadow-black group-hover:shadow-sm',
+                'pointer-events-none',
+                'transition-easy'
+              ]}
+              custom={{
+                img: ['h-auto max-w-full', 'aspect-4/3 object-contain'],
+                caption: [
+                  'absolute bottom-0 left-0',
+                  'h-15 w-full overflow-hidden p-2',
+                  'flex flex-col justify-start',
+                  'text-ellipsis leading-tight text-white',
+                  'bg-gray-700/70',
+                  'group-hover:opacity-0',
+                  'motion-safe:ready:transition-opacity duration-1000 ease-in-out'
+                ]
+              }}
+              {src}
+              {caption}
+            />
+            <small class='absolute right-2 top-2 text-black'>{id}</small>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Layout>

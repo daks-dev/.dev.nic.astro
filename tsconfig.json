@@ -1,0 +1,47 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "checkJs": true,
+
+    // "jsx": "react-jsx",
+    // "jsxImportSource": "react",
+
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "esnext",
+
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ],
+
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@styles/*": ["src/styles/*"]
+    }
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "*.js",
+    "*.ts",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.astro",
+    "src/**/*.svelte"
+  ],
+  "exclude": ["build/", "dev-dist/", "dist/", "**/node_modules/**"]
+}

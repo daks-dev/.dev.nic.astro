@@ -1,0 +1,76 @@
+---
+import { DEV } from 'esm-env';
+import { ClientRouter } from 'astro:transitions';
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Head, YandexMetrika, YandexMetrikaHit } from '@daks.dev/astro.sdk/astro';
+import { Navbar, Sidebar, Footer } from '@components/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+import '@styles/global.css';
+
+interface Props extends Omit<HTMLAttributes<'div'>, 'class' | 'title'> {
+  schema?: string;
+  class?: ClassValue;
+  title: string;
+  description: string;
+  robots?: string;
+  noMetrika?: boolean;
+  noPwa?: boolean;
+}
+
+const {
+  schema = 'WebPage',
+  class: className,
+  title,
+  description,
+  robots,
+  noMetrika = DEV,
+  noPwa,
+  ...props
+} = Astro.props;
+
+import { app, seo } from '@app/configs';
+const {
+  yandex: { counter }
+} = seo;
+---
+
+<html
+  lang='en'
+  class='theme-dark'>
+  <head>
+    <Head
+      {title}
+      {description}
+      {robots}
+      {app}
+      rss='/rss.xml'
+    />
+    <ClientRouter />
+  </head>
+
+  <body
+    itemscope
+    itemtype={`https://schema.org/${schema}`}>
+    <div
+      class={twMerge('relative flex min-h-screen flex-col', className)}
+      {...props}>
+      <slot />
+      <Navbar />
+      <Sidebar />
+      <Footer />
+    </div>
+    {
+      !noMetrika && (
+        <>
+          <YandexMetrika {counter} />
+          <YandexMetrikaHit
+            {counter}
+            {title}
+          />
+        </>
+      )
+    }
+    {!noPwa && <script>if (typeof window !== 'undefined') import('../pwa')</script>}
+  </body>
+</html>

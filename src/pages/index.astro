@@ -1,0 +1,298 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@layouts/Base.astro';
+import { Video, BindCarouselData } from '@daks.dev/astro.sdk/astro';
+
+import microdata from '@app/configs/microdata';
+
+const { email, telephone, address } = microdata.organization;
+const addressFull = `${address.addressLocality}, ${address.streetAddress}`;
+
+import placeholder from '@assets/images/logo.webp';
+
+const projects = (
+  await Promise.all(
+    (await getCollection('projects', ({ data }) => !data.hidden)).map(
+      async ({ id, data: { priority, title, poster, images } }) => {
+        if (poster !== -1) poster = images && poster < images.length ? poster : -1;
+        const src = images && poster !== -1 ? images[poster].src : placeholder;
+        return {
+          id,
+          priority,
+          src,
+          caption: { title }
+        };
+      }
+    )
+  )
+).sort((a, b) =>
+  a.priority > b.priority ? 1 : a.priority < b.priority ? 0 : a.id.localeCompare(b.id)
+);
+
+const customers = (
+  await Promise.all(
+    (await getCollection('partners', ({ data }) => !data.hidden)).map(
+      async ({ id, data: { image, title } }) => ({
+        id,
+        src: image.src,
+        caption: { title }
+      })
+    )
+  )
+).sort((a, b) => a.id.localeCompare(b.id));
+---
+
+<Layout
+  class='gap-8'
+  title='НИЦ «Строительная экспертиза»'
+  description='Независимая строительная экспертиза в Москве • АО НИЦ «Строительная Экспертиза»'>
+  <header class='frame-xl mb-0 lg:mb-4'>
+    <div class='grid w-full gap-8 pt-8 lg:grid-cols-12'>
+      <div
+        class='mr-auto place-self-center lg:col-span-7 2xl:col-span-8'
+        itemscope
+        itemtype='https://schema.org/LocalBusiness'>
+        <h1
+          class:list={[
+            'mb-4',
+            'leading-tight font-extrabold max-xs:text-center',
+            'text-4xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl',
+            'text-primary-700 dark:text-primary-200',
+            'text-shadow-gray-400 text-shadow-lg dark:text-shadow-black'
+          ]}>
+          <span class='block text-[125%]'>АО НИЦ</span>
+          Строительная экспертиза
+        </h1>
+        <meta
+          itemprop='name'
+          content='АО НИЦ «Строительная Экспертиза»'
+        />
+        <p
+          class:list={[
+            'mb-8',
+            'font-normal uppercase',
+            'xs:text-md text-sm max-xs:text-center lg:text-lg',
+            'text-gray-600 dark:text-gray-400'
+          ]}
+          itemprop='description'>
+          один из лидеров на строительном рынке в области консалтинга, лабораторного сопровождения
+          строительства, обследования зданий и сооружений
+        </p>
+        <div class='flex justify-around xs:hidden'>
+          <a
+            class:list={[
+              'flex size-20 items-center justify-center',
+              // 'text-slate-500',
+              'rounded-lg',
+              'shadow-xs shadow-gray-400 dark:shadow-black'
+            ]}
+            href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+            aria-label='позвонить'>
+            <span
+              class:list={['iconify ph--phone-call', 'bg-only size-14']}
+              set:text='позвонить'
+            />
+          </a>
+          <a
+            class:list={[
+              'flex size-20 items-center justify-center',
+              // 'text-slate-500',
+              'rounded-lg',
+              'shadow-sm shadow-gray-400 dark:shadow-black'
+            ]}
+            href=`mailto:${email}`
+            aria-label='отправить сообщение'>
+            <span
+              class:list={['iconify ph--envelope', 'bg-only size-16']}
+              set:text='отправить сообщение'
+            />
+          </a>
+        </div>
+        <div class='hidden flex-col gap-y-2 text-slate-600 xs:flex dark:text-slate-400'>
+          <a
+            class='text-3xl font-semibold transition duration-200 ease-in-out hover:text-blue-500 xl:text-4xl'
+            href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+            aria-label='позвонить'
+            itemprop='telephone'
+            set:text={telephone}
+          />
+          <meta
+            itemprop='email'
+            content={email}
+          />
+          <a
+            rel='nofollow noreferrer'
+            class='text-lg transition-all duration-200 ease-in-out hover:text-blue-500 xl:text-xl'
+            href={address.url}
+            target='_blank'
+            aria-label='отправить сообщение'
+            itemscope
+            itemtype='https://schema.org/PostalAddress'
+            itemprop='address'
+            set:html={addressFull}
+          />
+        </div>
+      </div>
+      <div class='hidden lg:col-span-5 lg:block 2xl:col-span-4'>
+        <Video
+          id='app-video'
+          class:list={[
+            'lazy',
+            'h-auto w-full max-w-full',
+            'rounded-lg border border-gray-200 dark:border-gray-700',
+            'transition-opacity duration-2000 ease-in'
+          ]}
+          style='opacity:0'
+          src='/assets/videos/00.720p.4^3.mp4'
+          controls
+          controls-list='nofullscreen nodownload'
+          muted
+          autoplay
+          loop
+        />
+      </div>
+    </div>
+  </header>
+
+  <main itemprop='mainContentOfPage'>
+    <div class='frame readable'>
+      <p class='leader'>Основными направлениями деятельности компании являются:</p>
+      <ul>
+        <li>
+          Контроль качества при возведении зданий и сооружений, в т.ч. высотных, большепролетный и
+          технически сложных;
+        </li>
+        <li>Обследование зданий и сооружений;</li>
+        <li>Технический надзор;</li>
+        <li>Лабораторное сопровождение строительства;</li>
+        <li>Геодезическое сопровождение строительства;</li>
+        <li>
+          Мониторинг за возводимым зданием, а также за объектами, попадающими в геотехническую зону
+          влияния;
+        </li>
+        <li>Выполнение работ по зимнему уходу за монолитными железобетонными конструкциями;</li>
+        <li>Судебная экспертиза.</li>
+      </ul>
+    </div>
+
+    <div class='container my-4 flex h-36 max-w-7xl items-center px-8 md:my-8'>
+      <BindCarouselData
+        client='visible'
+        data={projects}
+        transform={{
+          width: 192,
+          quality: 80
+        }}
+        filter={['title']}
+        class:list={[
+          'block w-full overflow-hidden',
+          'rounded-xs lg:rounded-sm',
+          'shadow-md shadow-gray-700 hover:shadow-sm dark:shadow-gray-900'
+        ]}
+        custom={{
+          inner: {
+            sign: 'top-1/2 left-1/2 -translate-1/2 p-2 opacity-80',
+            caption: ['absolute bottom-0 left-0 right-0 py-1 px-2'],
+            title: 'text-sm text-white text-ellipsis font-normal truncate'
+          }
+        }}
+        href='/projects'
+        ratio={4 / 3}
+        show={new Map([
+          [384, 2],
+          [576, 3],
+          [768, 4],
+          [960, 5],
+          [Infinity, 6]
+        ])}
+        appear={300}
+        duration={20000}
+        stream
+        sign={{
+          custom: ['iconify ph--link', 'size-8'],
+          link: true,
+          dark: true
+        }}
+        progress
+        aria-label='реализованные проекты ниц «строительная экспертиза»'
+      />
+    </div>
+
+    <div class='frame readable mb-8'>
+      <p class='leader'>
+        Наиболее известными среди реализованных нами объектов за последние несколько лет являются:
+      </p>
+      <ul class='mb-8'>
+        <li>обследование комплекса жилых зданий на ул.Мосфильмовской в г.Москве;</li>
+        <li>
+          выполнение контроля качества и лабораторного сопровождения при возведении стадиона
+          Спартак;
+        </li>
+        <li>проведение контроля качества при возведении жилого комплекса Сетунь;</li>
+        <li>
+          лабораторное сопровождение строительства при возведении гостиничного комплекса на ул.
+          Бахрушина в Москве;
+        </li>
+        <li>обследование зданий Международного Центра на Кутузовском проспекте;</li>
+        <li>лабораторный контроль при возведении жилого комплекса Алые Паруса;</li>
+        <li>геодезическое сопровождение при возведении жилого комплекса «Правый берег»;</li>
+        <li>
+          лабораторное сопровождение строительства бизнес центра «Водный» и многофункционального
+          комплекса «Лотос»;
+        </li>
+        <li>выполнение строительного контроля при возведении памятника П.А. Столыпину.</li>
+      </ul>
+
+      <div class='mt-8 flex flex-wrap justify-center gap-x-16 gap-y-8 sm:flex-nowrap'>
+        <BindCarouselData
+          client='visible'
+          data={customers}
+          transform={{
+            width: 192,
+            quality: 80
+          }}
+          class={[
+            'group',
+            'block w-60 shrink-0 place-self-center overflow-hidden',
+            'rounded-xs lg:rounded-sm',
+            'shadow-md shadow-gray-700 dark:shadow-gray-900 hover:shadow-sm'
+          ]}
+          custom={{
+            item: 'justify-center bg-white',
+            inner: {
+              img: 'max-w-full p-8',
+              caption: ['absolute bottom-0 left-0 right-0 py-1 px-2'],
+              title: 'text-xs text-slate-700 text-ellipsis font-normal truncate',
+              sign: 'top-2 left-2'
+            }
+          }}
+          href='/feedbacks'
+          alt='заказчик'
+          show={1}
+          appear={300}
+          duration={1000}
+          delay={5000}
+          autoplay
+          sign={{
+            custom: 'iconify ph--link',
+            link: true,
+            dark: true
+          }}
+          aria-label='отзывы заказчиков ниц «строительная экспертиза»'
+        />
+        <p class='text-justify text-sm text-theme-header'>
+          <span class='text-xl font-bold'>&#10004;</span> Любая информация, представленная на данном
+          сайте, носит исключительно информационный характер и ни при каких условиях не является публичной
+          офертой, определяемой положениями статьи 437 ГК РФ.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const node = document.getElementById('app-video');
+      node?.addEventListener('loadeddata', () => setTimeout(() => (node.style.opacity = ''), 200));
+    });
+  </script>
+</Layout>

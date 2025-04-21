@@ -1,0 +1,99 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'button'>, 'class' | 'style' | 'inert'> {
+  custom: ClassValue;
+  class?: ClassValue;
+  duration?: number;
+  speed?: number;
+}
+
+const {
+  custom,
+  class: className,
+  tabindex = '-1',
+  'aria-label': ariaLabel,
+  duration = 300,
+  speed = duration * 5,
+  ...props
+} = Astro.props;
+
+const label = ariaLabel ?? 'перемотка наверх';
+---
+
+<app-to-top>
+  <template>
+    <button
+      class={twMerge(
+        'fixed top-12 right-4 z-40',
+        'origin-center opacity-30 hover:opacity-100',
+        'inert:scale-0 inert:opacity-0',
+        'select-none',
+        'delay-150 ease-in-out motion-safe:ready:transition',
+        className
+      )}
+      style={`transition-duration: ${duration}ms`}
+      inert
+      {tabindex}
+      aria-label={label}
+      data-speed={speed}
+      {...props}>
+      <span
+        class={twMerge('bg-only', custom)}
+        set:text={label}
+      />
+    </button>
+  </template>
+</app-to-top>
+
+<script>
+  import { scroll } from '@daks.dev/astro.sdk';
+
+  class AppToTop extends HTMLElement {
+    switch: HTMLButtonElement;
+    navbar: HTMLElement;
+    timeout?: ReturnType<typeof setTimeout>;
+
+    constructor() {
+      super();
+      this.style.display = 'contents';
+      this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      this.switch = this.querySelector('button')!;
+      this.navbar = document.getElementById('app-navbar')!;
+    }
+
+    connectedCallback() {
+      window.addEventListener('load', this.check, { once: true });
+      window.addEventListener('scroll', this.check);
+      this.switch.addEventListener('click', this.handle);
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('scroll', this.check);
+      clearTimeout(this.timeout);
+    }
+
+    get speed() {
+      return this.dataset.speed ? parseInt(this.dataset.speed) : 1000;
+    }
+
+    check = () => {
+      const scroll = window.scrollY > this.navbar.clientHeight;
+      if (scroll) {
+        this.switch.classList.add('opacity-75');
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => this.switch.classList.remove('opacity-75'), 500);
+        this.switch.removeAttribute('inert');
+      } else this.switch.setAttribute('inert', '');
+    };
+
+    handle = (ev: Event) => {
+      if (ev.cancelable) ev.preventDefault();
+      ev.stopPropagation();
+      scroll.toTop({ duration: this.speed });
+    };
+  }
+
+  customElements.define('app-to-top', AppToTop);
+</script>

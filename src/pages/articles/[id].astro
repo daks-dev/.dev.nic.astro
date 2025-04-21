@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import { FormattedDate, BindLightboxData } from '@daks.dev/astro.sdk/astro';
+import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const collection = await getCollection('articles');
+  return collection.map((post) => {
+    return {
+      params: { id: post.id },
+      props: { post }
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { id } = post;
+const { title, description, publishDate, images = [] } = post.data;
+---
+
+<Layout
+  class='flex flex-col'
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • [${id}]`}>
+  <Header {title}>
+    <FormattedDate
+      slot='tagline'
+      date={publishDate}
+      parse='YY-MM-DD'
+      class='text-xs uppercase bp:text-sm'
+      itemprop='publishDate'
+    />
+  </Header>
+
+  <main
+    class='frame flex grow flex-col gap-4'
+    itemprop='mainContentOfPage'>
+    <div class='flex gap-16 max-md:flex-col'>
+      <div class='readable'>
+        <Content />
+        <div
+          class='text-xs'
+          set:text={`[ ${id} ]`}
+        />
+      </div>
+      {
+        post.data.images && (
+          <BindLightboxData
+            data={images}
+            class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:items-center']}
+            custom={{
+              thumb: 'max-w-fit min-w-48 first:mt-2'
+            }}
+            options={{ behaviour: 'loop' }}
+            transform={{
+              thumb: {
+                width: 320,
+                fit: 'cover',
+                quality: 80
+              },
+              modal: {
+                width: 800,
+                fit: 'inside',
+                quality: 80
+              }
+            }}
+            sign={{ custom: 'iconify ph--arrows-out', dark: true }}
+            {title}
+            {description}
+            alt={title.toLowerCase()}
+            adaptive
+            scale
+            shadow
+            rounded
+          />
+        )
+      }
+    </div>
+  </main>
+</Layout>

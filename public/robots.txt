@@ -1,0 +1,35 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+#
+Disallow: /204
+Disallow: /403
+Disallow: /404.html
+Disallow: /500.html
+#
+Disallow: /admin
+Disallow: /search
+#
+Disallow: /article$
+Disallow: /article/
+Disallow: /contact$
+Disallow: /docs/
+Disallow: /services/
+Disallow: /tolerances/
+Disallow: /work/
+#
+Disallow: /images/
+Disallow: /node/
+Disallow: /sites/
+#
+Disallow: /_app/
+Disallow: /*?field_*
+#
+Disallow: /feedback$
+Disallow: /articles/test
+Disallow: /news/23-10-31
+Disallow: /news/23-11-01
+Disallow: /news/23-11-02
+Disallow: /portfolio
+#
+Sitemap: https://stroyexp.info/sitemap-index.xml
+#

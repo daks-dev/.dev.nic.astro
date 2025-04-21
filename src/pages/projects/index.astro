@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import { Header, ProjectsList } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+const projects = await getCollection('projects', ({ data }) => !data.hidden);
+
+const title = 'Реализованные проекты';
+const description = 'Реализованные проекты';
+---
+
+<Layout
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
+  <Header {title} />
+
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
+    <ProjectsList collection={projects} />
+  </main>
+</Layout>

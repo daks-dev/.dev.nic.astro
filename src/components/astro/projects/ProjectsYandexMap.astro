@@ -1,0 +1,101 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import { YandexMap } from '@daks.dev/astro.sdk/svelte';
+import type { HTMLAttributes } from 'astro/types';
+// import type { CollectionEntry } from 'astro:content';
+
+import seo from '@app/configs/seo';
+const {
+  yandex: { api }
+} = seo;
+
+type Project = {
+  id: string;
+  priority: number;
+  src: ImageResult;
+  title: string;
+  description: string;
+  address: string;
+  area?: number;
+  area_term?: string;
+  area_unit?: string;
+  activities?: string[];
+  location: string;
+};
+
+interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
+  projects: Project[];
+  center?: string;
+  zoom?: number;
+  class?: ClassValue;
+  grayscale?: true;
+  sepia?: true;
+}
+
+const {
+  projects,
+  center = '55.727154, 37.593857',
+  zoom = 9,
+  class: className,
+  grayscale,
+  sepia
+} = Astro.props;
+
+const body = (el: Project) => {
+  let res = '---';
+  if (el.address || el.activities || el.area) {
+    res = '<div class="flex flex-col pt-0.5">';
+    if (el.address) res = `${res}<span>${el.address}</span>`;
+    if (el.area) {
+      res = `${res}<span>${(el.area_term || 'Общая площадь').toLocaleLowerCase()}: `;
+      res = `${res}${el.area.toLocaleString()} ${el.area_unit || 'м<sup>2</sup>'}</span>`;
+    }
+    if (el.activities) res = `${res}<small>[ ${el.activities.join(', ')} ]</small>`;
+    res = `${res}</div>`;
+  }
+  return res;
+};
+
+const footer = (el: Project) =>
+  `<a class="block w-full -mt-0.5 py-0.5 text-sky-700 oversee:text-brand" href=/projects/${el.id}>подробнее...</a>`;
+
+const geo = {
+  locations: projects.map((el, idx) => ({
+    geometry: el.location.split(', ').map((x: string) => Number(x)),
+    properties: {
+      iconContent: idx + 1,
+      balloonContentHeader: `${el.title} <sup class="font-normal">[${idx + 1}]</sup>`,
+      balloonContentBody: body(el),
+      balloonContentFooter: footer(el)
+    },
+    options: {
+      preset: 'islands#nightStretchyIcon'
+    }
+  })),
+  state: {
+    center: center.split(', ').map((x: string) => Number(x)),
+    zoom,
+    behaviors: ['drag', 'dblClickZoom', 'rightMouseButtonMagnifier', 'multiTouch'],
+    controls: ['zoomControl', 'fullscreenControl']
+  },
+  options: {
+    // avoidFractionalZoom: false,
+    autoFitToViewport: 'always',
+    suppressMapOpenBlock: true
+  }
+};
+---
+
+<div class={twMerge(className)}>
+  <YandexMap
+    client:load
+    {geo}
+    apikey={api.maps}
+    class={[
+      'h-full w-full',
+      'ymaps--left-copyright',
+      grayscale && 'grayscale hover:grayscale-0',
+      sepia && 'sepia hover:sepia-0'
+    ]}
+  />
+</div>

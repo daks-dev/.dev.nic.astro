@@ -1,0 +1,98 @@
+---
+import microdata from '@app/configs/microdata';
+const { itemtype, name, logo, email, telephone, address } = microdata.organization;
+
+const canonical = import.meta.env.PUBLIC_APP_CANONICAL
+  ? new URL(import.meta.env.PUBLIC_APP_CANONICAL).origin
+  : '';
+---
+
+<div
+  class:list={['flex flex-col content-start', 'text-theme-link text-lg lg:text-xl']}
+  itemscope
+  {itemtype}>
+  <a
+    class:list={[
+      'flex items-center gap-x-3',
+      'py-2 pl-2 pr-4',
+      'hover:bg-slate-500/10',
+      'rounded-lg'
+    ]}
+    href=`tel://${telephone.replace(/[\s-()]/g, '')}`
+    aria-label='позвонить'>
+    <span
+      class:list={['iconify ph--phone-call', 'bg-only mt-1 size-10']}
+      set:text='позвонить'
+    />
+    <span
+      itemprop='telephone'
+      set:text={telephone}
+    />
+  </a>
+  <a
+    class:list={[
+      'flex items-center gap-x-3',
+      'py-2 pl-2 pr-4',
+      'hover:bg-slate-500/10',
+      'rounded-lg'
+    ]}
+    href=`mailto:${email}`
+    aria-label='отправить сообщение'>
+    <span
+      class:list={['iconify ph--envelope', 'bg-only mt-1 size-10']}
+      set:text='отправить сообщение'
+    />
+    <span
+      itemprop='email'
+      set:text={email}
+    />
+  </a>
+  <div
+    style={{ display: 'contents' }}
+    itemprop='address'
+    itemscope
+    itemtype={address.itemtype}>
+    <a
+      rel='nofollow noreferrer'
+      class:list={[
+        'flex items-center gap-x-3',
+        'py-2 pl-2 pr-4',
+        'hover:bg-slate-500/10',
+        'rounded-lg'
+      ]}
+      href={address.url}
+      target='_blank'
+      itemprop='url'>
+      <span
+        class:list={['iconify ph--map-pin', 'bg-only mt-1 size-10']}
+        set:text='почтовый адрес'
+      />
+      <div>
+        <span
+          itemprop='postalCode'
+          set:text={address.postalCode}
+        />,
+        <span
+          itemprop='addressLocality'
+          set:html={address.addressLocality}
+        />,
+        <span
+          itemprop='streetAddress'
+          set:html={address.streetAddress}
+        />
+      </div>
+    </a>
+    <meta
+      itemprop='addressRegion'
+      content={address.addressRegion}
+    />
+  </div>
+  <meta
+    itemprop='name'
+    content={name}
+  />
+  <link
+    itemprop='logo'
+    href={`${canonical}${logo}`}
+  />
+</div>

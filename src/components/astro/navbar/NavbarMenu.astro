@@ -1,0 +1,103 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Dropdown, Link } from '@daks.dev/astro.sdk/astro';
+import type { HTMLAttributes } from 'astro/types';
+import type { NavItem } from '@daks.dev/astro.sdk';
+
+interface Props extends Omit<HTMLAttributes<'div'>, 'class' | 'aria-owns'> {
+  items: NavItem[];
+  class?: ClassValue;
+  custom?: Record<string, ClassValue>;
+}
+
+const { items, class: className, custom = {}, ...props } = Astro.props;
+---
+
+<slot name='before' />
+<div
+  id='app-navbar-menu'
+  class:list={[
+    'max-bp:inert:hidden',
+    'absolute inset-x-0 bp:contents',
+    'top-(--navbar-height)',
+    'max-h--screen-navbar',
+    'overflow-y-auto'
+  ]}
+  inert
+  aria-owns='app-navbar-menu-toggle'>
+  <nav
+    role='menu'
+    class={twMerge(
+      'relative',
+      'flex max-bp:flex-col bp:gap-x-4',
+      'max-bp:pt-4',
+      'text-base/relaxed font-normal bp:leading-none',
+      'max-bp:bg-theme-frame',
+      custom.menu,
+      className
+    )}
+    {...props}>
+    {
+      items.map(({ class: className, ...item }) => {
+        item.role ??= 'menuitem';
+        item.itemprop ??= item.href && 'relatedLink';
+        return item.items ? (
+          <Dropdown
+            toggle={item}
+            class:list={['inner', className]}
+            custom={{
+              frame: 'bp:flex bp:items-center',
+              drop: [
+                'max-bp:indent-6',
+                'bp:mt-2.5 bp:py-2',
+                'bp:leading-relaxed',
+                'bp:rounded bp:bg-neutral-100/95 bp:shadow-md bp:dark:bg-gray-700/95'
+              ]
+            }}>
+            {item.items?.map((x) => {
+              const {
+                class: className,
+                role = 'menuitem',
+                itemprop = 'relatedLink',
+                base = item.href?.toString(),
+                ...link
+              } = x;
+              return (
+                <Link
+                  class:list={['items-center bp:flex', custom.item, custom.link, className]}
+                  {role}
+                  {itemprop}
+                  {base}
+                  {...link}
+                />
+              );
+            })}
+          </Dropdown>
+        ) : (
+          <Link
+            class:list={['inner bp:flex', className]}
+            {...item}
+          />
+        );
+      })
+    }
+  </nav>
+  <slot />
+</div>
+<slot name='after' />
+
+<style scoped>
+  @reference "@styles/global.css";
+
+  .inner {
+    @apply items-center bp:self-center;
+    @apply bp:pt-1.5 bp:pb-2;
+    @apply border-transparent bp:rounded-full bp:border;
+    @apply step:border-gray-500/50;
+  }
+
+  .outer {
+    @apply flex p-2;
+    @apply transition-easy;
+  }
+</style>

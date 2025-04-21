@@ -1,0 +1,14 @@
+{
+  "folders": [
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "files.associations": {
+      "*.css": "tailwindcss",
+      "*.mdx": "markdown"
+    },
+    "tailwindCSS.experimental.configFile": "../src/styles/global.css"
+  }
+}

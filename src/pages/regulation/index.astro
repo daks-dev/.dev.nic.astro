@@ -1,0 +1,50 @@
+---
+import { Header } from '@components/astro';
+import Layout from '@layouts/Base.astro';
+
+const title = 'Регламент';
+const description =
+  'Регламент АО НИЦ «Строительная экспертиза» по организации и проведения негосударственной экспертизы проектной документации и результатов инженерных изысканий';
+---
+
+<Layout
+  class=''
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  {description}>
+  <main class:list={['frame pt-(--navbar-height) min-h-screen', 'flex grow']}>
+    <object
+      class:list={[
+        'lazy',
+        'flex grow flex-col items-center justify-around',
+        'bg-linear-to-b',
+        'from-transparent to-neutral-200 dark:to-gray-800',
+        //'border-2 border-slate-300 dark:border-slate-500'
+        'shadow-md shadow-black hover:shadow-sm'
+        //'rounded-lg'
+      ]}
+      type='application/pdf'
+      data-src='/docs/regulation.pdf'
+      title='Регламент АО НИЦ «Строительная экспертиза»'
+      aria-label='регламент'>
+      <Header
+        {title}
+        center
+      />
+      <a
+        class:list={[
+          'px-4 py-2.5',
+          'text-lg leading-none tracking-wide text-white',
+          'bg-neutral-300 dark:bg-slate-700',
+          'rounded-xs border border-slate-500'
+        ]}
+        href='/docs/regulation.pdf'
+        target='_blank'
+        set:text='загрузить (pdf)'
+      />
+    </object>
+    <link
+      rel='help'
+      href='/docs/regulation.pdf'
+    />
+  </main>
+</Layout>

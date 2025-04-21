@@ -1,0 +1,80 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Icon } from '@daks.dev/astro.sdk/astro';
+import { Timer } from '@daks.dev/astro.sdk/svelte';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'footer'>, 'class'> {
+  class?: ClassValue;
+}
+
+const { class: className, ...props } = Astro.props;
+
+// import { nav } from '@app/configs/nav';
+// const { outers } = nav.footer ?? {};
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+  class={twMerge(
+    'mt-auto',
+    'px-16 py-5 2xl:px-20',
+    'flex items-center justify-between gap-2 max-xs:flex-col',
+    'text-sm leading-none',
+    className
+  )}
+  {...props}>
+  <div class='text-nowrap'>
+    <a
+      href='https://astro.build'
+      class='inline-block'
+      target='_blank'>
+      <Icon
+        class='inline'
+        icon='astro'
+        size='1.5em'
+      />
+      Astro
+    </a>
+    <span class='px-2'>&mdash;</span>
+    <a
+      href='https://svelte.dev'
+      target='_blank'>
+      <Icon
+        class='inline-block'
+        icon='svelte'
+        size='1.25em'
+      />
+      Svelte
+    </a>
+  </div>
+
+  {
+    /*
+    outers && (
+      <div class='bp:justify-end flex flex-wrap items-center justify-center gap-4'>
+        {outers.map(({ class: classValue, ...props }) => (
+          <Link
+            class:list={['link', classValue]}
+            {...props}
+          />
+        ))}
+      </div>
+    )
+  */
+  }
+
+  <Timer client:idle />
+  <small class='text-nowrap'>&copy; {currentYear} АО НИЦ «Строительная экспертиза»</small>
+</footer>
+
+<style scoped>
+  @reference "@styles/global.css";
+
+  .link {
+    @apply text-primary-400 dark:text-primary-400;
+    @apply underline decoration-transparent underline-offset-4 hover:decoration-current;
+    @apply transition-colors duration-500;
+  }
+</style>

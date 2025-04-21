@@ -1,0 +1,84 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props
+  extends Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-controls'> {
+  custom: ClassValue;
+  class?: ClassValue;
+  label?: string;
+}
+
+const {
+  custom,
+  class: className,
+  'aria-label': ariaLabel,
+  label = ariaLabel || 'управление меню навигации',
+  ...props
+} = Astro.props;
+---
+
+<button
+  is='app-navbar-menu-toggle'
+  id='app-navbar-menu-toggle'
+  class={twMerge(
+    'flex bp:hidden',
+    // 'bg-gradient-to-b',
+    // 'from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900',
+    //'aria-expanded:bg-gradient-to-t',
+    className
+  )}
+  type='button'
+  tabindex='0'
+  aria-expanded='false'
+  aria-controls='app-navbar-menu'
+  aria-label={label}
+  {...props}>
+  <span
+    class={twMerge('bg-only', custom)}
+    set:text={label}
+  />
+</button>
+
+<script>
+  const breakpoint = import.meta.env.PUBLIC_BREAKPOINT ?? '50rem';
+
+  class AppNavbarMenuToggle extends HTMLButtonElement {
+    media = window.matchMedia(`(min-width: ${breakpoint})`);
+    menu: HTMLElement;
+
+    constructor() {
+      super();
+      // this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      this.menu = document.getElementById('app-navbar-menu')!;
+      this.check(this.media);
+    }
+
+    connectedCallback() {
+      this.addEventListener('click', () => this.set(this.menu.hasAttribute('inert')));
+      this.media.addEventListener('change', this.check);
+      document.addEventListener('click', this.outside);
+    }
+
+    disconnectedCallback() {
+      document.removeEventListener('click', this.outside);
+    }
+
+    set = (x: boolean) => {
+      this.setAttribute('aria-expanded', x ? 'true' : 'false');
+      x ? this.menu.removeAttribute('inert') : this.menu.setAttribute('inert', '');
+    };
+
+    check = (e: MediaQueryList | MediaQueryListEvent) => {
+      this.set(e.matches);
+      this.hidden = e.matches;
+    };
+
+    outside = (e: Event) => {
+      if (e?.target && !this.contains(e.target as Node) && !this.menu.contains(e.target as Node))
+        this.check(this.media);
+    };
+  }
+
+  customElements.define('app-navbar-menu-toggle', AppNavbarMenuToggle, { extends: 'button' });
+</script>

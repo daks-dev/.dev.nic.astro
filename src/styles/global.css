@@ -1,0 +1,82 @@
+/* @import 'fonts'; */
+
+/* @import 'tailwindcss'; */
+
+@import '@daks.dev/astro.sdk/tailwind/index.css';
+@source '../';
+
+@plugin "@iconify/tailwind4" {
+  prefixes: ph;
+}
+
+@theme {
+  --breakpoint-bp: 58rem;
+
+  --font-sans:
+    'Open Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --color-orange-*: initial;
+  --color-amber-*: initial;
+  --color-yellow-*: initial;
+  --color-lime-*: initial;
+  --color-emerald-*: initial;
+  --color-teal-*: initial;
+  --color-sky-*: initial;
+  --color-indigo-*: initial;
+  --color-violet-*: initial;
+  --color-fuchsia-*: initial;
+  --color-pink-*: initial;
+  --color-rose-*: initial;
+  --color-zinc-*: initial;
+
+  --color-primary: var(--color-white);
+  --color-primary-50: var(--color-slate-50);
+  --color-primary-100: var(--color-slate-100);
+  --color-primary-200: var(--color-slate-200);
+  --color-primary-300: var(--color-slate-300);
+  --color-primary-400: var(--color-slate-400);
+  --color-primary-500: var(--color-slate-500);
+  --color-primary-600: var(--color-slate-600);
+  --color-primary-700: var(--color-slate-700);
+  --color-primary-800: var(--color-slate-800);
+  --color-primary-900: var(--color-slate-900);
+  --color-primary-950: var(--color-slate-950);
+
+  --color-theme-flat: oklch(97% 0.003 270.542);
+  --color-theme-frame: oklch(95% 0.003 270.542);
+  --color-theme-inner: oklch(94% 0.003 270.542);
+  --color-theme-plain: oklch(15% 0 0);
+  --color-theme-header: oklch(50% 0.01 73.577);
+  --color-theme-link: oklch(53% 0.125 221.723);
+  --color-theme-link-hover: oklch(55% 0.243 259.379);
+  --color-theme-impact: oklch(55% 0.288 302.321);
+  --color-theme-accent: oklch(59% 0.249 0.584);
+
+  --navbar-height: 3.75rem;
+  --sidebar-width: min(25rem, 100vw);
+}
+
+:root.theme-dark {
+  --color-theme-flat: oklch(23% 0.007 277.887);
+  --color-theme-frame: oklch(25% 0.007 277.887);
+  --color-theme-inner: oklch(26% 0.007 277.887);
+  --color-theme-plain: oklch(95% 0 0);
+  --color-theme-header: oklch(70% 0.01 57.257);
+  --color-theme-link: oklch(61% 0.125 221.723);
+}
+
+@import './base.css';
+@import './components.css';
+@import './utilities.css';
+
+@keyframes wiggle {
+  0%,
+  10% {
+    transform: rotate(0deg);
+  }
+  15%,
+  100% {
+    transform: rotate(360deg);
+  }
+}

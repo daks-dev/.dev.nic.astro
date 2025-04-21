@@ -1,0 +1,84 @@
+---
+import { getImage } from 'astro:assets';
+import { Figure } from '@daks.dev/astro.sdk/astro';
+import type { CollectionEntry } from 'astro:content';
+
+import logo from '@assets/images/logo.webp';
+const placeholder = await getImage({ src: logo, width: 320, fit: 'contain' });
+
+interface Props {
+  partner: CollectionEntry<'partners'>;
+}
+
+const { partner } = Astro.props;
+const { id } = partner;
+const { title, email, telephone, address, url, image } = partner.data;
+
+const src = image
+  ? await getImage({
+      src: image.src,
+      width: 320,
+      fit: 'contain'
+    })
+  : placeholder;
+---
+
+<div class='flex justify-between gap-8 max-md:flex-col'>
+  <Figure
+    {src}
+    class='max-w-80 max-md:items-center'
+    custom={{ img: 'border border-slate-400' }}
+    alt={title.toLowerCase()}>
+    <div
+      class='mt-2 text-xs'
+      set:text={`[ ${id} ]`}
+    />
+  </Figure>
+
+  <dl class='space-y-4'>
+    <div class='flex items-center gap-4'>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='адрес'>
+        <span class:list={['iconify ph--map-pin', 'block size-8']}></span>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={address || '&mdash;'}
+      />
+    </div>
+    <div class='flex items-center gap-4'>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='телефон'>
+        <span class:list={['iconify ph--phone-call', 'block size-8']}></span>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={telephone || '&mdash;'}
+      />
+    </div>
+    <div class='flex items-center gap-4'>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='электронная почта'>
+        <span class:list={['iconify ph--envelope', 'block size-8']}></span>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={email || '&mdash;'}
+      />
+    </div>
+    <div class='flex items-center gap-4'>
+      <dt
+        class='shrink-0 font-semibold text-slate-500'
+        aria-label='сайт'>
+        <span class:list={['iconify ph--link-simple', 'block size-8']}></span>
+      </dt>
+      <dd
+        class='flex grow'
+        set:html={url || '&mdash;'}
+      />
+    </div>
+  </dl>
+</div>

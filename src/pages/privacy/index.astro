@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '@layouts/Base.astro';
+import { Header } from '@components/astro';
+
+const title = 'Политика конфиденциальности';
+---
+
+<Layout
+  title={`${title} • НИЦ «Строительная экспертиза»`}
+  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
+  <Header {title}>
+    <Image
+      class:list={[
+        'w-full max-w-xs self-center',
+        'drop-shadow-lg drop-shadow-gray-500 dark:drop-shadow-gray-700'
+      ]}
+      src='/assets/icons/astro.svg'
+      width={128}
+      height={128}
+      alt=''
+    />
+  </Header>
+
+  <main
+    class='frame'
+    itemprop='mainContentOfPage'>
+    <header>
+      <h1 class='text-center text-3xl'>• {title} •</h1>
+    </header>
+  </main>
+</Layout>

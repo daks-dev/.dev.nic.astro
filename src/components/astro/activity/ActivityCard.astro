@@ -1,0 +1,69 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Sign } from '@daks.dev/astro.sdk/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'class'> {
+  class?: ClassValue;
+  href?: string;
+  size?: number | string;
+  animate?: string;
+}
+
+const {
+  children,
+  class: className,
+  href,
+  itemprop = 'relatedLink',
+  size = '4em',
+  animate, // 'animate-pulse hover:animation-paused';
+  ...props
+} = Astro.props;
+---
+
+<a
+  class={twMerge(
+    'group relative',
+    'p-7 py-4',
+    'flex flex-col',
+    'text-slate-600 no-underline dark:text-slate-400',
+    'rounded-sm border border-current',
+    'shadow-sm shadow-gray-700 group-hover:shadow-none',
+    animate,
+    className
+  )}
+  {href}
+  {itemprop}
+  {...props}>
+  <Sign
+    custom={['iconify ph--link', 'size-8']}
+    class='top-2 right-2 left-auto p-2 opacity-50'
+    link
+    dark
+  />
+  <slot name='header' />
+  <div class='mt-2 mb-7 flex grow flex-col justify-center pl-4'>
+    <slot>
+      <div>
+        Объектов реализовано:
+        <span class='text-2xl text-theme-header'>...</span>
+      </div>
+      <div>
+        Объекты в работе:
+        <span class='text-2xl text-theme-header'>...</span>
+      </div>
+    </slot>
+  </div>
+  <div class='flex items-start gap-5'>
+    <div class='drop-shadow-md drop-shadow-gray-500 dark:drop-shadow-black'>
+      <span class:list={['iconify ph--user-circle', 'bold size-16']}></span>
+    </div>
+    <div class='flex grow flex-col gap-3 opacity-75'>
+      <small>руководитель направления:</small>
+      <div class='flex grow flex-col gap-2 opacity-75 transition-easy'>
+        <div class='h-2.5 w-3/4 rounded-full bg-current'></div>
+        <div class='h-2 w-full rounded-full bg-current'></div>
+      </div>
+    </div>
+  </div>
+</a>

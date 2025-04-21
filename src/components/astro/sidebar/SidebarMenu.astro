@@ -1,0 +1,97 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import { Link } from '@daks.dev/astro.sdk/astro';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'div'>, 'class' | 'role'> {
+  class?: ClassValue;
+  custom?: Record<string, ClassValue>;
+}
+
+const { class: className, custom = {}, ...props } = Astro.props;
+
+import { sidebar } from '@app/configs/nav';
+---
+
+<nav
+  class={twMerge('flex flex-col', className)}
+  role='menu'
+  inert
+  {...props}>
+  {
+    sidebar.header &&
+      sidebar.header?.map(
+        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
+          <Link
+            class:list={[custom.link, className]}
+            {role}
+            {itemprop}
+            {...item}
+          />
+        )
+      )
+  }
+  <hr class:list={['my-2 w-10/12 self-center', 'border-gray-200 dark:border-gray-700/50']} />
+  {
+    sidebar.body &&
+      sidebar.body.map(
+        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => {
+          item.href = `/activity${item.href}`;
+          return (
+            <>
+              <Link
+                class:list={[
+                  'flex flex-nowrap items-center justify-between gap-x-1',
+                  custom.link,
+                  className
+                ]}
+                {role}
+                {itemprop}
+                {...item}>
+                {item.items && (
+                  <span
+                    slot='after'
+                    class:list={['iconify ph--caret-down', 'flex size-4', 'disabled']}
+                  />
+                )}
+              </Link>
+              {item.items &&
+                item.items?.map((x) => {
+                  const {
+                    class: className,
+                    role = 'menuitem',
+                    base = item.href?.toString(),
+                    itemprop = 'relatedLink',
+                    ...link
+                  } = x;
+                  return (
+                    <Link
+                      class={['indent-6', custom.link, className]}
+                      {role}
+                      {itemprop}
+                      {base}
+                      {...link}
+                      base={base ?? item.href?.toString()}
+                    />
+                  );
+                })}
+            </>
+          );
+        }
+      )
+  }
+  <hr class:list={['my-2 w-10/12 self-center', 'border-gray-200 dark:border-gray-700/50']} />
+  {
+    sidebar.footer &&
+      sidebar.footer.map(
+        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => (
+          <Link
+            class:list={[custom.link, className]}
+            {role}
+            {itemprop}
+            {...item}
+          />
+        )
+      )
+  }
+</nav>

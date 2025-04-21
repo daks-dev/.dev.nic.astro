@@ -1,0 +1,90 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'button'>, 'class'> {
+  class?: ClassValue;
+  icon?: string;
+  duration?: number;
+  speed?: number;
+  label?: string;
+}
+
+const {
+  class: className,
+  icon = 'arrow-fat-lines-up-duotone',
+  duration = 300,
+  speed = duration * 5,
+  'aria-label': ariaLabel,
+  label = ariaLabel || 'цветовая тема',
+  ...props
+} = Astro.props;
+---
+
+<button
+  is='app-theme-toggle'
+  class={twMerge(
+    'group',
+    'my-1 flex items-center',
+    'select-none',
+    'rounded-full border border-gray-300 dark:border-gray-700',
+    'shadow-inset shadow-slate-300 dark:shadow-slate-600',
+    'duration-200 motion-safe:ready:transition-colors',
+    className
+  )}
+  aria-label={label}
+  {...props}>
+  <span
+    class='sr-only'
+    set:text={label}
+  />
+  <div class:list={['toggler', 'text-white dark:text-theme-plain', 'dark:before:translate-x-full']}>
+    <span class:list={['iconify ph--sun', 'block size-5']}></span>
+  </div>
+  <div class:list={['relative z-10 flex p-1.5', 'text-theme-plain dark:text-black']}>
+    <span class:list={['iconify ph--moon-stars', 'block size-5']}></span>
+  </div>
+</button>
+
+<style scoped>
+  @reference "@styles/global.css";
+
+  .toggler {
+    @apply relative z-10 flex p-1.5;
+    &::before {
+      @apply content-empty;
+      @apply absolute inset-0 -z-10;
+      @apply rounded-full bg-slate-400 dark:bg-slate-600;
+      @apply duration-300 motion-safe:transition-transform;
+    }
+  }
+</style>
+
+<script>
+  class AppThemeToggle extends HTMLButtonElement {
+    readonly class = 'theme-dark';
+
+    constructor() {
+      super();
+      // this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+    }
+
+    connectedCallback() {
+      this.addEventListener('click', () => this.setTheme(!this.isDark()));
+      this.setTheme(this.isDark());
+    }
+
+    // disconnectedCallback() {}
+
+    isDark() {
+      return document.documentElement.classList.contains(this.class);
+    }
+
+    setTheme = (dark: boolean) => {
+      document.documentElement.classList[dark ? 'add' : 'remove'](this.class);
+      this.setAttribute('aria-pressed', String(dark));
+    };
+  }
+
+  customElements.define('app-theme-toggle', AppThemeToggle, { extends: 'button' });
+</script>

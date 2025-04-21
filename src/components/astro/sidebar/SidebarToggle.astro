@@ -1,0 +1,58 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props
+  extends Omit<HTMLAttributes<'button'>, 'class' | 'aria-expanded' | 'aria-controls'> {
+  custom: ClassValue;
+  class?: ClassValue;
+  uuid?: string;
+}
+
+const { custom, class: className, uuid, 'aria-label': ariaLabel, ...props } = Astro.props;
+
+const id = `app-sidebar-toggle${uuid ? `-${uuid}` : ''}`;
+const label = `${ariaLabel ?? 'управление боковой панелью'}${uuid ? ` [${uuid}]` : ''}`;
+---
+
+<button
+  is='app-sidebar-toggle'
+  {id}
+  class={twMerge('flex items-center justify-center', 'select-none', className)}
+  type='button'
+  tabindex='0'
+  aria-label={label}
+  aria-expanded='false'
+  aria-controls='app-sidebar'
+  {...props}>
+  <span
+    class={twMerge('bg-only', custom)}
+    set:text={label}
+  />
+</button>
+
+<script>
+  import { sidebar } from './store';
+
+  class AppSidebarToggle extends HTMLButtonElement {
+    constructor() {
+      super();
+      // this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+      // this.toggle = this.querySelector('button')!;
+    }
+
+    connectedCallback() {
+      sidebar.listen((x) => this.setAttribute('aria-expanded', String(x)));
+      this.addEventListener('click', this.handle);
+    }
+
+    // disconnectedCallback() {}
+
+    handle = (e: Event) => {
+      e.preventDefault();
+      sidebar.set(!sidebar.get());
+    };
+  }
+
+  customElements.define('app-sidebar-toggle', AppSidebarToggle, { extends: 'button' });
+</script>
