@@ -19,11 +19,11 @@
 
   [role='menuitem'] {
     @apply px-4 pt-1.75 pb-2;
-    @apply text-theme-plain dark:font-light;
-    @apply hover:bg-primary-300 hover:text-primary-900 dark:hover:bg-primary-500 dark:hover:text-primary-200;
+    @apply text-slate-600 dark:font-light dark:text-slate-400;
+    @apply hover:bg-slate-300 hover:text-slate-900 dark:hover:bg-slate-500 dark:hover:text-slate-200;
     @apply border border-transparent;
     @apply step:text-theme-header;
-    @apply page:bg-primary-400 page:text-white dark:page:text-black;
+    @apply page:bg-slate-400 page:text-white dark:page:text-black;
     @apply duration-200 motion-safe:ready:transition-colors;
     @apply forced-colors:text-selected;
   }

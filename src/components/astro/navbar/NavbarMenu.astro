@@ -18,10 +18,9 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
   id='app-navbar-menu'
   class:list={[
     'max-bp:inert:hidden',
-    'absolute inset-x-0 bp:contents',
-    'top-(--navbar-height)',
-    'max-h--screen-navbar',
-    'overflow-y-auto'
+    'absolute inset-x-0 top-(--navbar-height) max-h--screen-navbar bp:contents',
+    'overflow-y-auto',
+    'shadow shadow-neutral-400 dark:shadow-neutral-900'
   ]}
   inert
   aria-owns='app-navbar-menu-toggle'>
@@ -30,7 +29,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
     class={twMerge(
       'relative',
       'flex max-bp:flex-col bp:gap-x-4',
-      'max-bp:pt-4',
+      'max-bp:py-2',
       'text-base/relaxed font-normal bp:leading-none',
       'max-bp:bg-theme-frame',
       custom.menu,
@@ -49,9 +48,10 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
               frame: 'bp:flex bp:items-center',
               drop: [
                 'max-bp:indent-6',
-                'bp:mt-2.5 bp:py-2',
+                'bp:mt-3 bp:py-2',
                 'bp:leading-relaxed',
-                'bp:rounded bp:bg-neutral-100/95 bp:shadow-md bp:dark:bg-gray-700/95'
+                'bp:rounded bp:bg-theme-inner',
+                'bp:shadow bp:shadow-neutral-500 bp:hover:shadow-md bp:dark:shadow-neutral-900'
               ]
             }}>
             {item.items?.map((x) => {

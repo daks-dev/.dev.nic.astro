@@ -34,7 +34,7 @@ const src = await getImage({
         custom={['iconify ph--dots-three-outline-vertical', 'size-6']}
         class={[
           'p-2 2xl:-ml-3.5 ',
-          'text-primary-500',
+          'text-slate-500',
           'aria-expanded:rotate-90',
           'motion-safe:ready:transition-transform duration-300 ease-in-out'
         ]}
@@ -65,7 +65,7 @@ const src = await getImage({
       custom={['iconify ph--list', 'size-6']}
       class:list={[
         'min-h-10 min-w-10 p-2',
-        'text-primary-500',
+        'text-slate-500',
         'rounded-full',
         'shadow-2xs shadow-gray-400 hover:shadow-md dark:shadow-gray-950'
       ]}
@@ -74,19 +74,12 @@ const src = await getImage({
   <NavbarMenu items={navbar}>
     <div
       class:list={[
-        'max-bp:py-2',
-        'flex justify-around',
-        'bp:items-center bp:justify-self-end',
+        'flex justify-around bp:contents',
+        'py-2',
         'bg-theme-frame',
-        'border-t border-primary-200 dark:border-primary-800',
-        'rounded-b-md',
-        'shadow-md dark:shadow-gray-800',
-        'bp:shadow-none',
-        'bp:bg-transparent'
+        'border-t border-neutral-200 dark:border-neutral-700/50'
       ]}>
-      <div class='flex items-center'>
-        <ThemeToggle />
-      </div>
+      <ThemeToggle class='self-center justify-self-end' />
     </div>
   </NavbarMenu>
   <ToTop

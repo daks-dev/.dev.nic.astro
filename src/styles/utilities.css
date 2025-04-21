@@ -1,7 +1,6 @@
 @import '@daks.dev/astro.sdk/tailwind/css/readable.css';
 
 @utility min-h--screen-navbar {
-  /*height: calc(100vh - var(--navbar-height));*/
   min-height: calc(100vh - var(--navbar-height));
 }
 @utility max-h--screen-navbar {
@@ -9,7 +8,7 @@
 }
 
 @utility leader {
-  @apply text-primary-800 dark:text-primary-400;
+  @apply text-slate-800 dark:text-slate-400;
   @apply text-base sm:text-lg bp:text-xl 2xl:text-1.5xl;
 }
 

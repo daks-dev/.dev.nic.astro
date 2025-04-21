@@ -19,12 +19,15 @@
   --color-emerald-*: initial;
   --color-teal-*: initial;
   --color-sky-*: initial;
+  --color-blue-*: initial;
   --color-indigo-*: initial;
   --color-violet-*: initial;
+  --color-purple-*: initial;
   --color-fuchsia-*: initial;
   --color-pink-*: initial;
   --color-rose-*: initial;
   --color-zinc-*: initial;
+  --color-stone-*: initial;
 
   --color-primary: var(--color-white);
   --color-primary-50: var(--color-slate-50);

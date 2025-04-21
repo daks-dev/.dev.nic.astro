@@ -56,8 +56,8 @@ const customers = (
           class:list={[
             'mb-4',
             'leading-tight font-extrabold max-xs:text-center',
-            '2xl:text-5.5xl text-4xl md:text-5xl lg:text-4xl xl:text-5xl',
-            'text-primary-700 dark:text-primary-200',
+            'text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-5.5xl',
+            'text-slate-700 dark:text-slate-200',
             'text-shadow-gray-400 text-shadow-lg dark:text-shadow-black'
           ]}>
           <span class='block text-[125%]'>АО НИЦ</span>
@@ -110,7 +110,7 @@ const customers = (
         </div>
         <div class='hidden flex-col gap-y-2 text-slate-600 xs:flex dark:text-slate-400'>
           <a
-            class='text-3xl font-semibold transition duration-200 ease-in-out hover:text-blue-500 xl:text-4xl'
+            class='hover:text-blue-500 text-3xl font-semibold transition duration-200 ease-in-out xl:text-4xl'
             href=`tel://${telephone.replace(/[\s-()]/g, '')}`
             aria-label='позвонить'
             itemprop='telephone'
@@ -122,7 +122,7 @@ const customers = (
           />
           <a
             rel='nofollow noreferrer'
-            class='text-lg transition-all duration-200 ease-in-out hover:text-blue-500 xl:text-xl'
+            class='hover:text-blue-500 text-lg transition-all duration-200 ease-in-out xl:text-xl'
             href={address.url}
             target='_blank'
             aria-label='отправить сообщение'

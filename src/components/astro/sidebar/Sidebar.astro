@@ -36,12 +36,12 @@ const { email, telephone } = microdata.organization;
     class:list={[
       'flex flex-col items-center gap-y-2',
       'w-(--sidebar-panel-width) py-5',
-      'text-primary-500',
+      'text-slate-500',
       'bg-theme-inner',
       'border-l border-neutral-300 dark:border-neutral-700/50'
     ]}>
     <a
-      class:list={['p-2', 'text-primary-500']}
+      class:list={['p-2', 'text-slate-500']}
       href=`tel://${telephone.replace(/[\s-()]/g, '')}`
       aria-label='позвонить'>
       <span
@@ -50,7 +50,7 @@ const { email, telephone } = microdata.organization;
       />
     </a>
     <a
-      class:list={['mb-5 p-2', 'text-primary-500']}
+      class:list={['mb-5 p-2', 'text-slate-500']}
       href=`mailto:${email}`
       aria-label='отправить сообщение'>
       <span
@@ -89,7 +89,7 @@ const { email, telephone } = microdata.organization;
     />
 
     <Link
-      class:list={['mt-auto mb-5 p-2', 'text-primary-500']}
+      class:list={['mt-auto mb-5 p-2', 'text-slate-500']}
       href='/admin'
       icon={['iconify ph--sliders', 'size-6']}
       aria-label='панель администратора'
