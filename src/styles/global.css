@@ -1,8 +1,4 @@
-/* @import 'fonts'; */
-
-/* @import 'tailwindcss'; */
-
-@import '@daks.dev/astro.sdk/tailwind/index.css';
+@import '@daks.dev/astro.sdk/tailwind';
 @source '../';
 
 @plugin "@iconify/tailwind4" {
