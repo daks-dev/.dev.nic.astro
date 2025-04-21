@@ -55,6 +55,7 @@
 
   --navbar-height: 3.75rem;
   --sidebar-width: min(25rem, 100vw);
+  --sidebar-panel-width: 3rem;
 }
 
 :root.theme-dark {

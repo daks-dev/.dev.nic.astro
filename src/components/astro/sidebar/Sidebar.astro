@@ -20,7 +20,7 @@ const { email, telephone } = microdata.organization;
   id='app-sidebar'
   class={twMerge(
     'fixed top-(--navbar-height) bottom-0 z-40 w-(--sidebar-width)',
-    '-translate-x-full not-has-[nav[inert]]:translate-x-0 2xl:-translate-x-[(100%_-_3rem)]',
+    '-translate-x-full not-has-[nav[inert]]:translate-x-0 2xl:-translate-x-[(100%_-_var(--sidebar-panel-width))]',
     'flex',
     'overflow-hidden',
     'bg-theme-frame',
@@ -35,7 +35,7 @@ const { email, telephone } = microdata.organization;
   <div
     class:list={[
       'flex flex-col items-center gap-y-2',
-      'w-12 py-5',
+      'w-(--sidebar-panel-width) py-5',
       'text-primary-500',
       'bg-theme-inner',
       'border-l border-gray-200 dark:border-gray-700/50'
