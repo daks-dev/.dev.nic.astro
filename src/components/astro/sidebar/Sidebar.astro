@@ -20,12 +20,12 @@ const { email, telephone } = microdata.organization;
   id='app-sidebar'
   class={twMerge(
     'fixed top-(--navbar-height) bottom-0 z-40 w-(--sidebar-width)',
-    '-translate-x-full not-has-[nav[inert]]:translate-x-0 2xl:-translate-x-[(100%_-_var(--sidebar-panel-width))]',
+    '-translate-x-full 2xl:-translate-x-[(100%_-_var(--sidebar-panel-width))] sidebar:translate-x-0',
     'flex',
     'overflow-hidden',
     'bg-theme-frame',
     'border-gray-700/50 dark:border-l',
-    'shadow-xl shadow-gray-300 dark:shadow-gray-950',
+    'shadow shadow-neutral-400 dark:shadow-neutral-900 sidebar:shadow-md',
     'duration-200 ease-in-out motion-safe:ready:transition-transform',
     className
   )}
@@ -38,7 +38,7 @@ const { email, telephone } = microdata.organization;
       'w-(--sidebar-panel-width) py-5',
       'text-primary-500',
       'bg-theme-inner',
-      'border-l border-gray-200 dark:border-gray-700/50'
+      'border-l border-neutral-300 dark:border-neutral-700/50'
     ]}>
     <a
       class:list={['p-2', 'text-primary-500']}
@@ -123,15 +123,17 @@ const { email, telephone } = microdata.organization;
     }
 
     connectedCallback() {
-      sidebar.listen((x) =>
-        x ? this.menu.removeAttribute('inert') : this.menu.setAttribute('inert', '')
-      );
+      sidebar.listen((x) => {
+        document.body.classList[x ? 'add' : 'remove']('sidebar');
+        x ? this.menu.removeAttribute('inert') : this.menu.setAttribute('inert', '');
+      });
       document.addEventListener('astro:page-load', this.close);
       document.addEventListener('click', this.outside);
     }
 
     disconnectedCallback() {
       sidebar.off();
+      document.body.classList.remove('sidebar');
       document.removeEventListener('astro:page-load', this.close);
       document.removeEventListener('click', this.outside);
     }

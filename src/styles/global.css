@@ -67,6 +67,8 @@
 @import './components.css';
 @import './utilities.css';
 
+@custom-variant sidebar (&.sidebar, .sidebar &);
+
 @keyframes wiggle {
   0%,
   10% {

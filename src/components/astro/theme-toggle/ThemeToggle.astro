@@ -25,7 +25,7 @@ const {
   is='app-theme-toggle'
   class={twMerge(
     'group',
-    'my-1 flex items-center',
+    'flex items-center',
     'select-none',
     'rounded-full border border-gray-300 dark:border-gray-700',
     'shadow-inset shadow-slate-300 dark:shadow-slate-600',
@@ -41,7 +41,7 @@ const {
   <div class:list={['toggler', 'text-white dark:text-theme-plain', 'dark:before:translate-x-full']}>
     <span class:list={['iconify ph--sun', 'block size-5']}></span>
   </div>
-  <div class:list={['relative z-10 flex p-1.5', 'text-theme-plain dark:text-black']}>
+  <div class:list={['relative z-10 flex p-1', 'text-theme-plain dark:text-black']}>
     <span class:list={['iconify ph--moon-stars', 'block size-5']}></span>
   </div>
 </button>
@@ -50,7 +50,7 @@ const {
   @reference "@styles/global.css";
 
   .toggler {
-    @apply relative z-10 flex p-1.5;
+    @apply relative z-10 flex p-1;
     &::before {
       @apply content-empty;
       @apply absolute inset-0 -z-10;

@@ -19,7 +19,7 @@
 
   [role='menuitem'] {
     @apply px-4 pt-1.75 pb-2;
-    @apply font-light text-theme-plain;
+    @apply text-theme-plain dark:font-light;
     @apply hover:bg-primary-300 hover:text-primary-900 dark:hover:bg-primary-500 dark:hover:text-primary-200;
     @apply border border-transparent;
     @apply step:text-theme-header;
