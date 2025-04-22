@@ -47,11 +47,12 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
             custom={{
               frame: 'bp:flex bp:items-center',
               drop: [
+                'text-sm',
                 'max-bp:indent-6',
                 'bp:mt-3 bp:py-2',
                 'bp:leading-relaxed',
                 'bp:rounded bp:bg-theme-inner',
-                'bp:shadow bp:shadow-neutral-500 bp:hover:shadow-md bp:dark:shadow-neutral-900'
+                'bp:shadow bp:shadow-neutral-300 bp:hover:shadow-md bp:dark:shadow-neutral-900'
               ]
             }}>
             {item.items?.map((x) => {

@@ -44,6 +44,7 @@
     "@vitest/ui": "^3.1.2",
     "astro": "^5.7.4",
     "astro-compress": "^2.3.8",
+    "astro-compressor": "^1.0.0",
     "dayjs": "^1.11.13",
     "esm-env": "^1.2.2",
     "jsdom": "^26.1.0",

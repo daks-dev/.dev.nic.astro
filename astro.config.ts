@@ -10,6 +10,7 @@ import mdx from '@astrojs/mdx';
 import svelte from '@astrojs/svelte';
 
 import compress from 'astro-compress';
+import compressor from 'astro-compressor';
 import sitemap from '@astrojs/sitemap';
 
 import AstroPWA from '@vite-pwa/astro';
@@ -127,7 +128,9 @@ export default defineConfig({
       experimental: {
         // directoryAndTrailingSlashHandler: true
       }
-    })
+    }),
+
+    compressor()
   ],
 
   markdown: {
