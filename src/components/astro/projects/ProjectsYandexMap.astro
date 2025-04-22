@@ -64,7 +64,7 @@ const geo = {
     geometry: el.location.split(', ').map((x: string) => Number(x)),
     properties: {
       iconContent: idx + 1,
-      balloonContentHeader: `${el.title} <sup class="font-normal">[${idx + 1}]</sup>`,
+      balloonContentHeader: `${el.title} <sup class="font-normal">[${el.id}]</sup>`,
       balloonContentBody: body(el),
       balloonContentFooter: footer(el)
     },
