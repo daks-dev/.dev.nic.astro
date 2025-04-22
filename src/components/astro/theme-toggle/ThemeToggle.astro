@@ -5,9 +5,10 @@ import type { HTMLAttributes } from 'astro/types';
 interface Props extends Omit<HTMLAttributes<'button'>, 'class'> {
   class?: ClassValue;
   icon?: string;
+  label?: string;
   duration?: number;
   speed?: number;
-  label?: string;
+  vertical?: true;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   icon = 'arrow-fat-lines-up-duotone',
   duration = 300,
   speed = duration * 5,
+  vertical,
   'aria-label': ariaLabel,
   label = ariaLabel || 'цветовая тема',
   ...props
@@ -26,6 +28,7 @@ const {
   class={twMerge(
     'group',
     'flex items-center',
+    vertical && 'flex-col',
     'select-none',
     'rounded-full border border-gray-300 dark:border-gray-700',
     'shadow-inset shadow-slate-300 dark:shadow-slate-600',
@@ -38,7 +41,12 @@ const {
     class='sr-only'
     set:text={label}
   />
-  <div class:list={['toggler', 'text-white dark:text-theme-plain', 'dark:before:translate-x-full']}>
+  <div
+    class:list={[
+      'toggler',
+      'text-white dark:text-theme-plain',
+      vertical ? 'dark:before:translate-y-full' : 'dark:before:translate-x-full'
+    ]}>
     <span class:list={['iconify ph--sun', 'block size-5']}></span>
   </div>
   <div class:list={['relative z-10 flex p-1', 'text-theme-plain dark:text-black']}>

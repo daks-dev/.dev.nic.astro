@@ -1,6 +1,7 @@
 ---
 import { twMerge } from '@daks.dev/astro.sdk';
 import { Link } from '@daks.dev/astro.sdk/astro';
+import { ThemeToggle } from '@components/astro';
 import SidebarToggle from './SidebarToggle.astro';
 import SidebarMenu from './SidebarMenu.astro';
 import microdata from '@app/configs/microdata';
@@ -51,7 +52,7 @@ const { email, telephone } = microdata.organization;
       />
     </a>
     <a
-      class:list={['mb-5 p-2', 'text-slate-500']}
+      class:list={['mb-4 p-2', 'text-slate-500']}
       href=`mailto:${email}`
       aria-label='отправить сообщение'>
       <span
@@ -60,50 +61,62 @@ const { email, telephone } = microdata.organization;
       />
     </a>
 
-    <Link
-      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
-      href='/activity'
-      icon={['iconify ph--hard-hat', 'size-6']}
-      aria-label='деятельность'
-      itemprop='relatedLink'
-    />
-    <Link
-      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
-      href='/projects'
-      icon={['iconify ph--buildings', 'size-6']}
-      aria-label='реализованные проекты'
-      itemprop='relatedLink'
-    />
-    <Link
-      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
-      href='/permissions'
-      icon={['iconify ph--certificate', 'bg-only size-6']}
-      aria-label='допуски и сертификаты'
-      itemprop='relatedLink'
-    />
-    <Link
-      class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
-      href='/feedbacks'
-      icon={['iconify ph--trophy', 'bg-only size-6']}
-      aria-label='отзывы заказчиков'
-      itemprop='relatedLink'
-    />
+    <div class='contents [@media(height<34rem)]:hidden'>
+      <Link
+        class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+        href='/activity'
+        icon={['iconify ph--hard-hat', 'size-6']}
+        aria-label='деятельность'
+        itemprop='relatedLink'
+      />
+      <Link
+        class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+        href='/projects'
+        icon={['iconify ph--buildings', 'size-6']}
+        aria-label='реализованные проекты'
+        itemprop='relatedLink'
+      />
+      <Link
+        class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+        href='/permissions'
+        icon={['iconify ph--certificate', 'bg-only size-6']}
+        aria-label='допуски и сертификаты'
+        itemprop='relatedLink'
+      />
+      <Link
+        class:list={['mb-4 p-2', 'page:text-theme-header', 'transition-easy']}
+        href='/feedbacks'
+        icon={['iconify ph--trophy', 'bg-only size-6']}
+        aria-label='отзывы заказчиков'
+        itemprop='relatedLink'
+      />
+    </div>
 
+    {
+      /*
     <Link
-      class:list={['mt-auto mb-5 p-2', 'text-slate-500']}
+      class:list={['mt-auto mb-4 p-2', 'text-slate-500']}
       href='/admin'
       icon={['iconify ph--sliders', 'size-6']}
       aria-label='панель администратора'
     />
 
+    */
+    }
+
     <SidebarToggle
       custom={['iconify ph--sign-in', 'size-6']}
       class:list={[
-        'min-h-10 min-w-10 p-2',
+        'mt-auto p-2 max-bp:mb-4',
         'aria-expanded:rotate-180',
         'duration-500 ease-in-out motion-safe:ready:transition-transform'
       ]}
       uuid='sidebar'
+    />
+
+    <ThemeToggle
+      class='bp:hidden'
+      vertical
     />
   </div>
 </aside>
