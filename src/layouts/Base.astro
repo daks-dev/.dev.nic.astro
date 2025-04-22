@@ -6,7 +6,7 @@ import { Head, YandexMetrika, YandexMetrikaHit } from '@daks.dev/astro.sdk/astro
 import { Navbar, Sidebar, Footer } from '@components/astro';
 import type { HTMLAttributes } from 'astro/types';
 
-import '@fontsource/open-sans/cyrillic';
+import '@assets/fonts/roboto/cyrillic.css';
 
 import '@styles/global.css';
 
@@ -35,6 +35,14 @@ import { app, seo } from '@app/configs';
 const {
   yandex: { counter }
 } = seo;
+
+const fonts: string[] = Object.values(
+  import.meta.glob('@assets/fonts/roboto/*.woff2', {
+    query: '?url',
+    eager: true,
+    import: 'default'
+  })
+);
 ---
 
 <html
@@ -46,8 +54,23 @@ const {
       {description}
       {robots}
       {app}
-      rss='/rss.xml'
-    />
+      rss='/rss.xml'>
+      <Fragment slot='preload'>
+        {
+          fonts.map((x) => (
+            <link
+              rel='preload'
+              href={x}
+              as='font'
+              type='font/woff2'
+              crossorigin
+              transition:persist
+            />
+          ))
+        }
+      </Fragment>
+    </Head>
+
     <ClientRouter />
   </head>
 

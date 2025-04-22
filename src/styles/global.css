@@ -9,8 +9,8 @@
   --breakpoint-bp: 58rem;
 
   --font-sans:
-    'Open Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+    'Roboto', 'Open Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   --color-orange-*: initial;
   --color-amber-*: initial;
