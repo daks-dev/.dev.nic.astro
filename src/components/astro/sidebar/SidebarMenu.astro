@@ -1,6 +1,6 @@
 ---
 import { twMerge } from '@daks.dev/astro.sdk';
-import { Link } from '@daks.dev/astro.sdk/astro';
+import { Dropdown, Link } from '@daks.dev/astro.sdk/astro';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends Omit<HTMLAttributes<'div'>, 'class' | 'role'> {
@@ -14,7 +14,7 @@ import { sidebar } from '@app/configs/nav';
 ---
 
 <nav
-  class={twMerge('flex flex-col', 'text-sm', className)}
+  class={twMerge('flex flex-col', 'text-sm leading-relaxed', className)}
   role='menu'
   inert
   {...props}>
@@ -37,45 +37,42 @@ import { sidebar } from '@app/configs/nav';
       sidebar.body.map(
         ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => {
           item.href = `/activity${item.href}`;
-          return (
-            <>
-              <Link
-                class:list={[
-                  'flex flex-nowrap items-center justify-between gap-x-1',
-                  custom.link,
-                  className
-                ]}
-                {role}
-                {itemprop}
-                {...item}>
-                {item.items && (
-                  <span
-                    slot='after'
-                    class:list={['iconify ph--caret-down', 'flex size-4', 'disabled']}
+          return item.items ? (
+            <Dropdown
+              toggle={Object.assign(item, {
+                role,
+                itemprop
+              })}
+              class:list={['items-center justify-between', custom.link, className]}
+              custom={{
+                drop: ['bp:static', 'indent-6']
+              }}>
+              {item.items?.map((x) => {
+                const {
+                  class: className,
+                  role = 'menuitem',
+                  itemprop = 'relatedLink',
+                  base = item.href?.toString(),
+                  ...link
+                } = x;
+                return (
+                  <Link
+                    class:list={[custom.link, className]}
+                    {role}
+                    {itemprop}
+                    {base}
+                    {...link}
                   />
-                )}
-              </Link>
-              {item.items &&
-                item.items?.map((x) => {
-                  const {
-                    class: className,
-                    role = 'menuitem',
-                    base = item.href?.toString(),
-                    itemprop = 'relatedLink',
-                    ...link
-                  } = x;
-                  return (
-                    <Link
-                      class={['indent-6', custom.link, className]}
-                      {role}
-                      {itemprop}
-                      {base}
-                      {...link}
-                      base={base ?? item.href?.toString()}
-                    />
-                  );
-                })}
-            </>
+                );
+              })}
+            </Dropdown>
+          ) : (
+            <Link
+              class:list={[custom.link, className]}
+              {role}
+              {itemprop}
+              {...item}
+            />
           );
         }
       )
