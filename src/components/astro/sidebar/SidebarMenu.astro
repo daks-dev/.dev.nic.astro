@@ -34,48 +34,45 @@ import { sidebar } from '@app/configs/nav';
   <hr class:list={['my-2 w-10/12 self-center', 'border-neutral-200 dark:border-neutral-700/50']} />
   {
     sidebar.body &&
-      sidebar.body.map(
-        ({ class: className, role = 'menuitem', itemprop = 'relatedLink', ...item }) => {
-          item.href = `/activity${item.href}`;
-          return item.items ? (
-            <Dropdown
-              toggle={Object.assign(item, {
-                role,
-                itemprop
-              })}
-              class:list={['items-center justify-between', custom.link, className]}
-              custom={{
-                drop: ['bp:static', 'indent-6']
-              }}>
-              {item.items?.map((x) => {
-                const {
-                  class: className,
-                  role = 'menuitem',
-                  itemprop = 'relatedLink',
-                  base = item.href?.toString(),
-                  ...link
-                } = x;
-                return (
-                  <Link
-                    class:list={[custom.link, className]}
-                    {role}
-                    {itemprop}
-                    {base}
-                    {...link}
-                  />
-                );
-              })}
-            </Dropdown>
-          ) : (
-            <Link
-              class:list={[custom.link, className]}
-              {role}
-              {itemprop}
-              {...item}
-            />
-          );
-        }
-      )
+      sidebar.body.map(({ class: className, ...item }) => {
+        item.href = `/activity${item.href}`;
+        item.role ??= 'menuitem';
+        item.itemprop ??= item.href && 'relatedLink';
+        const open = Astro.url.pathname !== item.href && Astro.url.pathname.startsWith(item.href);
+        return item.items ? (
+          <Dropdown
+            toggle={item}
+            class:list={['items-center justify-between', custom.link, className]}
+            custom={{
+              drop: ['static top-unset', 'indent-6']
+            }}
+            {open}>
+            {item.items?.map((x) => {
+              const {
+                class: className,
+                role = 'menuitem',
+                itemprop = 'relatedLink',
+                base = item.href?.toString(),
+                ...link
+              } = x;
+              return (
+                <Link
+                  class:list={[custom.link, className]}
+                  {role}
+                  {itemprop}
+                  {base}
+                  {...link}
+                />
+              );
+            })}
+          </Dropdown>
+        ) : (
+          <Link
+            class:list={[custom.link, className]}
+            {...item}
+          />
+        );
+      })
   }
   <hr class:list={['my-2 w-10/12 self-center', 'border-neutral-200 dark:border-neutral-700/50']} />
   {

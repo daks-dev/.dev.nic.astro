@@ -44,7 +44,7 @@ const projects = await getCollection(
       </div>
     </div>
     {
-      Boolean(projects.length) && (
+      !!projects.length && (
         <ProjectsList
           class='mt-0 mb-0'
           collection={projects}

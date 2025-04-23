@@ -1,6 +1,6 @@
 ---
 import { twMerge } from '@daks.dev/astro.sdk';
-import { Dropdown, Link } from '@daks.dev/astro.sdk/astro';
+import { NavbarDropdown, Link } from '@daks.dev/astro.sdk/astro';
 import type { HTMLAttributes } from 'astro/types';
 import type { NavItem } from '@daks.dev/astro.sdk';
 
@@ -41,7 +41,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
         item.role ??= 'menuitem';
         item.itemprop ??= item.href && 'relatedLink';
         return item.items ? (
-          <Dropdown
+          <NavbarDropdown
             toggle={item}
             class:list={['inner', className]}
             custom={{
@@ -73,7 +73,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
                 />
               );
             })}
-          </Dropdown>
+          </NavbarDropdown>
         ) : (
           <Link
             class:list={['inner bp:flex', className]}
