@@ -2,7 +2,7 @@
 @source '../';
 
 @plugin "@iconify/tailwind4" {
-  prefixes: ph;
+  prefixes: ph, line-md;
 }
 
 @theme {

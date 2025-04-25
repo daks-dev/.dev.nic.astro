@@ -36,6 +36,8 @@ const {
   yandex: { counter }
 } = seo;
 
+import logo from '@assets/images/logo.navbar.webp';
+
 const fonts: string[] = Object.values(
   import.meta.glob('@assets/fonts/roboto/*.woff2', {
     query: '?url',
@@ -64,10 +66,15 @@ const fonts: string[] = Object.values(
               as='font'
               type='font/woff2'
               crossorigin
-              transition:persist
             />
           ))
         }
+        <link
+          rel='preload'
+          href={logo.src}
+          as='image'
+          type={`image/${logo.format}`}
+        />
       </Fragment>
     </Head>
 

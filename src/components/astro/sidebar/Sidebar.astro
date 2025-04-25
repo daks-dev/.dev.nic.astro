@@ -1,7 +1,6 @@
 ---
 import { twMerge } from '@daks.dev/astro.sdk';
-import { Link } from '@daks.dev/astro.sdk/astro';
-import { ThemeToggle } from '@components/astro';
+import { Link, ThemeToggleShift } from '@daks.dev/astro.sdk/astro';
 import SidebarToggle from './SidebarToggle.astro';
 import SidebarMenu from './SidebarMenu.astro';
 import microdata from '@app/configs/microdata';
@@ -114,8 +113,12 @@ const { email, telephone } = microdata.organization;
       uuid='sidebar'
     />
 
-    <ThemeToggle
+    <ThemeToggleShift
       class='bp:hidden'
+      custom={{
+        light: 'iconify line-md--sunny-loop',
+        dark: 'iconify line-md--moon-loop'
+      }}
       vertical
     />
   </div>
