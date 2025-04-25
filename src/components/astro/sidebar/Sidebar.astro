@@ -1,6 +1,6 @@
 ---
 import { twMerge } from '@daks.dev/astro.sdk';
-import { Link, ThemeToggleShift } from '@daks.dev/astro.sdk/astro';
+import { Link, ThemeToggle } from '@daks.dev/astro.sdk/astro';
 import SidebarToggle from './SidebarToggle.astro';
 import SidebarMenu from './SidebarMenu.astro';
 import microdata from '@app/configs/microdata';
@@ -62,30 +62,34 @@ const { email, telephone } = microdata.organization;
 
     <div class='contents [@media(height<34rem)]:hidden'>
       <Link
-        class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+        class:list='p-2'
         href='/activity'
         icon={['iconify ph--hard-hat', 'size-6']}
+        role='menuitem'
         aria-label='деятельность'
         itemprop='relatedLink'
       />
       <Link
-        class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+        class:list='p-2'
         href='/projects'
         icon={['iconify ph--buildings', 'size-6']}
+        role='menuitem'
         aria-label='реализованные проекты'
         itemprop='relatedLink'
       />
       <Link
-        class:list={['p-2', 'page:text-theme-header', 'transition-easy']}
+        class:list='p-2'
         href='/permissions'
         icon={['iconify ph--certificate', 'bg-only size-6']}
+        role='menuitem'
         aria-label='допуски и сертификаты'
         itemprop='relatedLink'
       />
       <Link
-        class:list={['mb-4 p-2', 'page:text-theme-header', 'transition-easy']}
+        class:list='mb-4 p-2'
         href='/feedbacks'
         icon={['iconify ph--trophy', 'bg-only size-6']}
+        role='menuitem'
         aria-label='отзывы заказчиков'
         itemprop='relatedLink'
       />
@@ -103,23 +107,22 @@ const { email, telephone } = microdata.organization;
     */
     }
 
-    <SidebarToggle
-      custom={['iconify ph--sign-in', 'size-6']}
-      class:list={[
-        'mt-auto p-2 max-bp:mb-4',
-        'aria-expanded:rotate-180',
-        'duration-500 ease-in-out motion-safe:ready:transition-transform'
-      ]}
-      uuid='sidebar'
-    />
-
-    <ThemeToggleShift
-      class='bp:hidden'
+    <ThemeToggle
+      class='mt-auto size-10 bp:hidden'
       custom={{
         light: 'iconify line-md--sunny-loop',
         dark: 'iconify line-md--moon-loop'
       }}
-      vertical
+    />
+
+    <SidebarToggle
+      custom={['iconify ph--sign-in', 'size-6']}
+      class:list={[
+        'p-2 bp:mt-auto',
+        'aria-expanded:rotate-180',
+        'duration-500 ease-in-out motion-safe:ready:transition-transform'
+      ]}
+      uuid='sidebar'
     />
   </div>
 </aside>

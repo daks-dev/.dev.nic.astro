@@ -3,6 +3,7 @@ import { Img, Link, ThemeToggleShift } from '@daks.dev/astro.sdk/astro';
 import { SidebarToggle, ToTop } from '@components/astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarMenuToggle from './NavbarMenuToggle.astro';
+import LoadingIndicator from '../loading-indicator/LoadingIndicator.astro';
 
 import { navbar } from '@app/configs/nav';
 
@@ -21,7 +22,7 @@ import logo from '@assets/images/logo.navbar.webp';
     // 'border-b border-gray-100 dark:border-gray-900'
   ]}>
   <div class:list={['flex items-center justify-between', 'menu-header']}>
-    <div class='flex items-center gap-x-7 max-bp:contents'>
+    <div class='flex items-center max-bp:contents'>
       <SidebarToggle
         custom={['iconify ph--dots-three-outline-vertical', 'size-6']}
         class={[
@@ -30,6 +31,9 @@ import logo from '@assets/images/logo.navbar.webp';
           'aria-expanded:rotate-90',
           'motion-safe:ready:transition-transform duration-300 ease-in-out'
         ]}
+      />
+      <LoadingIndicator
+        class:list={['iconify line-md--loading-alt-loop', 'mr-2 size-6', 'aria-hidden:invisible']}
       />
       <Link
         href='/'
@@ -56,7 +60,7 @@ import logo from '@assets/images/logo.navbar.webp';
     <NavbarMenuToggle
       custom={['iconify ph--list', 'size-6']}
       class:list={[
-        'min-h-10 min-w-10 p-2',
+        'ml-8 p-2',
         'text-slate-500',
         'rounded-full',
         'shadow-2xs shadow-gray-400 hover:shadow-md dark:shadow-gray-950'

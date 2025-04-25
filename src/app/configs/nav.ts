@@ -21,13 +21,11 @@ export const activity: NavItem[] = [
     items: [
       {
         href: '/electric-heating',
-        label: 'Электропрогрев',
-        'data-astro-prefetch': 'hover'
+        label: 'Электропрогрев'
       },
       {
         href: '/field-tests',
-        label: 'Натурные испытания',
-        'data-astro-prefetch': 'hover'
+        label: 'Натурные испытания'
       }
     ]
   },
@@ -53,48 +51,48 @@ export const navbar: NavItem[] = [
   {
     href: '/activity',
     label: 'Деятельность',
-    'data-astro-prefetch': '',
     items: activity
+    // 'data-astro-prefetch': ''
   },
   {
     href: '/regulation',
     label: 'Регламент',
-    'data-astro-prefetch': 'hover',
     rel: 'help'
+    // 'data-astro-prefetch': 'hover'
   },
   {
     href: '/projects',
-    label: 'Проекты',
-    'data-astro-prefetch': ''
+    label: 'Проекты'
+    // 'data-astro-prefetch': ''
   },
   {
     href: '/permissions',
     label: 'Допуски',
-    class: 'bp:max-lg:hidden',
-    'data-astro-prefetch': ''
+    class: 'bp:max-lg:hidden'
+    // 'data-astro-prefetch': ''
   },
   {
     href: '/partners',
-    label: 'Партнёры',
-    'data-astro-prefetch': ''
+    label: 'Партнёры'
+    // 'data-astro-prefetch': ''
   },
   {
     href: '/feedbacks',
     label: 'Отзывы',
-    class: 'bp:max-xl:hidden',
-    'data-astro-prefetch': ''
+    class: 'bp:max-xl:hidden'
+    // 'data-astro-prefetch': ''
   },
   {
     href: '/articles',
     label: 'Инфрмация',
-    class: 'bp:max-2xl:hidden',
-    'data-astro-prefetch': ''
+    class: 'bp:max-2xl:hidden'
+    // 'data-astro-prefetch': ''
   },
   {
     href: '/news',
     label: 'Новости',
-    'data-astro-prefetch': '',
     class: 'bp:max-xl:hidden'
+    // 'data-astro-prefetch': ''
   },
   {
     href: '/contacts',
@@ -107,8 +105,7 @@ export const sidebar: NavSidebar = {
   header: [
     {
       href: '/about',
-      label: 'О предприятии',
-      'data-astro-prefetch': 'hover'
+      label: 'О предприятии'
     },
     {
       href: '/contacts',
@@ -149,8 +146,7 @@ export const sidebar: NavSidebar = {
     },
     {
       href: '/privacy',
-      label: 'Политика конфиденциальности',
-      'data-astro-prefetch': 'hover'
+      label: 'Политика конфиденциальности'
     }
   ]
 };

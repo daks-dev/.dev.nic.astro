@@ -1,0 +1,48 @@
+---
+import { twMerge } from '@daks.dev/astro.sdk';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'button'>, 'class' | 'aria-hidden'> {
+  class?: ClassValue;
+  label?: string;
+}
+
+const {
+  class: className,
+  'aria-label': ariaLabel,
+  label = ariaLabel || 'загрузка страницы',
+  ...props
+} = Astro.props;
+---
+
+<app-loading-indicator
+  class={twMerge('bg-only', className)}
+  aria-label={label}
+  aria-hidden
+  {...props}
+  set:text={label}
+/>
+
+<script>
+  export default class AppLoadingIndicator extends HTMLElement {
+    readonly class = 'theme-dark';
+
+    constructor() {
+      super();
+      // this.appendChild(this.querySelector('template')!.content.cloneNode(true));
+    }
+
+    connectedCallback() {
+      document.addEventListener('astro:before-preparation', () =>
+        this.removeAttribute('aria-hidden')
+      );
+      document.addEventListener('astro:after-preparation', () =>
+        this.setAttribute('aria-hidden', '')
+      );
+    }
+
+    // disconnectedCallback() {}
+  }
+
+  customElements.define('app-loading-indicator', AppLoadingIndicator);
+</script>
