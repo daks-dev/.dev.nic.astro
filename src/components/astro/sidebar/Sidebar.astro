@@ -60,7 +60,9 @@ const { email, telephone } = microdata.organization;
       />
     </a>
 
-    <div class='contents [@media(height<34rem)]:hidden'>
+    <nav
+      class='contents [@media(height<34rem)]:hidden'
+      role='menu'>
       <Link
         class:list='p-2'
         href='/activity'
@@ -93,7 +95,7 @@ const { email, telephone } = microdata.organization;
         aria-label='отзывы заказчиков'
         itemprop='relatedLink'
       />
-    </div>
+    </nav>
 
     {
       /*
@@ -103,8 +105,7 @@ const { email, telephone } = microdata.organization;
       icon={['iconify ph--sliders', 'size-6']}
       aria-label='панель администратора'
     />
-
-    */
+      */
     }
 
     <ThemeToggle

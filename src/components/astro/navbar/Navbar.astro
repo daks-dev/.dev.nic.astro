@@ -1,9 +1,8 @@
 ---
-import { Img, Link, ThemeToggleShift } from '@daks.dev/astro.sdk/astro';
+import { Img, Link, LoadingIndicator, ThemeToggleShift } from '@daks.dev/astro.sdk/astro';
 import { SidebarToggle, ToTop } from '@components/astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarMenuToggle from './NavbarMenuToggle.astro';
-import LoadingIndicator from '../loading-indicator/LoadingIndicator.astro';
 
 import { navbar } from '@app/configs/nav';
 
@@ -33,7 +32,12 @@ import logo from '@assets/images/logo.navbar.webp';
         ]}
       />
       <LoadingIndicator
-        class:list={['iconify line-md--loading-alt-loop', 'mr-2 size-6', 'aria-hidden:invisible']}
+        class:list={[
+          'iconify line-md--speedometer-loop',
+          'mr-2 size-8',
+          'text-gray-500',
+          'aria-hidden:invisible'
+        ]}
       />
       <Link
         href='/'
