@@ -17,7 +17,7 @@ const placeholder = await getImage({
 
 const collection = await getCollection('news');
 
-const gallery = (
+const entries = (
   await Promise.all(
     collection.map(async ({ id, data: { title, description, images, poster } }) => {
       if (poster !== -1) poster = images && poster < images.length ? poster : -1;
@@ -55,7 +55,7 @@ const title = 'Новости';
     <BindListMode
       client:load
       class='-mt-4 mb-4'
-      length={gallery.length}>
+      length={entries.length}>
       <div
         slot='app'
         class:list={[
@@ -63,7 +63,7 @@ const title = 'Новости';
           'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
         ]}>
         {
-          gallery.map(({ id, src, poster, title, description }) => (
+          entries.map(({ id, src, poster, title, description }) => (
             <a
               class:list={['group relative', 'w-full max-w-80', 'no-underline']}
               href={`/news/${id}`}
@@ -112,7 +112,7 @@ const title = 'Новости';
         slot='list'
         class='flex flex-col'>
         {
-          gallery.map(({ id, title, description }, idx) => (
+          entries.map(({ id, title, description }, idx) => (
             <a
               class:list={[
                 'group',

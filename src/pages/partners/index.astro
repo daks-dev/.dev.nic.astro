@@ -16,7 +16,7 @@ const placeholder = await getImage({
 
 const collection = await getCollection('partners');
 
-const gallery = (
+const entries = (
   await Promise.all(
     collection.map(async ({ id, data: { priority, image, title } }) => {
       const src = image
@@ -59,7 +59,7 @@ const title = 'Парнёры';
         'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
       ]}>
       {
-        gallery.map(({ id, src, caption }) => (
+        entries.map(({ id, src, caption }) => (
           <a
             class:list={['group relative', 'w-full max-w-80', 'no-underline']}
             href={`/partners/${id}`}>
