@@ -13,7 +13,7 @@ const { class: className, custom = {}, ...props } = Astro.props;
 import { sidebar } from '@app/configs/nav';
 ---
 
-<nav
+<div
   class={twMerge('flex flex-col', 'text-sm leading-relaxed', className)}
   role='menu'
   inert
@@ -44,7 +44,7 @@ import { sidebar } from '@app/configs/nav';
             toggle={item}
             class:list={['items-center justify-between', custom.link, className]}
             custom={{
-              drop: ['top-unset static', 'indent-6'],
+              drop: ['static top-unset', 'indent-6'],
               caret: ['iconify ph--caret-left-bold', 'group-aria-expanded:-rotate-90']
             }}
             {open}>
@@ -89,4 +89,4 @@ import { sidebar } from '@app/configs/nav';
         )
       )
   }
-</nav>
+</div>

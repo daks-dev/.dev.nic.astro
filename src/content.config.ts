@@ -99,11 +99,13 @@ const gallery = defineCollection({
   loader: glob({ pattern: '**/*.{yml,yaml}', base: 'src/content/gallery' }),
   schema: ({ image }) =>
     z.array(
-      z.object({
-        src: z.preprocess((val) => `./${val}`, image()),
-        alt: z.string().optional().default(''),
-        caption: z.record(z.string(), z.string()).optional()
-      })
+      z
+        .object({
+          src: z.preprocess((val) => `./${val}`, image()),
+          alt: z.string().optional().default(''),
+          caption: z.record(z.string(), z.string()).optional()
+        })
+        .catchall(z.union([z.string(), z.number(), z.boolean()]))
     )
 });
 
