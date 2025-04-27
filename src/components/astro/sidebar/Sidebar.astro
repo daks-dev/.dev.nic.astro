@@ -3,16 +3,16 @@ import { twMerge } from '@daks.dev/astro.sdk';
 import { Link, ThemeToggle } from '@daks.dev/astro.sdk/astro';
 import SidebarToggle from './SidebarToggle.astro';
 import SidebarMenu from './SidebarMenu.astro';
-import microdata from '@app/configs/microdata';
 import type { HTMLAttributes } from 'astro/types';
+
+import microdata from '@app/configs/microdata';
+const { email, telephone } = microdata.organization;
 
 interface Props extends Omit<HTMLAttributes<'aside'>, 'class' | 'inert' | 'aria-owns'> {
   class?: ClassValue;
 }
 
 const { class: className, ...props } = Astro.props;
-
-const { email, telephone } = microdata.organization;
 ---
 
 <aside

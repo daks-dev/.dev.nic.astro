@@ -14,7 +14,8 @@
   a:not([role='menuitem']) {
     @apply underline decoration-transparent decoration-1 underline-offset-8;
     @apply text-theme-link hover:text-theme-link-hover hover:decoration-inherit;
-    @apply transition-colors duration-300 ease-in-out;
+    /* @apply transition-colors duration-300 ease-in-out; */
+    @apply forced-colors:text-selected;
   }
 
   [role='menuitem'] {
@@ -25,7 +26,7 @@
     @apply border border-transparent;
     @apply step:text-theme-header;
     @apply page:bg-slate-400 page:text-white dark:page:text-black;
-    @apply duration-200 motion-safe:ready:transition-colors;
+    /* @apply duration-200 motion-safe:ready:transition-colors; */
     @apply forced-colors:text-selected;
   }
 }

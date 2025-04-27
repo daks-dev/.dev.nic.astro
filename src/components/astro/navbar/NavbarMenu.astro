@@ -18,19 +18,19 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
   id='app-navbar-menu'
   class:list={[
     'max-bp:inert:hidden',
-    'top-(--navbar-height) max-h--screen-navbar bp:contents absolute inset-x-0',
+    'absolute inset-x-0 top-(--navbar-height) max-h--screen-navbar bp:contents',
     'overflow-y-auto',
     'shadow shadow-neutral-400 dark:shadow-neutral-900'
   ]}
   inert
   aria-owns='app-navbar-menu-toggle'>
-  <nav
+  <div
     role='menu'
     class={twMerge(
       'relative',
-      'max-bp:flex-col bp:gap-x-4 flex',
+      'flex max-bp:flex-col bp:gap-x-4',
       'max-bp:py-2',
-      'bp:leading-none text-base/relaxed font-normal',
+      'text-base/relaxed font-normal bp:leading-none',
       'max-bp:bg-theme-frame',
       custom.menu,
       className
@@ -66,7 +66,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
               } = x;
               return (
                 <Link
-                  class:list={['bp:flex items-center', custom.item, custom.link, className]}
+                  class:list={['items-center bp:flex', custom.item, custom.link, className]}
                   {role}
                   {itemprop}
                   {base}
@@ -83,7 +83,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
         );
       })
     }
-  </nav>
+  </div>
   <slot />
 </div>
 <slot name='after' />
@@ -92,7 +92,7 @@ const { items, class: className, custom = {}, ...props } = Astro.props;
   @reference "@styles/global.css";
 
   .inner {
-    @apply bp:self-center items-center;
+    @apply items-center bp:self-center;
     @apply bp:py-1.5;
     @apply bp:rounded-full;
     @apply step:border-current/50;

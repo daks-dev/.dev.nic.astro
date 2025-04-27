@@ -1,6 +1,6 @@
 ---
-import { Img, Link, LoadingIndicator, ThemeToggleShift } from '@daks.dev/astro.sdk/astro';
-import { SidebarToggle, ToTop } from '@components/astro';
+import { Img, Link, LoadingIndicator, ThemeToggleShift, ToTop } from '@daks.dev/astro.sdk/astro';
+import { SidebarToggle } from '@components/astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarMenuToggle from './NavbarMenuToggle.astro';
 
@@ -91,7 +91,8 @@ import logo from '@assets/images/logo.navbar.webp';
   <ToTop
     custom={['iconify ph--arrow-fat-lines-up-duotone', 'size-8']}
     class:list={[
-      'mt-8 p-2',
+      'top-20 right-4',
+      'p-2',
       'text-slate-500',
       'bg-gray-300/50 dark:bg-gray-700/50',
       'rounded-full'
