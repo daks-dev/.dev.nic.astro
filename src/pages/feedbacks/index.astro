@@ -4,7 +4,7 @@ import { BindLightboxData } from '@daks.dev/astro.sdk/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
-const images = (await getEntry('gallery', 'feedbacks'))?.data;
+const data = (await getEntry('gallery', 'feedbacks'))?.data.default;
 
 const title = 'Отзывы заказчиков';
 const description = 'Отзывы заказчиков';
@@ -19,8 +19,9 @@ const description = 'Отзывы заказчиков';
     class='frame'
     itemprop='mainContentOfPage'>
     {
-      images && (
+      data && (
         <BindLightboxData
+          {data}
           class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
           custom={{
             item: [
@@ -28,11 +29,10 @@ const description = 'Отзывы заказчиков';
               'bg-white',
               'shadow-sm shadow-black hover:shadow-md',
               'hover:scale-105',
-              'motion-safe:ready:transition duration-300 ease-in-out'
+              'duration-300 ease-in-out motion-safe:ready:transition'
             ]
           }}
           options={{ behaviour: 'loop' }}
-          data={images}
           transform={{
             thumb: {
               width: 320,

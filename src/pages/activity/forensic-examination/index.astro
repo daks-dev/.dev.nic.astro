@@ -4,7 +4,7 @@ import { BindLightboxData } from '@daks.dev/astro.sdk/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
-const images = (await getEntry('gallery', 'forensic-examination'))?.data;
+const data = (await getEntry('gallery', 'forensic-examination'))?.data.default;
 
 const title = 'Судебная экспертиза';
 const description = 'Судебная экспертиза';
@@ -19,9 +19,9 @@ const description = 'Судебная экспертиза';
     class:list={['frame readable', 'flex flex-col md:block']}
     itemprop='mainContentOfPage'>
     {
-      images && (
+      data && (
         <BindLightboxData
-          data={images}
+          {data}
           class={[
             'max-md:order-2 max-md:mt-8 md:float-right md:my-1 md:ml-8',
             'flex flex-col place-content-center gap-y-8'

@@ -4,25 +4,26 @@ import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 import { BindLightboxData } from '@daks.dev/astro.sdk/astro';
 
-const images = (await getEntry('gallery', 'permissions'))?.data;
+const data = (await getEntry('gallery', 'permissions'))?.data.default;
 
 const title = 'Допуски';
+const description = 'Допуски, сертификаты, лицензии';
 ---
 
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
-  description={`${title} • АО НИЦ «Строительная Экспертиза»`}>
+  description={`${description} • АО НИЦ «Строительная Экспертиза»`}>
   <Header {title} />
 
   <main
     class='frame'
     itemprop='mainContentOfPage'>
     {
-      images && (
+      data && (
         <BindLightboxData
+          {data}
           class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
           options={{ behaviour: 'loop' }}
-          data={images}
           transform={{
             thumb: {
               width: 320,

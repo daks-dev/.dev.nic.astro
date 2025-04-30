@@ -4,8 +4,8 @@ import { BindCarouselData, BindLightboxData } from '@daks.dev/astro.sdk/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
-const carousel = (await getEntry('gallery', 'inspection/carousel'))?.data;
-const lightbox = (await getEntry('gallery', 'inspection/lightbox'))?.data;
+const carousel = (await getEntry('gallery', 'inspection/carousel'))?.data.default;
+const lightbox = (await getEntry('gallery', 'inspection/lightbox'))?.data.default;
 
 const title = 'Обследование зданий и сооружений';
 const description = 'Обследование зданий и сооружений';
@@ -25,7 +25,7 @@ const description = 'Обследование зданий и сооружени
           class:list={[
             'max-sm:hidden',
             'float-right my-1 ml-8 h-64 w-48 overflow-hidden',
-            'bg--loading bg-neutral-200 bg-[size:30%] bg-center bg-no-repeat dark:bg-neutral-800',
+            'bg-neutral-200 bg--loading bg-[size:30%] bg-center bg-no-repeat dark:bg-neutral-800',
             'rounded-xs lg:rounded-sm',
             'shadow-md shadow-gray-700 hover:shadow-sm dark:shadow-gray-900'
           ]}>
@@ -40,7 +40,7 @@ const description = 'Обследование зданий и сооружени
             }}
             custom={{
               inner: {
-                sign: 'left-2 top-2'
+                sign: 'top-2 left-2'
               }
             }}
             href='/articles/hilti-ps-200-s-ferroscan'

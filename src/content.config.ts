@@ -100,12 +100,16 @@ const gallery = defineCollection({
   schema: ({ image }) =>
     z
       .object({
-        src: z.preprocess((val) => `./${val}`, image()),
-        alt: z.string().optional().default(''),
-        caption: z.record(z.string(), z.string()).nullish()
+        default: z
+          .object({
+            src: z.preprocess((val) => `./${val}`, image()),
+            alt: z.string().optional().default(''),
+            caption: z.record(z.string(), z.string()).nullish()
+          })
+          .catchall(z.union([z.string(), z.number(), z.boolean()]))
+          .array()
       })
       .catchall(z.union([z.string(), z.number(), z.boolean()]))
-      .array()
 });
 
 export const collections = {

@@ -37,7 +37,7 @@ const geo = {
   }
 };
 
-const images = (await getEntry('gallery', 'contacts'))?.data;
+const data = (await getEntry('gallery', 'contacts'))?.data.default;
 
 const title = 'Контактная информация';
 const description = 'Контактная информация';
@@ -54,17 +54,18 @@ const description = 'Контактная информация';
     <main
       class='frame mb-0 flex grow flex-col gap-4'
       itemprop='mainContentOfPage'>
-      <div class:list={['mb-4', 'flex justify-between gap-4 max-md:flex-col']}>
-        <ContactsData />
+      <div class:list={['mb-8', 'flex justify-between gap-4 max-md:flex-col']}>
+        <ContactsData class:list={['mb-4', 'text-theme-link']} />
+
         {
-          images && (
+          data && (
             <BindLightboxData
+              {data}
               class='md:mt-2'
               custom={{
                 thumb: 'min-w-fit'
               }}
               options={{ behaviour: 'loop' }}
-              data={images}
               show={1}
               transform={{
                 thumb: {
