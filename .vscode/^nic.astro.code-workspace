@@ -6,8 +6,7 @@
   ],
   "settings": {
     "files.associations": {
-      "*.css": "tailwindcss",
-      "*.mdx": "markdown"
+      "*.css": "tailwindcss"
     },
     "tailwindCSS.experimental.configFile": "../src/styles/global.css"
   }
