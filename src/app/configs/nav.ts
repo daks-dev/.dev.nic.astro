@@ -146,7 +146,7 @@ export const sidebar: NavSidebar = {
     },
     {
       href: '/privacy',
-      label: 'Политика конфиденциальности'
+      label: 'Конфиденциальность'
     }
   ]
 };

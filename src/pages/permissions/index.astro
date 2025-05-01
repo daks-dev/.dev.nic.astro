@@ -22,7 +22,7 @@ const description = 'Допуски, сертификаты, лицензии';
       data && (
         <BindLightboxData
           {data}
-          class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
+          class={['justify-items-center gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
           options={{ behaviour: 'loop' }}
           transform={{
             thumb: {
@@ -39,6 +39,7 @@ const description = 'Допуски, сертификаты, лицензии';
           {title}
           description='АО НИЦ «Строительная Экспертиза»'
           alt='допуск ниц «строительная экспертиза»'
+          grid
           adaptive
           scale
           shadow

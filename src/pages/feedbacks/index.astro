@@ -22,7 +22,7 @@ const description = 'Отзывы заказчиков';
       data && (
         <BindLightboxData
           {data}
-          class={['grid justify-between gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
+          class={['justify-items-center gap-8', 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3']}
           custom={{
             item: [
               'h-full',
@@ -48,6 +48,7 @@ const description = 'Отзывы заказчиков';
           {title}
           description='АО НИЦ «Строительная экспертиза»'
           alt='отзыв заказчика о ниц «строительная экспертиза»'
+          grid
           adaptive
         />
       )

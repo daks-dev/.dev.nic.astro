@@ -29,7 +29,7 @@
     "@astrojs/sitemap": "^3.3.1",
     "@astrojs/svelte": "^7.0.13",
     "@astrojs/ts-plugin": "^1.10.4",
-    "@daks.dev/astro.sdk": "^0.2.1",
+    "@daks.dev/astro.sdk": "^0.2.2",
     "@fontsource/roboto": "^5.2.5",
     "@iconify-json/line-md": "^1.2.7",
     "@iconify-json/ph": "^1.2.2",
