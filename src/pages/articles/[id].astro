@@ -49,6 +49,7 @@ const { title, description, publishDate, images = [] } = post.data;
       {
         post.data.images && (
           <BindLightboxData
+            client='load'
             data={images}
             class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:items-center']}
             custom={{

@@ -42,6 +42,7 @@ const { title, description, images = [] } = post.data;
       {
         post.data.images && (
           <BindLightboxData
+            client='load'
             class={['flex flex-col gap-y-5 lg:shrink-0', 'max-md:order-last max-md:items-center']}
             custom={{
               thumb: 'max-w-fit min-w-48 first:mt-2'
