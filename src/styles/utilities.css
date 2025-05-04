@@ -1,4 +1,4 @@
-@import '@daks.dev/astro.sdk/tailwind/css/readable.css';
+@import '@daks.dev/astro.sdk/tailwind/utilities/readable.css';
 
 @utility min-h--screen-navbar {
   min-height: calc(100vh - var(--navbar-height));
@@ -9,11 +9,11 @@
 
 @utility leader {
   @apply text-slate-800 dark:text-slate-400;
-  @apply text-base sm:text-lg bp:text-xl 2xl:text-1.5xl;
+  @apply bp:text-xl 2xl:text-1.5xl text-base sm:text-lg;
 }
 
 @utility transition-easy {
-  @apply duration-200 ease-in-out motion-safe:ready:transition;
+  @apply motion-safe:ready:transition duration-200 ease-in-out;
 }
 
 @layer utilities {
@@ -21,7 +21,7 @@
     @apply text-sm leading-relaxed sm:text-base;
     :where(h2, h3, h4) {
       @apply tracking-normal;
-      @apply text-xl sm:text-1.5xl lg:text-2xl 2xl:text-2.5xl;
+      @apply sm:text-1.5xl 2xl:text-2.5xl text-xl lg:text-2xl;
     }
     :where(p) {
       @apply xs:text-justify;

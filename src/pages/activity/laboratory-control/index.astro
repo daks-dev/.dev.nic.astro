@@ -3,6 +3,8 @@ import { Link } from '@daks.dev/astro.sdk/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
+export const prerender = true;
+
 import { activity } from '@app/configs/nav';
 const items = activity.find((x) => x.href === '/laboratory-control')?.items;
 

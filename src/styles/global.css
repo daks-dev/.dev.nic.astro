@@ -67,9 +67,9 @@
 }
 
 @import './base.css';
-@import './components.css';
 @import './utilities.css';
 @import './variants.css';
+@import './components.css';
 
 @keyframes wiggle {
   0%,

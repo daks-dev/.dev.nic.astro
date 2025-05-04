@@ -4,6 +4,8 @@ import { BindLightboxData } from '@daks.dev/astro.sdk/astro';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
+export const prerender = true;
+
 const data = (await getEntry('gallery', 'certification-accreditation'))?.data.default;
 
 const title = 'Сертификация и аккредитация';

@@ -1,6 +1,6 @@
 {
   "name": "@daks.dev/.dev.nic.astro",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "NIC Astro",
   "private": false,
   "scripts": {
@@ -29,7 +29,7 @@
     "@astrojs/sitemap": "^3.3.1",
     "@astrojs/svelte": "^7.0.13",
     "@astrojs/ts-plugin": "^1.10.4",
-    "@daks.dev/astro.sdk": "^0.2.2",
+    "@daks.dev/astro.sdk": "^0.2.3",
     "@fontsource/roboto": "^5.2.5",
     "@iconify-json/line-md": "^1.2.7",
     "@iconify-json/ph": "^1.2.2",

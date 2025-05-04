@@ -3,19 +3,22 @@ import { Image } from 'astro:assets';
 import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 
+export const prerender = true;
+
 const title = 'Панель администратора';
+const description = 'Панель администратора';
 ---
 
 <Layout
   title={`${title} • НИЦ «Строительная экспертиза»`}
-  description={`${title} • АО НИЦ «Строительная Экспертиза»`}
+  description={`${description} • АО НИЦ «Строительная Экспертиза»`}
   robots='no-index, follow'
   noMetrika>
   <Header {title}>
     <Image
       class:list={[
         'w-full max-w-xs self-center',
-        'drop-shadow-lg drop-shadow-gray-500 dark:drop-shadow-gray-700'
+        'drop-shadow-gray-500 dark:drop-shadow-gray-700 drop-shadow-lg'
       ]}
       src='/assets/icons/astro.svg'
       width={128}

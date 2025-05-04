@@ -4,6 +4,8 @@ import Layout from '@layouts/Base.astro';
 import { Header } from '@components/astro';
 import { BindLightboxData } from '@daks.dev/astro.sdk/astro';
 
+export const prerender = true;
+
 const data = (await getEntry('gallery', 'permissions'))?.data.default;
 
 const title = 'Допуски';

@@ -2,6 +2,8 @@
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
+export const prerender = true;
+
 const title = 'Регламент';
 const description =
   'Регламент АО НИЦ «Строительная экспертиза» по организации и проведения негосударственной экспертизы проектной документации и результатов инженерных изысканий';
@@ -11,7 +13,7 @@ const description =
   class=''
   title={`${title} • НИЦ «Строительная экспертиза»`}
   {description}>
-  <main class:list={['frame pt-(--navbar-height) min-h-screen', 'flex grow']}>
+  <main class:list={['frame min-h-screen pt-(--navbar-height)', 'flex grow']}>
     <object
       class:list={[
         'lazy',

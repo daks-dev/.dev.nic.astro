@@ -1,3 +1,5 @@
+export const prerender = true;
+
 // import pkg from 'package.json';
 
 import app from '@app/configs/app';
@@ -57,8 +59,6 @@ const data = {
   description,
   icons
 };
-
-export const prerender = true;
 
 export async function GET() {
   return new Response(JSON.stringify(data), {

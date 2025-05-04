@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import custom from 'dayjs/plugin/customParseFormat.js';
 dayjs.extend(custom);
 
+export const prerender = true;
+
 import app from '@app/configs/app';
 
 export async function GET(context: { site: string | URL }) {

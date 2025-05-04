@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'astro/config';
 
-// import node from '@astrojs/node';
+import node from '@astrojs/node';
 
 import tailwindcss from '@tailwindcss/vite';
 import yaml from '@rollup/plugin-yaml';
@@ -48,8 +48,8 @@ export default defineConfig({
 
   outDir: 'build',
 
-  // output: 'server',
-  // adapter: node({ mode: 'standalone' }),
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
 
   // redirects: { '/old': '/new', '/old/[...slug]': '/new/[...slug]' }
 

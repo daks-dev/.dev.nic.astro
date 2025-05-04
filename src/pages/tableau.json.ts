@@ -1,3 +1,5 @@
+export const prerender = true;
+
 import pkg from 'package.json';
 const { version } = pkg;
 
@@ -16,8 +18,6 @@ const data = {
     show_title: true
   }
 };
-
-export const prerender = true;
 
 export async function GET() {
   return new Response(JSON.stringify(data), {

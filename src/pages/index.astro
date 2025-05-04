@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import Layout from '@layouts/Base.astro';
 import { Video, BindCarouselData } from '@daks.dev/astro.sdk/astro';
 
+export const prerender = true;
+
 import microdata from '@app/configs/microdata';
 
 const { email, telephone, address } = microdata.organization;

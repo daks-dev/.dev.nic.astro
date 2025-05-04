@@ -4,6 +4,8 @@ import { BindLightboxData } from '@daks.dev/astro.sdk/astro';
 import { Header } from '@components/astro';
 import Layout from '@layouts/Base.astro';
 
+export const prerender = true;
+
 const data = (await getEntry('gallery', 'feedbacks'))?.data.default;
 
 const title = 'Отзывы заказчиков';

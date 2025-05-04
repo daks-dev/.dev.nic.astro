@@ -1,8 +1,8 @@
+export const prerender = true;
+
 // import pkg from 'package.json';
 
 import app from '@app/configs/app';
-
-export const prerender = true;
 
 export async function GET() {
   return new Response(
