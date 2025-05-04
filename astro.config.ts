@@ -46,10 +46,20 @@ export default defineConfig({
   base: '/',
   trailingSlash: 'never',
 
+  cacheDir: '.cache',
+
   outDir: 'build',
 
   output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  adapter: node({
+    mode: 'standalone'
+  }),
+  session: {
+    driver: 'fs-lite',
+    options: {
+      base: '.cache/sessions'
+    }
+  },
 
   // redirects: { '/old': '/new', '/old/[...slug]': '/new/[...slug]' }
 

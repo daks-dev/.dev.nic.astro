@@ -1,11 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # vercel
-.vercel/
+.vercel
 
 # ide
 .vscode/sftp.json
-.idea/
+.idea
 
 # misc
 .DS_Store
@@ -22,14 +22,15 @@ node_modules
 package-lock.json
 pnpm-lock.yaml
 
-.astro/
-.svelte-kit/
-.next/
-build/
-dev-dist/
-dist/
-dist-ssr/
-out/
+.astro
+.cache/session
+.svelte-kit
+.next
+build
+dev-dist
+dist
+dist-ssr
+out
 
 .timestamp-*
 
@@ -37,8 +38,8 @@ out/
 .pnp.js
 
 # testing
-coverage/
-test-results/
+coverage
+test-results
 .test-tmp
 
 # typescript
@@ -46,14 +47,14 @@ test-results/
 next-env.d.ts
 
 # internal sync
-.rewrite-tmp/
+.rewrite-tmp
 *.timestamp-*
 
 # environment
 .env*.local
 
 #
-.master/
+.master
 
 *.session.sql
 
