@@ -6,7 +6,7 @@ Disallow: /403
 Disallow: /404.html
 Disallow: /500.html
 #
-Disallow: /api
+Disallow: /admin
 Disallow: /search
 #
 Disallow: /article$
