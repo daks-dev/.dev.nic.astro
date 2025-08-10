@@ -1,5 +1,11 @@
 ---
-import { Img, Link, LoadingIndicator, ThemeToggleShift, ToTop } from '@daks.dev/astro.sdk/astro';
+import {
+  Img,
+  Link,
+  // LoadingIndicator,
+  ThemeToggleShift,
+  ToTop
+} from '@daks.dev/astro.sdk/astro';
 import { SidebarToggle } from '@components/astro';
 import NavbarMenu from './NavbarMenu.astro';
 import NavbarMenuToggle from './NavbarMenuToggle.astro';
@@ -20,8 +26,8 @@ import logo from '@assets/images/nic/logo.navbar.webp';
     'shadow-xs shadow-neutral-300 dark:shadow-neutral-900 onscroll:shadow-md'
     // 'border-b border-gray-100 dark:border-gray-900'
   ]}>
-  <div class:list={['flex items-center justify-between', 'menu-header']}>
-    <div class='flex items-center max-bp:contents'>
+  <div class='flex items-center justify-between'>
+    <div class='flex items-center gap-x-7 max-bp:contents'>
       <SidebarToggle
         custom={['iconify ph--dots-three-outline-vertical', 'size-6']}
         class={[
@@ -31,6 +37,8 @@ import logo from '@assets/images/nic/logo.navbar.webp';
           'motion-safe:ready:transition-transform duration-300 ease-in-out'
         ]}
       />
+      {
+        /*
       <LoadingIndicator
         class:list={[
           'iconify line-md--speedometer-loop',
@@ -39,6 +47,8 @@ import logo from '@assets/images/nic/logo.navbar.webp';
           'aria-hidden:invisible'
         ]}
       />
+      */
+      }
       <Link
         href='/'
         class='max-bp:mx-auto'

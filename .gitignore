@@ -23,7 +23,7 @@ package-lock.json
 pnpm-lock.yaml
 
 .astro
-.cache/session
+.cache/sessions
 .svelte-kit
 .next
 build

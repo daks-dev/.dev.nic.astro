@@ -45,13 +45,12 @@ const customers = (
 ---
 
 <Layout
-  class='gap-8'
   title='НИЦ «Строительная экспертиза»'
   description='Независимая строительная экспертиза в Москве • АО НИЦ «Строительная Экспертиза»'>
-  <header class='frame-xl mb-0 lg:mb-4'>
+  <header class='frame-xl mb-8 lg:mb-4'>
     <div class='grid w-full gap-8 pt-8 lg:grid-cols-12'>
       <div
-        class='mr-auto place-self-center lg:col-span-7 2xl:col-span-8'
+        class='mr-auto place-self-center lg:col-span-7 xl:col-span-8'
         itemscope
         itemtype='https://schema.org/LocalBusiness'>
         <h1
@@ -135,12 +134,12 @@ const customers = (
           />
         </div>
       </div>
-      <div class='max-lg:hidden lg:col-span-5 2xl:col-span-4'>
+      <div class='justify-items-end max-lg:hidden lg:col-span-5 xl:col-span-4'>
         <Video
           id='app-video'
           class:list={[
             'lazy',
-            'h-auto w-full max-w-full',
+            'h-auto w-full max-w-96',
             'rounded-lg border border-gray-200 dark:border-gray-700',
             'transition-opacity duration-2000 ease-in'
           ]}

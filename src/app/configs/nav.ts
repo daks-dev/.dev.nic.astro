@@ -58,41 +58,34 @@ export const navbar: NavItem[] = [
     href: '/regulation',
     label: 'Регламент',
     rel: 'help'
-    // 'data-astro-prefetch': 'hover'
+  },
+  {
+    href: '/permissions',
+    label: 'Допуски'
   },
   {
     href: '/projects',
     label: 'Проекты'
-    // 'data-astro-prefetch': ''
-  },
-  {
-    href: '/permissions',
-    label: 'Допуски',
-    class: 'bp:max-lg:hidden'
-    // 'data-astro-prefetch': ''
   },
   {
     href: '/partners',
-    label: 'Партнёры'
-    // 'data-astro-prefetch': ''
+    label: 'Партнёры',
+    class: 'bp:max-lg:hidden'
   },
   {
     href: '/feedbacks',
     label: 'Отзывы',
     class: 'bp:max-xl:hidden'
-    // 'data-astro-prefetch': ''
   },
   {
     href: '/articles',
     label: 'Инфрмация',
     class: 'bp:max-2xl:hidden'
-    // 'data-astro-prefetch': ''
   },
   {
     href: '/news',
     label: 'Новости',
     class: 'bp:max-xl:hidden'
-    // 'data-astro-prefetch': ''
   },
   {
     href: '/contacts',
@@ -120,13 +113,13 @@ export const sidebar: NavSidebar = {
       rel: 'help'
     },
     {
-      href: '/projects',
-      label: 'Проекты'
-    },
-    {
       href: '/permissions',
       label: 'Допуски',
       class: 'bp:max-lg:hidden'
+    },
+    {
+      href: '/projects',
+      label: 'Проекты'
     },
     {
       href: '/partners',
@@ -146,28 +139,54 @@ export const sidebar: NavSidebar = {
     },
     {
       href: '/privacy',
-      label: 'Конфиденциальность'
+      label: 'Политика конфиденциальности'
     }
   ]
 };
 
 export const footer: NavItem[] = [
   {
-    href: '/admin',
-    label: 'ic:outline-settings' // &#128736;
-  },
-  {
     href: '/regulation',
-    label: 'Регламент'
+    label: 'Регламент',
+    rel: 'help',
+    class: 'bp:hidden'
   },
   {
     href: '/permissions',
-    label: 'Допуски'
+    label: 'Допуски',
+    class: 'bp:hidden'
+  },
+  {
+    href: '/partners',
+    label: 'Партнёры',
+    class: 'max-bp:hidden lg:hidden'
+  },
+  {
+    href: '/feedbacks',
+    label: 'Отзывы',
+    class: 'max-bp:hidden xl:hidden'
+  },
+  {
+    href: '/articles',
+    label: 'Инфрмация',
+    class: 'max-bp:hidden 2xl:hidden'
+  },
+  {
+    href: '/news',
+    label: 'Новости',
+    class: 'max-bp:hidden xl:hidden'
   },
   {
     href: '/contacts',
-    label: 'Контакты'
+    label: 'Контакты',
+    class: 'bp:hidden'
   }
+  /*
+  {
+    href: '/privacy',
+    label: 'Политика конфиденциальности'
+  }
+  */
 ];
 
 export default {

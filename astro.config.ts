@@ -50,6 +50,7 @@ export default defineConfig({
 
   outDir: 'build',
 
+  /*
   output: 'server',
   adapter: node({
     mode: 'standalone'
@@ -60,6 +61,7 @@ export default defineConfig({
       base: '.cache/sessions'
     }
   },
+  */
 
   // redirects: { '/old': '/new', '/old/[...slug]': '/new/[...slug]' }
 
